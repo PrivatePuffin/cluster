@@ -1,33 +1,19 @@
-[
-  {"op": "remove", "path": "/machine/network"},
-  {"op": "add", "path": "/machine/network", "value":
-    {
-      "hostname": "!!HOSTNAME!!",
-      "interfaces": [
+[  
+  {"op": "add", "path": "/machine/network/interfaces", "value":
+      [
         {
           "interface": "eth0",
           "dhcp": false,
           "mtu": 1500,
-		  "addresses": ["!!IP!!"],
           "vip": {
             "ip": "!!VIP!!"
           }
         }
       ]
-    }
-  },
-  {"op": "replace", "path": "/machine/time", "value":
-    {
-      "disabled": false,
-      "servers": [
-        "time.cloudflare.com"
-      ]
-    }
   },
   {"op": "add", "path": "/machine/kubelet/extraArgs", "value":
     {
       "feature-gates": "MixedProtocolLBService=true",
-      "rotate-server-certificates": true
     }
   },
   {"op": "add", "path": "/cluster/proxy/extraArgs", "value":
@@ -49,6 +35,4 @@
     "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.3.0/deploy/ha-install.yaml",
     "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
   ]},
-  {"op": "replace", "path": "/cluster/network/podSubnets/0", "value": "172.16.0.0/16"},
-  {"op": "replace", "path": "/cluster/network/serviceSubnets/0", "value": "172.17.0.0/16"}
 ]

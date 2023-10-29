@@ -1,31 +1,11 @@
-[
-  {"op": "remove", "path": "/machine/network"},
-  {"op": "add", "path": "/machine/network", "value":
-    {
-      "hostname": "!!HOSTNAME!!",
-      "interfaces": [
+[  
+  {"op": "add", "path": "/machine/network/interfaces", "value":
+      [
         {
           "interface": "eth0",
           "dhcp": false,
           "mtu": 1500,
-		  "addresses": ["!!IP!!"]
         }
       ]
-    }
   },
-  {"op": "replace", "path": "/machine/time", "value":
-    {
-      "disabled": false,
-      "servers": [
-        "time.cloudflare.com"
-      ]
-    }
-  },
-  {"op": "add", "path": "/machine/kubelet/extraArgs", "value":
-    {
-      "rotate-server-certificates": true
-    }
-  },
-  {"op": "replace", "path": "/cluster/network/podSubnets/0", "value": "10.40.0.0/16"},
-  {"op": "replace", "path": "/cluster/network/serviceSubnets/0", "value": "10.41.0.0/16"}
 ]

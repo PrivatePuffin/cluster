@@ -6,7 +6,7 @@ controlIP2=10.0.40.2/24
 controlIP3=10.0.40.3/24
 
 # Uncomment to generate new node configurations
-talosctl gen config "main" "https://$VIP:6443" --config-patch-control-plane @patches/controlplane.json --config-patch-worker @patches/worker.json -o config --force
+talosctl gen config "main" "https://$VIP:6443" --config-patch @patches/all.json --config-patch-control-plane @patches/controlplane.json --config-patch-worker @patches/worker.json -o config --force
 
 
 # Control plane configuration
