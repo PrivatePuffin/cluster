@@ -1,8 +1,16 @@
-[
+[  
   {"op": "remove", "path": "/machine/network"},
   {"op": "add", "path": "/machine/network", "value":
     {
       "hostname": "!!HOSTNAME!!",
+	  "interfaces":
+	  [
+        {
+          "interface": "eth0",
+          "dhcp": true,
+          "mtu": 1500,
+        }
+      ]
     }
   },
   {"op": "replace", "path": "/machine/time", "value":

@@ -1,0 +1,18 @@
+[
+  {"op": "replace", "path": "/machine/network/hostname", "value": "!!HOSTNAME!!"},
+  {"op": "replace", "path": "/machine/network/interfaces/0/vip", "value":
+          {
+           "ip": "!!VIP!!"
+              }
+  },
+  {"op": "add", "path": "/machine/kubelet/extraArgs", "value":
+    {
+      "feature-gates": "MixedProtocolLBService=true",
+      "rotate-server-certificates": true
+    }
+  },
+  {"op": "replace", "path": "/cluster/extraManifests", "value":[
+    "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.3.0/deploy/ha-install.yaml",
+    "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
+  ]},
+]
