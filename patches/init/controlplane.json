@@ -3,13 +3,13 @@
   {"op": "add", "path": "/machine/network", "value":
     {
       "hostname": "!!HOSTNAME!!",
-	  "interfaces":
-	  [
+      "interfaces":
+      [
         {
           "interface": "eth0",
           "dhcp": true,
           "mtu": 1500,
-		  "vip":
+          "vip":
           {
            "ip": "!!VIP!!"
               }

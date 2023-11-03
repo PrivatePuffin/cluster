@@ -3,9 +3,9 @@
     {
       "feature-gates": "MixedProtocolLBService=true",
       "rotate-server-certificates": true,
-	  "maxPods": 250,
-	  "shutdownGracePeriod": "15s",
-	  "shutdownGracePeriodCriticalPods": "10s"
+      "maxPods": 250,
+      "shutdownGracePeriod": "15s",
+      "shutdownGracePeriodCriticalPods": "10s"
     }
   },
   {"op": "replace", "path": "/machine/install/extensions", "value":
