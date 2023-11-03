@@ -1,10 +1,4 @@
 [
-  {"op": "replace", "path": "/machine/network/hostname", "value": "!!HOSTNAME!!"},
-  {"op": "replace", "path": "/machine/network/interfaces/0/vip", "value":
-          {
-           "ip": "!!VIP!!"
-              }
-  },
   {"op": "add", "path": "/machine/kubelet/extraArgs", "value":
     {
       "feature-gates": "MixedProtocolLBService=true",
@@ -14,10 +8,9 @@
 	  "shutdownGracePeriodCriticalPods": "10s"
     }
   },
-  {"op": "remove", "path": "/machine/install/extensions"},
-  {"op": "add", "path": "/machine/install/extensions", "value":
+  {"op": "replace", "path": "/machine/install/extensions", "value":
     [
-      "image": "ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cc80036c3924e4978d7ffbe2376db1f68b90633c2be9948f1a89e9c1572f49b9",
+      "image": "ghcr.io/siderolabs/util-linux-tools:v1.6.0-alpha.1@sha256:517248a8cd343a783d3c2bf6f0a4eac1132b5b972f07793ec6f74c13f29d5894",
     ]
   },
   {"op": "replace", "path": "/cluster/extraManifests", "value":[

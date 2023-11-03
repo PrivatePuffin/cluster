@@ -1,6 +1,4 @@
 [  
-  {"op": "replace", "path": "/machine/network/hostname", "value": "!!HOSTNAME!!"},
-
   {"op": "add", "path": "/machine/kubelet/extraArgs", "value":
     {
       "rotate-server-certificates": true,
@@ -9,8 +7,7 @@
 	  "shutdownGracePeriodCriticalPods": "10s"
     }
   },
-  {"op": "remove", "path": "/machine/install/extensions"},
-  {"op": "add", "path": "/machine/install/extensions", "value":
+  {"op": "replace", "path": "/machine/install/extensions", "value":
     [
       "image": "ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cc80036c3924e4978d7ffbe2376db1f68b90633c2be9948f1a89e9c1572f49b9",
     ]
