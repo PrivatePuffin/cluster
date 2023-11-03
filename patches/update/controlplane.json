@@ -8,8 +8,17 @@
   {"op": "add", "path": "/machine/kubelet/extraArgs", "value":
     {
       "feature-gates": "MixedProtocolLBService=true",
-      "rotate-server-certificates": true
+      "rotate-server-certificates": true,
+	  "maxPods": 250,
+	  "shutdownGracePeriod": "15s",
+	  "shutdownGracePeriodCriticalPods": "10s"
     }
+  },
+  {"op": "remove", "path": "/machine/install/extensions"},
+  {"op": "add", "path": "/machine/install/extensions", "value":
+    [
+      "image": "ghcr.io/siderolabs/iscsi-tools:v0.1.4@sha256:cc80036c3924e4978d7ffbe2376db1f68b90633c2be9948f1a89e9c1572f49b9",
+    ]
   },
   {"op": "replace", "path": "/cluster/extraManifests", "value":[
     "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.3.0/deploy/ha-install.yaml",
