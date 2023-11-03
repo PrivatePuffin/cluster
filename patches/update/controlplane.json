@@ -17,6 +17,7 @@
 		  }]
     }
   },
+  
   {"op": "add", "path": "/cluster/proxy/extraArgs", "value":
     {
       "metrics-bind-address": "0.0.0.0:10249"
@@ -61,6 +62,22 @@
       "truecharts.org/rack": "!!RACKID!!",
       "truecharts.org/location": "!!LOCATION!!",
       "topology.rook.io/rack": "!!RACKID!!"
+	  }
+  },
+  {"op": "add", "path": "/machine/kernel", "value":
+	  {
+	  "modules":
+	  [
+      "name": "nvidia",
+      "name": "nvidia_uvm",
+      "name": "nvidia_drm",
+      "name": "nvidia_modeset",
+	  ]
+	  }
+  },
+  {"op": "add", "path": "/machine/sysctls", "value":
+	  {
+	  "net.core.bpf_jit_harden": 1
 	  }
   },
   {"op": "replace", "path": "/cluster/extraManifests", "value":[
