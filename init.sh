@@ -1,9 +1,16 @@
 #!/bin/bash
 
 export VIP=10.0.40.0
-export GITHUB_TOKEN=<your-token>
-export GITHUB_USER=<your-username>
-export GITHUB_REPOSITORY=<your-repository-name>
+export GITHUB_TOKEN="<your-token>"
+export GITHUB_USER="<your-username>"
+export GITHUB_REPOSITORY="<your-repository-name>"
+
+# Generate age key if not present
+age-keygen -o age.key
+
+AGE=$(cat age.key | grep public | sed -e "s|# public key: ||" )
+
+cat templates/.sops.yaml.templ | sed -e "s|!!AGE!!|$AGE|"  > .sops.yaml
 
 # Generate Talos Secrets
 talosctl gen secrets -o talos.secret
