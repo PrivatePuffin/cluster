@@ -1,0 +1,7 @@
+# this exclude file can be used for local exclude when working on the template
+
+config/**/*.yaml
+config/talosconfig
+talos.secret
+.sops.yaml
+age.key.enc

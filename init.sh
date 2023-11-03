@@ -7,10 +7,11 @@ export GITHUB_REPOSITORY="<your-repository-name>"
 
 # Generate age key if not present
 age-keygen -o age.key
-
 AGE=$(cat age.key | grep public | sed -e "s|# public key: ||" )
-
 cat templates/.sops.yaml.templ | sed -e "s|!!AGE!!|$AGE|"  > .sops.yaml
+
+# Save an encrypted version of the age key, encrypted with itself
+cat age.key | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p > age.key.enc
 
 # Generate Talos Secrets
 talosctl gen secrets -o talos.secret
