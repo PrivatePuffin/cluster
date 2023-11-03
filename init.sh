@@ -1,6 +1,9 @@
 #!/bin/bash
 
 export VIP=10.0.40.0
+export GITHUB_TOKEN=<your-token>
+export GITHUB_USER=<your-username>
+export GITHUB_REPOSITORY=<your-repository-name>
 
 # Generate Talos Secrets
 talosctl gen secrets -o talos.secret
@@ -25,3 +28,13 @@ talosctl gen config "main" "https://$VIP:6443" --config-patch-control-plane @pat
 # 
 # # It will then take a few more minutes for Kubernetes to get up and running on the nodes. Once ready, execute
 # talosctl kubeconfig -n 10.0.40.16
+#
+# sleep 240
+# flux check --pre
+# flux bootstrap github \
+#   --token-auth=false \
+#   --owner=$GITHUB_USER \
+#   --repository=$GITHUB_REPOSITORY \
+#   --branch=main \
+#   --path=./clusters/main \
+#   --personal

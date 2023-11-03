@@ -54,15 +54,17 @@ On top of that, we also would advice against running Ceph OSDs with virtualised 
 
 ## Getting Started
 
-Setting up TalosCTL
+### Setting up requirements
 
 **windows**
 
-`choco install talosctl`
+- Install talosctl: `choco install talosctl`
+- Install fluxcli: `brew install fluxcd/tap/flux`
 
 **Linux**
 
-`curl -sL https://talos.dev/install | sh`
+- Install talosctl: `curl -sL https://talos.dev/install | sh`
+- Install fluxcli: `brew install fluxcd/tap/flux`
 
 ## Building config
 
