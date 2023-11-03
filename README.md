@@ -40,7 +40,7 @@ The consequence of this, is that we have the following minimum system requiremen
 
 #### Networking
 
-We advice a minimum of 1Gbe networking 
+We advice a minimum of 1Gbe networking
 When using networked storage, we recommend 2.5Gbe networking instead to prevent storage bottlenecking communications
 
 When using Ceph, however, we advice a minimum of 2.5Gbe networking and recommend 10Gbe networking to prevent issues with Ceph and containers fighting for bandwidth
@@ -61,12 +61,14 @@ On top of that, we also would advice against running Ceph OSDs with virtualised 
 - Install talosctl: `choco install talosctl`
 - Install fluxcli: `brew install fluxcd/tap/flux`
 - Install age: `choco install age.portable`
+- Install SOPS: `choco install sops`
 
 **Linux**
 
 - Install talosctl: `curl -sL https://talos.dev/install | sh`
 - Install fluxcli: `brew install fluxcd/tap/flux`
 - Install age: `brew install age`
+- Install SOPS: `curl -LO https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 && mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops && chmod +x /usr/local/bin/sops`
 
 ## Building config
 
