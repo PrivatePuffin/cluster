@@ -2,6 +2,10 @@
   {"op": "add", "path": "/machine/network", "value":
     {
       "hostname": "!!HOSTNAME!!",
+	  "kubespan":
+	  {
+		  "enabled": true,
+	  },
     }
   },
   {"op": "replace", "path": "/machine/time", "value":
