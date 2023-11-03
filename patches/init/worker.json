@@ -1,26 +1,3 @@
 [  
-  {"op": "remove", "path": "/machine/network"},
-  {"op": "add", "path": "/machine/network", "value":
-    {
-      "hostname": "!!HOSTNAME!!",
-      "interfaces":
-      [
-        {
-          "interface": "eth0",
-          "dhcp": true,
-          "mtu": 1500,
-        }
-      ]
-    }
-  },
-  {"op": "replace", "path": "/machine/time", "value":
-    {
-      "disabled": false,
-      "servers": [
-        "time.cloudflare.com"
-      ]
-    }
-  },
-  {"op": "replace", "path": "/cluster/network/podSubnets/0", "value": "172.16.0.0/16"},
-  {"op": "replace", "path": "/cluster/network/serviceSubnets/0", "value": "172.17.0.0/16"}
+
 ]

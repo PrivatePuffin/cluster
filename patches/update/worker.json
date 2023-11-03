@@ -1,4 +1,19 @@
 [  
+  {"op": "add", "path": "/machine/network", "value":
+    {
+      "hostname": "!!HOSTNAME!!",
+    }
+  },
+  {"op": "replace", "path": "/machine/time", "value":
+    {
+      "disabled": false,
+      "servers": [
+        "time.cloudflare.com"
+      ]
+    }
+  },
+  {"op": "replace", "path": "/cluster/network/podSubnets/0", "value": "172.16.0.0/16"},
+  {"op": "replace", "path": "/cluster/network/serviceSubnets/0", "value": "172.17.0.0/16"},
   {"op": "add", "path": "/machine/kubelet/extraArgs", "value":
     {
       "rotate-server-certificates": true,
