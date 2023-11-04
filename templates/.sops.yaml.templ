@@ -1,16 +1,17 @@
 creation_rules:
-  - path_regex: config.*
+  - path_regex: cluster.*\.ya?ml
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|API|secret($|[^N])|key|token|^data$|^stringData))"
     age: >-
       !!AGE!!
-  - path_regex: cluster.*
+  - path_regex: config.*\.ya?ml
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|API|secret($|[^N])|key|token|^data$|^stringData))"
     age: >-
       !!AGE!!
-  - path_regex: patches/custom.*
+  - path_regex: .*\.secret
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|API|secret($|[^N])|key|token|^data$|^stringData))"
     age: >-
       !!AGE!!
-  - path_regex: talos.secret
-    age: >-
-      !!AGE!!
-  - path_regex: age.key
+  - path_regex: .*talosconfig
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|API|secret($|[^N])|key|token|^data$|^stringData))"
     age: >-
       !!AGE!!
