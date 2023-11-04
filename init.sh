@@ -46,12 +46,14 @@ update_all () {
 pre-commit install --install-hooks
 
 # Generate age key if not present
-age-keygen -o age.key
-AGE=$(cat age.key | grep public | sed -e "s|# public key: ||" )
+age-keygen -o age.agekey
+AGE=$(cat age.agekey | grep public | sed -e "s|# public key: ||" )
 cat templates/.sops.yaml.templ | sed -e "s|!!AGE!!|$AGE|"  > .sops.yaml
 
 # Save an encrypted version of the age key, encrypted with itself
-cat age.key | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p > age.key.enc
+cat age.agekey | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p > age.agekey.enc
+
+cat templates/agekey.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > cluster/flux-system/agekey.yaml
 
 # Generate Talos Secrets
 talosctl gen secrets -o talos.secret
@@ -131,6 +133,7 @@ else
 #
 # # It will then take a few more minutes for Kubernetes to get up and running on the nodes. Once ready, execute
 # talosctl kubeconfig -n $VIP
+#
 #
 # flux check --pre
 # flux bootstrap github \

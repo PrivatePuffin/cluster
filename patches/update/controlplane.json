@@ -2,22 +2,22 @@
   {"op": "add", "path": "/machine/network", "value":
     {
       "hostname": "!!HOSTNAME!!",
-	  "kubespan":
-	  {
-		  "enabled": true,
-	  },
-	  "interfaces": 
-	  [{
+      "kubespan":
+      {
+          "enabled": true,
+      },
+      "interfaces":
+      [{
         "interface": "eth0",
         "dhcp": true,
         "vip":
         {
          "ip": "!!VIP!!"
             }
-		  }]
+          }]
     }
   },
-  
+
   {"op": "add", "path": "/cluster/proxy/extraArgs", "value":
     {
       "metrics-bind-address": "0.0.0.0:10249"
@@ -58,37 +58,39 @@
     ]
   },
   {"op": "add", "path": "/machine/nodeLabels", "value":
-	  {
+      {
       "truecharts.org/rack": "!!RACKID!!",
       "truecharts.org/location": "!!LOCATION!!",
       "topology.rook.io/rack": "!!RACKID!!"
-	  }
+      }
   },
   {"op": "add", "path": "/machine/kernel", "value":
-	  {
-	  "modules":
-	  [
+      {
+      "modules":
+      [
       "name": "nvidia",
       "name": "nvidia_uvm",
       "name": "nvidia_drm",
       "name": "nvidia_modeset",
-	  ]
-	  }
+      ]
+      }
   },
   {"op": "add", "path": "/machine/sysctls", "value":
-	  {
-	  "net.core.bpf_jit_harden": 1
-	  }
+      {
+      "net.core.bpf_jit_harden": 1
+      }
   },
   {"op": "add", "path": "/machine/features/kubePrism", "value":
-	  {
+      {
         "enabled": true,
         "port": 7445
-	  }
+      }
   },
   {"op": "replace", "path": "/cluster/extraManifests", "value":[
     "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.3.0/deploy/ha-install.yaml",
     "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml",
-	"https://raw.githubusercontent.com/openebs/charts/gh-pages/versioned/3.9.0/openebs-operator.yaml"
+    "https://raw.githubusercontent.com/openebs/charts/gh-pages/versioned/3.9.0/openebs-operator.yaml",
+    "./cluster/flux-system/namespace.yaml",
+    "./cluster/flux-system/agekey.yaml"
   ]},
 ]
