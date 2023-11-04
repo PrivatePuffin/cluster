@@ -59,7 +59,7 @@ On top of that, we also would advice against running Ceph OSDs with virtualised 
 **windows**
 
 - Install talosctl: `choco install talosctl`
-- Install fluxcli: `brew install fluxcd/tap/flux`
+- Install fluxcli: `choco install flux`
 - Install age: `choco install age.portable`
 - Install SOPS: `choco install sops`
 
