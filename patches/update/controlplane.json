@@ -23,6 +23,8 @@
       "metrics-bind-address": "0.0.0.0:10249"
     }
   },
+  {"op": "add", "path": "/cluster/allowSchedulingOnControlPlanes", "value": !!MASTERWORKLOADS!!
+  },
   {"op": "add", "path": "/cluster/controllerManager/extraArgs", "value":
     {
       "bind-address": "0.0.0.0"

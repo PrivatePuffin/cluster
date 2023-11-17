@@ -58,29 +58,28 @@ On top of that, we also would advice against running Ceph OSDs with virtualised 
 
 **windows**
 
-- Install talosctl: `choco install talosctl`
-- Install fluxcli: `choco install flux`
-- Install age: `choco install age.portable`
-- Install SOPS: `choco install sops`
+Please run this in a WSL Linux (Preferably Debian) shell instead of directly on windows.
 
 **Linux**
 
+- We're assuming Git and Bash are already installed, if not: Ensure they are.
 - Install talosctl: `curl -sL https://talos.dev/install | sh`
 - Install fluxcli: `brew install fluxcd/tap/flux`
 - Install age: `brew install age`
 - Install SOPS: `curl -LO https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 && mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops && chmod +x /usr/local/bin/sops`
 
-## Building config
-
-- edit build.sh and set the IP adresses as you want them
-- run `sh build.sh` to generate initial config
 
 
-## Booting the nodes
+## Preparations
 
-- Set static DHCP adresses on your router to the IP adresses you defined in build.sh
-- Boot all nodes from intall media
+- Create a Github Private access token with wide access to your repositories
+- Ensure this repository is checked-out using GIT and you've cd'ed into this folder.
+- edit `settings.sh` and set the settings as you want them
+- Set static DHCP adresses on your router to the IP adresses you defined in init.sh
+- Boot all nodes from install media
+- Ensure all 3 nodes have the IP adresses defined earlier
 
-## Applying config
+## Bootstrapping the cluster
 
-- run `sh apply.sh`
+- edit init.sh and set the IP adresses as you want them
+- run `sh build.sh` to generate initial config and bootstrap the cluster
