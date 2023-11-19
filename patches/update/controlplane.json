@@ -61,9 +61,8 @@
   },
   {"op": "add", "path": "/machine/nodeLabels", "value":
       {
-      "truecharts.org/rack": "!!RACKID!!",
-      "truecharts.org/location": "!!LOCATION!!",
-      "topology.rook.io/rack": "!!RACKID!!"
+      "truecharts.org/rack": "rack-a",
+      "topology.rook.io/rack": "rack-a"
       }
   },
   {"op": "add", "path": "/machine/kernel", "value":

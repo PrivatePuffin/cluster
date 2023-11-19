@@ -5,9 +5,9 @@ export FLUX=true
 export MASTERWORKLOADS=false
 
 export VIP=10.0.40.0
-export MASTERA1=10.0.40.10
-export MASTERB1=10.0.40.20
-export MASTERC1=10.0.40.30
+export MASTER1=10.0.40.10
+export MASTER2=10.0.40.20
+export MASTER3=10.0.40.30
 
 # Used for first install Only
 export LBRANGE=10.0.40.100-10.0.40.199

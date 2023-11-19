@@ -1,11 +1,11 @@
-[  
+[
   {"op": "add", "path": "/machine/network", "value":
     {
       "hostname": "!!HOSTNAME!!",
-	  "kubespan":
-	  {
-		  "enabled": true,
-	  },
+      "kubespan":
+      {
+          "enabled": true,
+      },
     }
   },
   {"op": "replace", "path": "/machine/time", "value":
@@ -47,32 +47,31 @@
     ]
   },
   {"op": "add", "path": "/machine/nodeLabels", "value":
-	  {
-      "truecharts.org/rack": "!!RACKID!!",
-      "truecharts.org/location": "!!LOCATION!!",
-      "topology.rook.io/rack": "!!RACKID!!"
-	  }
+      {
+      "truecharts.org/rack": "rack-a",
+      "topology.rook.io/rack": "rack-a"
+      }
   },
   {"op": "add", "path": "/machine/kernel", "value":
-	  {
-	  "modules":
-	  [
+      {
+      "modules":
+      [
       "name": "nvidia",
       "name": "nvidia_uvm",
       "name": "nvidia_drm",
       "name": "nvidia_modeset",
-	  ]
-	  }
+      ]
+      }
   },
   {"op": "add", "path": "/machine/sysctls", "value":
-	  {
-	  "net.core.bpf_jit_harden": 1
-	  }
+      {
+      "net.core.bpf_jit_harden": 1
+      }
   },
   {"op": "add", "path": "/machine/features/kubePrism", "value":
-	  {
+      {
         "enabled": true,
         "port": 7445
-	  }
+      }
   },
 ]

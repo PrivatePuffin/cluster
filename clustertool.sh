@@ -2,6 +2,8 @@
 
 source settings.sh
 
+export FILES
+
 prompt_yn_node () {
 read -p "Is the currently updated node working correctly? please verify! (yes/no) " yn
 
@@ -16,15 +18,15 @@ esac
 
 upgrade_talos_nodes () {
   echo "updating Talos on Node Master-A1"
-  talosctl upgrade --nodes $MASTERA1 \
+  talosctl upgrade --nodes $MASTER1 \
       --image ghcr.io/siderolabs/installer:v1.5.4 --preserve=true --stage
   prompt_yn_node
   echo "updating Talos on Node Master-B1"
-  talosctl upgrade --nodes $MASTERB1 \
+  talosctl upgrade --nodes $MASTER2 \
       --image ghcr.io/siderolabs/installer:v1.5.4 --preserve=true --stage
   prompt_yn_node
   echo "updating Talos on Node Master-C1"
-  talosctl upgrade --nodes $MASTERC1 \
+  talosctl upgrade --nodes $MASTER3 \
       --image ghcr.io/siderolabs/installer:v1.5.4 --preserve=true --stage
   prompt_yn_node
   echo "executing mandatory 1 minute wait..."
@@ -34,8 +36,7 @@ upgrade_talos_nodes () {
 }
 
 encrypted_files () {
-  local -n FILES=$1             # use nameref for indirection
-  local FILES=('patches/custom/controlplane.json' 'patches/custom/worker.json' 'config/talosconfig')
+  FILES=('patches/custom/controlplane.json' 'patches/custom/worker.json' 'config/talosconfig')
   while IFS=  read -r -d $'\0'; do
       FILES+=("$REPLY")
   done < <(find . -name "*.yaml" -type f -print0)
@@ -43,14 +44,12 @@ encrypted_files () {
   while IFS=  read -r -d $'\0'; do
       FILES+=("$REPLY")
   done < <(find . -name "*.secret" -type f -print0)
-  return FILES
 }
 
 decrypt () {
   export SOPS_AGE_KEY_FILE="age.agekey"
 
-  local FILES
-  encrypted_files FILES
+  encrypted_files
 
   if test -f "ENCRYPTED"; then
     for value in "${FILES[@]}"
@@ -67,8 +66,7 @@ decrypt () {
 encrypt () {
   export SOPS_AGE_KEY_FILE="age.agekey"
 
-  local FILES
-  encrypted_files FILES
+  encrypted_files
 
   if test -f "ENCRYPTED"; then
     echo "ERROR DATA ALREADY ENCRYPTED"
@@ -179,38 +177,35 @@ talosctl machineconfig patch config/worker.yaml --patch @patches/custom/worker.j
 
 LOCATION="main"
 # Control plane configuration
-cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-a1|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|!!MASTERWORKLOADS!!|$MASTERWORKLOADS|" | sed -e "s|!!RACKID!!|rack-a|" | sed -e "s|!!MASTERA1!!|$MASTERA1|" > config/controlplane/k8s-control-a1.yaml
-cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-b1|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|!!MASTERWORKLOADS!!|$MASTERWORKLOADS|" | sed -e "s|!!RACKID!!|rack-b|" | sed -e "s|!!MASTERB1!!|$MASTERB1|" > config/controlplane/k8s-control-b1.yaml
-cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-c1|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|!!MASTERWORKLOADS!!|$MASTERWORKLOADS|" | sed -e "s|!!RACKID!!|rack-c|" | sed -e "s|!!MASTERC1!!|$MASTERC1|" > config/controlplane/k8s-control-c1.yaml
+cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-1|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|!!MASTERWORKLOADS!!|$MASTERWORKLOADS|" | sed -e "s|!!MASTER1!!|$MASTER1|" > config/controlplane/k8s-control-a1.yaml
+cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-2|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|!!MASTERWORKLOADS!!|$MASTERWORKLOADS|" | sed -e "s|!!MASTER2!!|$MASTER2|" > config/controlplane/k8s-control-b1.yaml
+cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-3|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|!!MASTERWORKLOADS!!|$MASTERWORKLOADS|" | sed -e "s|!!MASTER3!!|$MASTER3|" > config/controlplane/k8s-control-c1.yaml
 
 # Worker configuration
-RACK="rack-a"
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-a1/" | sed -e "s|!!RACKID!!|$RACK|"  > config/workers/k8s-worker-a1.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-a2/" | sed -e "s|!!RACKID!!|$RACK|"  > config/workers/k8s-worker-a2.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-a3/" | sed -e "s|!!RACKID!!|$RACK|"  > config/workers/k8s-worker-a3.yaml
-RACK="rack-b"
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-b1/" | sed -e "s|!!RACKID!!|$RACK|"  > config/workers/k8s-worker-b1.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-b2/" | sed -e "s|!!RACKID!!|$RACK|"  > config/workers/k8s-worker-b2.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-b3/" | sed -e "s|!!RACKID!!|$RACK|"  > config/workers/k8s-worker-b3.yaml
-RACK="rack-c"
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-c1/" | sed -e "s|!!RACKID!!|$RACK|"  > config/workers/k8s-worker-c1.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-c2/" | sed -e "s|!!RACKID!!|$RACK|"  > config/workers/k8s-worker-c2.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-c3/" | sed -e "s|!!RACKID!!|$RACK|"  > config/workers/k8s-worker-c3.yaml
+cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-1/"  > config/workers/k8s-worker-1.yaml
+cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-2/"  > config/workers/k8s-worker-2.yaml
+cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-3/"  > config/workers/k8s-worker-3.yaml
+cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-4/"  > config/workers/k8s-worker-4.yaml
+cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-5/"  > config/workers/k8s-worker-5.yaml
+cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-6/"  > config/workers/k8s-worker-6.yaml
+cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-7/"  > config/workers/k8s-worker-7.yaml
+cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-8/"  > config/workers/k8s-worker-8.yaml
+cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-9/"  > config/workers/k8s-worker-9.yaml
 }
 export -f regen
 
 bootstrap_talos(){
-  talosctl apply-config -i -n $MASTERA1 -f config/controlplane/k8s-control-a1.yaml
-  talosctl apply-config -i -n $MASTERB1 -f config/controlplane/k8s-control-b1.yaml
-  talosctl apply-config -i -n $MASTERC1 -f config/controlplane/k8s-control-c1.yaml
+  talosctl apply-config -i -n $MASTER1 -f config/controlplane/k8s-control-1.yaml
+  talosctl apply-config -i -n $MASTER2 -f config/controlplane/k8s-control-1.yaml
+  talosctl apply-config -i -n $MASTER3 -f config/controlplane/k8s-control-3.yaml
 
-  talosctl --talosconfig=./talosconfig config endpoint $VIP $MASTERA1 $MASTERB1 $MASTERC1
+  talosctl --talosconfig=./talosconfig config endpoint $VIP $MASTER1 $MASTER2 $MASTER3
   talosctl config merge ./talosconfig
 
   sleep 180
 
   # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-  talosctl bootstrap -n $MASTERA1
+  talosctl bootstrap -n $MASTER1
 
   sleep 180
 
@@ -235,13 +230,13 @@ export -f bootstrap_flux
 update_talos_config(){
   echo "CLUSTER ALREADY INITIATED, updating configuration..."
   echo "applying new operating system config to MASTER-A1..."
-  talosctl apply-config -n $MASTERA1 -f config/controlplane/k8s-control-a1.yaml
+  talosctl apply-config -n $MASTER1 -f config/controlplane/k8s-control-a1.yaml
   prompt_yn
   echo "applying new operating system config to MASTER-B1..."
-  talosctl apply-config -n $MASTERB1 -f config/controlplane/k8s-control-b1.yaml
+  talosctl apply-config -n $MASTER2 -f config/controlplane/k8s-control-b1.yaml
   prompt_yn
   echo "applying new operating system config to MASTER-C1..."
-  talosctl apply-config -n $MASTERC1 -f config/controlplane/k8s-control-c1.yaml
+  talosctl apply-config -n $MASTER3 -f config/controlplane/k8s-control-c1.yaml
   prompt_yn
 }
 export -f update_talos_config
