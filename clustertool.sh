@@ -4,7 +4,18 @@ source settings.sh
 
 export FILES
 
+
+check_master () {
+  echo "Checking presence of ControlePane nodes..."
+  ping ${MASTER1} 2>&1 >/dev/null || (echo "Cannot ping controlnode 1" && exit 1)
+  ping ${MASTER2} 2>&1 >/dev/null || (echo "Cannot ping controlnode 2" && exit 1)
+  ping ${MASTER3} 2>&1 >/dev/null || (echo "Cannot ping controlnode 3" && exit 1)
+  echo "All ControlPane nodes found..."
+}
+export -f check_master
+
 prompt_yn_node () {
+check_master
 read -p "Is the currently updated node working correctly? please verify! (yes/no) " yn
 
 case $yn in
@@ -17,6 +28,7 @@ esac
 }
 
 upgrade_talos_nodes () {
+  check_master
   echo "updating Talos on Node Master-A1"
   talosctl upgrade --nodes $MASTER1 \
       --image ghcr.io/siderolabs/installer:v1.5.4 --preserve=true --stage
@@ -32,6 +44,7 @@ upgrade_talos_nodes () {
   echo "executing mandatory 1 minute wait..."
   sleep 60
   echo "updating kubernetes to latest version..."
+  check_master
   talosctl upgrade-k8s
 }
 
@@ -79,7 +92,6 @@ encrypt () {
     touch ENCRYPTED
   fi
 }
-
 
 
 menu(){
@@ -175,11 +187,13 @@ talosctl machineconfig patch config/worker.yaml --patch @patches/update/worker.j
 talosctl machineconfig patch config/controlplane.yaml --patch @patches/custom/controlplane.json -o config/controlplane.yaml
 talosctl machineconfig patch config/worker.yaml --patch @patches/custom/worker.json -o config/worker.yaml
 
-LOCATION="main"
+if [ "$SINGLENODE" = false ] ; then
+MASTERWORKLOADS=true
+fi
 # Control plane configuration
-cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-1|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|!!MASTERWORKLOADS!!|$MASTERWORKLOADS|" | sed -e "s|!!MASTER1!!|$MASTER1|" > config/controlplane/k8s-control-a1.yaml
-cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-2|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|!!MASTERWORKLOADS!!|$MASTERWORKLOADS|" | sed -e "s|!!MASTER2!!|$MASTER2|" > config/controlplane/k8s-control-b1.yaml
-cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-3|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|!!MASTERWORKLOADS!!|$MASTERWORKLOADS|" | sed -e "s|!!MASTER3!!|$MASTER3|" > config/controlplane/k8s-control-c1.yaml
+cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-1|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|'!!MASTERWORKLOADS!!'|$MASTERWORKLOADS|" | sed -e "s|!!MASTER1!!|$MASTER1|" > config/controlplane/k8s-control-1.yaml
+cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-2|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|'!!MASTERWORKLOADS!!'|$MASTERWORKLOADS|" | sed -e "s|!!MASTER2!!|$MASTER2|" > config/controlplane/k8s-control-2.yaml
+cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-3|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|'!!MASTERWORKLOADS!!'|$MASTERWORKLOADS|" | sed -e "s|!!MASTER3!!|$MASTER3|" > config/controlplane/k8s-control-3.yaml
 
 # Worker configuration
 cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-1/"  > config/workers/k8s-worker-1.yaml
@@ -195,26 +209,48 @@ cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-9/"  > config/workers
 export -f regen
 
 bootstrap_talos(){
+  check_master
+  echo "Bootstrapping TalosOS Cluster..."
+  echo "Applying TalosOS Cluster config to ${MASTER1}! ..."
   talosctl apply-config -i -n $MASTER1 -f config/controlplane/k8s-control-1.yaml
-  talosctl apply-config -i -n $MASTER2 -f config/controlplane/k8s-control-1.yaml
-  talosctl apply-config -i -n $MASTER3 -f config/controlplane/k8s-control-3.yaml
+  if [ "$SINGLENODE" = false ] ; then
+    echo "Applying TalosOS Cluster config to ${MASTER2}! ..."
+    talosctl apply-config -i -n $MASTER2 -f config/controlplane/k8s-control-2.yaml
+    echo "Applying TalosOS Cluster config to ${MASTER3}! ..."
+    talosctl apply-config -i -n $MASTER3 -f config/controlplane/k8s-control-3.yaml
+  fi
 
-  talosctl --talosconfig=./talosconfig config endpoint $VIP $MASTER1 $MASTER2 $MASTER3
-  talosctl config merge ./talosconfig
+  echo "Updating talosconfig file..."
 
+  if [ "$SINGLENODE" = false ] ; then
+    ENDPOINT=$(echo "$VIP $MASTER1")
+  else
+    ENDPOINT=$(echo "$VIP $MASTER1 $MASTER2 $MASTER3")
+  fi
+
+  talosctl --talosconfig=./config/talosconfig config endpoint $ENDPOINT
+  talosctl config merge ./config/talosconfig
+
+  echo "Waiting for 3 minutes before bootstrapping..."
   sleep 180
+  check_master
 
   # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
   talosctl bootstrap -n $MASTER1
 
+  echo "Waiting for 3 minutes to finish bootstrapping..."
   sleep 180
+  check_master
 
   # It will then take a few more minutes for Kubernetes to get up and running on the nodes. Once ready, execute
   talosctl kubeconfig -n $VIP
+  echo "Bootstrapping finished..."
 }
 export -f bootstrap_talos
 
 bootstrap_flux(){
+ echo "Bootstrapping FluxCD on existing Cluster..."
+ check_master
  flux check --pre
  flux bootstrap github \
    --token-auth=false \
@@ -228,16 +264,22 @@ bootstrap_flux(){
 export -f bootstrap_flux
 
 update_talos_config(){
-  echo "CLUSTER ALREADY INITIATED, updating configuration..."
+  check_master
+  echo "Updating Talos Cluster Configuration..."
   echo "applying new operating system config to MASTER-A1..."
-  talosctl apply-config -n $MASTER1 -f config/controlplane/k8s-control-a1.yaml
+  talosctl apply-config -n $MASTER1 -f config/controlplane/k8s-control-1.yaml
+  check_master
   prompt_yn
-  echo "applying new operating system config to MASTER-B1..."
-  talosctl apply-config -n $MASTER2 -f config/controlplane/k8s-control-b1.yaml
-  prompt_yn
-  echo "applying new operating system config to MASTER-C1..."
-  talosctl apply-config -n $MASTER3 -f config/controlplane/k8s-control-c1.yaml
-  prompt_yn
+  if [ "$SINGLENODE" = false ] ; then
+    echo "applying new operating system config to MASTER-B1..."
+    talosctl apply-config -n $MASTER2 -f config/controlplane/k8s-control-2.yaml
+    check_master
+    prompt_yn
+    echo "applying new operating system config to MASTER-C1..."
+    talosctl apply-config -n $MASTER3 -f config/controlplane/k8s-control-.yaml
+    check_master
+    prompt_yn
+  fi
 }
 export -f update_talos_config
 

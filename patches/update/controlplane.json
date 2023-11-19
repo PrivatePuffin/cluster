@@ -23,7 +23,7 @@
       "metrics-bind-address": "0.0.0.0:10249"
     }
   },
-  {"op": "add", "path": "/cluster/allowSchedulingOnControlPlanes", "value": !!MASTERWORKLOADS!!
+  {"op": "add", "path": "/cluster/allowSchedulingOnControlPlanes", "value": "!!MASTERWORKLOADS!!"
   },
   {"op": "add", "path": "/cluster/controllerManager/extraArgs", "value":
     {
@@ -59,6 +59,12 @@
       "image": "ghcr.io/siderolabs/util-linux-tools:v1.6.0-alpha.1@sha256:517248a8cd343a783d3c2bf6f0a4eac1132b5b972f07793ec6f74c13f29d5894",
     ]
   },
+  {"op": "remove", "path": "/machine/install/disk"},
+  {"op": "add", "path": "/machine/install/diskSelector", "value":
+      {
+      "size": "<= 750GB",
+      }
+  },
   {"op": "add", "path": "/machine/nodeLabels", "value":
       {
       "truecharts.org/rack": "rack-a",
@@ -90,8 +96,6 @@
   {"op": "replace", "path": "/cluster/extraManifests", "value":[
     "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.3.0/deploy/ha-install.yaml",
     "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml",
-    "https://raw.githubusercontent.com/openebs/charts/gh-pages/versioned/3.9.0/openebs-operator.yaml",
-    "./cluster/flux-system/namespace.yaml",
-    "./cluster/flux-system/agekey.yaml"
+    "https://raw.githubusercontent.com/openebs/charts/gh-pages/versioned/3.9.0/openebs-operator.yaml"
   ]},
 ]
