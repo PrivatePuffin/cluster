@@ -170,41 +170,16 @@ cat age.agekey | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aq
 
 cat templates/agekey.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > cluster/flux-system/agekey.yaml
 
+echo "(re)generating config..."
 # Generate Talos Secrets
-talosctl gen secrets -o talos.secret
+talhelper gensecret >>  talsecret.sops.yaml
 
 # Uncomment to generate new node configurations
-talosctl gen config "main" "https://$VIP:6443" --config-patch-control-plane @patches/init/controlplane.json --config-patch-worker @patches/init/worker.json -o config --with-secrets talos.secret --force
+talhelper genconfig
 
 
-echo "patching config..."
-
-# Apply update patches
-talosctl machineconfig patch config/controlplane.yaml --patch @patches/update/controlplane.json -o config/controlplane.yaml
-talosctl machineconfig patch config/worker.yaml --patch @patches/update/worker.json -o config/worker.yaml
-
-# Apply custom user patches
-talosctl machineconfig patch config/controlplane.yaml --patch @patches/custom/controlplane.json -o config/controlplane.yaml
-talosctl machineconfig patch config/worker.yaml --patch @patches/custom/worker.json -o config/worker.yaml
-
-if [ "$SINGLENODE" = false ] ; then
-MASTERWORKLOADS=true
-fi
-# Control plane configuration
-cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-1|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|'!!MASTERWORKLOADS!!'|$MASTERWORKLOADS|" | sed -e "s|!!MASTER1!!|$MASTER1|" > config/controlplane/k8s-control-1.yaml
-cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-2|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|'!!MASTERWORKLOADS!!'|$MASTERWORKLOADS|" | sed -e "s|!!MASTER2!!|$MASTER2|" > config/controlplane/k8s-control-2.yaml
-cat config/controlplane.yaml | sed -e "s|!!HOSTNAME!!|k8s-control-3|" | sed -e "s|!!VIP!!|$VIP|" | sed -e "s|'!!MASTERWORKLOADS!!'|$MASTERWORKLOADS|" | sed -e "s|!!MASTER3!!|$MASTER3|" > config/controlplane/k8s-control-3.yaml
-
-# Worker configuration
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-1/"  > config/workers/k8s-worker-1.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-2/"  > config/workers/k8s-worker-2.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-3/"  > config/workers/k8s-worker-3.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-4/"  > config/workers/k8s-worker-4.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-5/"  > config/workers/k8s-worker-5.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-6/"  > config/workers/k8s-worker-6.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-7/"  > config/workers/k8s-worker-7.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-8/"  > config/workers/k8s-worker-8.yaml
-cat config/worker.yaml | sed -e "s/!!HOSTNAME!!/k8s-worker-9/"  > config/workers/k8s-worker-9.yaml
+echo "verifying config..."
+talhelper validate talconfig
 }
 export -f regen
 
@@ -212,12 +187,12 @@ bootstrap_talos(){
   check_master
   echo "Bootstrapping TalosOS Cluster..."
   echo "Applying TalosOS Cluster config to ${MASTER1}! ..."
-  talosctl apply-config -i -n $MASTER1 -f config/controlplane/k8s-control-1.yaml
+  talosctl apply-config -i -n $MASTER1 -f clusterconfig/k8s-control-1.yaml
   if [ "$SINGLENODE" = false ] ; then
     echo "Applying TalosOS Cluster config to ${MASTER2}! ..."
-    talosctl apply-config -i -n $MASTER2 -f config/controlplane/k8s-control-2.yaml
+    talosctl apply-config -i -n $MASTER2 -f clusterconfig/k8s-control-2.yaml
     echo "Applying TalosOS Cluster config to ${MASTER3}! ..."
-    talosctl apply-config -i -n $MASTER3 -f config/controlplane/k8s-control-3.yaml
+    talosctl apply-config -i -n $MASTER3 -f clusterconfig/k8s-control-3.yaml
   fi
 
   echo "Updating talosconfig file..."
@@ -228,8 +203,8 @@ bootstrap_talos(){
     ENDPOINT=$(echo "$VIP $MASTER1 $MASTER2 $MASTER3")
   fi
 
-  talosctl --talosconfig=./config/talosconfig config endpoint $ENDPOINT
-  talosctl config merge ./config/talosconfig
+  talosctl --talosconfig=./clusterconfig/talosconfig config endpoint $ENDPOINT
+  talosctl config merge ./clusterconfig/talosconfig
 
   echo "Waiting for 3 minutes before bootstrapping..."
   sleep 180
@@ -267,16 +242,16 @@ update_talos_config(){
   check_master
   echo "Updating Talos Cluster Configuration..."
   echo "applying new operating system config to MASTER-A1..."
-  talosctl apply-config -n $MASTER1 -f config/controlplane/k8s-control-1.yaml
+  talosctl apply-config -n $MASTER1 -f clusterconfig/k8s-control-1.yaml
   check_master
   prompt_yn
   if [ "$SINGLENODE" = false ] ; then
     echo "applying new operating system config to MASTER-B1..."
-    talosctl apply-config -n $MASTER2 -f config/controlplane/k8s-control-2.yaml
+    talosctl apply-config -n $MASTER2 -f clusterconfig/k8s-control-2.yaml
     check_master
     prompt_yn
     echo "applying new operating system config to MASTER-C1..."
-    talosctl apply-config -n $MASTER3 -f config/controlplane/k8s-control-.yaml
+    talosctl apply-config -n $MASTER3 -f clusterconfig/k8s-control-.yaml
     check_master
     prompt_yn
   fi
