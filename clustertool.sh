@@ -41,17 +41,7 @@ function parse_yaml_env_all {
 }
 export parse_yaml_env_all
 
-check_master () {
-  echo "Checking presence of ControlePane nodes..."
-  ping ${MASTER1IP} 2>&1 >/dev/null || (echo "Cannot ping controlnode 1" && exit 1)
-  ping ${MASTER2IP} 2>&1 >/dev/null || (echo "Cannot ping controlnode 2" && exit 1)
-  ping ${MASTER3IP} 2>&1 >/dev/null || (echo "Cannot ping controlnode 3" && exit 1)
-  echo "All ControlPane nodes found..."
-}
-export -f check_master
-
 prompt_yn_node () {
-check_master
 read -p "Is the currently updated node working correctly? please verify! (yes/no) " yn
 
 case $yn in
@@ -61,24 +51,6 @@ case $yn in
     * ) echo invalid response;
         prompt_yn;;
 esac
-}
-
-upgrade_talos_nodes () {
-  check_master
-  echo "updating Talos on Node Master-A1"
-  talhelper gencommand --upgrade -n k8s-control-1 --extra-flags=--preserve=true --stage | bash
-  prompt_yn_node
-  echo "updating Talos on Node Master-B1"
-  talhelper gencommand --upgrade -n k8s-control-2 --extra-flags=--preserve=true --stage | bash
-  prompt_yn_node
-  echo "updating Talos on Node Master-C1"
-  talhelper gencommand --upgrade -n k8s-control-3 --extra-flags=--preserve=true --stage | bash
-  prompt_yn_node
-  echo "executing mandatory 1 minute wait..."
-  sleep 60
-  check_master
-  echo "updating kubernetes to latest version..."
-  talosctl upgrade-k8s
 }
 
 encrypted_files () {
@@ -139,7 +111,7 @@ menu(){
     echo -e "4)  Encrypt Data"
     echo -e "5)  (re)Generate Cluster Config"
     echo -e "6)  Bootstrap Talos Cluster"
-    echo -e "7)  Update Talos Cluster Config"
+    echo -e "7)  Apply Talos Cluster Config"
     echo -e "8)  Upgrade Talos Cluster Nodes"
     echo -e "9)  Bootstrap FluxCD Cluster"
     echo -e "0)  Exit"
@@ -183,7 +155,6 @@ menu(){
             exit
             ;;
         8)
-            parse_yaml_env_all
             upgrade_talos_nodes
             exit
             ;;
@@ -193,7 +164,7 @@ menu(){
             exit
             ;;
         t)
-            parse_yaml_env_all
+            update_talos_config
             exit
             ;;
 
@@ -247,23 +218,25 @@ bootstrap_talos(){
 
   echo "Bootstrapping TalosOS Cluster..."
   echo "Applying TalosOS Cluster config to cluster ..."
-  if [ "$SINGLENODE" = false ] ; then
-    check_master
-    talhelper gencommand --apply --extra-flags=--insecure | bash
-  else
-    talhelper gencommand --apply -n k8s-control-1 --extra-flags=--insecure | bash
-  fi
+  while IFS=';' read -ra CMD; do
+    for cmd in "${CMD[@]}"; do
+      name=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --insecure||g")
+      ip=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.*||g")
+      echo "Applying new Talos Config to ${name}"
+      $cmd
+      echo "Waiting for node to come online..."
+      while ! ping -c1 ${ip} &>/dev/null; do :; done
+    done
+  done <<< "$(talhelper gencommand apply --extra-flags=--insecure)"
 
-    echo "Waiting for 3 minutes before bootstrapping..."
-    sleep 180
-    check_master
+  echo "Waiting for 3 minutes before bootstrapping..."
+  sleep 180
 
   # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
   talosctl bootstrap -n $MASTER1IP
 
   echo "Waiting for 3 minutes to finish bootstrapping..."
   sleep 180
-  check_master
 
   # It will then take a few more minutes for Kubernetes to get up and running on the nodes. Once ready, execute
   talosctl kubeconfig -n $VIP
@@ -273,8 +246,14 @@ export -f bootstrap_talos
 
 bootstrap_flux(){
  echo "Bootstrapping FluxCD on existing Cluster..."
- check_master
+
+ echo "Safety Check: Waiting for response on ${VIP}..."
+ while ! ping -c1 ${VIP} &>/dev/null; do :; done
+
+ echo "Running FluxCD Pre-check..."
  flux check --pre
+
+ echo "Executing FluxCD Bootstrap..."
  flux bootstrap github \
    --token-auth=false \
    --owner=$GITHUB_USER \
@@ -287,23 +266,38 @@ bootstrap_flux(){
 export -f bootstrap_flux
 
 update_talos_config(){
-  check_master
-  echo "Updating Talos Cluster Configuration..."
-  echo "applying new operating system config to MASTER-A1..."
-  talhelper gencommand --apply -n k8s-control-1 | bash
-  check_master
-  prompt_yn
-  if [ "$SINGLENODE" = false ] ; then
-    echo "applying new operating system config to MASTER-B1..."
-    talhelper gencommand --apply -n k8s-control-2 | bash
-    check_master
-    prompt_yn
-    echo "applying new operating system config to MASTER-C1..."
-    talhelper gencommand --apply -n k8s-control-3 | bash
-    check_master
-    prompt_yn
-  fi
+  while IFS=';' read -ra CMD; do
+    for cmd in "${CMD[@]}"; do
+      name=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml||g")
+      ip=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.*||g")
+      echo "Applying new Talos Config to ${name}"
+      $cmd
+      echo "Waiting for node to come online..."
+      while ! ping -c1 ${ip} &>/dev/null; do :; done
+      prompt_yn
+    done
+  done <<< "$(talhelper gencommand apply)"
 }
 export -f update_talos_config
+
+upgrade_talos_nodes () {
+  while IFS=';' read -ra CMD; do
+    for cmd in "${CMD[@]}"; do
+      name=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --preserve=true||g")
+      ip=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.* --preserve=true||g")
+      echo "Applying Talos OS Update to ${name}"
+      $cmd
+      echo "Waiting for node to come online..."
+      while ! ping -c1 ${ip} &>/dev/null; do :; done
+      prompt_yn
+    done
+  done <<< "$(talhelper gencommand upgrade --extra-flags=--preserve=true)"
+
+  echo "executing mandatory 1 minute wait..."
+  sleep 60
+  echo "updating kubernetes to latest version..."
+  talosctl upgrade-k8s
+}
+export upgrade_talos_nodes
 
 menu
