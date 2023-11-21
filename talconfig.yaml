@@ -12,115 +12,43 @@ patches:
     - "@./patches/all.json"
 nodes:
   - hostname: k8s-control-1
-    ipAddress: 192.168.100.10
+    ipAddress: ${MASTER1IP}
     controlPlane: true
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/amd-ucode
-            - siderolabs/bnx2-bnx2x
-            - siderolabs/gasket-driver
-            - siderolabs/gvisor
-            - siderolabs/i915-ucode
-            - siderolabs/intel-ucode
-            - siderolabs/iscsi-tools
-            - siderolabs/nut-client
-            - siderolabs/nvidia-container-toolkit
-            - siderolabs/nvidia-fabricmanager
-            - siderolabs/qemu-guest-agent
-            - siderolabs/thunderbolt
-            - siderolabs/zfs
-            - siderolabs/nonfree-kmod-nvidia
     installDiskSelector:
       size: <= 600GB
     networkInterfaces:
       - interface: eth0
         addresses:
-          - 192.168.200.11/24
+          - ${MASTER1IP}/24
         mtu: 1500
         vip:
-          ip: 192.168.10.100
+          ip: ${VIP}
   - hostname: k8s-control-2
-    ipAddress: 192.168.100.10
+    ipAddress: ${MASTER2IP}
     controlPlane: true
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/amd-ucode
-            - siderolabs/bnx2-bnx2x
-            - siderolabs/gasket-driver
-            - siderolabs/gvisor
-            - siderolabs/i915-ucode
-            - siderolabs/intel-ucode
-            - siderolabs/iscsi-tools
-            - siderolabs/nut-client
-            - siderolabs/nvidia-container-toolkit
-            - siderolabs/nvidia-fabricmanager
-            - siderolabs/qemu-guest-agent
-            - siderolabs/thunderbolt
-            - siderolabs/zfs
-            - siderolabs/nonfree-kmod-nvidia
     installDiskSelector:
       size: <= 600GB
     networkInterfaces:
       - interface: eth0
         addresses:
-          - 192.168.100.10/24
+          - ${MASTER2IP}/24
         mtu: 1500
         vip:
-          ip: 192.168.10.100
+          ip: ${VIP}
   - hostname: k8s-control-3
-    ipAddress: 192.168.100.10
+    ipAddress: ${MASTER3IP}
     controlPlane: true
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/amd-ucode
-            - siderolabs/bnx2-bnx2x
-            - siderolabs/gasket-driver
-            - siderolabs/gvisor
-            - siderolabs/i915-ucode
-            - siderolabs/intel-ucode
-            - siderolabs/iscsi-tools
-            - siderolabs/nut-client
-            - siderolabs/nvidia-container-toolkit
-            - siderolabs/nvidia-fabricmanager
-            - siderolabs/qemu-guest-agent
-            - siderolabs/thunderbolt
-            - siderolabs/zfs
-            - siderolabs/nonfree-kmod-nvidia
     installDiskSelector:
       size: <= 600GB
     networkInterfaces:
       - interface: eth0
         addresses:
-          - 192.168.200.11/24
+          - ${MASTER3IP}/24
         mtu: 1500
         vip:
-          ip: 192.168.10.100
+          ip: ${VIP}
   - hostname: k8s-worker-1
     ipAddress: 192.168.100.11
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/amd-ucode
-            - siderolabs/bnx2-bnx2x
-            - siderolabs/gasket-driver
-            - siderolabs/gvisor
-            - siderolabs/i915-ucode
-            - siderolabs/intel-ucode
-            - siderolabs/iscsi-tools
-            - siderolabs/nut-client
-            - siderolabs/nvidia-container-toolkit
-            - siderolabs/nvidia-fabricmanager
-            - siderolabs/qemu-guest-agent
-            - siderolabs/thunderbolt
-            - siderolabs/zfs
-            - siderolabs/nonfree-kmod-nvidia
     installDiskSelector:
       size: <= 600GB
     networkInterfaces:
@@ -130,24 +58,6 @@ nodes:
         mtu: 1500
   - hostname: k8s-worker-2
     ipAddress: 192.168.100.21
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/amd-ucode
-            - siderolabs/bnx2-bnx2x
-            - siderolabs/gasket-driver
-            - siderolabs/gvisor
-            - siderolabs/i915-ucode
-            - siderolabs/intel-ucode
-            - siderolabs/iscsi-tools
-            - siderolabs/nut-client
-            - siderolabs/nvidia-container-toolkit
-            - siderolabs/nvidia-fabricmanager
-            - siderolabs/qemu-guest-agent
-            - siderolabs/thunderbolt
-            - siderolabs/zfs
-            - siderolabs/nonfree-kmod-nvidia
     installDiskSelector:
       size: <= 600GB
     networkInterfaces:
@@ -157,24 +67,7 @@ nodes:
         mtu: 1500
   - hostname: k8s-worker-3
     ipAddress: 192.168.100.31
-    schematic:
-      customization:
-        systemExtensions:
-          officialExtensions:
-            - siderolabs/amd-ucode
-            - siderolabs/bnx2-bnx2x
-            - siderolabs/gasket-driver
-            - siderolabs/gvisor
-            - siderolabs/i915-ucode
-            - siderolabs/intel-ucode
-            - siderolabs/iscsi-tools
-            - siderolabs/nut-client
-            - siderolabs/nvidia-container-toolkit
-            - siderolabs/nvidia-fabricmanager
-            - siderolabs/qemu-guest-agent
-            - siderolabs/thunderbolt
-            - siderolabs/zfs
-            - siderolabs/nonfree-kmod-nvidia
+
     installDiskSelector:
       size: <= 600GB
     networkInterfaces:
@@ -186,6 +79,42 @@ nodes:
 controlPlane:
   patches:
     - "@./patches/controlplane.json"
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/amd-ucode
+          - siderolabs/bnx2-bnx2x
+          - siderolabs/gasket-driver
+          - siderolabs/gvisor
+          - siderolabs/i915-ucode
+          - siderolabs/intel-ucode
+          - siderolabs/iscsi-tools
+          - siderolabs/nut-client
+          - siderolabs/nvidia-container-toolkit
+          - siderolabs/nvidia-fabricmanager
+          - siderolabs/qemu-guest-agent
+          - siderolabs/thunderbolt
+          - siderolabs/zfs
+          - siderolabs/nonfree-kmod-nvidia
 worker:
   patches:
     - "@./patches/worker.json"
+  schematic:
+    customization:
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/amd-ucode
+          - siderolabs/bnx2-bnx2x
+          - siderolabs/gasket-driver
+          - siderolabs/gvisor
+          - siderolabs/i915-ucode
+          - siderolabs/intel-ucode
+          - siderolabs/iscsi-tools
+          - siderolabs/nut-client
+          - siderolabs/nvidia-container-toolkit
+          - siderolabs/nvidia-fabricmanager
+          - siderolabs/qemu-guest-agent
+          - siderolabs/thunderbolt
+          - siderolabs/zfs
+          - siderolabs/nonfree-kmod-nvidia

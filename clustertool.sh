@@ -4,12 +4,48 @@ source settings.sh
 
 export FILES
 
+function parse_yaml_env {
+  echo "Processing $1..."
+  if test -f "$1"; then
+   local prefix=$2
+   local s='[[:space:]]*' w='[a-zA-Z0-9_]*' fs=$(echo @|tr @ '\034')
+   sed -ne "s|^\($s\):|\1|" \
+        -e "s|^\($s\)\($w\)$s:$s[\"']\(.*\)[\"']$s\$|\1$fs\2$fs\3|p" \
+        -e "s|^\($s\)\($w\)$s:$s\(.*\)$s\$|\1$fs\2$fs\3|p"  $1 |
+   awk -F$fs '{
+      indent = length($1)/2;
+      vname[indent] = $2;
+      for (i in vname) {if (i > indent) {delete vname[i]}}
+      if (length($3) > 0) {
+         vn=""; for (i=0; i<indent; i++) {vn=(vn)(vname[i])("_")}
+         printf("%s%s%s=\"%s\"\n", "'$prefix'",vn, $2, $3)
+         ;
+      }
+   }' >> talenv.env
+   set -o allexport; source talenv.env; set +o allexport
+   rm -rf talenv.env
+  fi
+
+}
+export parse_yaml_env
+
+function parse_yaml_env_all {
+    decrypt
+    echo "Loading environment variables..."
+    touch talenv.yaml
+    parse_yaml_env talenv.sops.yaml
+    parse_yaml_env talenv.yaml
+    parse_yaml_env talenv.sops.yml
+    parse_yaml_env talenv.yml
+    echo "Done loading environment variables..."
+}
+export parse_yaml_env_all
 
 check_master () {
   echo "Checking presence of ControlePane nodes..."
-  ping ${MASTER1} 2>&1 >/dev/null || (echo "Cannot ping controlnode 1" && exit 1)
-  ping ${MASTER2} 2>&1 >/dev/null || (echo "Cannot ping controlnode 2" && exit 1)
-  ping ${MASTER3} 2>&1 >/dev/null || (echo "Cannot ping controlnode 3" && exit 1)
+  ping ${MASTER1IP} 2>&1 >/dev/null || (echo "Cannot ping controlnode 1" && exit 1)
+  ping ${MASTER2IP} 2>&1 >/dev/null || (echo "Cannot ping controlnode 2" && exit 1)
+  ping ${MASTER3IP} 2>&1 >/dev/null || (echo "Cannot ping controlnode 3" && exit 1)
   echo "All ControlPane nodes found..."
 }
 export -f check_master
@@ -30,21 +66,18 @@ esac
 upgrade_talos_nodes () {
   check_master
   echo "updating Talos on Node Master-A1"
-  talosctl upgrade --nodes $MASTER1 \
-      --image ghcr.io/siderolabs/installer:v1.5.4 --preserve=true --stage
+  talhelper gencommand --upgrade -n k8s-control-1 --extra-flags=--preserve=true --stage | bash
   prompt_yn_node
   echo "updating Talos on Node Master-B1"
-  talosctl upgrade --nodes $MASTER2 \
-      --image ghcr.io/siderolabs/installer:v1.5.4 --preserve=true --stage
+  talhelper gencommand --upgrade -n k8s-control-2 --extra-flags=--preserve=true --stage | bash
   prompt_yn_node
   echo "updating Talos on Node Master-C1"
-  talosctl upgrade --nodes $MASTER3 \
-      --image ghcr.io/siderolabs/installer:v1.5.4 --preserve=true --stage
+  talhelper gencommand --upgrade -n k8s-control-3 --extra-flags=--preserve=true --stage | bash
   prompt_yn_node
   echo "executing mandatory 1 minute wait..."
   sleep 60
-  echo "updating kubernetes to latest version..."
   check_master
+  echo "updating kubernetes to latest version..."
   talosctl upgrade-k8s
 }
 
@@ -60,6 +93,7 @@ encrypted_files () {
 }
 
 decrypt () {
+  echo "Trying to decrypt data..."
   export SOPS_AGE_KEY_FILE="age.agekey"
 
   encrypted_files
@@ -72,7 +106,7 @@ decrypt () {
     done
     rm -f ENCRYPTED
   else
-    echo "ERROR DATA ALREADY DECRYPTED"
+    echo "Data already decrypted..."
   fi
 }
 
@@ -100,14 +134,14 @@ menu(){
     echo -e "${bold}Available Utilities${reset}"
     echo -e "${bold}-------------------${reset}"
     echo -e "1)  Help"
-    echo -e "2)  Decrypt Data"
-    echo -e "3)  Encrypt Data"
-    echo -e "4)  (re)Generate Cluster Config"
-    echo -e "5)  Bootstrap Talos Cluster"
-    echo -e "6)  Update Talos Cluster Config"
-    echo -e "7)  Upgrade Talos Cluster Nodes"
-    echo -e "8)  Bootstrap FluxCD Cluster"
-    echo
+    echo -e "2)  Install/Update Dependencies"
+    echo -e "3)  Decrypt Data"
+    echo -e "4)  Encrypt Data"
+    echo -e "5)  (re)Generate Cluster Config"
+    echo -e "6)  Bootstrap Talos Cluster"
+    echo -e "7)  Update Talos Cluster Config"
+    echo -e "8)  Upgrade Talos Cluster Nodes"
+    echo -e "9)  Bootstrap FluxCD Cluster"
     echo -e "0)  Exit"
     read -rt 120 -p "Please select an option by number: " selection || { echo -e "${red}\nFailed to make a selection in time${reset}" ; exit; }
 
@@ -123,31 +157,43 @@ menu(){
             ;;
 
         2)
-            decrypt
+            install_deps
             exit
             ;;
         3)
-            encrypt
+            decrypt
             exit
             ;;
         4)
-            regen
+            encrypt
             exit
             ;;
         5)
-            bootstrap_talos
+            regen
             exit
             ;;
         6)
-            update_talos_config
+            parse_yaml_env_all
+            bootstrap_talos
             exit
             ;;
         7)
-            upgrade_talos_nodes
+            parse_yaml_env_all
+            update_talos_config
             exit
             ;;
         8)
+            parse_yaml_env_all
+            upgrade_talos_nodes
+            exit
+            ;;
+        9)
+            parse_yaml_env_all
             bootstrap_flux
+            exit
+            ;;
+        t)
+            parse_yaml_env_all
             exit
             ;;
 
@@ -158,22 +204,36 @@ export -f menu
 
 regen(){
 # Prep precommit
+echo "Installing/Updating Pre-commit hook..."
 pre-commit install --install-hooks
 
+
 # Generate age key if not present
-age-keygen -o age.agekey
-AGE=$(cat age.agekey | grep public | sed -e "s|# public key: ||" )
-cat templates/.sops.yaml.templ | sed -e "s|!!AGE!!|$AGE|"  > .sops.yaml
+if test -f "talsecret.yaml"; then
+  echo "Generating Age Encryption Key..."
+  age-keygen -o age.agekey
+  AGE=$(cat age.agekey | grep public | sed -e "s|# public key: ||" )
+  cat templates/.sops.yaml.templ | sed -e "s|!!AGE!!|$AGE|"  > .sops.yaml
 
-# Save an encrypted version of the age key, encrypted with itself
-cat age.agekey | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p > age.agekey.enc
+  # Save an encrypted version of the age key, encrypted with itself
+  cat age.agekey | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p > age.agekey.enc
 
-cat templates/agekey.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > cluster/flux-system/agekey.yaml
+  cat templates/agekey.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > cluster/flux-system/agekey.yaml
+
+else
+  echo "Age Encryption Key already exists, skipping..."
+fi
+
+
+
+if test -f "talsecret.yaml"; then
+  echo "Generating Talos Secret"
+  talhelper gensecret >>  talsecret.yaml
+else
+  echo "Talos Secret already exists, skipping..."
+fi
 
 echo "(re)generating config..."
-# Generate Talos Secrets
-talhelper gensecret >>  talsecret.sops.yaml
-
 # Uncomment to generate new node configurations
 talhelper genconfig
 
@@ -184,34 +244,22 @@ talhelper validate talconfig
 export -f regen
 
 bootstrap_talos(){
-  check_master
+
   echo "Bootstrapping TalosOS Cluster..."
-  echo "Applying TalosOS Cluster config to ${MASTER1}! ..."
-  talosctl apply-config -i -n $MASTER1 -f clusterconfig/k8s-control-1.yaml
+  echo "Applying TalosOS Cluster config to cluster ..."
   if [ "$SINGLENODE" = false ] ; then
-    echo "Applying TalosOS Cluster config to ${MASTER2}! ..."
-    talosctl apply-config -i -n $MASTER2 -f clusterconfig/k8s-control-2.yaml
-    echo "Applying TalosOS Cluster config to ${MASTER3}! ..."
-    talosctl apply-config -i -n $MASTER3 -f clusterconfig/k8s-control-3.yaml
-  fi
-
-  echo "Updating talosconfig file..."
-
-  if [ "$SINGLENODE" = false ] ; then
-    ENDPOINT=$(echo "$VIP $MASTER1")
+    check_master
+    talhelper gencommand --apply --extra-flags=--insecure | bash
   else
-    ENDPOINT=$(echo "$VIP $MASTER1 $MASTER2 $MASTER3")
+    talhelper gencommand --apply -n k8s-control-1 --extra-flags=--insecure | bash
   fi
 
-  talosctl --talosconfig=./clusterconfig/talosconfig config endpoint $ENDPOINT
-  talosctl config merge ./clusterconfig/talosconfig
-
-  echo "Waiting for 3 minutes before bootstrapping..."
-  sleep 180
-  check_master
+    echo "Waiting for 3 minutes before bootstrapping..."
+    sleep 180
+    check_master
 
   # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-  talosctl bootstrap -n $MASTER1
+  talosctl bootstrap -n $MASTER1IP
 
   echo "Waiting for 3 minutes to finish bootstrapping..."
   sleep 180
@@ -242,16 +290,16 @@ update_talos_config(){
   check_master
   echo "Updating Talos Cluster Configuration..."
   echo "applying new operating system config to MASTER-A1..."
-  talosctl apply-config -n $MASTER1 -f clusterconfig/k8s-control-1.yaml
+  talhelper gencommand --apply -n k8s-control-1 | bash
   check_master
   prompt_yn
   if [ "$SINGLENODE" = false ] ; then
     echo "applying new operating system config to MASTER-B1..."
-    talosctl apply-config -n $MASTER2 -f clusterconfig/k8s-control-2.yaml
+    talhelper gencommand --apply -n k8s-control-2 | bash
     check_master
     prompt_yn
     echo "applying new operating system config to MASTER-C1..."
-    talosctl apply-config -n $MASTER3 -f clusterconfig/k8s-control-.yaml
+    talhelper gencommand --apply -n k8s-control-3 | bash
     check_master
     prompt_yn
   fi
