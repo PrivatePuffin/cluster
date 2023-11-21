@@ -47,34 +47,15 @@ nodes:
         mtu: 1500
         vip:
           ip: ${VIP}
-  - hostname: k8s-worker-1
-    ipAddress: 192.168.100.11
-    installDiskSelector:
-      size: <= 600GB
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.100.11/24
-        mtu: 1500
-  - hostname: k8s-worker-2
-    ipAddress: 192.168.100.21
-    installDiskSelector:
-      size: <= 600GB
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.100.21/24
-        mtu: 1500
-  - hostname: k8s-worker-3
-    ipAddress: 192.168.100.31
-
-    installDiskSelector:
-      size: <= 600GB
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - 192.168.100.31/24
-        mtu: 1500
+#  - hostname: k8s-worker-1
+#    ipAddress: 192.168.100.11
+#    installDiskSelector:
+#      size: <= 600GB
+#    networkInterfaces:
+#      - interface: eth0
+#        addresses:
+#          - 192.168.100.11/24
+#        mtu: 1500
 
 controlPlane:
   patches:

@@ -25,7 +25,7 @@ If you want to stick closer to Talos OS and Kubernetes official specification ad
 
 Generally every device with decent networking and some local storage can be deployed as worker. For this reason we've opted to append the Talos OS Configuration with as many of the optional drivers as possible.
 
-#### Storage
+#### Storage (TBD)
 
 We've chosen to, by default, also use the Talos OS system disk as local storage target for LocalPV.
 At the same time, we will also use this disk for storing CEPH DB and WAL data for any mechanical harddrives used with Ceph.
@@ -45,6 +45,7 @@ When using networked storage, we recommend 2.5Gbe networking instead to prevent 
 
 When using Ceph, however, we advice a minimum of 2.5Gbe networking and recommend 10Gbe networking to prevent issues with Ceph and containers fighting for bandwidth
 
+
 #### Virtualised workers
 
 Our default worker configuration ships with qemu guest additions installed already.
@@ -56,11 +57,12 @@ On top of that, we also would advice against running Ceph OSDs with virtualised 
 
 ### Setting up requirements
 
-**windows**
+#### windows
 
 Please run this in a WSL Linux (Preferably Debian) shell instead of directly on windows.
+DO NOT use a GIT folder checked-out on windows, on the WSL. Ensure you git-clone or git-checkout the folder on WSL when using it in WSL!
 
-**Linux**
+#### Linux
 
 - We're assuming Git and Bash are already installed, if not: Ensure they are.
 - Install talosctl: `curl -sL https://talos.dev/install | sh`
@@ -68,18 +70,28 @@ Please run this in a WSL Linux (Preferably Debian) shell instead of directly on 
 - Install age: `brew install age`
 - Install SOPS: `curl -LO https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 && mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops && chmod +x /usr/local/bin/sops`
 
+#### automatic (TBD)
 
+- Run `sh clustertool.sh` tool, and select to install dependencies
 
 ## Preparations
 
 - Create a Github Private access token with wide access to your repositories
 - Ensure this repository is checked-out using GIT and you've cd'ed into this folder.
-- edit `settings.sh` and set the settings as you want them
-- Set static DHCP adresses on your router to the IP adresses you defined in init.sh
-- Boot all nodes from install media
-- Ensure all 3 nodes have the IP adresses defined earlier
+- edit `talenv.yaml` and set the settings as you want them
+- edit `talconfig.yaml` and edit it to suit your cluster. We advice to keep the "worker" commented out, till your "controlplane" nodes are setup.
+- Set static DHCP adresses on your router to the IP adresses you defined in `talconfig.yaml`
 
-## Bootstrapping the cluster
 
-- edit init.sh and set the IP adresses as you want them
-- run `sh build.sh` to generate initial config and bootstrap the cluster
+## Bootstrapping TalosOS on the cluster
+
+- Run `sh clustertool.sh` tool, generate cluster configuration
+- Boot all nodes from the TalosOS install media
+- Ensure all nodes have the IP adresses defined earlier
+- Run `sh clustertool.sh` tool, Bootstrap the TalosOS cluster
+- Run `sh clustertool.sh` tool, Encrypt your configuration
+- Push your configuration to Github manually.
+
+## Bootstrapping FluxCD
+- Run `sh clustertool.sh` tool, decrypt your configuration
+- Run `sh clustertool.sh` tool, Bootstrap FluxCD on your newly created cluster
