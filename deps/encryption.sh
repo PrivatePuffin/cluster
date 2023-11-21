@@ -46,7 +46,7 @@ encrypt () {
 export encrypt
 
 ensure () {
-  if [ ! -f OVERRIDE ]; then
+  if [ -f OVERRIDE ]; then
     echo "Encryption Check overridden"
   elif [ ! -f ENCRYPTED ]; then
       echo "ERROR NOT ENCRYPTED"

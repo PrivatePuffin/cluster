@@ -7,3 +7,5 @@ talos.secret
 age.agekey.enc
 *agekey.yaml
 talsecret.yaml
+OVERRIDE
+ENCRYPTED
