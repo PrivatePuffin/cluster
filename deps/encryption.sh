@@ -13,6 +13,7 @@ encrypted_files () {
 export encrypted_files
 
 decrypt () {
+  rm -f ENCRYPTED
   echo "Trying to decrypt data..."
   export SOPS_AGE_KEY_FILE="age.agekey"
 
@@ -23,7 +24,6 @@ decrypt () {
   do
     sops -d -i "$value" >/dev/null 2>&1 || echo ""
   done
-  rm -f ENCRYPTED
 
 }
 export decrypt
@@ -41,6 +41,17 @@ encrypt () {
       sops --encrypt -i "$value" >/dev/null 2>&1 || echo ""
     fi
   done
+  touch ENCRYPTED
+}
+export encrypt
+
+ensure () {
+  if [ ! -f OVERRIDE ]; then
+    echo "Encryption Check overridden"
+  elif [ ! -f ENCRYPTED ]; then
+      echo "ERROR NOT ENCRYPTED"
+      exit 1
+  fi
 }
 export encrypt
 
@@ -48,4 +59,6 @@ if [ "$1" = "decrypt" ] ; then
   decrypt
 elif [ "$1" = "encrypt" ] ; then
   encrypt
+elif [ "$1" = "e" ] ; then
+  ensure
 fi
