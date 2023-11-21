@@ -40,12 +40,12 @@ repos:
       rev: 0.2.0
       hooks:
         - id: fix-smartquotes
-    # - repo: local
-    #   hooks:
-    #     - id: custom-script-file
-    #       name: custom-script-file
-    #       entry: deps/encryption.sh encrypt
-    #       language: script
+    - repo: local
+      hooks:
+        - id: custom-script-file
+          name: custom-script-file
+          entry: deps/encryption.sh ensure
+          language: script
     - repo: https://github.com/Lucas-C/pre-commit-hooks
       rev: v1.1.13
       hooks:

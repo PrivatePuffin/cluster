@@ -59,6 +59,6 @@ if [ "$1" = "decrypt" ] ; then
   decrypt
 elif [ "$1" = "encrypt" ] ; then
   encrypt
-elif [ "$1" = "e" ] ; then
+elif [ "$1" = "ensure" ] ; then
   ensure
 fi
