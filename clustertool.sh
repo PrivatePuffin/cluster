@@ -45,6 +45,12 @@ echo "Installing talhelper..."
 #curl https://i.jpillora.com/budimanjojo/talhelper! | bash || echo "installation failed..."
 mv mv deps/talhelper /usr/local/bin/talhelper
 
+echo "Installing pre-commit..."
+pip install pre-commit
+
+echo "Installing/Updating Pre-commit hooks..."
+pre-commit install --install-hooks || echo "installing pre-commit hooks failed, continuing..."
+
 # TODO ensure these grab the latest releases.
 echo "Installing age..."
 curl -LO https://github.com/FiloSottile/age/releases/download/v1.1.1/age-v1.1.1-linux-amd64.tar.gz && tar -xvzf age-v1.1.1-linux-amd64.tar.gz && mv age/age /usr/local/bin/age && mv age/age-keygen /usr/local/bin/age-keygen && chmod +x /usr/local/bin/age /usr/local/bin/age-keygen
@@ -156,8 +162,8 @@ export -f menu
 
 regen(){
 # Prep precommit
-echo "Installing/Updating Pre-commit hook..."
-pre-commit install --install-hooks
+echo "Installing/Updating Pre-commit hooks..."
+pre-commit install --install-hooks || echo "installing pre-commit hooks failed, continuing..."
 
 echo "Ensuring schema is installed..."
 talhelper genschema
