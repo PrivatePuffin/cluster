@@ -69,6 +69,11 @@ DO NOT use a GIT folder checked-out on windows, on the WSL. Ensure you git-clone
 - Install fluxcli: `brew install fluxcd/tap/flux`
 - Install age: `brew install age`
 - Install SOPS: `curl -LO https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 && mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops && chmod +x /usr/local/bin/sops`
+- Install talhelper: `curl https://i.jpillora.com/budimanjojo/talhelper! | sudo bash`
+
+(TBD)
+- Install kubectl: `curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"` (TBD)
+- Install velero cli: `https://github.com/vmware-tanzu/velero/releases/download/v1.12.1/velero-v1.12.1-linux-amd64.tar.gz` (TBD)
 
 #### automatic (TBD)
 
