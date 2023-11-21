@@ -21,7 +21,7 @@ decrypt () {
 
   for value in "${FILES[@]}"
   do
-    sops -d -i "$value" >/dev/null 2>&1
+    sops -d -i "$value" >/dev/null 2>&1 || echo ""
   done
   rm -f ENCRYPTED
 
@@ -38,7 +38,7 @@ encrypt () {
     if grep -Fxq "sops:" $value; then
       echo "$value already encrypted, skipping..."
     else
-      sops --encrypt -i "$value" > /dev/null
+      sops --encrypt -i "$value" >/dev/null 2>&1 || echo ""
     fi
   done
 }

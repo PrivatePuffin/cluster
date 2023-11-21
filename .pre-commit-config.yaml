@@ -36,13 +36,6 @@ repos:
         - id: check-merge-conflict
         - id: check-executables-have-shebangs
         - id: mixed-line-ending
-    - repo: https://github.com/Lucas-C/pre-commit-hooks
-      rev: v1.1.13
-      hooks:
-        - id: remove-crlf
-        - id: remove-tabs
-        - id: forbid-crlf
-        - id: forbid-tabs
     - repo: https://github.com/sirosen/fix-smartquotes
       rev: 0.2.0
       hooks:
@@ -53,6 +46,13 @@ repos:
     #       name: custom-script-file
     #       entry: deps/encryption.sh encrypt
     #       language: script
+    - repo: https://github.com/Lucas-C/pre-commit-hooks
+      rev: v1.1.13
+      hooks:
+        - id: remove-crlf
+        - id: remove-tabs
+        - id: forbid-crlf
+        - id: forbid-tabs
     - repo: https://github.com/k8s-at-home/sops-pre-commit
       rev: v2.1.0
       hooks:
