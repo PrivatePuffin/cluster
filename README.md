@@ -82,7 +82,8 @@ DO NOT use a GIT folder checked-out on windows, on the WSL. Ensure you git-clone
 ## Preparations
 
 - Create a Github Private access token with wide access to your repositories
-- Ensure this repository is checked-out using GIT and you've cd'ed into this folder.
+- Make a copy of the repo template here, to your own github account using the big green button: `https://github.com/truecharts/project-talos`
+- Ensure your newly created clone(!) of the template repository is checked-out using GIT and you've cd'ed into this folder.
 - edit `talenv.yaml` and set the settings as you want them
 - edit `talconfig.yaml` and edit it to suit your cluster. We advice to keep the "worker" commented out, till your "controlplane" nodes are setup.
 - Set static DHCP adresses on your router to the IP adresses you defined in `talconfig.yaml`
@@ -94,6 +95,7 @@ DO NOT use a GIT folder checked-out on windows, on the WSL. Ensure you git-clone
 - Boot all nodes from the TalosOS install media
 - Ensure all nodes have the IP adresses defined earlier
 - Run `sh clustertool.sh` tool, Bootstrap the TalosOS cluster
+- **IMPORTANT**: safe the (content of) `age.agekey` somewhere **safe**, this is the encryption key to your cluster!
 - Run `sh clustertool.sh` tool, Encrypt your configuration
 - Push your configuration to Github manually.
 
