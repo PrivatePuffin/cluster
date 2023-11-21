@@ -26,6 +26,37 @@ function parse_yaml_env {
 }
 export parse_yaml_env
 
+function install_deps {
+cd deps
+# These have automatic functions to grab latest release, keep it that way.
+echo "Installing talosctl..."
+curl -sL https://talos.dev/install | sh || echo "installation failed..."
+
+echo "Installing fluxcli..."
+curl -s https://fluxcd.io/install.sh | sudo bash || echo "installation failed..."
+
+echo "Installing kubectl..."
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" || echo "installation failed..."
+
+echo "Installing velerocli..."
+curl https://i.jpillora.com/vmware-tanzu/velero | bash || echo "installation failed..."
+
+echo "Installing talhelper..."
+#curl https://i.jpillora.com/budimanjojo/talhelper! | bash || echo "installation failed..."
+mv mv deps/talhelper /usr/local/bin/talhelper
+
+# TODO ensure these grab the latest releases.
+echo "Installing age..."
+curl -LO https://github.com/FiloSottile/age/releases/download/v1.1.1/age-v1.1.1-linux-amd64.tar.gz && tar -xvzf age-v1.1.1-linux-amd64.tar.gz && mv age/age /usr/local/bin/age && mv age/age-keygen /usr/local/bin/age-keygen && chmod +x /usr/local/bin/age /usr/local/bin/age-keygen
+
+echo "Installing sops..."
+curl -LO https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 && mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops && chmod +x /usr/local/bin/sops
+
+echo "Finished installing all dependencies."
+cd -
+}
+export install_deps
+
 function parse_yaml_env_all {
     deps/encryption.sh decrypt
     echo "Loading environment variables..."
@@ -128,6 +159,8 @@ regen(){
 echo "Installing/Updating Pre-commit hook..."
 pre-commit install --install-hooks
 
+echo "Ensuring schema is installed..."
+talhelper genschema
 
 # Generate age key if not present
 if test -f "age.agekey"; then
