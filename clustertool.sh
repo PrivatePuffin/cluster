@@ -190,8 +190,13 @@ else
 
   # Save an encrypted version of the age key, encrypted with itself
   cat age.agekey | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p > age.agekey.enc
+fi
 
-  cat templates/agekey.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > cluster/flux-system/agekey.yaml
+if test -f "patches/sopssecret.yaml"; then
+  echo "Agekey Cluster patch already created, skipping..."
+else
+  echo "Creating agekey cluster patch..."
+  cat templates/sopssecret.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > patches/sopssecret.yaml
 fi
 
 
