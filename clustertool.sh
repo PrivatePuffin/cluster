@@ -54,7 +54,7 @@ esac
 }
 
 encrypted_files () {
-  FILES=('patches/custom/controlplane.json' 'patches/custom/worker.json' 'config/talosconfig')
+  FILES=()
   while IFS=  read -r -d $'\0'; do
       FILES+=("$REPLY")
   done < <(find . -name "*.yaml" -type f -print0)
@@ -70,16 +70,13 @@ decrypt () {
 
   encrypted_files
 
-  if test -f "ENCRYPTED"; then
-    for value in "${FILES[@]}"
-    do
-      echo "$value"
-      sops -d -i "$value" || echo "skipping..."
-    done
-    rm -f ENCRYPTED
-  else
-    echo "Data already decrypted..."
-  fi
+
+  for value in "${FILES[@]}"
+  do
+    sops -d -i "$value" >/dev/null 2>&1
+  done
+  rm -f ENCRYPTED
+
 }
 
 encrypt () {
@@ -87,16 +84,15 @@ encrypt () {
 
   encrypted_files
 
-  if test -f "ENCRYPTED"; then
-    echo "ERROR DATA ALREADY ENCRYPTED"
-  else
-    for value in "${FILES[@]}"
-    do
-      echo "$value"
-      sops --encrypt -i "$value" || echo "skipping..."
-    done
-    touch ENCRYPTED
-  fi
+
+  for value in "${FILES[@]}"
+  do
+    if grep -Fxq "sops:" $value; then
+      echo "$value already encrypted, skipping..."
+    else
+      sops --encrypt -i "$value" > /dev/null
+    fi
+  done
 }
 
 
@@ -198,8 +194,6 @@ else
   echo "Creating agekey cluster patch..."
   cat templates/sopssecret.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > patches/sopssecret.yaml
 fi
-
-
 
 if test -f "talsecret.yaml"; then
   echo "Talos Secret already exists, skipping..."

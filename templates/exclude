@@ -6,3 +6,4 @@ talos.secret
 .sops.yaml
 age.agekey.enc
 *agekey.yaml
+talsecret.yaml

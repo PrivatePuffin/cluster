@@ -2,7 +2,6 @@ VIP: 192.168.10.100
 MASTER1IP: 192.168.10.110
 MASTER2IP: 192.168.10.120
 MASTER3IP: 192.168.10.130
-
-GITHUB_TOKEN: "<your-token>"
-GITHUB_USER: "<your-username>"
-GITHUB_REPOSITORY: "<your-repository-name>"
+GITHUB_TOKEN: <your-token>
+GITHUB_USER: <your-username>
+GITHUB_REPOSITORY: <your-repository-name>
