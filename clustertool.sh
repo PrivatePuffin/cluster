@@ -1,7 +1,4 @@
 #!/bin/bash
-
-source settings.sh
-
 export FILES
 
 function parse_yaml_env {
@@ -30,7 +27,7 @@ function parse_yaml_env {
 export parse_yaml_env
 
 function parse_yaml_env_all {
-    decrypt
+    deps/encryption.sh decrypt
     echo "Loading environment variables..."
     touch talenv.yaml
     parse_yaml_env talenv.sops.yaml
@@ -52,49 +49,6 @@ case $yn in
         prompt_yn;;
 esac
 }
-
-encrypted_files () {
-  FILES=()
-  while IFS=  read -r -d $'\0'; do
-      FILES+=("$REPLY")
-  done < <(find . -name "*.yaml" -type f -print0)
-
-  while IFS=  read -r -d $'\0'; do
-      FILES+=("$REPLY")
-  done < <(find . -name "*.secret" -type f -print0)
-}
-
-decrypt () {
-  echo "Trying to decrypt data..."
-  export SOPS_AGE_KEY_FILE="age.agekey"
-
-  encrypted_files
-
-
-  for value in "${FILES[@]}"
-  do
-    sops -d -i "$value" >/dev/null 2>&1
-  done
-  rm -f ENCRYPTED
-
-}
-
-encrypt () {
-  export SOPS_AGE_KEY_FILE="age.agekey"
-
-  encrypted_files
-
-
-  for value in "${FILES[@]}"
-  do
-    if grep -Fxq "sops:" $value; then
-      echo "$value already encrypted, skipping..."
-    else
-      sops --encrypt -i "$value" > /dev/null
-    fi
-  done
-}
-
 
 menu(){
     clear -x
@@ -129,11 +83,11 @@ menu(){
             exit
             ;;
         3)
-            decrypt
+            deps/encryption.sh decrypt
             exit
             ;;
         4)
-            encrypt
+            deps/encryption.sh encrypt
             exit
             ;;
         5)
