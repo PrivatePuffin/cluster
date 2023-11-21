@@ -180,7 +180,9 @@ pre-commit install --install-hooks
 
 
 # Generate age key if not present
-if test -f "talsecret.yaml"; then
+if test -f "age.agekey"; then
+  echo "Age Encryption Key already exists, skipping..."
+else
   echo "Generating Age Encryption Key..."
   age-keygen -o age.agekey
   AGE=$(cat age.agekey | grep public | sed -e "s|# public key: ||" )
@@ -190,18 +192,15 @@ if test -f "talsecret.yaml"; then
   cat age.agekey | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p > age.agekey.enc
 
   cat templates/agekey.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > cluster/flux-system/agekey.yaml
-
-else
-  echo "Age Encryption Key already exists, skipping..."
 fi
 
 
 
 if test -f "talsecret.yaml"; then
+  echo "Talos Secret already exists, skipping..."
+else
   echo "Generating Talos Secret"
   talhelper gensecret >>  talsecret.yaml
-else
-  echo "Talos Secret already exists, skipping..."
 fi
 
 echo "(re)generating config..."
