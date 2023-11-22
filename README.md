@@ -86,6 +86,8 @@ When using clustertool, configuration mangement goes like this:
 
 clustertool -> talhelper -> talosctl -> node(s)
 
+---
+
 ## Getting Started
 
 ### Setting up requirements
