@@ -49,10 +49,10 @@ echo "Installing talhelper..."
 cp talhelper /usr/local/bin/talhelper
 
 echo "Installing pre-commit..."
-pip install pre-commit > /dev/null || pip install pre-commit --break-system-packages > /dev/null
+pip install pre-commit > /dev/null || pip install pre-commit --break-system-packages > /dev/null || echo "Installing pre-commit failed, non-critical continuing..."
 
 echo "Installing/Updating Pre-commit hooks..."
-pre-commit install --install-hooks > /dev/null || echo "installing pre-commit hooks failed, continuing..."
+pre-commit install --install-hooks > /dev/null || echo "installing pre-commit hooks failed, non-critical continuing..."
 
 # TODO ensure these grab the latest releases.
 echo "Installing age..."

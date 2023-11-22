@@ -99,7 +99,15 @@ DO NOT use a GIT folder checked-out on windows, on the WSL. Ensure you git-clone
 
 #### Linux
 
-- We're assuming Git and Bash are already installed, if not: Ensure they are.
+**Required External Dependencies**
+
+- GIT
+- Bash
+- Python3
+- PIP3
+
+**Other Dependencies**
+
 - Run `sudo ./clustertool.sh` tool, install the other dependencies
 
 #### Knowhow
