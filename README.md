@@ -1,5 +1,6 @@
-# project-talos
-WIP project to provide easy deployment tools for Talos Linux and/or FluxCD
+# Clustertool
+
+Easy deployment tooling and documentation for deploying TalosOS and/or FluxCD
 
 ## Limitations
 
