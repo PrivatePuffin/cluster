@@ -1,5 +1,5 @@
 # project-talos
-WIP project to provide Talos Linux example deployments and docs
+WIP project to provide easy deployment tools for Talos Linux and/or FluxCD
 
 ## Limitations
 
