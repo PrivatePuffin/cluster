@@ -1,17 +1,23 @@
 creation_rules:
   - path_regex: cluster.*\.ya?ml
-    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|API|secret($|[^N])|key|token|^data$|^stringData))"
-    age: >-
-      !!AGE!!
-  - path_regex: config.*\.ya?ml
-    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|API|secret($|[^N])|key|token|^data$|^stringData))"
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
     age: >-
       !!AGE!!
   - path_regex: .*\.secret
-    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|API|secret($|[^N])|key|token|^data$|^stringData))"
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
     age: >-
       !!AGE!!
-  - path_regex: .*talosconfig
-    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|API|secret($|[^N])|key|token|^data$|^stringData))"
+  - path_regex: age.agekey.enc
+    age: >-
+      !!AGE!!
+  - path_regex: talenv.yaml
+    age: >-
+      !!AGE!!
+  - path_regex: talsecret.yaml
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
+    age: >-
+      !!AGE!!
+  - path_regex: talconfig.yaml
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
     age: >-
       !!AGE!!
