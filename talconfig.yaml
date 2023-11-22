@@ -1,100 +1,83 @@
----
 clusterName: main
 talosVersion: v1.5.5
 kubernetesVersion: v1.28.0
 endpoint: https://192.168.10.100:6443
 allowSchedulingOnControlPlanes: false
 clusterPodNets:
-  - 172.16.0.0/16
+    - 172.16.0.0/16
 clusterSvcNets:
-  - 172.17.0.0/16
+    - 172.17.0.0/16
 patches:
-    - "@./patches/all.json"
+    - '@./patches/all.json'
 nodes:
-  - hostname: k8s-control-1
-    ipAddress: ${MASTER1IP}
-    controlPlane: true
-    installDiskSelector:
-      size: <= 600GB
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - ${MASTER1IP}/24
-        mtu: 1500
-        vip:
-          ip: ${VIP}
-  - hostname: k8s-control-2
-    ipAddress: ${MASTER2IP}
-    controlPlane: true
-    installDiskSelector:
-      size: <= 600GB
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - ${MASTER2IP}/24
-        mtu: 1500
-        vip:
-          ip: ${VIP}
-  - hostname: k8s-control-3
-    ipAddress: ${MASTER3IP}
-    controlPlane: true
-    installDiskSelector:
-      size: <= 600GB
-    networkInterfaces:
-      - interface: eth0
-        addresses:
-          - ${MASTER3IP}/24
-        mtu: 1500
-        vip:
-          ip: ${VIP}
+    - hostname: k8s-control-1
+      ipAddress: ${MASTER1IP}
+      controlPlane: true
+      installDiskSelector:
+        size: <= 600GB
+      networkInterfaces:
+        - deviceSelector:
+            busPath: "*"
+          vip:
+            ip: ${VIP}
+    - hostname: k8s-control-2
+      ipAddress: ${MASTER2IP}
+      controlPlane: true
+      installDiskSelector:
+        size: <= 600GB
+      networkInterfaces:
+        - deviceSelector:
+            busPath: "*"
+          vip:
+            ip: ${VIP}
+    - hostname: k8s-control-3
+      ipAddress: ${MASTER3IP}
+      controlPlane: true
+      installDiskSelector:
+        size: <= 600GB
+      networkInterfaces:
+        - deviceSelector:
+            busPath: "*"
+          vip:
+            ip: ${VIP}
 #  - hostname: k8s-worker-1
 #    ipAddress: 192.168.100.11
 #    installDiskSelector:
 #      size: <= 600GB
-#    networkInterfaces:
-#      - interface: eth0
-#        addresses:
-#          - 192.168.100.11/24
-#        mtu: 1500
-
 controlPlane:
-  patches:
-    - "@./patches/controlplane.json"
-    - "@./patches/sopssecret.yaml"
-  schematic:
-    customization:
-      systemExtensions:
-        officialExtensions:
-          - siderolabs/zfs
-          - siderolabs/nonfree-kmod-nvidia
-          - siderolabs/bnx2-bnx2x
-          - siderolabs/intel-ucode
-          - siderolabs/amd-ucode
-          - siderolabs/gasket-driver
-          - siderolabs/iscsi-tools
-          - siderolabs/nvidia-fabricmanager
-          - siderolabs/i915-ucode
-          - siderolabs/nut-client
-          - siderolabs/nvidia-container-toolkit
-          - siderolabs/qemu-guest-agent
-          - siderolabs/thunderbolt
+    patches:
+        - '@./patches/controlplane.json'
+        - '@./patches/sopssecret.yaml'
+    schematic:
+        customization:
+            systemExtensions:
+                officialExtensions:
+                    - siderolabs/amd-ucode
+                    - siderolabs/nvidia-container-toolkit
+                    - siderolabs/qemu-guest-agent
+                    - siderolabs/thunderbolt
+                    - siderolabs/bnx2-bnx2x
+                    - siderolabs/iscsi-tools
+                    - siderolabs/nut-client
+                    - siderolabs/nonfree-kmod-nvidia
+                    - siderolabs/i915-ucode
+                    - siderolabs/intel-ucode
+                    - siderolabs/nvidia-fabricmanager
 worker:
-  patches:
-    - "@./patches/worker.json"
-  schematic:
-    customization:
-      systemExtensions:
-        officialExtensions:
-          - siderolabs/zfs
-          - siderolabs/nonfree-kmod-nvidia
-          - siderolabs/bnx2-bnx2x
-          - siderolabs/intel-ucode
-          - siderolabs/amd-ucode
-          - siderolabs/gasket-driver
-          - siderolabs/iscsi-tools
-          - siderolabs/nvidia-fabricmanager
-          - siderolabs/i915-ucode
-          - siderolabs/nut-client
-          - siderolabs/nvidia-container-toolkit
-          - siderolabs/qemu-guest-agent
-          - siderolabs/thunderbolt
+    patches:
+        - '@./patches/worker.json'
+    schematic:
+        customization:
+            systemExtensions:
+                officialExtensions:
+                    - siderolabs/amd-ucode
+                    - siderolabs/nvidia-container-toolkit
+                    - siderolabs/qemu-guest-agent
+                    - siderolabs/thunderbolt
+                    - siderolabs/bnx2-bnx2x
+                    - siderolabs/iscsi-tools
+                    - siderolabs/nut-client
+                    - siderolabs/nonfree-kmod-nvidia
+                    - siderolabs/i915-ucode
+                    - siderolabs/intel-ucode
+                    - siderolabs/nvidia-fabricmanager
