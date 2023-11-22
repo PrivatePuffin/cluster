@@ -227,7 +227,7 @@ bootstrap_talos(){
   sleep 60
 
   # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-  talosctl bootstrap -n $MASTER1IP
+  talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP
 
   echo "Waiting for 1 minute to finish bootstrapping..."
   sleep 60
