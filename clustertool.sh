@@ -184,12 +184,13 @@ if test -f "age.agekey"; then
 else
   echo "Generating Age Encryption Key..."
   age-keygen -o age.agekey
-  AGE=$(cat age.agekey | grep public | sed -e "s|# public key: ||" )
-  cat templates/.sops.yaml.templ | sed -e "s|!!AGE!!|$AGE|"  > .sops.yaml
-
   # Save an encrypted version of the age key, encrypted with itself
   cat age.agekey | age -r age1ql3z7hjy54pw3hyww5ayyfg7zqgvc7w3j2elw8zmrj2kg5sfn9aqmcac8p > age.agekey.enc
 fi
+
+echo "Generating sops.yaml from template"
+AGE=$(cat age.agekey | grep public | sed -e "s|# public key: ||" )
+cat templates/.sops.yaml.templ | sed -e "s|!!AGE!!|$AGE|"  > .sops.yaml
 
 if test -f "patches/sopssecret.yaml"; then
   echo "Agekey Cluster patch already created, skipping..."
