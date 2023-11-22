@@ -43,7 +43,7 @@ curl https://i.jpillora.com/vmware-tanzu/velero | bash || echo "installation fai
 
 echo "Installing talhelper..."
 #curl https://i.jpillora.com/budimanjojo/talhelper! | bash || echo "installation failed..."
-mv mv deps/talhelper /usr/local/bin/talhelper
+mv deps/talhelper /usr/local/bin/talhelper
 
 echo "Installing pre-commit..."
 pip install pre-commit
