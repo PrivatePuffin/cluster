@@ -129,6 +129,7 @@ menu(){
             exit
             ;;
         5)
+            parse_yaml_env_all
             regen
             exit
             ;;
@@ -216,19 +217,20 @@ bootstrap_talos(){
       ip=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.*||g")
       echo "Applying new Talos Config to ${name}"
       $cmd
-      echo "Waiting for node to come online..."
+      echo "Waiting for node to come online on IP ${ip}..."
+      sleep 20
       while ! ping -c1 ${ip} &>/dev/null; do :; done
     done
   done <<< "$(talhelper gencommand apply --extra-flags=--insecure)"
 
-  echo "Waiting for 3 minutes before bootstrapping..."
-  sleep 180
+  echo "Waiting for 1 minute before bootstrapping..."
+  sleep 60
 
   # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
   talosctl bootstrap -n $MASTER1IP
 
-  echo "Waiting for 3 minutes to finish bootstrapping..."
-  sleep 180
+  echo "Waiting for 1 minute to finish bootstrapping..."
+  sleep 60
 
   # It will then take a few more minutes for Kubernetes to get up and running on the nodes. Once ready, execute
   talosctl kubeconfig -n $VIP
@@ -264,7 +266,8 @@ update_talos_config(){
       ip=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.*||g")
       echo "Applying new Talos Config to ${name}"
       $cmd
-      echo "Waiting for node to come online..."
+      echo "Waiting for node to come online on ip ${ip}..."
+      sleep 20
       while ! ping -c1 ${ip} &>/dev/null; do :; done
       prompt_yn
     done
@@ -279,7 +282,8 @@ upgrade_talos_nodes () {
       ip=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.* --preserve=true||g")
       echo "Applying Talos OS Update to ${name}"
       $cmd
-      echo "Waiting for node to come online..."
+      echo "Waiting for node to come online on ip ${ip}..."
+      sleep 20
       while ! ping -c1 ${ip} &>/dev/null; do :; done
       prompt_yn
     done
@@ -292,4 +296,9 @@ upgrade_talos_nodes () {
 }
 export upgrade_talos_nodes
 
-menu
+if [[ $EUID -ne 0 ]]; then
+    echo "$0 is not running as root. Try using sudo."
+    exit 2
+else
+  menu
+fi
