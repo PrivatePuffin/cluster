@@ -9,6 +9,20 @@ We build the masters using Raspberry Pi 4 nodes, these are cheap and relyable en
 The only challenge is to use either extremely high relyability SD-cards.
 Part of this decision is the low cost of entry, while still offering ample performance, as these nodes will only run the kubernetes master services.
 
+#### Minimum Specs
+
+4 Threads or vCores
+4GB Ram
+64GB storage
+1GBe Networking
+
+#### Recommended specs
+
+4 Cores
+8GB Ram
+128GB storage
+1GBe Networking
+
 #### Part List:
 
 3x Raspberry Pi 4 4gb | 75 USD each | 225 USD total
@@ -52,6 +66,15 @@ Our default worker configuration ships with qemu guest additions installed alrea
 However, to prevent issues with workers fighting for resources we would heavily advice against running multiple workers on the same host system.
 On top of that, we also would advice against running Ceph OSDs with virtualised nodes and keep those nodes limited to local-storage, networked storage using democratic-CSI or storage from other workers running Ceph.
 
+## TalosOS synopsys
+
+TalosOS is a bare-bones linux distribution to run kubernetes clusters.
+It gets build/installed/maintained based on configuration files.
+
+To more-easily generate those, we use another tool: talhelper.
+When using clustertool, configuration mangement goes like this:
+
+clustertool -> talhelper -> talosctl -> node(s)
 
 ## Getting Started
 
@@ -65,12 +88,15 @@ DO NOT use a GIT folder checked-out on windows, on the WSL. Ensure you git-clone
 #### Linux
 
 - We're assuming Git and Bash are already installed, if not: Ensure they are.
-- Run `sh clustertool.sh` tool, install dependencies
+- Run `sudo ./clustertool.sh` tool, install the other dependencies
 
+#### Knowhow
 
-#### automatic (TBD)
+- Running your own cluster is not easy, people make a living of this for a reason, this tool is just to make things easier/quicker, not to "take things out-of your hands".
+- You understand kubectl enough to figure out basic commands
+- You have at least some experience bugtracing errors in a kubernetes stack
+- You have more than intermediate knowhow in networking and understand the difference between Layer 2 (DHCP, ARP) and Layer 3 Networking
 
-- Run `sh clustertool.sh` tool, and select to install dependencies
 
 ## Preparations
 
@@ -81,17 +107,32 @@ DO NOT use a GIT folder checked-out on windows, on the WSL. Ensure you git-clone
 - edit `talconfig.yaml` and edit it to suit your cluster. We advice to keep the "worker" commented out, till your "controlplane" nodes are setup.
 - Set static DHCP adresses on your router to the IP adresses you defined in `talconfig.yaml`
 
+## ISO prep
+
+We use pre-extended builds of TalosOS with additional drivers.
+For ISO's we advice to use the following:
+
+**Controlplane nodes:**
+AMD64: https://factory.talos.dev/image/a46f61c444dd37253d28e3632f26645371a4aeaaaf48f9b42a78212ae01af516/v1.5.5/metal-amd64.iso
+ARM64: https://factory.talos.dev/image/a46f61c444dd37253d28e3632f26645371a4aeaaaf48f9b42a78212ae01af516/v1.5.5/metal-arm64.iso
+
+**workers:**
+AMD64: https://factory.talos.dev/image/edb2bf7844cd000e1cf648bce8b2b2ff9726ebde1f983c554751704844c903f7/v1.5.5/metal-amd64.iso
+ARM64: https://factory.talos.dev/image/edb2bf7844cd000e1cf648bce8b2b2ff9726ebde1f983c554751704844c903f7/v1.5.5/metal-arm64.iso
+
+
 
 ## Bootstrapping TalosOS on the cluster
 
-- Run `sh clustertool.sh` tool, generate cluster configuration
+- Run `sudo ./clustertool.sh` tool, generate cluster configuration
 - Boot all nodes from the TalosOS install media
+- SMC (such as the raspberry-pi) might need additional work, as explained in the TalosOS docs.
 - Ensure all nodes have the IP adresses defined earlier
-- Run `sh clustertool.sh` tool, Bootstrap the TalosOS cluster
+- Run `sudo ./clustertool.sh` tool, Bootstrap the TalosOS cluster
 - **IMPORTANT**: safe the (content of) `age.agekey` somewhere **safe**, this is the encryption key to your cluster!
-- Run `sh clustertool.sh` tool, Encrypt your configuration
+- Run `sudo ./clustertool.sh` tool, Encrypt your configuration
 - Push your configuration to Github manually.
 
 ## Bootstrapping FluxCD
-- Run `sh clustertool.sh` tool, decrypt your configuration
-- Run `sh clustertool.sh` tool, Bootstrap FluxCD on your newly created cluster
+- Run `sudo ./clustertool.sh` tool, decrypt your configuration
+- Run `sudo ./clustertool.sh` tool, Bootstrap FluxCD on your newly created cluster

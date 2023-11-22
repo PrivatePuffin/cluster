@@ -4,9 +4,9 @@ kubernetesVersion: v1.28.0
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
-  - ${VIP}
+    - ${VIP}
 additionalApiServerCertSans:
-  - ${VIP}
+    - ${VIP}
 clusterPodNets:
     - 172.16.0.0/16
 clusterSvcNets:
@@ -18,7 +18,7 @@ nodes:
       ipAddress: ${MASTER1IP}
       controlPlane: true
       installDiskSelector:
-        size: '<= 1TB'
+        size: <= 1TB
       networkInterfaces:
         - interface: eth0
           addresses:
@@ -32,7 +32,7 @@ nodes:
       ipAddress: ${MASTER2IP}
       controlPlane: true
       installDiskSelector:
-        size: '<= 1TB'
+        size: <= 1TB
       networkInterfaces:
         - interface: eth0
           addresses:
@@ -46,7 +46,7 @@ nodes:
       ipAddress: ${MASTER3IP}
       controlPlane: true
       installDiskSelector:
-        size: '<= 1TB'
+        size: <= 1TB
       networkInterfaces:
         - interface: eth0
           addresses:
@@ -66,16 +66,16 @@ controlPlane:
         - '@./patches/sopssecret.yaml'
         # - '@./patches/kubePrism.json'
     schematic:
-      customization:
-          extraKernelArgs:
-              - net.ifnames=0
-          systemExtensions:
-              officialExtensions:
-                  - siderolabs/amd-ucode
-                  - siderolabs/bnx2-bnx2x
-                  - siderolabs/i915-ucode
-                  - siderolabs/intel-ucode
-                  - siderolabs/qemu-guest-agent
+        customization:
+            extraKernelArgs:
+                - net.ifnames=0
+            systemExtensions:
+                officialExtensions:
+                    - siderolabs/amd-ucode
+                    - siderolabs/bnx2-bnx2x
+                    - siderolabs/i915-ucode
+                    - siderolabs/intel-ucode
+                    - siderolabs/qemu-guest-agent
 worker:
     patches:
         - '@./patches/worker.json'
@@ -84,13 +84,13 @@ worker:
         customization:
             systemExtensions:
                 officialExtensions:
-                  - siderolabs/nonfree-kmod-nvidia
-                  - siderolabs/amd-ucode
-                  - siderolabs/iscsi-tools
-                  - siderolabs/nvidia-fabricmanager
-                  - siderolabs/qemu-guest-agent
-                  - siderolabs/bnx2-bnx2x
-                  - siderolabs/i915-ucode
-                  - siderolabs/intel-ucode
-                  - siderolabs/nvidia-container-toolkit
-                  - siderolabs/thunderbolt
+                    - siderolabs/nonfree-kmod-nvidia
+                    - siderolabs/amd-ucode
+                    - siderolabs/iscsi-tools
+                    - siderolabs/nvidia-fabricmanager
+                    - siderolabs/qemu-guest-agent
+                    - siderolabs/bnx2-bnx2x
+                    - siderolabs/i915-ucode
+                    - siderolabs/intel-ucode
+                    - siderolabs/nvidia-container-toolkit
+                    - siderolabs/thunderbolt
