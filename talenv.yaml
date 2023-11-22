@@ -1,7 +1,28 @@
+# VIP is used to access the management cluster via a single IP
 VIP: 192.168.10.100
+
+# IP's for the respective nodes, be sure to also set these via static DHCP leases!
 MASTER1IP: 192.168.10.110
 MASTER2IP: 192.168.10.120
 MASTER3IP: 192.168.10.130
-GITHUB_TOKEN: <your-token>
-GITHUB_USER: <your-username>
-GITHUB_REPOSITORY: <your-repository-name>
+
+##----
+# First Run Only, metallb range has to be within the subnet of above IP's
+METALLB:
+  RANGE: 192.168.10.230-192.168.10.250
+# For split DNS, IP has to fit within the metallb-range, host has to be one "step above" rancher host
+Blocky:
+  IP: 192.168.10.230
+  k8s-gateway-domain: mydomain.com
+# For Ingress, has to fit within metallb range
+TRAEFIK:
+  IP: 192.168.10.231
+# For easier management, host has to be a subdomain of above k8s-gateway domain
+RANCHER:
+  HOST: rancher.mydomain.com
+##----
+
+# Intended for Flux Bootstrap (flux bootstrap also covers update)
+GITHUB_TOKEN: "<your-token>"
+GITHUB_USER: "<your-username>"
+GITHUB_REPOSITORY: "<your-repository-name>"
