@@ -1,6 +1,15 @@
 # project-talos
 WIP project to provide Talos Linux example deployments and docs
 
+## Limitations
+
+Our default talconfig.yaml file, makes a lot of assumptions for quick deployment. You're free to adapt your version of it as you please.
+By default you:
+
+- Should not have more than 1 network adapter on controlplane nodes
+- Should not have more than 1 Disk on controlplane nodes
+- Should not have more than 1TB space on said disk on controlplane nodes
+
 ## Requirements
 
 ### Masters
