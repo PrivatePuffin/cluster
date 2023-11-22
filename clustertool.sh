@@ -144,6 +144,7 @@ menu(){
             exit
             ;;
         8)
+            parse_yaml_env_all
             upgrade_talos_nodes
             exit
             ;;
@@ -215,10 +216,12 @@ bootstrap_talos(){
     for cmd in "${CMD[@]}"; do
       name=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --insecure||g")
       ip=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.*||g")
+      echo "Waiting for node to come online on IP ${ip}..."
+      while ! ping -c1 ${ip} &>/dev/null; do :; done
       echo "Applying new Talos Config to ${name}"
       $cmd
+      sleep 30
       echo "Waiting for node to come online on IP ${ip}..."
-      sleep 20
       while ! ping -c1 ${ip} &>/dev/null; do :; done
     done
   done <<< "$(talhelper gencommand apply --extra-flags=--insecure)"
@@ -233,7 +236,7 @@ bootstrap_talos(){
   sleep 60
 
   # It will then take a few more minutes for Kubernetes to get up and running on the nodes. Once ready, execute
-  talosctl kubeconfig -n $VIP
+  talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP
   echo "Bootstrapping finished..."
 }
 export -f bootstrap_talos
