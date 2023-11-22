@@ -15,8 +15,7 @@
     }
   },
   {"op": "replace", "path": "/cluster/extraManifests", "value":[
-    "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.3.0/deploy/ha-install.yaml",
-    "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml",
-    "https://raw.githubusercontent.com/openebs/charts/gh-pages/versioned/3.9.0/openebs-operator.yaml"
+    "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.7.6/deploy/ha-install.yaml",
+    "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml"
   ]},
 ]

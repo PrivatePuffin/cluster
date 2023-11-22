@@ -1,8 +1,12 @@
 clusterName: main
 talosVersion: v1.5.5
 kubernetesVersion: v1.28.0
-endpoint: https://192.168.10.100:6443
+endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
+additionalMachineCertSans:
+  - ${VIP}
+additionalApiServerCertSans:
+  - ${VIP}
 clusterPodNets:
     - 172.16.0.0/16
 clusterSvcNets:
@@ -19,6 +23,9 @@ nodes:
         - interface: eth0
           addresses:
             - ${MASTER1IP}/24
+          routes:
+            - network: 0.0.0.0/0
+              gateway: ${GATEWAY}
           vip:
             ip: ${VIP}
     - hostname: k8s-control-2
@@ -30,6 +37,9 @@ nodes:
         - interface: eth0
           addresses:
             - ${MASTER2IP}/24
+          routes:
+            - network: 0.0.0.0/0
+              gateway: ${GATEWAY}
           vip:
             ip: ${VIP}
     - hostname: k8s-control-3
@@ -41,6 +51,9 @@ nodes:
         - interface: eth0
           addresses:
             - ${MASTER3IP}/24
+          routes:
+            - network: 0.0.0.0/0
+              gateway: ${GATEWAY}
           vip:
             ip: ${VIP}
 #  - hostname: k8s-worker-1
