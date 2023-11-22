@@ -1,4 +1,7 @@
 #!/bin/bash
+
+source ./deps/encryption.sh
+
 export FILES
 
 function parse_yaml_env {
@@ -64,7 +67,7 @@ cd -
 export install_deps
 
 function parse_yaml_env_all {
-    deps/encryption.sh decrypt
+    decrypt
     echo "Loading environment variables..."
     touch talenv.yaml
     parse_yaml_env talenv.sops.yaml
@@ -75,7 +78,7 @@ function parse_yaml_env_all {
 }
 export parse_yaml_env_all
 
-prompt_yn_node () {
+prompt_yn_node_node () {
 read -p "Is the currently updated node working correctly? please verify! (yes/no) " yn
 
 case $yn in
@@ -83,9 +86,15 @@ case $yn in
     no ) echo exiting...;
         exit;;
     * ) echo invalid response;
-        prompt_yn;;
+        prompt_yn_node_node;;
 esac
 }
+
+title(){
+  echo ""
+}
+export title
+
 
 menu(){
     clear -x
@@ -116,16 +125,14 @@ menu(){
             ;;
 
         2)
-            DEPS=`declare -f install_deps`
-            sudo bash -c "$DEPS; install_deps"
-            exit
+            install_deps
             ;;
         3)
-            deps/encryption.sh decrypt
+            decrypt
             exit
             ;;
         4)
-            deps/encryption.sh encrypt
+            encrypt
             exit
             ;;
         5)
@@ -236,7 +243,7 @@ bootstrap_talos(){
   sleep 60
 
   # It will then take a few more minutes for Kubernetes to get up and running on the nodes. Once ready, execute
-  talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP
+  talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
   echo "Bootstrapping finished..."
 }
 export -f bootstrap_talos
@@ -246,6 +253,9 @@ bootstrap_flux(){
 
  echo "Safety Check: Waiting for response on ${VIP}..."
  while ! ping -c1 ${VIP} &>/dev/null; do :; done
+
+ echo "Ensure kubeconfig is set..."
+ talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
 
  echo "Running FluxCD Pre-check..."
  flux check --pre
@@ -272,7 +282,7 @@ update_talos_config(){
       echo "Waiting for node to come online on ip ${ip}..."
       sleep 20
       while ! ping -c1 ${ip} &>/dev/null; do :; done
-      prompt_yn
+      prompt_yn_node
     done
   done <<< "$(talhelper gencommand apply)"
 }
@@ -284,18 +294,20 @@ upgrade_talos_nodes () {
       name=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --preserve=true||g")
       ip=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.* --preserve=true||g")
       echo "Applying Talos OS Update to ${name}"
+      echo "Waiting for node to come online on IP ${ip}..."
+      while ! ping -c1 ${ip} &>/dev/null; do :; done
       $cmd
       echo "Waiting for node to come online on ip ${ip}..."
       sleep 20
       while ! ping -c1 ${ip} &>/dev/null; do :; done
-      prompt_yn
+      prompt_yn_node
     done
   done <<< "$(talhelper gencommand upgrade --extra-flags=--preserve=true)"
 
   echo "executing mandatory 1 minute wait..."
   sleep 60
   echo "updating kubernetes to latest version..."
-  talosctl upgrade-k8s
+  talosctl upgrade-k8s --talosconfig clusterconfig/talosconfig
 }
 export upgrade_talos_nodes
 
