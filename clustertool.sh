@@ -30,33 +30,33 @@ function install_deps {
 cd deps
 # These have automatic functions to grab latest release, keep it that way.
 echo "Installing talosctl..."
-curl -sL https://talos.dev/install | sh || echo "installation failed..."
+curl -SsL https://talos.dev/install | sh > /dev/null || echo "installation failed..."
 
 echo "Installing fluxcli..."
-curl -s https://fluxcd.io/install.sh | sudo bash || echo "installation failed..."
+curl -Ss https://fluxcd.io/install.sh |  bash > /dev/null || echo "installation failed..."
 
 echo "Installing kubectl..."
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" || echo "installation failed..."
+curl -SsLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" || echo "installation failed..."
 
 echo "Installing velerocli..."
-curl https://i.jpillora.com/vmware-tanzu/velero | bash || echo "installation failed..."
+curl -Ss https://i.jpillora.com/vmware-tanzu/velero! | bash > /dev/null || echo "installation failed..."
 
 echo "Installing talhelper..."
-#curl https://i.jpillora.com/budimanjojo/talhelper! | bash || echo "installation failed..."
-mv deps/talhelper /usr/local/bin/talhelper
+#cur -Ssl https://i.jpillora.com/budimanjojo/talhelper! | bash > /dev/null || echo "installation failed..."
+cp talhelper /usr/local/bin/talhelper
 
 echo "Installing pre-commit..."
-pip install pre-commit
+pip install pre-commit > /dev/null || pip install pre-commit --break-system-packages > /dev/null
 
 echo "Installing/Updating Pre-commit hooks..."
-pre-commit install --install-hooks || echo "installing pre-commit hooks failed, continuing..."
+pre-commit install --install-hooks > /dev/null || echo "installing pre-commit hooks failed, continuing..."
 
 # TODO ensure these grab the latest releases.
 echo "Installing age..."
-curl -LO https://github.com/FiloSottile/age/releases/download/v1.1.1/age-v1.1.1-linux-amd64.tar.gz && tar -xvzf age-v1.1.1-linux-amd64.tar.gz && mv age/age /usr/local/bin/age && mv age/age-keygen /usr/local/bin/age-keygen && chmod +x /usr/local/bin/age /usr/local/bin/age-keygen
+curl -SsLO https://github.com/FiloSottile/age/releases/download/v1.1.1/age-v1.1.1-linux-amd64.tar.gz && tar -xvzf age-v1.1.1-linux-amd64.tar.gz > /dev/null &&  mv age/age /usr/local/bin/age &&  mv age/age-keygen /usr/local/bin/age-keygen &&  chmod +x /usr/local/bin/age /usr/local/bin/age-keygen
 
 echo "Installing sops..."
-curl -LO https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 && mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops && chmod +x /usr/local/bin/sops
+curl -SsLO https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 &&  mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops &&  chmod +x /usr/local/bin/sops
 
 echo "Finished installing all dependencies."
 cd -
@@ -116,7 +116,8 @@ menu(){
             ;;
 
         2)
-            install_deps
+            DEPS=`declare -f install_deps`
+            sudo bash -c "$DEPS; install_deps"
             exit
             ;;
         3)
