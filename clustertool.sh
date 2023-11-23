@@ -286,7 +286,7 @@ bootstrap_flux(){
    --owner=$GITHUB_USER \
    --repository=$GITHUB_REPOSITORY \
    --branch=main \
-   --path=./clusters/main \
+   --path=./cluster/flux \
    --personal \
    --toleration-keys=node-role.kubernetes.io/control-plane
 }
