@@ -3,9 +3,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: stakater-charts
+  name: fairwinds-charts
   namespace: flux-system
 spec:
   interval: 30m
-  url: https://stakater.github.io/stakater-charts
+  url: https://charts.fairwinds.com/stable
   timeout: 3m
