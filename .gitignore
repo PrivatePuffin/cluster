@@ -4,3 +4,6 @@ patches/sopssecret.yaml
 deps/*
 !deps/talhelper
 !deps/encryption.sh
+!deps/deploy-extras.sh
+!deps/health.sh
+!deps/approve-certs.sh

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 source ./deps/encryption.sh
+source ./deps/deploy-extras.sh
+source ./deps/health.sh
+source ./deps/approve-certs.sh
 
 export FILES
 
@@ -250,20 +253,33 @@ bootstrap_talos(){
     echo "Waiting for node to come online on ip ${MASTER1IP}..."
     sleep 60
     while ! ping -c1 ${MASTER1IP} &>/dev/null; do :; done
+    check_health
 
     echo "Node online, bootstrapping..."
     # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP && touch BOOTSTRAPPED || exit 1
+    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP || exit 1
 
     echo "Waiting for 1 minute to finish bootstrapping..."
     sleep 60
+    check_health
 
+    echo "Applying kubectl..."
+    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP || exit 1
+
+    approve_certs
+    deploy_cni
+    deploy_approver
+    approve_certs
+
+    touch BOOTSTRAPPED
+  else
+    echo "Applying kubectl..."
+    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
+    echo "If kubectl is not yet available, please manually run: "
+    echo "\"talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP\""
+    echo ""
   fi
-  echo "Applying kubectl..."
-  talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
-  echo "If kubectl is not yet available, please manually run: "
-  echo "\"talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP\""
-  echo ""
+
   echo "Bootstrapping/Expansion finished..."
 }
 export -f bootstrap_talos
@@ -273,12 +289,24 @@ bootstrap_flux(){
 
  echo "Safety Check: Waiting for response on ${VIP}..."
  while ! ping -c1 ${VIP} &>/dev/null; do :; done
+ check_health
 
  echo "Ensure kubeconfig is set..."
  talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
 
  echo "Running FluxCD Pre-check..."
- flux check --pre
+ flux check --pre > /dev/null
+ FLUX_PRE=$?
+ if [ $FLUX_PRE != 0 ]; then
+   echo -e "Error: flux prereqs not met:\n"
+   flux check --pre
+   exit 1
+ fi
+ if [ -z "$GITHUB_TOKEN" ]; then
+   echo "ERROR: GITHUB_TOKEN is not set!"
+   exit 1
+ fi
+
 
  echo "Executing FluxCD Bootstrap..."
  flux bootstrap github \
@@ -286,9 +314,16 @@ bootstrap_flux(){
    --owner=$GITHUB_USER \
    --repository=$GITHUB_REPOSITORY \
    --branch=main \
-   --path=./cluster/flux \
+   --path=./cluster/main \
    --personal \
+   --network-policy=false \
    --toleration-keys=node-role.kubernetes.io/control-plane
+
+  FLUX_INSTALLED=$?
+  if [ $FLUX_INSTALLED != 0 ]; then
+    echo -e "ERROR: flux did not install correctly, aborting!"
+    exit 1
+  fi
 }
 export -f bootstrap_flux
 
@@ -326,9 +361,10 @@ apply_talos_config(){
         echo "Waiting for node to come online on ip ${ip}..."
         sleep 20
         while ! ping -c1 ${ip} &>/dev/null; do :; done
+        check_health
         prompt_yn_node
       fi
-      sleep 3
+      sleep 1
     done
   done 3< <(talhelper gencommand apply ${extra})
   echo ""
@@ -337,6 +373,7 @@ apply_talos_config(){
 export -f apply_talos_config
 
 upgrade_talos_nodes () {
+  check_health
   while IFS=';' read -ra CMD <&3; do
     for cmd in "${CMD[@]}"; do
       name=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --preserve=true||g")
@@ -348,12 +385,14 @@ upgrade_talos_nodes () {
       echo "Waiting for node to come online on ip ${ip}..."
       sleep 20
       while ! ping -c1 ${ip} &>/dev/null; do :; done
+      check_health
       prompt_yn_node
     done
   done 3< <(talhelper gencommand upgrade --extra-flags=--preserve=true)
 
-  echo "executing mandatory 1 minute wait..."
-  sleep 60
+  echo "executing mandatory 30 seconds wait..."
+  sleep 30
+  check_health
   echo "updating kubernetes to latest version..."
   talosctl upgrade-k8s --talosconfig clusterconfig/talosconfig
 }
