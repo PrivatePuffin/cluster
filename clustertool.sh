@@ -362,7 +362,7 @@ apply_talos_config(){
       $cmd || echo "${errormsg}"
       if [ ! "$1" = "--insecure" ] ; then
         echo "Waiting for node to come online on ip ${ip}..."
-        sleep 20
+        sleep 5
         while ! ping -c1 ${ip} &>/dev/null; do :; done
         check_health
         prompt_yn_node
@@ -386,7 +386,7 @@ upgrade_talos_nodes () {
       while ! ping -c1 ${ip} &>/dev/null; do :; done
       $cmd
       echo "Waiting for node to come back online on ip ${ip}..."
-      sleep 20
+      sleep 5
       while ! ping -c1 ${ip} &>/dev/null; do :; done
       check_health
       prompt_yn_node
