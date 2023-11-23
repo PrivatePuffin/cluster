@@ -1,22 +1,28 @@
 #!/bin/bash
 
 deploy_cni(){
-if test -d cni/charts; then
-  rm -rf cni/charts
+if test -d ./deps/cni/charts; then
+  rm -rf ./deps/cni/charts
 fi
-envsubst < ../cluster/system/kube-system/cilium/cilium-values.yaml > cni/values.yaml
-kustomize build --enable-helm cni | kubectl apply -f -
-rm cni/values.yaml
+cat ./cluster/system/kube-system/cilium/cilium-values.yaml > ./deps/cni/values.yaml
+kustomize build --enable-helm ./deps/cni | kubectl apply -f -
+rm ./deps/cni/values.yaml
+if test -d ./deps/csr-approver/charts; then
+  rm -rf ./deps/csr-approver/charts
+fi
 }
 export deploy_cni
 
 deploy_approver(){
-if test -d csr-approver/charts; then
-  rm -rf csr-approver/charts
+if test -d ./deps/csr-approver/charts; then
+  rm -rf ./deps/csr-approver/charts
 fi
-envsubst < ../cluster/system/kube-system/kubelet-csr-approver/values.yaml > csr-approver/values.yaml
-kustomize build --enable-helm csr-approver | kubectl apply -f -
-rm csr-approver/values.yaml
+cat ./cluster/system/kube-system/kubelet-csr-approver/values.yaml > ./deps/csr-approver/values.yaml
+kustomize build --enable-helm ./deps/csr-approver | kubectl apply -f -
+rm ./deps/csr-approver/values.yaml
+if test -d ./deps/csr-approver/charts; then
+  rm -rf ./deps/csr-approver/charts
+fi
 popd >/dev/null 2>&1
 }
 export deploy_approver

@@ -43,6 +43,9 @@ curl -Ss https://fluxcd.io/install.sh |  bash > /dev/null || echo "installation 
 echo "Installing kubectl..."
 curl -SsLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" || echo "installation failed..."
 
+echo "Instaling Helm..."
+curl -Ss https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash  || echo "installation failed..."
+
 echo "Installing Kustomize"
 rm -f kustomize && curl -Ss "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/kustomize/v5.2.1/hack/install_kustomize.sh" | bash  &&  mv kustomize /usr/local/bin/kustomize &&  chmod +x /usr/local/bin/kustomize || echo "installation failed..."
 
@@ -245,6 +248,12 @@ bootstrap_talos(){
 
   if [ -f BOOTSTRAPPED ]; then
     echo "Cluster already bootstrapped, skipping bootstrap..."
+
+    echo "Applying kubectl..."
+    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
+    echo "If kubectl is not yet available, please manually run: "
+    echo "\"talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP\""
+    echo ""
   else
     echo ""
     echo "-----"
@@ -257,14 +266,14 @@ bootstrap_talos(){
 
     echo "Node online, bootstrapping..."
     # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP || exit 1
+    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP
 
     echo "Waiting for 1 minute to finish bootstrapping..."
     sleep 60
     check_health
 
     echo "Applying kubectl..."
-    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP || exit 1
+    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
 
     approve_certs
     deploy_cni
@@ -272,12 +281,6 @@ bootstrap_talos(){
     approve_certs
 
     touch BOOTSTRAPPED
-  else
-    echo "Applying kubectl..."
-    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
-    echo "If kubectl is not yet available, please manually run: "
-    echo "\"talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP\""
-    echo ""
   fi
 
   echo "Bootstrapping/Expansion finished..."
@@ -376,13 +379,13 @@ upgrade_talos_nodes () {
   check_health
   while IFS=';' read -ra CMD <&3; do
     for cmd in "${CMD[@]}"; do
-      name=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --preserve=true||g")
-      ip=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.* --preserve=true||g")
+      name=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --preserve=true||g" | sed "s|--image=factory.talos.dev.*||g")
+      ip=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.* --preserve=true||g" | sed "s|--image=factory.talos.dev.*||g")
       echo "Applying Talos OS Update to ${name}"
-      echo "Waiting for node to come online on IP ${ip}..."
+      echo "Checking if node is online on IP ${ip}..."
       while ! ping -c1 ${ip} &>/dev/null; do :; done
       $cmd
-      echo "Waiting for node to come online on ip ${ip}..."
+      echo "Waiting for node to come back online on ip ${ip}..."
       sleep 20
       while ! ping -c1 ${ip} &>/dev/null; do :; done
       check_health
@@ -394,7 +397,7 @@ upgrade_talos_nodes () {
   sleep 30
   check_health
   echo "updating kubernetes to latest version..."
-  talosctl upgrade-k8s --talosconfig clusterconfig/talosconfig
+  talosctl upgrade-k8s --talosconfig clusterconfig/talosconfig -n ${VIP}
 }
 export upgrade_talos_nodes
 

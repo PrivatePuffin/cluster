@@ -7,3 +7,9 @@ deps/*
 !deps/deploy-extras.sh
 !deps/health.sh
 !deps/approve-certs.sh
+!deps/cni
+!deps/certificate-approver
+deps/cni/charts
+deps/certificate-approver/charts
+deps/cni/values.yaml
+deps/certificate-approver/values.yaml

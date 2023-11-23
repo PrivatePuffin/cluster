@@ -7,6 +7,7 @@ additionalMachineCertSans:
     - ${VIP}
 additionalApiServerCertSans:
     - ${VIP}
+# Warning: Also used in Cilium CNI values!
 clusterPodNets:
     - 172.16.0.0/16
 clusterSvcNets:

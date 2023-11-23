@@ -2,14 +2,8 @@
 autoDirectNodeRoutes: true
 
 cluster:
-  name: "${CONFIG_CLUSTER_NAME}"
+  name: "main"
   id: "1"
-
-bgp:
-  enabled: false
-  announce:
-    loadbalancerIP: true
-    podCIDR: false
 
 securityContext:
   privileged: true
@@ -21,34 +15,22 @@ cgroup:
     enabled: false
   hostRoot: /sys/fs/cgroup
 
-containerRuntime:
-  integration: containerd
-
 endpointRoutes:
   enabled: true
 
 ipam:
   mode: kubernetes
 
-kubeProxyReplacement: strict
+kubeProxyReplacement: true
 kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
-k8sServiceHost: ${CONFIG_K8S_CLUSTER_ENDPOINT_IP}
-k8sServicePort: 6443
-ipv4NativeRoutingCIDR: ${CONFIG_K8S_POD_CIDR}
-
-loadBalancer:
-  algorithm: random
-  mode: snat
-
-localRedirectPolicy: false
+k8sServiceHost: localhost
+k8sServicePort: 7443
+ipv4NativeRoutingCIDR: 172.16.0.0/16
 
 operator:
-  enabled: true
   rollOutPods: true
 
 rollOutCiliumPods: true
-
-tunnel: disabled
 
 hubble:
   enabled: true
