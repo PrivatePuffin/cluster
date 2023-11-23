@@ -13,22 +13,28 @@ encrypted_files () {
 export encrypted_files
 
 decrypt () {
-  rm -f ENCRYPTED
+
+  echo ""
+  echo "-----"
   echo "Trying to decrypt data..."
+  echo "-----"
+  rm -f ENCRYPTED
   export SOPS_AGE_KEY_FILE="age.agekey"
-
   encrypted_files
-
 
   for value in "${FILES[@]}"
   do
-    sops -d -i "$value" >/dev/null 2>&1 || echo ""
+    sops -d -i "$value" >/dev/null 2>&1 || true
   done
 
 }
 export decrypt
 
 encrypt () {
+  echo ""
+  echo "-----"
+  echo "Trying to encrypt sensitive data..."
+  echo "-----"
   export SOPS_AGE_KEY_FILE="age.agekey"
 
   encrypted_files
@@ -38,7 +44,7 @@ encrypt () {
     if grep -Fxq "sops:" $value; then
       echo "$value already encrypted, skipping..."
     else
-      sops --encrypt -i "$value" >/dev/null 2>&1 || echo ""
+      sops --encrypt -i "$value" >/dev/null 2>&1 || true
     fi
   done
   touch ENCRYPTED
