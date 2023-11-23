@@ -122,15 +122,14 @@ menu(){
     title
     echo -e "${bold}Available Utilities${reset}"
     echo -e "${bold}-------------------${reset}"
-    echo -e "1)  Help"
-    echo -e "2)  Install/Update Dependencies"
-    echo -e "3)  Decrypt Data"
-    echo -e "4)  Encrypt Data"
-    echo -e "5)  (re)Generate Cluster Config"
-    echo -e "6)  Bootstrap/Expand Talos Cluster"
-    echo -e "7)  Apply Talos Cluster Config"
-    echo -e "8)  Upgrade Talos Cluster Nodes"
-    echo -e "9)  Bootstrap FluxCD Cluster"
+    echo -e "h)  Help"
+    echo -e "1)  Install/Update Dependencies"
+    echo -e "2)  Decrypt Data"
+    echo -e "3)  Encrypt Data"
+    echo -e "4)  (re)Generate Cluster Config"
+    echo -e "5)  Bootstrap/Apply Talos Cluster Config"
+    echo -e "6)  Upgrade Talos Cluster Nodes"
+    echo -e "7)  Bootstrap FluxCD Cluster"
     echo -e "0)  Exit"
     read -rt 120 -p "Please select an option by number: " selection || { echo -e "${red}\nFailed to make a selection in time${reset}" ; exit; }
 
@@ -140,43 +139,38 @@ menu(){
             echo -e "Exiting.."
             exit
             ;;
-        1)
+        h)
             main_help
             exit
             ;;
 
-        2)
+        1)
             install_deps
             ;;
-        3)
+        2)
             decrypt
             exit
             ;;
-        4)
+        3)
             encrypt
             exit
             ;;
-        5)
+        4)
             parse_yaml_env_all
             regen
             exit
             ;;
-        6)
-            parse_yaml_env_all
-            bootstrap_talos
-            exit
-            ;;
-        7)
+        5)
             parse_yaml_env_all
             apply_talos_config
             exit
             ;;
-        8)
+        6)
             parse_yaml_env_all
             upgrade_talos_nodes
             exit
             ;;
-        9)
+        7)
             parse_yaml_env_all
             bootstrap_flux
             exit
@@ -241,52 +235,6 @@ talhelper validate talconfig
 }
 export -f regen
 
-bootstrap_talos(){
-
-  apply_talos_config "--insecure"
-
-
-  if [ -f BOOTSTRAPPED ]; then
-    echo "Cluster already bootstrapped, skipping bootstrap..."
-
-    echo "Applying kubectl..."
-    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
-    echo "If kubectl is not yet available, please manually run: "
-    echo "\"talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP\""
-    echo ""
-  else
-    echo ""
-    echo "-----"
-    echo "Bootstrapping TalosOS Cluster..."
-    echo "-----"
-    echo "Waiting for node to come online on ip ${MASTER1IP}..."
-    sleep 60
-    while ! ping -c1 ${MASTER1IP} &>/dev/null; do :; done
-    check_health
-
-    echo "Node online, bootstrapping..."
-    # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP
-
-    echo "Waiting for 1 minute to finish bootstrapping..."
-    sleep 60
-    check_health
-
-    echo "Applying kubectl..."
-    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
-
-    approve_certs
-    deploy_cni
-    deploy_approver
-    approve_certs
-
-    touch BOOTSTRAPPED
-  fi
-
-  echo "Bootstrapping/Expansion finished..."
-}
-export -f bootstrap_talos
-
 bootstrap_flux(){
  echo "Bootstrapping FluxCD on existing Cluster..."
 
@@ -331,19 +279,8 @@ bootstrap_flux(){
 export -f bootstrap_flux
 
 apply_talos_config(){
-  if [ -z "$1" ]
-  then
-    extra=""
-  else
-    extra="--extra-flags=$1"
-  fi
-  if [ "$1" = "--insecure" ] ; then
-    echo ""
-    echo "-----"
-    echo "Expanding TalosOS Cluster..."
-    echo "-----"
-  fi
-    echo ""
+
+  echo ""
   echo "-----"
   echo "Applying TalosOS Cluster config to cluster ..."
   echo "-----"
@@ -354,24 +291,58 @@ apply_talos_config(){
       ip=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.*||g")
       echo ""
       echo "Applying new Talos Config to ${name}"
-      if [ "$1" = "--insecure" ] ; then
-        errormsg="->Error during configuration apply, please ignore if the error is 'tls: bad certificate'..."
-      else
-        errormsg="->Error during configuration apply..."
-      fi
-      $cmd || echo "${errormsg}"
-      if [ ! "$1" = "--insecure" ] ; then
-        echo "Waiting for node to come online on ip ${ip}..."
-        sleep 5
-        while ! ping -c1 ${ip} &>/dev/null; do :; done
-        check_health
-        prompt_yn_node
-      fi
+      $cmd -i 2>/dev/null || $cmd || echo "Failed to apply config..."
+      echo "Waiting for node to come online on ip ${ip}..."
+      sleep 5
+      while ! ping -c1 ${ip} &>/dev/null; do :; done
+      check_health
+      prompt_yn_node
       sleep 1
     done
-  done 3< <(talhelper gencommand apply ${extra})
+  done 3< <(talhelper gencommand apply)
   echo ""
   echo "Config Apply finished..."
+
+
+  if [ -f BOOTSTRAPPED ]; then
+    echo "Cluster already bootstrapped, skipping bootstrap..."
+
+    echo "Applying kubectl..."
+    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
+    echo "If kubectl is not yet available, please manually run: "
+    echo "\"talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP\""
+    echo ""
+  else
+    echo ""
+    echo "-----"
+    echo "Bootstrapping TalosOS Cluster..."
+    echo "-----"
+    echo "Waiting for node to come online on ip ${MASTER1IP}..."
+    sleep 60
+    while ! ping -c1 ${MASTER1IP} &>/dev/null; do :; done
+    check_health
+
+    echo "Node online, bootstrapping..."
+    # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
+    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP
+
+    echo "Waiting for 1 minute to finish bootstrapping..."
+    sleep 60
+    check_health
+
+    echo "Applying kubectl..."
+    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP || exit 1
+
+    echo "Deploying manifests..."
+    deploy_cni
+    deploy_approver
+    approve_certs
+
+    touch BOOTSTRAPPED
+  fi
+
+  echo "Bootstrapping/Expansion finished..."
+
 }
 export -f apply_talos_config
 
