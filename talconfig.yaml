@@ -67,7 +67,7 @@ controlPlane:
     patches:
         - '@./patches/controlplane.json'
         - '@./patches/sopssecret.yaml'
-        # - '@./patches/kubePrism.json'
+        - '@./patches/kubePrism.json'
     schematic:
         customization:
             extraKernelArgs:
@@ -82,6 +82,7 @@ controlPlane:
 worker:
     patches:
         - '@./patches/worker.json'
+        - '@./patches/kubePrism.json'
         # - '@./patches/nvidia.json'
     schematic:
         customization:
