@@ -3,7 +3,7 @@ name: update-flux
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 4 * * *"
 
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
         VERSION="v${UGLY_VERSION#*flux version }"
         flux install --version="${VERSION}" \
           --network-policy=false \
-          --export > ./cluster/flux-system/gotk-components.yaml
+          --export > ./cluster/main/flux-system/gotk-components.yaml
         echo "::set-output name=flux_version::$VERSION"
 
     - name: Create pull request for Flux upgrade
