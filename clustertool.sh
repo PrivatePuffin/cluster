@@ -40,6 +40,9 @@ curl -Ss https://fluxcd.io/install.sh |  bash > /dev/null || echo "installation 
 echo "Installing kubectl..."
 curl -SsLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" || echo "installation failed..."
 
+echo "Installing Kustomize"
+curl -Ss "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/kustomize/v5.2.1/hack/install_kustomize.sh" | bash || echo "installation failed..."
+
 echo "Installing velerocli..."
 curl -Ss https://i.jpillora.com/vmware-tanzu/velero! | bash > /dev/null || echo "installation failed..."
 
