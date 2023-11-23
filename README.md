@@ -108,6 +108,7 @@ DO NOT use a GIT folder checked-out on windows, on the WSL. Ensure you git-clone
 
 **Other Dependencies**
 
+- Ensure your local system time is 100% correct
 - Run `sudo ./clustertool.sh` tool, install the other dependencies
 
 #### Knowhow

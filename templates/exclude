@@ -9,3 +9,4 @@ age.agekey.enc
 talsecret.yaml
 OVERRIDE
 ENCRYPTED
+BOOTSTRAPPED

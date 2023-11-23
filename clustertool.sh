@@ -89,6 +89,19 @@ esac
 }
 export prompt_yn_node
 
+checktime() {
+here=$(date +%s)
+here=${here%?}
+world=$(curl -s "http://worldtimeapi.org/api/timezone/Europe/Rome" |jq '.unixtime')
+world=${world%?}
+
+if [ ! "$here" = "$world" ] ; then
+  echo "ERROR, SYSTEM TIME INCORRECT"
+  exit 1
+fi
+}
+export checktime
+
 title(){
   echo ""
 }
@@ -237,7 +250,7 @@ bootstrap_talos(){
 
     echo "Node online, bootstrapping..."
     # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP &&     touch BOOTSTRAPPED
+    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP && touch BOOTSTRAPPED || exit 1
 
     echo "Waiting for 1 minute to finish bootstrapping..."
     sleep 60
@@ -347,5 +360,6 @@ if [[ $EUID -ne 0 ]]; then
     echo "$0 is not running as root. Try using sudo."
     exit 2
 else
+  checktime
   menu
 fi
