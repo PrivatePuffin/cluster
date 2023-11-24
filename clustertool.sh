@@ -134,6 +134,7 @@ menu(){
     echo -e "5)  Bootstrap/Apply Talos Cluster Config"
     echo -e "6)  Upgrade Talos Cluster Nodes"
     echo -e "7)  Bootstrap FluxCD Cluster"
+    echo -e "r)  Talos Cluster Recovery"
     echo -e "0)  Exit"
     read -rt 120 -p "Please select an option by number: " selection || { echo -e "${red}\nFailed to make a selection in time${reset}" ; exit; }
 
@@ -141,10 +142,6 @@ menu(){
     case $selection in
         0)
             echo -e "Exiting.."
-            exit
-            ;;
-        h)
-            main_help
             exit
             ;;
 
@@ -177,6 +174,14 @@ menu(){
         7)
             parse_yaml_env_all
             bootstrap_flux
+            exit
+            ;;
+        h)
+            main_help
+            exit
+            ;;
+        r)
+            recover_talos
             exit
             ;;
         t)
@@ -351,7 +356,6 @@ upgrade_talos_nodes () {
       echo "Applying Talos OS Update to ${name}"
       $cmd
       check_health ${ip}
-      prompt_yn_node
     done
   done 3< <(talhelper gencommand upgrade --extra-flags=--preserve=true)
 
