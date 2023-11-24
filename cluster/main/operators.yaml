@@ -6,7 +6,7 @@ metadata:
 spec:
     interval: 10m0s
     dependsOn:
-        - name: crds
+        - crds
     path: ./cluster/operators
     prune: true
     sourceRef:

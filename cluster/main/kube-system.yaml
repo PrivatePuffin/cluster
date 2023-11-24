@@ -1,17 +1,14 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-    name: apps
+    name: kube-system
     namespace: flux-system
 spec:
     interval: 10m0s
     dependsOn:
-        - kube-system
         - crds
         - operators
-        - system
-        - core
-    path: ./cluster/apps
+    path: ./cluster/kube-system
     prune: true
     sourceRef:
         kind: GitRepository
