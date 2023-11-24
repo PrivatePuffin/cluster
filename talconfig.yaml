@@ -13,7 +13,7 @@ clusterPodNets:
 clusterSvcNets:
     - 172.17.0.0/16
 cniConfig:
-  name: none
+    name: none
 patches:
     - '@./patches/all.json'
 nodes:

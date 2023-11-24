@@ -1,29 +1,28 @@
----
 # yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: reloader
-  namespace: system
+    name: reloader
+    namespace: system
 spec:
-  interval: 15m
-  chart:
-    spec:
-      chart: reloader
-      version: 1.0.52
-      sourceRef:
-        kind: HelmRepository
-        name: stakater-charts
-        namespace: flux-system
-      interval: 15m
-  maxHistory: 3
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
+    interval: 15m
+    chart:
+        spec:
+            chart: reloader
+            version: 1.0.52
+            sourceRef:
+                kind: HelmRepository
+                name: stakater-charts
+                namespace: flux-system
+            interval: 15m
+    maxHistory: 3
+    install:
+        createNamespace: true
+        remediation:
+            retries: 3
+    upgrade:
+        cleanupOnFail: true
+        remediation:
+            retries: 3
+    uninstall:
+        keepHistory: false
