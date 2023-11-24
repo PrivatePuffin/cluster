@@ -355,7 +355,6 @@ upgrade_talos_nodes () {
       ip=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.* --preserve=true||g" | sed "s|--image=factory.talos.dev.*||g")
       echo "Applying Talos OS Update to ${name}"
       $cmd
-      check_health ${ip}
     done
   done 3< <(talhelper gencommand upgrade --extra-flags=--preserve=true)
 
