@@ -59,10 +59,10 @@ nodes:
               gateway: ${GATEWAY}
           vip:
             ip: ${VIP}
-#  - hostname: k8s-worker-1
-#    ipAddress: 192.168.100.11
-#    installDiskSelector:
-#      size: <= 600GB
+    - hostname: k8s-worker-1
+      ipAddress: 192.168.10.141
+      installDiskSelector:
+        size: <= 600GB
 controlPlane:
     patches:
         - '@./patches/controlplane.json'
