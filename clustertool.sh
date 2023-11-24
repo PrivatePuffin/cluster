@@ -185,8 +185,8 @@ echo "-----"
 echo "Regenerating TalosOS Cluster Config..."
 echo "-----"
 # Prep precommit
-echo "Installing/Updating Pre-commit hooks..."
-pre-commit install --install-hooks || echo "installing pre-commit hooks failed, continuing..."
+echo "Update Pre-commit hooks..."
+pre-commit auto-update || echo "Updating pre-commit hooks failed, continuing..."
 
 echo "Ensuring schema is installed..."
 talhelper genschema
