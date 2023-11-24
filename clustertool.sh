@@ -305,7 +305,7 @@ apply_talos_config(){
 
 
   if [ -f BOOTSTRAPPED ]; then
-    check_health ${MASTER1IP}
+    check_health
     echo "Cluster already bootstrapped, skipping bootstrap..."
 
     echo "Applying kubectl..."
@@ -350,8 +350,6 @@ upgrade_talos_nodes () {
       name=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --preserve=true||g" | sed "s|--image=factory.talos.dev.*||g")
       ip=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.* --preserve=true||g" | sed "s|--image=factory.talos.dev.*||g")
       echo "Applying Talos OS Update to ${name}"
-      echo "Checking if node is online on IP ${ip}..."
-      while ! ping -c1 ${ip} &>/dev/null; do :; done
       $cmd
       check_health ${ip}
       prompt_yn_node
@@ -361,6 +359,7 @@ upgrade_talos_nodes () {
   check_health
   echo "updating kubernetes to latest version..."
   talosctl upgrade-k8s --talosconfig clusterconfig/talosconfig -n ${VIP}
+  check_health
 }
 export upgrade_talos_nodes
 
