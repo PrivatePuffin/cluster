@@ -26,6 +26,7 @@ function parse_yaml_env {
       }
    }' >> talenv.env
    set -o allexport; source talenv.env; set +o allexport
+   echo "$(tr -d '\r' < talenv.env)" > talenv.env
    rm -rf talenv.env
   fi
 
@@ -79,11 +80,8 @@ export install_deps
 function parse_yaml_env_all {
     decrypt
     echo "Loading environment variables..."
-    touch talenv.yaml
-    parse_yaml_env talenv.sops.yaml
+    echo "$(tr -d '\r' < talenv.yaml)" > talenv.yaml
     parse_yaml_env talenv.yaml
-    parse_yaml_env talenv.sops.yml
-    parse_yaml_env talenv.yml
 }
 export parse_yaml_env_all
 
