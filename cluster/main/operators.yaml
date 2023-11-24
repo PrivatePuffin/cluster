@@ -6,7 +6,8 @@ metadata:
 spec:
     interval: 10m0s
     dependsOn:
-        - crds
+      - crds
+      - helm-repos
     path: ./cluster/operators
     prune: true
     sourceRef:
