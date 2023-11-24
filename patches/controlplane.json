@@ -14,8 +14,4 @@
       "bind-address": "0.0.0.0"
     }
   },
-  {"op": "replace", "path": "/cluster/extraManifests", "value":[
-    "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/v0.7.6/deploy/ha-install.yaml",
-    "https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.4/high-availability-1.21+.yaml"
-  ]},
 ]

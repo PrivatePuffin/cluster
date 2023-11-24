@@ -1,6 +1,10 @@
-#!/bin/bash
+#!/usr/bin/sudo bash
 
 source ./deps/encryption.sh
+source ./deps/deploy-extras.sh
+source ./deps/health.sh
+source ./deps/approve-certs.sh
+source ./deps/apply-kubeconfig.sh
 
 export FILES
 
@@ -40,12 +44,19 @@ curl -Ss https://fluxcd.io/install.sh |  bash > /dev/null || echo "installation 
 echo "Installing kubectl..."
 curl -SsLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" || echo "installation failed..."
 
+echo "Instaling Helm..."
+curl -Ss https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash  || echo "installation failed..."
+
+echo "Installing Kustomize"
+rm -f kustomize && curl -Ss "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/kustomize/v5.2.1/hack/install_kustomize.sh" | bash  &&  mv kustomize /usr/local/bin/kustomize &&  chmod +x /usr/local/bin/kustomize || echo "installation failed..."
+
 echo "Installing velerocli..."
 curl -Ss https://i.jpillora.com/vmware-tanzu/velero! | bash > /dev/null || echo "installation failed..."
 
 echo "Installing talhelper..."
 #cur -Ssl https://i.jpillora.com/budimanjojo/talhelper! | bash > /dev/null || echo "installation failed..."
-cp talhelper /usr/local/bin/talhelper &&  chmod +x /usr/local/bin/talhelper
+rm -f /usr/local/bin/talhelper || true
+cp talhelper /usr/local/bin/talhelper &&  chmod +x /usr/local/bin/talhelper || echo "installation failed..."
 
 echo "Installing pre-commit..."
 pip install pre-commit > /dev/null || pip install pre-commit --break-system-packages > /dev/null || echo "Installing pre-commit failed, non-critical continuing..."
@@ -76,29 +87,16 @@ function parse_yaml_env_all {
 }
 export parse_yaml_env_all
 
-prompt_yn_node () {
-read -p "Is the currently updated node working correctly? please verify! (yes/no) " yn
-
-case $yn in
-    yes ) echo ok, we will proceed;;
-    no ) echo exiting...;
-        exit;;
-    * ) echo invalid response;
-        prompt_yn_node;;
-esac
-}
-export prompt_yn_node
-
 checktime() {
 here=$(date +%s)
 here=${here%?}
 world=$(curl -s "http://worldtimeapi.org/api/timezone/Europe/Rome" |jq '.unixtime')
 world=${world%?}
 
-if [ ! "$here" = "$world" ] ; then
-  echo "ERROR, SYSTEM TIME INCORRECT"
-  exit 1
-fi
+# if [ ! "$here" = "$world" ] ; then
+#   echo "ERROR, SYSTEM TIME INCORRECT"
+#   exit 1
+# fi
 }
 export checktime
 
@@ -113,15 +111,15 @@ menu(){
     title
     echo -e "${bold}Available Utilities${reset}"
     echo -e "${bold}-------------------${reset}"
-    echo -e "1)  Help"
-    echo -e "2)  Install/Update Dependencies"
-    echo -e "3)  Decrypt Data"
-    echo -e "4)  Encrypt Data"
-    echo -e "5)  (re)Generate Cluster Config"
-    echo -e "6)  Bootstrap/Expand Talos Cluster"
-    echo -e "7)  Apply Talos Cluster Config"
-    echo -e "8)  Upgrade Talos Cluster Nodes"
-    echo -e "9)  Bootstrap FluxCD Cluster"
+    echo -e "h)  Help"
+    echo -e "1)  Install/Update Dependencies"
+    echo -e "2)  Decrypt Data"
+    echo -e "3)  Encrypt Data"
+    echo -e "4)  (re)Generate Cluster Config"
+    echo -e "5)  Bootstrap/Apply Talos Cluster Config"
+    echo -e "6)  Upgrade Talos Cluster Nodes"
+    echo -e "7)  Bootstrap FluxCD Cluster"
+    echo -e "r)  Talos Cluster Recovery"
     echo -e "0)  Exit"
     read -rt 120 -p "Please select an option by number: " selection || { echo -e "${red}\nFailed to make a selection in time${reset}" ; exit; }
 
@@ -131,45 +129,44 @@ menu(){
             echo -e "Exiting.."
             exit
             ;;
-        1)
-            main_help
-            exit
-            ;;
 
-        2)
+        1)
             install_deps
             ;;
-        3)
+        2)
             decrypt
             exit
             ;;
-        4)
+        3)
             encrypt
             exit
             ;;
-        5)
+        4)
             parse_yaml_env_all
             regen
             exit
             ;;
-        6)
-            parse_yaml_env_all
-            bootstrap_talos
-            exit
-            ;;
-        7)
+        5)
             parse_yaml_env_all
             apply_talos_config
             exit
             ;;
-        8)
+        6)
             parse_yaml_env_all
             upgrade_talos_nodes
             exit
             ;;
-        9)
+        7)
             parse_yaml_env_all
             bootstrap_flux
+            exit
+            ;;
+        h)
+            main_help
+            exit
+            ;;
+        r)
+            recover_talos
             exit
             ;;
         t)
@@ -188,8 +185,8 @@ echo "-----"
 echo "Regenerating TalosOS Cluster Config..."
 echo "-----"
 # Prep precommit
-echo "Installing/Updating Pre-commit hooks..."
-pre-commit install --install-hooks || echo "installing pre-commit hooks failed, continuing..."
+echo "Update Pre-commit hooks..."
+pre-commit auto-update || echo "Updating pre-commit hooks failed, continuing..."
 
 echo "Ensuring schema is installed..."
 talhelper genschema
@@ -226,56 +223,36 @@ echo "(re)generating config..."
 # Uncomment to generate new node configurations
 talhelper genconfig
 
-
 echo "verifying config..."
 talhelper validate talconfig
+
+echo "(re)generating chart-config"
+rm -f ./cluster/main/flux-system/clustersettings.yaml || true
+cp ./templates/clustersettings.yaml.templ ./cluster/main/flux-system/clustersettings.yaml
+sed "s/^/  /" talenv.yaml >> ./cluster/main/flux-system/clustersettings.yaml
 }
 export -f regen
-
-bootstrap_talos(){
-
-  apply_talos_config "--insecure"
-
-
-  if [ -f BOOTSTRAPPED ]; then
-    echo "Cluster already bootstrapped, skipping bootstrap..."
-  else
-    echo ""
-    echo "-----"
-    echo "Bootstrapping TalosOS Cluster..."
-    echo "-----"
-    echo "Waiting for node to come online on ip ${MASTER1IP}..."
-    sleep 60
-    while ! ping -c1 ${MASTER1IP} &>/dev/null; do :; done
-
-    echo "Node online, bootstrapping..."
-    # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP && touch BOOTSTRAPPED || exit 1
-
-    echo "Waiting for 1 minute to finish bootstrapping..."
-    sleep 60
-
-  fi
-  echo "Applying kubectl..."
-  talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
-  echo "If kubectl is not yet available, please manually run: "
-  echo "\"talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP\""
-  echo ""
-  echo "Bootstrapping/Expansion finished..."
-}
-export -f bootstrap_talos
 
 bootstrap_flux(){
  echo "Bootstrapping FluxCD on existing Cluster..."
 
- echo "Safety Check: Waiting for response on ${VIP}..."
- while ! ping -c1 ${VIP} &>/dev/null; do :; done
+ check_health
 
  echo "Ensure kubeconfig is set..."
  talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
 
  echo "Running FluxCD Pre-check..."
- flux check --pre
+ flux check --pre > /dev/null
+ FLUX_PRE=$?
+ if [ $FLUX_PRE != 0 ]; then
+   echo -e "Error: flux prereqs not met:\n"
+   flux check --pre
+   exit 1
+ fi
+ if [ -z "$GITHUB_TOKEN" ]; then
+   echo "ERROR: GITHUB_TOKEN is not set!"
+   exit 1
+ fi
 
  echo "Executing FluxCD Bootstrap..."
  flux bootstrap github \
@@ -283,26 +260,22 @@ bootstrap_flux(){
    --owner=$GITHUB_USER \
    --repository=$GITHUB_REPOSITORY \
    --branch=main \
-   --path=./clusters/main \
+   --path=./cluster/main \
    --personal \
+   --network-policy=false \
    --toleration-keys=node-role.kubernetes.io/control-plane
+
+  FLUX_INSTALLED=$?
+  if [ $FLUX_INSTALLED != 0 ]; then
+    echo -e "ERROR: flux did not install correctly, aborting!"
+    exit 1
+  fi
 }
 export -f bootstrap_flux
 
 apply_talos_config(){
-  if [ -z "$1" ]
-  then
-    extra=""
-  else
-    extra="--extra-flags=$1"
-  fi
-  if [ "$1" = "--insecure" ] ; then
-    echo ""
-    echo "-----"
-    echo "Expanding TalosOS Cluster..."
-    echo "-----"
-  fi
-    echo ""
+
+  echo ""
   echo "-----"
   echo "Applying TalosOS Cluster config to cluster ..."
   echo "-----"
@@ -313,46 +286,58 @@ apply_talos_config(){
       ip=$(echo $cmd | sed "s|talosctl apply-config --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.*||g")
       echo ""
       echo "Applying new Talos Config to ${name}"
-      if [ "$1" = "--insecure" ] ; then
-        errormsg="->Error during configuration apply, please ignore if the error is 'tls: bad certificate'..."
-      else
-        errormsg="->Error during configuration apply..."
-      fi
-      $cmd || echo "${errormsg}"
-      if [ ! "$1" = "--insecure" ] ; then
-        echo "Waiting for node to come online on ip ${ip}..."
-        sleep 20
-        while ! ping -c1 ${ip} &>/dev/null; do :; done
-        prompt_yn_node
-      fi
-      sleep 3
+      $cmd -i 2>/dev/null || $cmd || echo "Failed to apply config..."
+      check_health ${ip}
     done
-  done 3< <(talhelper gencommand apply ${extra})
+  done 3< <(talhelper gencommand apply)
   echo ""
   echo "Config Apply finished..."
+
+
+  if [ -f BOOTSTRAPPED ]; then
+    echo "Cluster already bootstrapped, skipping bootstrap..."
+
+    echo "Applying kubectl..."
+    apply_kubeconfig
+    echo "If kubectl is not yet available, please manually run: "
+    echo "\"talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP\""
+    echo ""
+  else
+    echo ""
+    echo "-----"
+    echo "Bootstrapping TalosOS Cluster..."
+    echo "-----"
+
+    echo "Node online, bootstrapping..."
+    # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
+    talhelper gencommand bootstrap || ( echo "Bootstrap Failed, retrying bootstrap procedure..." && apply_talos_config )
+
+    export PREBOOTSTRAP=true
+    check_health
+
+    apply_kubeconfig
+
+    echo "Deploying manifests..."
+    approve_certs
+    deploy_cni
+    deploy_approver
+
+    touch BOOTSTRAPPED
+  fi
+
+  echo "Bootstrapping/Expansion finished..."
+
 }
 export -f apply_talos_config
 
 upgrade_talos_nodes () {
-  while IFS=';' read -ra CMD <&3; do
-    for cmd in "${CMD[@]}"; do
-      name=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --preserve=true||g")
-      ip=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.* --preserve=true||g")
-      echo "Applying Talos OS Update to ${name}"
-      echo "Waiting for node to come online on IP ${ip}..."
-      while ! ping -c1 ${ip} &>/dev/null; do :; done
-      $cmd
-      echo "Waiting for node to come online on ip ${ip}..."
-      sleep 20
-      while ! ping -c1 ${ip} &>/dev/null; do :; done
-      prompt_yn_node
-    done
-  done 3< <(talhelper gencommand upgrade --extra-flags=--preserve=true)
 
-  echo "executing mandatory 1 minute wait..."
-  sleep 60
+  talhelper gencommand upgrade --extra-flags=--preserve=true | bash
+
+  check_health
   echo "updating kubernetes to latest version..."
-  talosctl upgrade-k8s --talosconfig clusterconfig/talosconfig
+   talhelper gencommand upgrade-k8s -n ${MASTER1IP}
+  check_health
 }
 export upgrade_talos_nodes
 

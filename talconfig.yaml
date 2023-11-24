@@ -1,16 +1,19 @@
 clusterName: main
 talosVersion: v1.5.5
-kubernetesVersion: v1.28.0
+kubernetesVersion: v1.28.3
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
     - ${VIP}
 additionalApiServerCertSans:
     - ${VIP}
+# Warning: Also used in Cilium CNI values!
 clusterPodNets:
     - 172.16.0.0/16
 clusterSvcNets:
     - 172.17.0.0/16
+cniConfig:
+    name: none
 patches:
     - '@./patches/all.json'
 nodes:
@@ -56,15 +59,15 @@ nodes:
               gateway: ${GATEWAY}
           vip:
             ip: ${VIP}
-#  - hostname: k8s-worker-1
-#    ipAddress: 192.168.100.11
-#    installDiskSelector:
-#      size: <= 600GB
+    - hostname: k8s-worker-1
+      ipAddress: 192.168.10.141
+      installDiskSelector:
+        size: <= 600GB
 controlPlane:
     patches:
         - '@./patches/controlplane.json'
         - '@./patches/sopssecret.yaml'
-        # - '@./patches/kubePrism.json'
+        - '@./patches/kubePrism.json'
     schematic:
         customization:
             extraKernelArgs:
@@ -79,18 +82,18 @@ controlPlane:
 worker:
     patches:
         - '@./patches/worker.json'
+        - '@./patches/kubePrism.json'
         # - '@./patches/nvidia.json'
     schematic:
         customization:
             systemExtensions:
                 officialExtensions:
-                    - siderolabs/nonfree-kmod-nvidia
-                    - siderolabs/amd-ucode
-                    - siderolabs/iscsi-tools
-                    - siderolabs/nvidia-fabricmanager
-                    - siderolabs/qemu-guest-agent
                     - siderolabs/bnx2-bnx2x
-                    - siderolabs/i915-ucode
+                    - siderolabs/drbd
+                    - siderolabs/gasket-driver
                     - siderolabs/intel-ucode
-                    - siderolabs/nvidia-container-toolkit
+                    - siderolabs/qemu-guest-agent
+                    - siderolabs/amd-ucode
                     - siderolabs/thunderbolt
+                    - siderolabs/i915-ucode
+                    - siderolabs/iscsi-tools

@@ -6,7 +6,11 @@ metadata:
 spec:
     interval: 10m0s
     dependsOn:
-        - name: core
+        - kube-system
+        - crds
+        - operators
+        - system
+        - core
     path: ./cluster/apps
     prune: true
     sourceRef:
