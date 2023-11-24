@@ -305,6 +305,7 @@ apply_talos_config(){
 
 
   if [ -f BOOTSTRAPPED ]; then
+    check_health ${MASTER1IP}
     echo "Cluster already bootstrapped, skipping bootstrap..."
 
     echo "Applying kubectl..."
@@ -325,7 +326,7 @@ apply_talos_config(){
     talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP || ( echo "Bootstrap Failed, retrying bootstrap procedure..." && apply_talos_config )
 
     export PREBOOTSTRAP=true
-    check_health ${MASTER1IP}
+    check_health
 
     apply_kubeconfig
 
