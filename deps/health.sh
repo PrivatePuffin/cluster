@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/sudo bash
 
 check_health(){
  PREBOOTSTRAP=false
@@ -8,13 +8,13 @@ check_health(){
    while ! ping -c1 ${1} &>/dev/null; do :; done
  fi
   if [ -f BOOTSTRAPPED ]; then
-    echo "Talos Health Check not yet implemented..."
-    sleep 5
-    # talosctl health --control-plane-nodes 10.11.0.16,10.11.0.17,10.11.0.18 --worker-nodes 10.11.0.19,10.11.0.20,10.11.0.21 -n $*
+    echo "Checking Health..."
+    while ! ping -c1 ${VIP} &>/dev/null; do :; done
+    talosctl health --talosconfig clusterconfig/talosconfig -n ${VIP} || exit 1
   elif $PREBOOTSTRAP; then
-    echo "Talos Health Check not yet implemented..."
-    sleep 5
-    # talosctl health --control-plane-nodes 10.11.0.16,10.11.0.17,10.11.0.18 --worker-nodes 10.11.0.19,10.11.0.20,10.11.0.21 -n $*
+    echo "Checking Health..."
+    while ! ping -c1 ${VIP} &>/dev/null; do :; done
+    talosctl health --talosconfig clusterconfig/talosconfig -n ${VIP} || exit 1
   fi
 }
 export check_health

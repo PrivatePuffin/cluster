@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/sudo bash
 
 approve_certs(){
 finished=false

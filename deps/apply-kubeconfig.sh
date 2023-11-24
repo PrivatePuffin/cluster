@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/sudo bash
 
 apply_kubeconfig(){
   echo "Applying kubeconfig..."

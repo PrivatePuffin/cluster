@@ -1,9 +1,10 @@
-#!/bin/bash
+#!/usr/bin/sudo bash
 
 source ./deps/encryption.sh
 source ./deps/deploy-extras.sh
 source ./deps/health.sh
 source ./deps/approve-certs.sh
+source ./deps/apply-kubeconfig.sh
 
 export FILES
 
@@ -91,6 +92,9 @@ read -p "Is the currently updated node working correctly? please verify! (yes/no
 case $yn in
     yes ) echo ok, we will proceed;;
     no ) echo exiting...;
+        exit;;
+    y ) echo ok, we will proceed;;
+    n ) echo exiting...;
         exit;;
     * ) echo invalid response;
         prompt_yn_node;;
@@ -314,7 +318,6 @@ apply_talos_config(){
     echo "Bootstrapping TalosOS Cluster..."
     echo "-----"
     echo "Waiting for node to come online on ip ${MASTER1IP}..."
-    sleep 60
     check_health ${MASTER1IP}
 
     echo "Node online, bootstrapping..."

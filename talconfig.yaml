@@ -83,7 +83,7 @@ worker:
     patches:
         - '@./patches/worker.json'
         - '@./patches/kubePrism.json'
-        # - '@./patches/nvidia.json'
+        - '@./patches/nvidia.json'
     schematic:
         customization:
             systemExtensions:

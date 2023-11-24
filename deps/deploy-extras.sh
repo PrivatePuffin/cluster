@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/sudo bash
 
 deploy_cni(){
 if test -d ./deps/cni/charts; then
