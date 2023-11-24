@@ -88,13 +88,12 @@ worker:
         customization:
             systemExtensions:
                 officialExtensions:
-                    # - siderolabs/nonfree-kmod-nvidia
-                    - siderolabs/amd-ucode
-                    - siderolabs/iscsi-tools
-                    # - siderolabs/nvidia-fabricmanager
-                    - siderolabs/qemu-guest-agent
                     - siderolabs/bnx2-bnx2x
-                    - siderolabs/i915-ucode
+                    - siderolabs/drbd
+                    - siderolabs/gasket-driver
                     - siderolabs/intel-ucode
-                    # - siderolabs/nvidia-container-toolkit
+                    - siderolabs/qemu-guest-agent
+                    - siderolabs/amd-ucode
                     - siderolabs/thunderbolt
+                    - siderolabs/i915-ucode
+                    - siderolabs/iscsi-tools

@@ -138,10 +138,8 @@ AMD64: https://factory.talos.dev/image/a46f61c444dd37253d28e3632f26645371a4aeaaa
 ARM64: https://factory.talos.dev/image/a46f61c444dd37253d28e3632f26645371a4aeaaaf48f9b42a78212ae01af516/v1.5.5/metal-arm64.iso
 
 **workers:**
-AMD64: https://factory.talos.dev/image/edb2bf7844cd000e1cf648bce8b2b2ff9726ebde1f983c554751704844c903f7/v1.5.5/metal-amd64.iso
-ARM64: https://factory.talos.dev/image/edb2bf7844cd000e1cf648bce8b2b2ff9726ebde1f983c554751704844c903f7/v1.5.5/metal-arm64.iso
-
-
+AMD64: https://factory.talos.dev/image/c8271a8d49f5039224c479b73663b37c46b83ec1fa22f608b68d5dcab0af0ca5/v1.5.5/metal-amd64.iso
+ARM64: https://factory.talos.dev/image/c8271a8d49f5039224c479b73663b37c46b83ec1fa22f608b68d5dcab0af0ca5/v1.5.5/metal-arm64.iso
 
 ## Bootstrapping TalosOS on the cluster
 

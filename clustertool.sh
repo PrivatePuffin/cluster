@@ -349,14 +349,8 @@ apply_talos_config(){
 export -f apply_talos_config
 
 upgrade_talos_nodes () {
-  while IFS=';' read -ra CMD <&3; do
-    for cmd in "${CMD[@]}"; do
-      name=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed -r 's/(\b[0-9]{1,3}\.){3}[0-9]{1,3}\b'// | sed "s| --file=./clusterconfig/||g" | sed "s|main-||g" | sed "s|.yaml --preserve=true||g" | sed "s|--image=factory.talos.dev.*||g")
-      ip=$(echo $cmd | sed "s|talosctl upgrade --talosconfig=./clusterconfig/talosconfig --nodes=||g" | sed "s| --file=./clusterconfig/.* --preserve=true||g" | sed "s|--image=factory.talos.dev.*||g")
-      echo "Applying Talos OS Update to ${name}"
-      $cmd
-    done
-  done 3< <(talhelper gencommand upgrade --extra-flags=--preserve=true)
+
+  talhelper gencommand upgrade --extra-flags=--preserve=true | bash
 
   check_health
   echo "updating kubernetes to latest version..."
