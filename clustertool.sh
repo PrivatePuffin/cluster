@@ -87,32 +87,16 @@ function parse_yaml_env_all {
 }
 export parse_yaml_env_all
 
-prompt_yn_node () {
-read -p "Is the currently updated node working correctly? please verify! (yes/no) " yn
-
-case $yn in
-    yes ) echo ok, we will proceed;;
-    no ) echo exiting...;
-        exit;;
-    y ) echo ok, we will proceed;;
-    n ) echo exiting...;
-        exit;;
-    * ) echo invalid response;
-        prompt_yn_node;;
-esac
-}
-export prompt_yn_node
-
 checktime() {
 here=$(date +%s)
 here=${here%?}
 world=$(curl -s "http://worldtimeapi.org/api/timezone/Europe/Rome" |jq '.unixtime')
 world=${world%?}
 
-if [ ! "$here" = "$world" ] ; then
-  echo "ERROR, SYSTEM TIME INCORRECT"
-  exit 1
-fi
+# if [ ! "$here" = "$world" ] ; then
+#   echo "ERROR, SYSTEM TIME INCORRECT"
+#   exit 1
+# fi
 }
 export checktime
 
@@ -248,8 +232,6 @@ export -f regen
 bootstrap_flux(){
  echo "Bootstrapping FluxCD on existing Cluster..."
 
- echo "Safety Check: Waiting for response on ${VIP}..."
- while ! ping -c1 ${VIP} &>/dev/null; do :; done
  check_health
 
  echo "Ensure kubeconfig is set..."
@@ -267,7 +249,6 @@ bootstrap_flux(){
    echo "ERROR: GITHUB_TOKEN is not set!"
    exit 1
  fi
-
 
  echo "Executing FluxCD Bootstrap..."
  flux bootstrap github \
@@ -303,7 +284,6 @@ apply_talos_config(){
       echo "Applying new Talos Config to ${name}"
       $cmd -i 2>/dev/null || $cmd || echo "Failed to apply config..."
       check_health ${ip}
-      prompt_yn_node
     done
   done 3< <(talhelper gencommand apply)
   echo ""
@@ -311,11 +291,10 @@ apply_talos_config(){
 
 
   if [ -f BOOTSTRAPPED ]; then
-    check_health
     echo "Cluster already bootstrapped, skipping bootstrap..."
 
     echo "Applying kubectl..."
-    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
+    apply_kubeconfig
     echo "If kubectl is not yet available, please manually run: "
     echo "\"talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP\""
     echo ""
@@ -324,12 +303,10 @@ apply_talos_config(){
     echo "-----"
     echo "Bootstrapping TalosOS Cluster..."
     echo "-----"
-    echo "Waiting for node to come online on ip ${MASTER1IP}..."
-    check_health ${MASTER1IP}
 
     echo "Node online, bootstrapping..."
     # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP || ( echo "Bootstrap Failed, retrying bootstrap procedure..." && apply_talos_config )
+    talhelper gencommand bootstrap || ( echo "Bootstrap Failed, retrying bootstrap procedure..." && apply_talos_config )
 
     export PREBOOTSTRAP=true
     check_health
@@ -355,7 +332,7 @@ upgrade_talos_nodes () {
 
   check_health
   echo "updating kubernetes to latest version..."
-  talosctl upgrade-k8s --talosconfig clusterconfig/talosconfig -n ${VIP}
+   talhelper gencommand upgrade-k8s -n ${MASTER1IP}
   check_health
 }
 export upgrade_talos_nodes
