@@ -1,0 +1,21 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+    name: helm-repos
+    namespace: flux-system
+spec:
+    interval: 10m0s
+    dependsOn:
+        - kube-system
+        - crds
+        - operators
+        - system
+    path: ./cluster/helm-repos
+    prune: true
+    sourceRef:
+        kind: GitRepository
+        name: flux-system
+    decryption:
+        provider: sops
+        secretRef:
+            name: sops-age
