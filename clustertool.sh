@@ -223,9 +223,13 @@ echo "(re)generating config..."
 # Uncomment to generate new node configurations
 talhelper genconfig
 
-
 echo "verifying config..."
 talhelper validate talconfig
+
+echo "(re)generating chart-config"
+rm -f ./cluster/main/flux-system/clustersettings.yaml || true
+cp ./templates/clustersettings.yaml.templ ./cluster/main/flux-system/clustersettings.yaml
+sed "s/^/  /" talenv.yaml >> ./cluster/main/flux-system/clustersettings.yaml
 }
 export -f regen
 

@@ -10,3 +10,4 @@ talsecret.yaml
 OVERRIDE
 ENCRYPTED
 BOOTSTRAPPED
+cluster/main/flux-system/clustersettings.yaml
