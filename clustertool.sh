@@ -292,12 +292,8 @@ apply_talos_config(){
       echo ""
       echo "Applying new Talos Config to ${name}"
       $cmd -i 2>/dev/null || $cmd || echo "Failed to apply config..."
-      echo "Waiting for node to come online on ip ${ip}..."
-      sleep 5
-      while ! ping -c1 ${ip} &>/dev/null; do :; done
-      check_health
+      check_health ${ip}
       prompt_yn_node
-      sleep 1
     done
   done 3< <(talhelper gencommand apply)
   echo ""
@@ -319,24 +315,21 @@ apply_talos_config(){
     echo "-----"
     echo "Waiting for node to come online on ip ${MASTER1IP}..."
     sleep 60
-    while ! ping -c1 ${MASTER1IP} &>/dev/null; do :; done
-    check_health
+    check_health ${MASTER1IP}
 
     echo "Node online, bootstrapping..."
     # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP
+    talosctl bootstrap --talosconfig clusterconfig/talosconfig -n $MASTER1IP || ( echo "Bootstrap Failed, retrying bootstrap procedure..." && apply_talos_config )
 
-    echo "Waiting for 1 minute to finish bootstrapping..."
-    sleep 60
-    check_health
+    export PREBOOTSTRAP=true
+    check_health ${MASTER1IP}
 
-    echo "Applying kubectl..."
-    talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP || exit 1
+    apply_kubeconfig
 
     echo "Deploying manifests..."
+    approve_certs
     deploy_cni
     deploy_approver
-    approve_certs
 
     touch BOOTSTRAPPED
   fi
@@ -356,16 +349,11 @@ upgrade_talos_nodes () {
       echo "Checking if node is online on IP ${ip}..."
       while ! ping -c1 ${ip} &>/dev/null; do :; done
       $cmd
-      echo "Waiting for node to come back online on ip ${ip}..."
-      sleep 5
-      while ! ping -c1 ${ip} &>/dev/null; do :; done
-      check_health
+      check_health ${ip}
       prompt_yn_node
     done
   done 3< <(talhelper gencommand upgrade --extra-flags=--preserve=true)
 
-  echo "executing mandatory 30 seconds wait..."
-  sleep 30
   check_health
   echo "updating kubernetes to latest version..."
   talosctl upgrade-k8s --talosconfig clusterconfig/talosconfig -n ${VIP}

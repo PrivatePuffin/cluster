@@ -1,12 +1,10 @@
 #!/bin/bash
 
 approve_certs(){
-kubectl certificate approve $(kubectl get csr --sort-by=.metadata.creationTimestamp | grep Pending | awk '{print $1}') 2>/dev/null
-sleep 10
-kubectl certificate approve $(kubectl get csr --sort-by=.metadata.creationTimestamp | grep Pending | awk '{print $1}') 2>/dev/null
-sleep 10
-kubectl certificate approve $(kubectl get csr --sort-by=.metadata.creationTimestamp | grep Pending | awk '{print $1}') 2>/dev/null
-sleep 10
-kubectl certificate approve $(kubectl get csr --sort-by=.metadata.creationTimestamp | grep Pending | awk '{print $1}') 2>/dev/null
+finished=false
+echo "Waiting to approve certificates..."
+while ! $finished; do
+    kubectl certificate approve $(kubectl get csr --sort-by=.metadata.creationTimestamp | grep Pending | awk '{print $1}') && finished=true
+done
 }
 export approve_certs

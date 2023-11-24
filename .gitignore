@@ -7,6 +7,7 @@ deps/*
 !deps/deploy-extras.sh
 !deps/health.sh
 !deps/approve-certs.sh
+!deps/apply-kubeconfig.sh
 !deps/cni
 !deps/certificate-approver
 deps/cni/charts
