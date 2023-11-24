@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-settings
+  namespace: flux-system
+data:
+  VIP: 192.168.10.100
+  MASTER1IP: 192.168.10.110
+  MASTER2IP: 192.168.10.120
+  MASTER3IP: 192.168.10.130
+  GATEWAY: 192.168.10.1
+  METALLB_RANGE: 192.168.10.230-192.168.10.250
+  Blocky_IP: 192.168.10.230
+  k8s-gateway-domain: mydomain.com
+  TRAEFIK_IP: 192.168.10.231
+  RANCHER_HOST: rancher.mydomain.com
