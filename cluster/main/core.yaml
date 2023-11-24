@@ -10,6 +10,7 @@ spec:
         - crds
         - operators
         - system
+        - helm-repos.yaml
     path: ./cluster/core
     prune: true
     sourceRef:

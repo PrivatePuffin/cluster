@@ -9,6 +9,7 @@ spec:
         - kube-system
         - crds
         - operators
+        - helm-repos.yaml
     path: ./cluster/system
     prune: true
     sourceRef:

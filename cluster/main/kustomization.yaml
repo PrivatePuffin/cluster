@@ -4,6 +4,7 @@ resources:
     - helm-repos.yaml
     - crds.yaml
     - operators.yaml
+    - kube-system.yaml
+    - system.yaml
     - core.yaml
     - apps.yaml
-    - system.yaml
