@@ -6,12 +6,12 @@ metadata:
 spec:
     interval: 10m0s
     dependsOn:
-      - kube-system
-      - crds
-      - operators
-      - system
-      - core
-      - helm-repos
+    - name: kube-system
+    - name: crds
+    - name: operators
+    - name: system
+    - name: core
+    - name: helm-repos
     path: ./cluster/apps
     prune: true
     sourceRef:
