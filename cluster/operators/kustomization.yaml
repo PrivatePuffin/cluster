@@ -5,3 +5,4 @@ resources:
     - cert-manager/install.yaml
     - metallb/install.yaml
     - rook-ceph/install.yaml
+    - cloudnative-pg/install.yaml

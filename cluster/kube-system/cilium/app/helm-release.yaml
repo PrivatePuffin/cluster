@@ -34,21 +34,21 @@ spec:
     valuesFrom:
         - kind: ConfigMap
           name: cilium-values
-    values:
-        hubble:
-            metrics:
-                serviceMonitor:
-                    enabled: true
-            relay:
-                prometheus:
-                    serviceMonitor:
-                        enabled: true
-        prometheus:
-            enabled: true
-            serviceMonitor:
-                enabled: true
-        operator:
-            prometheus:
-                enabled: true
-                serviceMonitor:
-                    enabled: true
+    values: {}
+        # hubble:
+        #     metrics:
+        #         serviceMonitor:
+        #             enabled: true
+        #     relay:
+        #         prometheus:
+        #             serviceMonitor:
+        #                 enabled: true
+        # prometheus:
+        #     enabled: true
+        #     serviceMonitor:
+        #         enabled: true
+        # operator:
+        #     prometheus:
+        #         enabled: true
+        #         serviceMonitor:
+        #             enabled: true
