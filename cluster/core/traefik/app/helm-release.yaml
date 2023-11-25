@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 21.1.9
+      version: 22.0.2
       sourceRef:
         kind: HelmRepository
         name: truecharts
