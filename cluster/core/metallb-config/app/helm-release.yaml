@@ -4,7 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: metallb-config
-  namespace: flux-system
+  namespace: metallb-config
 spec:
   interval: 15m
   chart:
