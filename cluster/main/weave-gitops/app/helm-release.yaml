@@ -29,7 +29,9 @@ spec:
     keepHistory: false
   values:
     adminUser:
-      create: false
+      create: true
+      username: admin
+      passwordHash: "$2a$12$n52fcX4nRDi94sye0bPCS.WQt9.KHmk0anwzwARdCuoVuk5ICFAG2"
     ingress:
       enabled: true
       hosts:
