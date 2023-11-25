@@ -6,10 +6,10 @@ metadata:
   name: flux-system-weave-gitops
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/flux-system/weave-gitops/app
+  path: ./cluster/main/weave-gitops/app
   sourceRef:
     kind: GitRepository
-    name: homelab-kubernetes
+    name: flux-system
   dependsOn:
     - name: operators-prometheus-operator
   prune: true

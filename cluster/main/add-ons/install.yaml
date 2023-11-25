@@ -6,10 +6,10 @@ metadata:
   name: flux-system-add-ons
   namespace: flux-system
 spec:
-  path: ./kubernetes/apps/flux-system/add-ons
+  path: ./cluster/main/add-ons
   sourceRef:
     kind: GitRepository
-    name: homelab-kubernetes
+    name: flux-system
   dependsOn:
     - name: security-external-secrets-stores
   prune: true
