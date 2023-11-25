@@ -304,7 +304,7 @@ apply_talos_config(){
 
     echo "Node online, bootstrapping..."
     # It will take a few minutes for the nodes to spin up with the configuration.  Once ready, execute
-    talhelper gencommand bootstrap || ( echo "Bootstrap Failed, retrying bootstrap procedure..." && apply_talos_config )
+    talhelper gencommand bootstrap | bash || ( echo "Bootstrap Failed, retrying bootstrap procedure..." && apply_talos_config )
 
     export PREBOOTSTRAP=true
     check_health
