@@ -80,6 +80,7 @@ controlPlane:
                     - siderolabs/i915-ucode
                     - siderolabs/intel-ucode
                     - siderolabs/qemu-guest-agent
+worker:
     patches:
         - '@./patches/worker.json'
         - '@./patches/kubePrism.json'
