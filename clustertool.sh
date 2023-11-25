@@ -257,8 +257,7 @@ bootstrap_flux(){
    --branch=main \
    --path=./cluster/main \
    --personal \
-   --network-policy=false \
-   --toleration-keys=node-role.kubernetes.io/control-plane
+   --network-policy=false
 
   FLUX_INSTALLED=$?
   if [ $FLUX_INSTALLED != 0 ]; then
