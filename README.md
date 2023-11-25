@@ -135,21 +135,25 @@ We use pre-extended builds of TalosOS with additional drivers.
 For ISO's we advice to use the following:
 
 **Controlplane nodes:**
+
 AMD64 ISO: https://factory.talos.dev/image/9239d3b817f4812ea68d11a2fc71b3cd192623a95f7f8d67d80baaa84f17c0df/v1.5.5/metal-amd64.iso
+
 ARM64 ISO: https://factory.talos.dev/image/9239d3b817f4812ea68d11a2fc71b3cd192623a95f7f8d67d80baaa84f17c0df/v1.5.5/metal-arm64.iso
 
 **workers:**
+
 AMD64: https://factory.talos.dev/image/ae6f4bdea27db101ac59bacc1844267275f2778f4c5a9422609aebc4e0507eb1/v1.5.5/metal-amd64.iso
+
 ARM64: https://factory.talos.dev/image/ae6f4bdea27db101ac59bacc1844267275f2778f4c5a9422609aebc4e0507eb1/v1.5.5/metal-arm64.iso
 
 ## Bootstrapping TalosOS on the cluster
 
 - Run `sudo ./clustertool.sh` tool, generate cluster configuration
+- **IMPORTANT**: safe the (content of) `age.agekey` somewhere **safe**, this is the encryption key to your cluster!
 - Boot all nodes from the TalosOS install media
 - SMC (such as the raspberry-pi) might need additional work, as explained in the TalosOS docs.
 - Ensure all nodes have the IP adresses defined earlier
-- Run `sudo ./clustertool.sh` tool, Bootstrap the TalosOS cluster
-- **IMPORTANT**: safe the (content of) `age.agekey` somewhere **safe**, this is the encryption key to your cluster!
+- Run `sudo ./clustertool.sh` tool, Apply and Bootstrap the TalosOS cluster
 - Run `sudo ./clustertool.sh` tool, Encrypt your configuration
 - Push your configuration to Github manually.
 
