@@ -12,7 +12,7 @@ data:
   GATEWAY: 192.168.10.1
   METALLB_RANGE: 192.168.10.230-192.168.10.250
 
-  BASEDOMAIN: truecharts.org
+  BASE_DOMAIN: truecharts.org
 
   Blocky_IP: 192.168.10.230
   TRAEFIK_IP: 192.168.10.231
