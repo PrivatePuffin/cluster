@@ -9,3 +9,5 @@ resources:
   - system.yaml
   - core.yaml
   - apps.yaml
+  - add-ons/install.yaml
+  - weave-gitops/install.yaml
