@@ -101,6 +101,7 @@ DO NOT use a GIT folder checked-out on windows, on the WSL. Ensure you git-clone
 
 **Required External Dependencies**
 
+- curl
 - GIT
 - Bash
 - Python3
@@ -134,12 +135,12 @@ We use pre-extended builds of TalosOS with additional drivers.
 For ISO's we advice to use the following:
 
 **Controlplane nodes:**
-AMD64: https://factory.talos.dev/image/a46f61c444dd37253d28e3632f26645371a4aeaaaf48f9b42a78212ae01af516/v1.5.5/metal-amd64.iso
-ARM64: https://factory.talos.dev/image/a46f61c444dd37253d28e3632f26645371a4aeaaaf48f9b42a78212ae01af516/v1.5.5/metal-arm64.iso
+AMD64 ISO: https://factory.talos.dev/image/9239d3b817f4812ea68d11a2fc71b3cd192623a95f7f8d67d80baaa84f17c0df/v1.5.5/metal-amd64.iso
+ARM64 ISO: https://factory.talos.dev/image/9239d3b817f4812ea68d11a2fc71b3cd192623a95f7f8d67d80baaa84f17c0df/v1.5.5/metal-arm64.iso
 
 **workers:**
-AMD64: https://factory.talos.dev/image/c8271a8d49f5039224c479b73663b37c46b83ec1fa22f608b68d5dcab0af0ca5/v1.5.5/metal-amd64.iso
-ARM64: https://factory.talos.dev/image/c8271a8d49f5039224c479b73663b37c46b83ec1fa22f608b68d5dcab0af0ca5/v1.5.5/metal-arm64.iso
+AMD64: https://factory.talos.dev/image/ae6f4bdea27db101ac59bacc1844267275f2778f4c5a9422609aebc4e0507eb1/v1.5.5/metal-amd64.iso
+ARM64: https://factory.talos.dev/image/ae6f4bdea27db101ac59bacc1844267275f2778f4c5a9422609aebc4e0507eb1/v1.5.5/metal-arm64.iso
 
 ## Bootstrapping TalosOS on the cluster
 

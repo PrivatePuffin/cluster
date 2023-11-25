@@ -71,7 +71,8 @@ controlPlane:
     schematic:
         customization:
             extraKernelArgs:
-                - net.ifnames=0
+                - net.ifnames=0,
+                - ipv6.disable=1
             systemExtensions:
                 officialExtensions:
                     - siderolabs/amd-ucode
@@ -79,21 +80,22 @@ controlPlane:
                     - siderolabs/i915-ucode
                     - siderolabs/intel-ucode
                     - siderolabs/qemu-guest-agent
-worker:
     patches:
         - '@./patches/worker.json'
         - '@./patches/kubePrism.json'
         # - '@./patches/nvidia.json'
     schematic:
         customization:
+            extraKernelArgs:
+                - ipv6.disable=1
             systemExtensions:
                 officialExtensions:
+                    - siderolabs/amd-ucode
                     - siderolabs/bnx2-bnx2x
+                    - siderolabs/iscsi-tools
+                    - siderolabs/qemu-guest-agent
                     - siderolabs/drbd
                     - siderolabs/gasket-driver
-                    - siderolabs/intel-ucode
-                    - siderolabs/qemu-guest-agent
-                    - siderolabs/amd-ucode
-                    - siderolabs/thunderbolt
                     - siderolabs/i915-ucode
-                    - siderolabs/iscsi-tools
+                    - siderolabs/intel-ucode
+                    - siderolabs/thunderbolt
