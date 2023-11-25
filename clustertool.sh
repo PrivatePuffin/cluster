@@ -184,7 +184,7 @@ echo "Regenerating TalosOS Cluster Config..."
 echo "-----"
 # Prep precommit
 echo "Update Pre-commit hooks..."
-pre-commit auto-update || echo "Updating pre-commit hooks failed, continuing..."
+pre-commit install || echo "Install pre-commit hooks failed, continuing..."
 
 echo "Ensuring schema is installed..."
 talhelper genschema
@@ -203,12 +203,9 @@ echo "Generating sops.yaml from template"
 AGE=$(cat age.agekey | grep public | sed -e "s|# public key: ||" )
 cat templates/.sops.yaml.templ | sed -e "s|!!AGE!!|$AGE|"  > .sops.yaml
 
-if test -f "patches/sopssecret.yaml"; then
-  echo "Agekey Cluster patch already created, skipping..."
-else
-  echo "Creating agekey cluster patch..."
-  cat templates/sopssecret.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > patches/sopssecret.yaml
-fi
+echo "Creating agekey cluster patch..."
+rm -rf patches/sopssecret.yaml || true
+cat templates/sopssecret.yaml.templ | sed -e "s|!!AGEKEY!!|$( base64 age.agekey -w0 )|" > patches/sopssecret.yaml
 
 if test -f "talsecret.yaml"; then
   echo "Talos Secret already exists, skipping..."
@@ -237,7 +234,7 @@ bootstrap_flux(){
  check_health
 
  echo "Ensure kubeconfig is set..."
- talosctl kubeconfig --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
+ talosctl kubeconfig --force --talosconfig clusterconfig/talosconfig -n $VIP -e $VIP
 
  echo "Running FluxCD Pre-check..."
  flux check --pre > /dev/null
