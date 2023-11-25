@@ -2,6 +2,9 @@ age.agekey
 talconfig.json
 patches/sopssecret.yaml
 deps/*
+deps/cni/charts
+deps/certificate-approver/charts
+deps/cni/values.yaml
 !deps/talhelper
 !deps/encryption.sh
 !deps/deploy-extras.sh
@@ -10,7 +13,4 @@ deps/*
 !deps/apply-kubeconfig.sh
 !deps/cni
 !deps/certificate-approver
-deps/cni/charts
-deps/certificate-approver/charts
-deps/cni/values.yaml
-deps/certificate-approver/values.yaml
+!deps/certificate-approver/kustomization.yaml
