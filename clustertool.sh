@@ -43,7 +43,7 @@ echo "Installing fluxcli..."
 curl -Ss https://fluxcd.io/install.sh |  bash > /dev/null || echo "installation failed..."
 
 echo "Installing kubectl..."
-curl -SsLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" || echo "installation failed..."
+curl -SsLO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" | bash || echo "installation failed..."
 
 echo "Instaling Helm..."
 curl -Ss https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash  || echo "installation failed..."
