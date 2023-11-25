@@ -11,7 +11,11 @@ data:
   MASTER3IP: 192.168.10.130
   GATEWAY: 192.168.10.1
   METALLB_RANGE: 192.168.10.230-192.168.10.250
+
+  BASEDOMAIN: truecharts.org
+
   Blocky_IP: 192.168.10.230
-  k8s-gateway-domain: mydomain.com
   TRAEFIK_IP: 192.168.10.231
-  RANCHER_HOST: rancher.mydomain.com
+
+  EMAIL: info@truecharts.org
+  CLOUDFLARE_TOKEN: <sometoken>
