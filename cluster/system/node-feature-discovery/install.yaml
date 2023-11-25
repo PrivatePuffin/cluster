@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: system-node-feature-discovery
+  namespace: flux-system
+spec:
+  path: ./cluster/system/node-feature-discovery/app
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  prune: true
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 15m
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: system-node-feature-discovery-config
+  namespace: flux-system
+spec:
+  path: ./cluster/system/node-feature-discovery/config
+  dependsOn:
+    - name: system-node-feature-discovery
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  prune: true
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 15m
