@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 22.0.3
+      version: 22.1.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -30,6 +30,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultCertificate: tc-wildcard
     service:
       main:
         loadBalancerIP: ${TRAEFIK_IP}
