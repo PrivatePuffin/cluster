@@ -6,7 +6,7 @@ metadata:
   name: flux-config
   namespace: flux-system
 spec:
-  path: ./cluster/main/fluxconfig/app
+  path: ./cluster/main/flux-config/app
   sourceRef:
     kind: GitRepository
     name: flux-system
