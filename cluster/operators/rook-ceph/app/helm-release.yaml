@@ -35,8 +35,8 @@ spec:
                   operator: Exists
                 - effect: NoSchedule
                   operator: Exists
-        # monitoring:
-        #     enabled: true
+        monitoring:
+            enabled: true
         resources:
             requests:
                 cpu: 100m

@@ -38,9 +38,10 @@ spec:
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         cert-manager.io/cluster-issuer: tc-le-prod
         cert-manager.io/private-key-rotation-policy: Always
+        traefik.ingress.kubernetes.io/router.tls: 'true'
       tls:
         - hosts:
-            - gitops.truecharts.org
+            - gitops.${BASE_DOMAIN}
           secretName: flux-system-weave-gitops
       hosts:
         - host: gitops.${BASE_DOMAIN}
