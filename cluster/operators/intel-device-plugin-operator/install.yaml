@@ -3,16 +3,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: system-intel-device-plugin
+  name: operators-intel-device-plugin
   namespace: flux-system
 spec:
-  path: ./cluster/system/intel-device-plugin
+  path: ./cluster/operators/intel-device-plugin-operator/app
   sourceRef:
     kind: GitRepository
     name: flux-system
-  dependsOn:
-    - name: system-node-feature-discovery
-    - name: operators-intel-device-plugin
   prune: true
   wait: false
   interval: 30m
