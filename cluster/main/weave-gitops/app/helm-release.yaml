@@ -35,7 +35,7 @@ spec:
     ingress:
       enabled: true
       annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints=websecure
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
         cert-manager.io/cluster-issuer: tc-le-prod
         cert-manager.io/private-key-rotation-policy: Always
       hosts:
