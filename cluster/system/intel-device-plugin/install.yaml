@@ -9,7 +9,7 @@ spec:
   path: ./cluster/system/intel-device-plugin
   sourceRef:
     kind: GitRepository
-    name: homelab-kubernetes
+    name: flux-system
   dependsOn:
     - name: system-node-feature-discovery
   prune: true
