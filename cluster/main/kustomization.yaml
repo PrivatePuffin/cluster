@@ -10,5 +10,6 @@ resources:
   - system.yaml
   - core.yaml
   - apps.yaml
+  - monitoring.yaml
   - add-ons/install.yaml
   - weave-gitops/install.yaml
