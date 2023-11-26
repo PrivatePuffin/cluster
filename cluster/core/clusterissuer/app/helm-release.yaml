@@ -53,6 +53,7 @@ spec:
     clusterCertificates:
       # Namespaces in which the certificates must be available
       # Accepts comma-separated regex expressions
+      replicationNamespaces: '.*'
       # replicationNamespaces: 'ix-.*'
       certificates:
         - name: tc-wildcard
