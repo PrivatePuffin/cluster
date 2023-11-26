@@ -4,3 +4,4 @@ resources:
   - metallb-config/install.yaml
   - clusterissuer/install.yaml
   - traefik/install.yaml
+  - velero/install.yaml
