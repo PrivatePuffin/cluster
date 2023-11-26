@@ -34,6 +34,10 @@ spec:
       passwordHash: "$2a$12$n52fcX4nRDi94sye0bPCS.WQt9.KHmk0anwzwARdCuoVuk5ICFAG2"
     ingress:
       enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints=websecure
+        cert-manager.io/cluster-issuer: tc-le-prod
+        cert-manager.io/private-key-rotation-policy: Always
       hosts:
         - host: gitops.${BASE_DOMAIN}
           paths:
