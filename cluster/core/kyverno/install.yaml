@@ -1,0 +1,46 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-kyverno
+  namespace: flux-system
+spec:
+  path: ./cluster/core/kyverno/app
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  prune: true
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: core-kyverno-policies
+  namespace: flux-system
+spec:
+  path: ./cluster/core/kyverno/policies
+  dependsOn:
+    - name: core-kyverno
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  prune: true
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
