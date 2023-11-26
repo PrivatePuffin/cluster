@@ -1,14 +1,34 @@
-VIP: 192.168.10.100
-MASTER1IP: 192.168.10.110
-MASTER2IP: 192.168.10.120
-MASTER3IP: 192.168.10.130
-GATEWAY: 192.168.10.1
-METALLB_RANGE: 192.168.10.230-192.168.10.250
-
-BASEDOMAIN: truecharts.org
-
-Blocky_IP: 192.168.10.230
-TRAEFIK_IP: 192.168.10.231
-
-EMAIL: info@truecharts.org
-CLOUDFLARE_TOKEN: <sometoken>
+VIP: ENC[AES256_GCM,data:XstHaNivM1FsNdU9Evo=,iv:W6uD9JNarauN4nUETv2v/7OxGruuFQxIn7h99iPnqZU=,tag:My1vCNIdV0X3srzDdx98Nw==,type:str]
+MASTER1IP: ENC[AES256_GCM,data:3McPGus7uM7wnYSub3U=,iv:kR6uNLpvktaB1PnyNSnjI4xGU0n3pcyRTmWPtCkVITg=,tag:knKPkEVxPzozjFpUTFizfw==,type:str]
+MASTER2IP: ENC[AES256_GCM,data:wzQ4wahIEAl/l9kqPAo=,iv:OXhlIMEO9O1/1spHFoKFhhqm6NMkG2mKpmAUqieLdE8=,tag:Bsfx2TOPBfy0XFDQ+INpqA==,type:str]
+MASTER3IP: ENC[AES256_GCM,data:+qhK4pcDpMI6neIClfU=,iv:lsUcP0E5DZDkqt/9FkiEqBUEe0WeRgTvtJnLmaeoRdI=,tag:LAQVWpm/NrcZM10GPbavWw==,type:str]
+GATEWAY: ENC[AES256_GCM,data:rrS/Wz19TnErXNtl,iv:pf1Bfl6cPFyz6zZjB+H6hrGwDn8DrHMENiJ3CNTTOi0=,tag:hlvBH0Thr+Ie/EhftXK/gA==,type:str]
+METALLB_RANGE: ENC[AES256_GCM,data:Pvto3Oty6TacsRDv8z/DufvDilJ8afAEnerhWY4=,iv:5Mv0laCowlIP3M2bwvnAtDtPvIKUKnOX/9YjYR/+K3Q=,tag:UYJLk+acRwfD9HyoZbPm9w==,type:str]
+BASE_DOMAIN: ENC[AES256_GCM,data:bPwjI/OlQkQVZdWG1L8=,iv:HReHYqxa3D6lpCGkp3GoYD9LsRYDAm2Ymjz4RgDsYbM=,tag:ftaMcd7qQ9vhqqGQtURfaQ==,type:str]
+Blocky_IP: ENC[AES256_GCM,data:2t1yXuVGFwTTTToOe4o=,iv:AR4KoaDHSY5+h8GlJGVOIm2qR7OkDud6xllqCWpOyzQ=,tag:t+Wjd+9mKgaph+wRmrxizg==,type:str]
+TRAEFIK_IP: ENC[AES256_GCM,data:0uhGBX2ZTUKSwj+thDM=,iv:HALqLLvTm/e/5GE7BNYqMCvXrEtqoxEgeZmuHenokdw=,tag:d2GPky3CZoNkpeS5Njdlsw==,type:str]
+EMAIL: ENC[AES256_GCM,data:J/Zc1vC9mtrHqWB03dtZfKrRRA==,iv:divdHqBYF7ltcQGyMEgoGdne9cA965tb5OvcEwYJK3w=,tag:LEaU1xArh1G3OPWa58usTQ==,type:str]
+CLOUDFLARE_TOKEN: ENC[AES256_GCM,data:wP+1EHdYobdraqM1/LarfHbF8Nr1VG+2cdmBM7DFa9RATiemjIh+xw==,iv:qW0X/a+cA/riAdn+ePOt9lHRvgK2Vr3cU/cr0aU2n8w=,tag:VdqJBFGYYpbFerAP+DuBjw==,type:str]
+GITHUB_TOKEN: ENC[AES256_GCM,data:8FHOtZPnC6HSFmskHXz0LuGlubJXrPNyrK+z0x/NnauaJhxp07yH7Q==,iv:fJ7iJ9JYoo4+IZCY+vqLLmcmCHcy+vdCDO8tF4MeBWo=,tag:H4ywgYmWUi7XUVMkGrCEWA==,type:str]
+GITHUB_USER: ENC[AES256_GCM,data:qyejtVJbDW4aQQ==,iv:6JTBfZUVcwupcIQoXmkwScIBF39pvn2eVWEsLKkhtL4=,tag:i9Y/otAIHZD7frrODeYafw==,type:str]
+GITHUB_REPOSITORY: ENC[AES256_GCM,data:b0KVjPJQOWWFT63IDvn13PKU,iv:ywzRIwvEy+HEdG5BBZQKN5Sj5m+d3kb7bLzv8CtV6NM=,tag:6fEBLJYFFpw3BnfCv37bJw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBIUzJnaC9HQXVFVkMyNmVW
+            RmtDSGk4ZlhPZ0o1andMMHJBa1RnbWlPd1YwClVZTVAxcHZNeERQVVRHZS9mZTNJ
+            Yjc0UDgyMTliZW5BL3ltK2VPa0RjdlEKLS0tIHJyV1Q0elVvVU9LTE1JUDdST2ht
+            TDVRMWlRMDFLVXNWTjlBSFdLdmJZSk0KPCZyPGREcLHIu/JxISqo92CcQb/I94yk
+            37OIzQvNnwAZWAhYJy8a0go39wFFU2IIjR7empbl+lgx7PCRyJ71Dw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-11-26T00:28:27Z"
+    mac: ENC[AES256_GCM,data:QfUn1vxZAfSQS6OP3S8UGrX4jNFwkou3fGSeicfmolfym2jiuchHiuiM8ffuO2SKzCwSBWcNpdGwFiFWI94jEw8gZMN6gbcCwEWw02Kok4zgSX5qeHU1vm/fgWdkISXnsP960QXAE7/SVdEuoqfQedd5JUfuJE6VNDKjFVJxTlw=,iv:4Yph+IwAkTJPtDT5B/HJzzqRY+rqK5TEFKvwKe5pGk0=,tag:7ejaVW3NaINTIDBWtLZefg==,type:str]
+    pgp: []
+    unencrypted_suffix: _unencrypted
+    version: 3.8.1
