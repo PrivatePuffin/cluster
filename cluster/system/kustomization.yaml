@@ -6,3 +6,4 @@ resources:
     - node-feature-discovery/install.yaml
     - reloader/install.yaml
     - kubernetes-reflector/install.yaml
+    - intel-device-plugin/install.yaml
