@@ -3,10 +3,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: core-traefik
+  name: core-velero
   namespace: flux-system
 spec:
-  path: ./cluster/core/traefik/app
+  path: ./cluster/core/velero/app
   sourceRef:
     kind: GitRepository
     name: flux-system
