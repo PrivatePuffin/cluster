@@ -56,7 +56,7 @@ spec:
       # replicationNamespaces: 'ix-.*'
       certificates:
         - name: tc-wildcard
-          enabled: false
+          enabled: true
           certificateIssuer: tc-le-prod
           hosts:
             - truecharts.org
