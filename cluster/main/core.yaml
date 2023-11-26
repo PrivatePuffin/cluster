@@ -11,6 +11,7 @@ spec:
     - name: operators
     - name: system
     - name: helm-repos
+    - name: flux-config
     path: ./cluster/core
     prune: true
     sourceRef:

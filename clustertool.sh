@@ -223,8 +223,8 @@ talhelper validate talconfig
 
 echo "(re)generating chart-config"
 rm -f ./cluster/main/flux-system/clustersettings.yaml || true
-cp ./templates/clustersettings.yaml.templ ./cluster/main/flux-system/clustersettings.yaml
-sed "s/^/  /" talenv.yaml >> ./cluster/main/flux-system/clustersettings.yaml
+cp ./templates/clustersettings.yaml.templ ./cluster/main/flux-config/app/clustersettings.secret.yaml
+sed "s/^/  /" talenv.yaml >> ./cluster/main/flux-config/app/clustersettings.secret.yaml
 }
 export -f regen
 

@@ -3,6 +3,10 @@ creation_rules:
   #   encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
   #   age: >-
   #     !!AGE!!
+  - path_regex: cluster.*\.secret.ya?ml
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
+    age: >-
+      !!AGE!!
   - path_regex: .*\.secret
     encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
     age: >-

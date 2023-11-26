@@ -12,6 +12,7 @@ spec:
     - name: system
     - name: core
     - name: helm-repos
+    - name: flux-config
     path: ./cluster/apps
     prune: true
     sourceRef:

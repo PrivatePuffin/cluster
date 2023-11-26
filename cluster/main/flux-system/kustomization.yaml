@@ -4,7 +4,6 @@ resources:
     # manifests generated during bootstrap
     - gotk-components.yaml
     - gotk-sync.yaml
-    - clustersettings.yaml
 patches:
     - patch: |
         apiVersion: apps/v1

@@ -9,6 +9,7 @@ spec:
     - name: crds
     - name: operators
     - name: helm-repos
+    - name: flux-config
     path: ./cluster/kube-system
     prune: true
     sourceRef:
