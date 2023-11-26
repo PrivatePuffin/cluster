@@ -6,7 +6,7 @@ metadata:
   name: monitoring-goldilocks
   namespace: flux-system
 spec:
-  path: ./cluster/system/goldilocks/app
+  path: ./cluster/monitoring/goldilocks/app
   sourceRef:
     kind: GitRepository
     name: flux-system
