@@ -55,8 +55,8 @@ echo "Installing velerocli..."
 curl -Ss https://i.jpillora.com/vmware-tanzu/velero! | bash > /dev/null || echo "installation failed..."
 
 echo "Installing talhelper..."
-#cur -Ssl https://i.jpillora.com/budimanjojo/talhelper! | bash > /dev/null || echo "installation failed..."
-rm -f /usr/local/bin/talhelper || true
+curl -Ssl https://i.jpillora.com/budimanjojo/talhelper! | bash > /dev/null || echo "installation failed..."
+
 cp talhelper /usr/local/bin/talhelper &&  chmod +x /usr/local/bin/talhelper || echo "installation failed..."
 
 echo "Installing pre-commit..."

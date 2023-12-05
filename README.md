@@ -140,6 +140,8 @@ AMD64 ISO: https://factory.talos.dev/image/9239d3b817f4812ea68d11a2fc71b3cd19262
 
 ARM64 ISO: https://factory.talos.dev/image/9239d3b817f4812ea68d11a2fc71b3cd192623a95f7f8d67d80baaa84f17c0df/v1.5.5/metal-arm64.iso
 
+Raspberry-Pi: https://factory.talos.dev/image/8e3aaa276e2b5ccbe7243708ef6a9c9ca80901b986232474eb8259627fec45db/v1.5.5/rpi-arm64.raw.xz
+
 **workers:**
 
 AMD64: https://factory.talos.dev/image/ae6f4bdea27db101ac59bacc1844267275f2778f4c5a9422609aebc4e0507eb1/v1.5.5/metal-amd64.iso
