@@ -24,7 +24,7 @@ check_health(){
    while ! ping -c1 ${1} &>/dev/null; do :; done
    if [ -f BOOTSTRAPPED ]; then
      echo "Checking Cluster Health..."
-     talosctl health --talosconfig clusterconfig/talosconfig -n ${VIP} >/dev/null 2>&1 || prompt_yn_node
+     talosctl health --talosconfig clusterconfig/talosconfig -n ${VIP} || prompt_yn_node
    fi
  else
    if [ -f BOOTSTRAPPED ]; then

@@ -4,9 +4,9 @@ kubernetesVersion: v1.28.3
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
-    - ENC[AES256_GCM,data:LuFBrwcZ,iv:KS7dASj0hVutz7lEu7UhIjkOy/AzNiqc74MYp4co9i0=,tag:c8Oa5ICSOHO1W7X93Qr/Gg==,type:str]
+    - ENC[AES256_GCM,data:4jlFqTl3,iv:HGAdRXU60c1fe3wZQ3tqPDxbs7dhBE23N9n9pZ50ZJ8=,tag:J3EhUUBth7ON3Jf4n0eGTA==,type:str]
 additionalApiServerCertSans:
-    - ENC[AES256_GCM,data:9ckozlrw,iv:xD1ActvJdpwE7cdFGEC7aMRn0dIG2iC1rjx8fHRuhCs=,tag:izUit0TMR1+vq3y96YjaIg==,type:str]
+    - ENC[AES256_GCM,data:1lN3NgPD,iv:JMDDm/BURxAx91kkD+DjZUK3+nR+myGCA8mn2yX4fKY=,tag:sspYowPHwsZXv3haqMxj0Q==,type:str]
 # Warning: Also used in Cilium CNI values!
 clusterPodNets:
     - 172.16.0.0/16
@@ -23,7 +23,8 @@ nodes:
       installDiskSelector:
         size: <= 1TB
       networkInterfaces:
-        - interface: eth0
+        # suffix is the adapter mac adres.
+        - interface: enxd83add59cce3
           addresses:
             - ${MASTER1IP}/24
           routes:
@@ -37,7 +38,8 @@ nodes:
       installDiskSelector:
         size: <= 1TB
       networkInterfaces:
-        - interface: eth0
+        # suffix is the adapter mac adres.
+        - interface: enxd83add598b01
           addresses:
             - ${MASTER2IP}/24
           routes:
@@ -51,7 +53,8 @@ nodes:
       installDiskSelector:
         size: <= 1TB
       networkInterfaces:
-        - interface: eth0
+        # suffix is the adapter mac adres.
+        - interface: enxd83add59cc24
           addresses:
             - ${MASTER3IP}/24
           routes:
@@ -60,7 +63,7 @@ nodes:
           vip:
             ip: ${VIP}
     - hostname: k8s-worker-1
-      ipAddress: 192.168.10.141
+      ipAddress: 192.168.10.111
       installDiskSelector:
         size: <= 600GB
 controlPlane:
@@ -68,18 +71,19 @@ controlPlane:
         - '@./patches/controlplane.json'
         - '@./patches/sopssecret.yaml'
         - '@./patches/kubePrism.json'
-    schematic:
-        customization:
-            extraKernelArgs:
-                - net.ifnames=0,
-                - ipv6.disable=1
-            systemExtensions:
-                officialExtensions:
-                    - siderolabs/amd-ucode
-                    - siderolabs/bnx2-bnx2x
-                    - siderolabs/i915-ucode
-                    - siderolabs/intel-ucode
-                    - siderolabs/qemu-guest-agent
+        # schematic:
+        #     customization:
+        #         # Required when not using enx* mac adress above in networkInterfaces
+        #         # extraKernelArgs:
+        #         #    - net.ifnames=0
+        #         systemExtensions:
+        #             officialExtensions:
+        #                 # Enable where needed
+        #                 # - siderolabs/amd-ucode
+        #                 # - siderolabs/bnx2-bnx2x
+        #                 # - siderolabs/i915-ucode
+        #                 # - siderolabs/intel-ucode
+        #                 # - siderolabs/qemu-guest-agent
 worker:
     patches:
         - '@./patches/worker.json'
@@ -87,19 +91,18 @@ worker:
         # - '@./patches/nvidia.json'
     schematic:
         customization:
-            extraKernelArgs:
-                - ipv6.disable=1
             systemExtensions:
                 officialExtensions:
-                    - siderolabs/amd-ucode
-                    - siderolabs/bnx2-bnx2x
+                    # Enable where needed
+                    # - siderolabs/amd-ucode
+                    # - siderolabs/bnx2-bnx2x
                     - siderolabs/iscsi-tools
                     - siderolabs/qemu-guest-agent
-                    - siderolabs/drbd
-                    - siderolabs/gasket-driver
-                    - siderolabs/i915-ucode
-                    - siderolabs/intel-ucode
-                    - siderolabs/thunderbolt
+                    # - siderolabs/drbd
+                    # - siderolabs/gasket-driver
+                    # - siderolabs/i915-ucode
+                    # - siderolabs/intel-ucode
+                    # - siderolabs/thunderbolt
 sops:
     kms: []
     gcp_kms: []
@@ -109,14 +112,14 @@ sops:
         - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA5MlZ0Rk9nWXAvY3ZueDk3
-            cURTQzFPZTBoT3k3aU1DWkNyZVUzK1RPdVdrCkZhRjljTzFkM1ZZbkhEb1BNUjd5
-            RWV3d2l6djFoYlRDRkJUbUEyZmZxbTQKLS0tIHV3V3lBcXo3RUNqdCtqWm5yWW5x
-            SWoyY0FnU2o2VlpNUkRkaGFBYXdNRVEK0cikSoZSwZgLvJDbZTyhJtb1rmD7AIu4
-            BXOFAx3M4Ibbcz1z/Q1rPnmGvTFiiP9DXI18lYZAlosd3v8Jv+bEGA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBoMnpPOUw1c0s2MklGQTZ0
+            Zy9RbTgxT3l4MEhOREs4c3ZmeEdPV2pFRlc4CnczOUR6akg2WlRRbERKVnBzMXVM
+            NUFNUW5jOHNkS0hPU0JLV3dKOFBVQU0KLS0tIEpKYmRiRnE5TzVXUlBhbnhFaGVs
+            QXgwSTAyajg1ejM2TnROWlp2cmxPMFkKrdc2U1+qpSlq+6aKdcknEov/6ag0bCxm
+            f44Ch5sg+NusuYzmlQWHjPsifSW3J/+mzNQh4nWlVAmjioQu3Q+BUA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-11-26T00:28:27Z"
-    mac: ENC[AES256_GCM,data:ycJcu1yxNs3jKI46i28Q2xY7scB1Gis8Y+3Nl+GF3i9fTGt2QutE0RIwHSwz9VHvfRbDiTa48ruNas0hegwo+9ptZj7MQv85whX9ozCF3Gar72hRfR8bwN32GMYX4covfKMcEnuGpOBeBWuQZZg/6d6uD46eAc+f9A1Ob+8r/bw=,iv:qF3dc8HuZGEmIXFUHSthQS8+ALG+wc85Pf2Ue0YcroQ=,tag:sfApRrosEdEE8ZaM+fQm4A==,type:str]
+    lastmodified: "2023-12-09T20:44:58Z"
+    mac: ENC[AES256_GCM,data:txA9XflV/ILOVJy9TGqriBnTJb8sVD0MQacbRxUauHQ8KYQkEsnyTwzEpHOyz3YR0tc4bQiZy5jNufbaii+9fFXv/Vq2cJd6wlKKWkga6tYSIJncnajKBpZTXCxjMdns2QbZbfUkjSSBewmFXLEe0UWf1XGHj6J1GEVYwUm8m/I=,iv:lF5pRNsbe6LmOTqwgMfm9luDwzEuaq4AFkSUF021Y/M=,tag:XnTsSIBuZKnI4kXFFDK9kg==,type:str]
     pgp: []
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.8.1
