@@ -4,7 +4,7 @@ resources:
     - prometheus-operator/install.yaml
     - cert-manager/install.yaml
     - metallb/install.yaml
-    - rook-ceph/install.yaml
+    - longhorn/install.yaml
     - cloudnative-pg/install.yaml
     - intel-device-plugin-operator/install.yaml
     - openebs/install.yaml

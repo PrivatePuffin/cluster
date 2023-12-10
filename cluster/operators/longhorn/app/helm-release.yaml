@@ -1,0 +1,85 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+    name: longhorn
+    namespace: longhorn
+spec:
+    interval: 5m
+    releaseName: longhorn
+    chart:
+        spec:
+            # renovate: registryUrl=https://charts.rook.io/release
+            chart: longhorn
+            version: 1.5.3
+            sourceRef:
+                kind: HelmRepository
+                name: longhorn-charts
+                namespace: flux-system
+    install:
+        createNamespace: true
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+      defaultSettings:
+        # backupTarget: s3://backupbucket@us-east-1/backupstore
+        # backupTargetCredentialSecret: minio-secret
+        createDefaultDiskLabeledNodes: true
+        defaultDataPath: /var/longhorn/local
+        replicaSoftAntiAffinity: true
+        storageOverProvisioningPercentage: 600
+        storageMinimalAvailablePercentage: 15
+        # upgradeChecker: false
+        defaultReplicaCount: 1
+        # defaultDataLocality: disabled
+        defaultLonghornStaticStorageClass: longhorn
+        # backupstorePollInterval: 500
+        # taintToleration: key1=value1:NoSchedule; key2:NoExecute
+        # systemManagedComponentsNodeSelector: "label-key1:label-value1"
+        # priorityClass: high-priority
+        # autoSalvage: false
+        disableSchedulingOnCordonedNode: true
+        replicaZoneSoftAntiAffinity: true
+        # volumeAttachmentRecoveryPolicy: never
+        # nodeDownPodDeletionPolicy: do-nothing
+        guaranteedInstanceManagerCpu: 15
+        orphanAutoDeletion: false
+
+      ingress:
+        ## Set to true to enable ingress record generation
+        enabled: true
+
+        host: longhorn.${BASE_DOMAIN2}
+
+        ## Set this to true in order to enable TLS on the ingress record
+        tls: true
+
+        ## Enable this in order to enable that the backend service will be connected at port 443
+        secureBackends: false
+
+        ## If TLS is set to true, you must declare what secret will store the key/certificate for TLS
+        tlsSecret: longhorn.local-tls
+
+        ## If ingress is enabled you can set the default ingress path
+        ## then you can access the UI by using the following full path {{host}}+{{path}}
+        path: /
+
+        ## Ingress annotations done as key:value pairs
+        ## If you're using kube-lego, you will want to add:
+        ## kubernetes.io/tls-acme: true
+        ##
+        ## For a full list of possible ingress annotations, please see
+        ## ref: https://github.com/kubernetes/ingress-nginx/blob/master/docs/annotations.md
+        ##
+        ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
+        annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: websecure
+              cert-manager.io/cluster-issuer: tc-le-prod
+              cert-manager.io/private-key-rotation-policy: Always
+              traefik.ingress.kubernetes.io/router.tls: 'true'
+        #  kubernetes.io/ingress.class: nginx
+        #  kubernetes.io/tls-acme: true

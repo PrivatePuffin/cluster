@@ -7,4 +7,3 @@ resources:
   - velero/install.yaml
   - kyverno
   - blocky/install.yaml
-  - rook-ceph/install.yaml

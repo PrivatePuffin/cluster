@@ -46,6 +46,17 @@
         "rshared",
         "rw",
         ]
-      }]
+      },
+      [{
+      "destination": "/var/longhorn/local",
+      "type": "bind",
+      "source": "/var/longhorn/local",
+      "options": [
+        "bind",
+        "rshared",
+        "rw",
+        ]
+      },
+      ]
   },
 ]
