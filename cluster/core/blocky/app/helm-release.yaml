@@ -30,20 +30,14 @@ spec:
   values:
     service:
       main:
-        ports:
-          main:
-            loadBalancerIP: ${BLOCKY_IP}
-            type: LoadBalancer
+        loadBalancerIP: ${BLOCKY_IP}
+        type: LoadBalancer
       dnstcp:
-        ports:
-          dnstcp:
-            loadBalancerIP: ${BLOCKY_IP}
-            type: LoadBalancer
+        loadBalancerIP: ${BLOCKY_IP}
+        type: LoadBalancer
       dnsudp:
-        ports:
-          dnsudp:
-            loadBalancerIP: ${BLOCKY_IP}
-            type: LoadBalancer
+        loadBalancerIP: ${BLOCKY_IP}
+        type: LoadBalancer
     customDNS:
       mapping:
         - domain: plex.schouten-lebbing.nl
