@@ -134,3 +134,6 @@ spec:
         options:
           - name: tls_servername
             value: cloudflare-dns.com
+    global:
+      fallbackDefaults:
+        storageClass: "openebs-hostpath"

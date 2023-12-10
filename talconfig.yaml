@@ -1,12 +1,12 @@
 clusterName: main
 talosVersion: v1.5.5
-kubernetesVersion: v1.28.3
+kubernetesVersion: v1.28.4
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
-    - ENC[AES256_GCM,data:rg89HBJ9,iv:J6yiEd+AW5Prem//uEr2KNJ3VjFOd+AzbJgBCHx+bTY=,tag:b0g+ScIxP27SiY5PFM9OgQ==,type:str]
+    - ENC[AES256_GCM,data:MsTxAse6,iv:QS4eSq0jseK+CEKoNy5np7PQ27PgcHXSa6ap/yG3X+U=,tag:avdyX1U2Ju5nbyow6Gn8dA==,type:str]
 additionalApiServerCertSans:
-    - ENC[AES256_GCM,data:iSFJvPou,iv:OsCRR+klEAH7yRdLx3NpfbY4NJkuUmgl6GtVsgYQ0Ds=,tag:uyG+52Vlkw0g4y9CE4y80A==,type:str]
+    - ENC[AES256_GCM,data:fs3gGbpb,iv:Foby6lZhrVMQPZxtUN+aKIWykozFi+PGBmtkFLlvySM=,tag:DqUQeaPdhHi3o7rPb0TXUw==,type:str]
 # Warning: Also used in Cilium CNI values!
 clusterPodNets:
     - 172.16.0.0/16
@@ -112,14 +112,14 @@ sops:
         - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2NW5iUEw5dzhkNm5EclNs
-            MVpZMnJCanhzZldaRXVUWTBqYnBYdUZNb1VJCklkZFZGTTk3SWVDdU9aNGdvWTRJ
-            Um41aWNuUUNrbC82NCtoMlVQdXdRQTgKLS0tIDBCeFZQVXFWU1pocG9SQi9YZjBF
-            Qmlpd3BaSm05Vk1ROU1xS3NWQzdrTU0KAwkf9rSXSJcf9NoQ+6DSIDHkNxzWN3tu
-            lthDH5jOor82Ix3eAAdF4en1j99AG/uJI/IYccAKYQERjkbIXhidbA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3U0JPdGd2WXdBNnZVaGxT
+            MUNZMG01a0hYS1hYQzFaWGl0NGhNTy9LREFBCk90S0hTV00xaWRxWTB4d0NsRUlt
+            VGZNaXJXMEVZcHZ4UUJtMXdaMnV0NTgKLS0tIGQ5MGlsUXlzSHVZTHJuL3dhNEUw
+            OVZDN2cvTU0rNStLS1YycTlBZVFQU1UKC12uBDKqHpVLmLQTGNdeeNrxBhxE9KqM
+            ffvuxLq4XNuuXfsHSgIwmw3QXbjbZPYJxxQJYRiIHDQVdzEcY7NVgw==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-10T10:20:37Z"
-    mac: ENC[AES256_GCM,data:bufwR4HXmjnqU6hO6MTezbWrcolZKDsPz29Z5FBLByUQ0H3icuqlFtw84vSy4ZYeRdA+sfQygorcF4NgJH+l7UJk8B+E2Zm61sviD9lhjL1ZNUHkFr9x/9fhzbxMZc2oMhKlWrTg1IOs1woriq/qkB2b1+KWxeRS6kZzkDE5hMI=,iv:uwH31dAHfqH//etx/aOT+ig5yRkKUHin7WVooOPdZDY=,tag:SzQVSKL+FMVT5JTT1j7TQQ==,type:str]
+    lastmodified: "2023-12-10T11:06:27Z"
+    mac: ENC[AES256_GCM,data:bI1Od2tyJ/h1q+JZ22yFmj6ARKtXvIHpRuxOu5rMPzKygInYrPFuiF1PR+Fc7PwcJB5lXC8iPdtyoFWTay38il0rC/oYu03tPdHZUkRfdH32IbjD+gUzFw+1nOxTGYfWuDFNJrEDqE2eh+6MIcU7t/Ah/jicigW8w0uHYplIijY=,iv:D1Pd50xqR6e04l29H5S8E9Mo5IR8XcItdLpq2BbSJTA=,tag:7W3+AkCUNXouIiuZ9a0I0Q==,type:str]
     pgp: []
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.8.1
