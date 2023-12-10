@@ -36,6 +36,10 @@ spec:
         bdev_async_discard = true
         bluefs_buffered_io = false
       cephClusterSpec:
+        mgr:
+          allowMultiplePerNode: true
+        mon:
+          allowMultiplePerNode: true
         resources:
           mgr:
             requests:
@@ -308,14 +312,6 @@ spec:
             reclaimPolicy: Delete
             allowVolumeExpansion: true
 
-      # All values below are taken from the CephCluster CRD
-      # -- Cluster configuration.
-      # @default -- See [below](#ceph-cluster-spec)
-      cephClusterSpec:
-        mgr:
-          allowMultiplePerNode: true
-        mon:
-          allowMultiplePerNode: true
       cephFileSystems: [ ]
       #   - name: ceph-filesystem
       #     spec:
