@@ -25,6 +25,8 @@ spec:
         remediation:
             retries: 3
     values:
+      csiAddons:
+        enabled: true
       toolbox:
         enabled: false
       monitoring:
