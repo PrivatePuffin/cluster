@@ -149,112 +149,112 @@ spec:
                     volumeMode: Block
                     accessModes:
                       - ReadWriteOnce
-            - name: metadata
-              count: 3
-              tuneFastDeviceClass: true
-              placement:
-                topologySpreadConstraints:
-                  - maxSkew: 1
-                    topologyKey: kubernetes.io/hostname
-                    whenUnsatisfiable: ScheduleAnyway
-                    labelSelector:
-                      matchExpressions:
-                        - key: app
-                          operator: In
-                          values:
-                            - rook-ceph-osd
-                            - rook-ceph-osd-prepare
-              preparePlacement:
-                podAntiAffinity:
-                  preferredDuringSchedulingIgnoredDuringExecution:
-                    - weight: 100
-                      podAffinityTerm:
-                        labelSelector:
-                          matchExpressions:
-                            - key: app
-                              operator: In
-                              values:
-                                - rook-ceph-osd
-                            - key: app
-                              operator: In
-                              values:
-                                - rook-ceph-osd-prepare
-                        topologyKey: kubernetes.io/hostname
-              resources: {}
-              # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
-              #   limits:
-              #     cpu: "500m"
-              #     memory: "4Gi"
-              #   requests:
-              #     cpu: "500m"
-              #     memory: "4Gi"
-              volumeClaimTemplates:
-                - metadata:
-                    name: metadata
-                    annotations:
-                      crushDeviceClass: nvme
-                  spec:
-                    resources:
-                      requests:
-                        storage: 30Gi
-                    # IMPORTANT: Change the storage class depending on your environment
-                    storageClassName: "openebs-hostpath"
-                    volumeMode: Block
-                    accessModes:
-                      - ReadWriteOnce
-            - name: wal
-              count: 3
-              tuneFastDeviceClass: true
-              placement:
-                topologySpreadConstraints:
-                  - maxSkew: 1
-                    topologyKey: kubernetes.io/hostname
-                    whenUnsatisfiable: ScheduleAnyway
-                    labelSelector:
-                      matchExpressions:
-                        - key: app
-                          operator: In
-                          values:
-                            - rook-ceph-osd
-                            - rook-ceph-osd-prepare
-              preparePlacement:
-                podAntiAffinity:
-                  preferredDuringSchedulingIgnoredDuringExecution:
-                    - weight: 100
-                      podAffinityTerm:
-                        labelSelector:
-                          matchExpressions:
-                            - key: app
-                              operator: In
-                              values:
-                                - rook-ceph-osd
-                            - key: app
-                              operator: In
-                              values:
-                                - rook-ceph-osd-prepare
-                        topologyKey: kubernetes.io/hostname
-              resources: {}
-              # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
-              #   limits:
-              #     cpu: "500m"
-              #     memory: "4Gi"
-              #   requests:
-              #     cpu: "500m"
-              #     memory: "4Gi"
-              volumeClaimTemplates:
-                - metadata:
-                    name: wal
-                    annotations:
-                      crushDeviceClass: nvme
-                  spec:
-                    resources:
-                      requests:
-                        storage: 10Gi
-                    # IMPORTANT: Change the storage class depending on your environment
-                    storageClassName: "openebs-hostpath"
-                    volumeMode: Block
-                    accessModes:
-                      - ReadWriteOnce
+            # - name: metadata
+            #   count: 3
+            #   tuneFastDeviceClass: true
+            #   placement:
+            #     topologySpreadConstraints:
+            #       - maxSkew: 1
+            #         topologyKey: kubernetes.io/hostname
+            #         whenUnsatisfiable: ScheduleAnyway
+            #         labelSelector:
+            #           matchExpressions:
+            #             - key: app
+            #               operator: In
+            #               values:
+            #                 - rook-ceph-osd
+            #                 - rook-ceph-osd-prepare
+            #   preparePlacement:
+            #     podAntiAffinity:
+            #       preferredDuringSchedulingIgnoredDuringExecution:
+            #         - weight: 100
+            #           podAffinityTerm:
+            #             labelSelector:
+            #               matchExpressions:
+            #                 - key: app
+            #                   operator: In
+            #                   values:
+            #                     - rook-ceph-osd
+            #                 - key: app
+            #                   operator: In
+            #                   values:
+            #                     - rook-ceph-osd-prepare
+            #             topologyKey: kubernetes.io/hostname
+            #   resources: {}
+            #   # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
+            #   #   limits:
+            #   #     cpu: "500m"
+            #   #     memory: "4Gi"
+            #   #   requests:
+            #   #     cpu: "500m"
+            #   #     memory: "4Gi"
+            #   volumeClaimTemplates:
+            #     - metadata:
+            #         name: metadata
+            #         annotations:
+            #           crushDeviceClass: nvme
+            #       spec:
+            #         resources:
+            #           requests:
+            #             storage: 30Gi
+            #         # IMPORTANT: Change the storage class depending on your environment
+            #         storageClassName: "openebs-hostpath"
+            #         volumeMode: Block
+            #         accessModes:
+            #           - ReadWriteOnce
+            # - name: wal
+            #   count: 3
+            #   tuneFastDeviceClass: true
+            #   placement:
+            #     topologySpreadConstraints:
+            #       - maxSkew: 1
+            #         topologyKey: kubernetes.io/hostname
+            #         whenUnsatisfiable: ScheduleAnyway
+            #         labelSelector:
+            #           matchExpressions:
+            #             - key: app
+            #               operator: In
+            #               values:
+            #                 - rook-ceph-osd
+            #                 - rook-ceph-osd-prepare
+            #   preparePlacement:
+            #     podAntiAffinity:
+            #       preferredDuringSchedulingIgnoredDuringExecution:
+            #         - weight: 100
+            #           podAffinityTerm:
+            #             labelSelector:
+            #               matchExpressions:
+            #                 - key: app
+            #                   operator: In
+            #                   values:
+            #                     - rook-ceph-osd
+            #                 - key: app
+            #                   operator: In
+            #                   values:
+            #                     - rook-ceph-osd-prepare
+            #             topologyKey: kubernetes.io/hostname
+            #   resources: {}
+            #   # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
+            #   #   limits:
+            #   #     cpu: "500m"
+            #   #     memory: "4Gi"
+            #   #   requests:
+            #   #     cpu: "500m"
+            #   #     memory: "4Gi"
+            #   volumeClaimTemplates:
+            #     - metadata:
+            #         name: wal
+            #         annotations:
+            #           crushDeviceClass: nvme
+            #       spec:
+            #         resources:
+            #           requests:
+            #             storage: 10Gi
+            #         # IMPORTANT: Change the storage class depending on your environment
+            #         storageClassName: "openebs-hostpath"
+            #         volumeMode: Block
+            #         accessModes:
+            #           - ReadWriteOnce
 
           # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement
           onlyApplyOSDPlacement: false
