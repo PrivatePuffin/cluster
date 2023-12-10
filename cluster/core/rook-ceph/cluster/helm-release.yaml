@@ -60,6 +60,13 @@ spec:
               memory: "49M"
             limits:
               memory: "5944M"
+          prepareosd:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 50m
+              memory: 51Mi
           mgr-sidecar:
             requests:
               cpu: "25m"
@@ -131,14 +138,14 @@ spec:
                               values:
                                 - rook-ceph-osd-prepare
                         topologyKey: kubernetes.io/hostname
-              resources:
-              # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
-                limits:
-                  cpu: "500m"
-                  memory: "4Gi"
-                requests:
-                  cpu: "15m"
-                  memory: "50Mi"
+              # resources:
+              # # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
+              #   limits:
+              #     cpu: "500m"
+              #     memory: "4Gi"
+              #   requests:
+              #     cpu: "15m"
+              #     memory: "50Mi"
               volumeClaimTemplates:
                 - metadata:
                     name: data
