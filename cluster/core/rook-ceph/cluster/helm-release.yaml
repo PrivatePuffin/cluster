@@ -25,11 +25,8 @@ spec:
         remediation:
             retries: 3
     values:
-      csi:
-        csiAddons:
-          enabled: true
       toolbox:
-        enabled: false
+        enabled: true
       monitoring:
         enabled: true
         createPrometheusRules: false
