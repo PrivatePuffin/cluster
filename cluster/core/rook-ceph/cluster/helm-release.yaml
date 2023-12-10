@@ -40,9 +40,11 @@ spec:
         bluefs_buffered_io = false
       cephClusterSpec:
         mgr:
-          allowMultiplePerNode: true
+          count: 1
+          allowMultiplePerNode: false
         mon:
-          allowMultiplePerNode: true
+          count: 1
+          allowMultiplePerNode: false
         resources:
           mgr:
             requests:
