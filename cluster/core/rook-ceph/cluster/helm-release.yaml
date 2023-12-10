@@ -35,7 +35,7 @@ spec:
         bdev_enable_discard = true
         bdev_async_discard = true
         bluefs_buffered_io = false
-
+      cephClusterSpec:
         resources:
           mgr:
             requests:
@@ -98,10 +98,7 @@ spec:
           storageClassDeviceSets:
             - name: local
               count: 3
-              portable: false
-              tuneDeviceClass: true
-              tuneFastDeviceClass: false
-              encrypted: false
+              tuneFastDeviceClass: true
               placement:
                 topologySpreadConstraints:
                   - maxSkew: 1
@@ -154,10 +151,7 @@ spec:
                       - ReadWriteOnce
             - name: metadata
               count: 3
-              portable: false
-              tuneDeviceClass: true
-              tuneFastDeviceClass: false
-              encrypted: false
+              tuneFastDeviceClass: true
               placement:
                 topologySpreadConstraints:
                   - maxSkew: 1
@@ -210,10 +204,7 @@ spec:
                       - ReadWriteOnce
             - name: wal
               count: 3
-              portable: false
-              tuneDeviceClass: true
-              tuneFastDeviceClass: false
-              encrypted: false
+              tuneFastDeviceClass: true
               placement:
                 topologySpreadConstraints:
                   - maxSkew: 1
