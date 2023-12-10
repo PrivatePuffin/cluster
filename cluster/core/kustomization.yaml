@@ -6,3 +6,4 @@ resources:
   - traefik/install.yaml
   - velero/install.yaml
   - kyverno
+  - blocky/install.yaml
