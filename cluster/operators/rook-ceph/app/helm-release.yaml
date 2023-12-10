@@ -28,7 +28,8 @@ spec:
         crds:
           enabled: true
         csi:
-          csiAddons: true
+          csiAddons:
+            enabled: true
         monitoring:
             enabled: true
         resources:
