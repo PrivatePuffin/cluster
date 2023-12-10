@@ -6,7 +6,7 @@ metadata:
   name: core-rook-ceph-cluster
   namespace: flux-system
 spec:
-  path: ./cluster/operators/rook-ceph/cluster
+  path: ./cluster/core/rook-ceph/cluster
   dependsOn:
     - name: operators-rook-ceph
     - name: operators-openebs
