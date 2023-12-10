@@ -29,7 +29,7 @@ spec:
           enabled: true
         csi:
           csiAddons:
-            enabled: true
+            enabled: false
         monitoring:
             enabled: true
         resources:
