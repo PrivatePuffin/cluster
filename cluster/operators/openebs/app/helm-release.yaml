@@ -5,7 +5,7 @@ metadata:
     namespace: openebs
 spec:
     interval: 5m
-    releaseName: rook-ceph
+    releaseName: openebs
     chart:
         spec:
             # renovate: registryUrl=https://charts.truecharts.org
