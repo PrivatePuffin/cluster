@@ -25,334 +25,333 @@ spec:
         remediation:
             retries: 3
     values:
-  values:
-    toolbox:
-      enabled: false
-    monitoring:
-      enabled: true
-      createPrometheusRules: false
-    configOverride: |
-      [global]
-      bdev_enable_discard = true
-      bdev_async_discard = true
-      bluefs_buffered_io = false
-
-      resources:
-        mgr:
-          requests:
-            cpu: "125m"
-            memory: "549M"
-          limits:
-            cpu: 2
-            memory: "1485M"
-        mon:
-          requests:
-            cpu: "49m"
-            memory: "1165M"
-          limits:
-            memory: "3390M"
-        osd:
-          requests:
-            cpu: "511m"
-            memory: "4067M"
-          limits:
-            memory: "5944M"
-        mgr-sidecar:
-          requests:
-            cpu: "49m"
-            memory: "94M"
-          limits:
-            memory: "227M"
-        crashcollector:
-          requests:
-            cpu: "15m"
-            memory: "64M"
-          limits:
-            memory: "64M"
-        logcollector:
-          requests:
-            cpu: "100m"
-            memory: "100M"
-          limits:
-            memory: "1G"
-        cleanup:
-          requests:
-            cpu: "250m"
-            memory: "100M"
-          limits:
-            memory: "1G"
-
-      crashCollector:
-        disable: false
-
-      dashboard:
+      toolbox:
+        enabled: false
+      monitoring:
         enabled: true
-        urlPrefix: /
-        ssl: false
+        createPrometheusRules: false
+      configOverride: |
+        [global]
+        bdev_enable_discard = true
+        bdev_async_discard = true
+        bluefs_buffered_io = false
 
-      storage:
-        useAllNodes: true
-        useAllDevices: true
-        config:
-          osdsPerDevice: "1"
+        resources:
+          mgr:
+            requests:
+              cpu: "125m"
+              memory: "549M"
+            limits:
+              cpu: 2
+              memory: "1485M"
+          mon:
+            requests:
+              cpu: "49m"
+              memory: "1165M"
+            limits:
+              memory: "3390M"
+          osd:
+            requests:
+              cpu: "511m"
+              memory: "4067M"
+            limits:
+              memory: "5944M"
+          mgr-sidecar:
+            requests:
+              cpu: "49m"
+              memory: "94M"
+            limits:
+              memory: "227M"
+          crashcollector:
+            requests:
+              cpu: "15m"
+              memory: "64M"
+            limits:
+              memory: "64M"
+          logcollector:
+            requests:
+              cpu: "100m"
+              memory: "100M"
+            limits:
+              memory: "1G"
+          cleanup:
+            requests:
+              cpu: "250m"
+              memory: "100M"
+            limits:
+              memory: "1G"
 
-        storageClassDeviceSets:
-          - name: local
-            count: 3
-            portable: false
-            tuneDeviceClass: true
-            tuneFastDeviceClass: false
-            encrypted: false
-            placement:
-              topologySpreadConstraints:
-                - maxSkew: 1
-                  topologyKey: kubernetes.io/hostname
-                  whenUnsatisfiable: ScheduleAnyway
-                  labelSelector:
-                    matchExpressions:
-                      - key: app
-                        operator: In
-                        values:
-                          - rook-ceph-osd
-                          - rook-ceph-osd-prepare
-            preparePlacement:
-              podAntiAffinity:
-                preferredDuringSchedulingIgnoredDuringExecution:
-                  - weight: 100
-                    podAffinityTerm:
-                      labelSelector:
-                        matchExpressions:
-                          - key: app
-                            operator: In
-                            values:
-                              - rook-ceph-osd
-                          - key: app
-                            operator: In
-                            values:
-                              - rook-ceph-osd-prepare
-                      topologyKey: kubernetes.io/hostname
-            resources: {}
-            # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
-            #   limits:
-            #     cpu: "500m"
-            #     memory: "4Gi"
-            #   requests:
-            #     cpu: "500m"
-            #     memory: "4Gi"
-            volumeClaimTemplates:
-              - metadata:
-                  name: data
-                  annotations:
-                    crushDeviceClass: nvme
-                spec:
-                  resources:
-                    requests:
-                      storage: 10Gi
-                  # IMPORTANT: Change the storage class depending on your environment
-                  storageClassName: "openebs-hostpath"
-                  volumeMode: Block
-                  accessModes:
-                    - ReadWriteOnce
-          - name: metadata
-            count: 3
-            portable: false
-            tuneDeviceClass: true
-            tuneFastDeviceClass: false
-            encrypted: false
-            placement:
-              topologySpreadConstraints:
-                - maxSkew: 1
-                  topologyKey: kubernetes.io/hostname
-                  whenUnsatisfiable: ScheduleAnyway
-                  labelSelector:
-                    matchExpressions:
-                      - key: app
-                        operator: In
-                        values:
-                          - rook-ceph-osd
-                          - rook-ceph-osd-prepare
-            preparePlacement:
-              podAntiAffinity:
-                preferredDuringSchedulingIgnoredDuringExecution:
-                  - weight: 100
-                    podAffinityTerm:
-                      labelSelector:
-                        matchExpressions:
-                          - key: app
-                            operator: In
-                            values:
-                              - rook-ceph-osd
-                          - key: app
-                            operator: In
-                            values:
-                              - rook-ceph-osd-prepare
-                      topologyKey: kubernetes.io/hostname
-            resources: {}
-            # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
-            #   limits:
-            #     cpu: "500m"
-            #     memory: "4Gi"
-            #   requests:
-            #     cpu: "500m"
-            #     memory: "4Gi"
-            volumeClaimTemplates:
-              - metadata:
-                  name: metadata
-                  annotations:
-                    crushDeviceClass: nvme
-                spec:
-                  resources:
-                    requests:
-                      storage: 30Gi
-                  # IMPORTANT: Change the storage class depending on your environment
-                  storageClassName: "openebs-hostpath"
-                  volumeMode: Block
-                  accessModes:
-                    - ReadWriteOnce
-          - name: wal
-            count: 3
-            portable: false
-            tuneDeviceClass: true
-            tuneFastDeviceClass: false
-            encrypted: false
-            placement:
-              topologySpreadConstraints:
-                - maxSkew: 1
-                  topologyKey: kubernetes.io/hostname
-                  whenUnsatisfiable: ScheduleAnyway
-                  labelSelector:
-                    matchExpressions:
-                      - key: app
-                        operator: In
-                        values:
-                          - rook-ceph-osd
-                          - rook-ceph-osd-prepare
-            preparePlacement:
-              podAntiAffinity:
-                preferredDuringSchedulingIgnoredDuringExecution:
-                  - weight: 100
-                    podAffinityTerm:
-                      labelSelector:
-                        matchExpressions:
-                          - key: app
-                            operator: In
-                            values:
-                              - rook-ceph-osd
-                          - key: app
-                            operator: In
-                            values:
-                              - rook-ceph-osd-prepare
-                      topologyKey: kubernetes.io/hostname
-            resources: {}
-            # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
-            #   limits:
-            #     cpu: "500m"
-            #     memory: "4Gi"
-            #   requests:
-            #     cpu: "500m"
-            #     memory: "4Gi"
-            volumeClaimTemplates:
-              - metadata:
-                  name: wal
-                  annotations:
-                    crushDeviceClass: nvme
-                spec:
-                  resources:
-                    requests:
-                      storage: 10Gi
-                  # IMPORTANT: Change the storage class depending on your environment
-                  storageClassName: "openebs-hostpath"
-                  volumeMode: Block
-                  accessModes:
-                    - ReadWriteOnce
+        crashCollector:
+          disable: false
 
-        # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement
-        onlyApplyOSDPlacement: false
-
-
-    ingress:
-      dashboard:
-        annotations:
-          ingress.home.arpa/type: "internal"
-        host:
-          name: "rook.${BASE_DOMAIN2}"
-          path: "/"
-
-    cephBlockPools:
-      - name: ceph-nvme
-        spec:
-          failureDomain: osd
-          deviceClass: nvme
-          replicated:
-            size: 2
-        storageClass:
+        dashboard:
           enabled: true
-          name: ceph-nvme
-          isDefault: true
-          reclaimPolicy: Delete
-          allowVolumeExpansion: true
+          urlPrefix: /
+          ssl: false
 
-      - name: ceph-ssd
-        spec:
-          failureDomain: osd
-          deviceClass: ssd
-          replicated:
-            size: 1
-        storageClass:
-          enabled: true
-          name: ceph-ssd
-          isDefault: false
-          reclaimPolicy: Delete
-          allowVolumeExpansion: true
+        storage:
+          useAllNodes: true
+          useAllDevices: true
+          config:
+            osdsPerDevice: "1"
 
-      - name: ceph-hdd
-        spec:
-          failureDomain: osd
-          deviceClass: hdd
-          replicated:
-            size: 1
-        storageClass:
-          enabled: true
-          name: ceph-hdd
-          isDefault: false
-          reclaimPolicy: Delete
-          allowVolumeExpansion: true
+          storageClassDeviceSets:
+            - name: local
+              count: 3
+              portable: false
+              tuneDeviceClass: true
+              tuneFastDeviceClass: false
+              encrypted: false
+              placement:
+                topologySpreadConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+                    labelSelector:
+                      matchExpressions:
+                        - key: app
+                          operator: In
+                          values:
+                            - rook-ceph-osd
+                            - rook-ceph-osd-prepare
+              preparePlacement:
+                podAntiAffinity:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                    - weight: 100
+                      podAffinityTerm:
+                        labelSelector:
+                          matchExpressions:
+                            - key: app
+                              operator: In
+                              values:
+                                - rook-ceph-osd
+                            - key: app
+                              operator: In
+                              values:
+                                - rook-ceph-osd-prepare
+                        topologyKey: kubernetes.io/hostname
+              resources: {}
+              # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
+              #   limits:
+              #     cpu: "500m"
+              #     memory: "4Gi"
+              #   requests:
+              #     cpu: "500m"
+              #     memory: "4Gi"
+              volumeClaimTemplates:
+                - metadata:
+                    name: data
+                    annotations:
+                      crushDeviceClass: nvme
+                  spec:
+                    resources:
+                      requests:
+                        storage: 10Gi
+                    # IMPORTANT: Change the storage class depending on your environment
+                    storageClassName: "openebs-hostpath"
+                    volumeMode: Block
+                    accessModes:
+                      - ReadWriteOnce
+            - name: metadata
+              count: 3
+              portable: false
+              tuneDeviceClass: true
+              tuneFastDeviceClass: false
+              encrypted: false
+              placement:
+                topologySpreadConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+                    labelSelector:
+                      matchExpressions:
+                        - key: app
+                          operator: In
+                          values:
+                            - rook-ceph-osd
+                            - rook-ceph-osd-prepare
+              preparePlacement:
+                podAntiAffinity:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                    - weight: 100
+                      podAffinityTerm:
+                        labelSelector:
+                          matchExpressions:
+                            - key: app
+                              operator: In
+                              values:
+                                - rook-ceph-osd
+                            - key: app
+                              operator: In
+                              values:
+                                - rook-ceph-osd-prepare
+                        topologyKey: kubernetes.io/hostname
+              resources: {}
+              # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
+              #   limits:
+              #     cpu: "500m"
+              #     memory: "4Gi"
+              #   requests:
+              #     cpu: "500m"
+              #     memory: "4Gi"
+              volumeClaimTemplates:
+                - metadata:
+                    name: metadata
+                    annotations:
+                      crushDeviceClass: nvme
+                  spec:
+                    resources:
+                      requests:
+                        storage: 30Gi
+                    # IMPORTANT: Change the storage class depending on your environment
+                    storageClassName: "openebs-hostpath"
+                    volumeMode: Block
+                    accessModes:
+                      - ReadWriteOnce
+            - name: wal
+              count: 3
+              portable: false
+              tuneDeviceClass: true
+              tuneFastDeviceClass: false
+              encrypted: false
+              placement:
+                topologySpreadConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: ScheduleAnyway
+                    labelSelector:
+                      matchExpressions:
+                        - key: app
+                          operator: In
+                          values:
+                            - rook-ceph-osd
+                            - rook-ceph-osd-prepare
+              preparePlacement:
+                podAntiAffinity:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                    - weight: 100
+                      podAffinityTerm:
+                        labelSelector:
+                          matchExpressions:
+                            - key: app
+                              operator: In
+                              values:
+                                - rook-ceph-osd
+                            - key: app
+                              operator: In
+                              values:
+                                - rook-ceph-osd-prepare
+                        topologyKey: kubernetes.io/hostname
+              resources: {}
+              # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
+              #   limits:
+              #     cpu: "500m"
+              #     memory: "4Gi"
+              #   requests:
+              #     cpu: "500m"
+              #     memory: "4Gi"
+              volumeClaimTemplates:
+                - metadata:
+                    name: wal
+                    annotations:
+                      crushDeviceClass: nvme
+                  spec:
+                    resources:
+                      requests:
+                        storage: 10Gi
+                    # IMPORTANT: Change the storage class depending on your environment
+                    storageClassName: "openebs-hostpath"
+                    volumeMode: Block
+                    accessModes:
+                      - ReadWriteOnce
 
-    # All values below are taken from the CephCluster CRD
-    # -- Cluster configuration.
-    # @default -- See [below](#ceph-cluster-spec)
-    cephClusterSpec:
-      mgr:
-        allowMultiplePerNode: true
-      mon:
-        allowMultiplePerNode: true
-    cephFileSystems: [ ]
-    #   - name: ceph-filesystem
-    #     spec:
-    #       metadataPool:
-    #         replicated:
-    #           size: 3
-    #       dataPools:
-    #         - failureDomain: host
-    #           replicated:
-    #             size: 3
-    #       metadataServer:
-    #         activeCount: 1
-    #         activeStandby: true
-    #     storageClass:
-    #       enabled: true
-    #       isDefault: false
-    #       name: ceph-filesystem
-    #       reclaimPolicy: Delete
-    #       allowVolumeExpansion: true
-    #       mountOptions: []
-    #       parameters:
-    #         csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-    #         csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
-    #         csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-    #         csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
-    #         csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-    #         csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
-    #         csi.storage.k8s.io/fstype: ext4
+          # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement
+          onlyApplyOSDPlacement: false
 
-    cephObjectStores: []
+
+      ingress:
+        dashboard:
+          annotations:
+            ingress.home.arpa/type: "internal"
+          host:
+            name: "rook.${BASE_DOMAIN2}"
+            path: "/"
+
+      cephBlockPools:
+        - name: ceph-nvme
+          spec:
+            failureDomain: osd
+            deviceClass: nvme
+            replicated:
+              size: 2
+          storageClass:
+            enabled: true
+            name: ceph-nvme
+            isDefault: true
+            reclaimPolicy: Delete
+            allowVolumeExpansion: true
+
+        - name: ceph-ssd
+          spec:
+            failureDomain: osd
+            deviceClass: ssd
+            replicated:
+              size: 1
+          storageClass:
+            enabled: true
+            name: ceph-ssd
+            isDefault: false
+            reclaimPolicy: Delete
+            allowVolumeExpansion: true
+
+        - name: ceph-hdd
+          spec:
+            failureDomain: osd
+            deviceClass: hdd
+            replicated:
+              size: 1
+          storageClass:
+            enabled: true
+            name: ceph-hdd
+            isDefault: false
+            reclaimPolicy: Delete
+            allowVolumeExpansion: true
+
+      # All values below are taken from the CephCluster CRD
+      # -- Cluster configuration.
+      # @default -- See [below](#ceph-cluster-spec)
+      cephClusterSpec:
+        mgr:
+          allowMultiplePerNode: true
+        mon:
+          allowMultiplePerNode: true
+      cephFileSystems: [ ]
+      #   - name: ceph-filesystem
+      #     spec:
+      #       metadataPool:
+      #         replicated:
+      #           size: 3
+      #       dataPools:
+      #         - failureDomain: host
+      #           replicated:
+      #             size: 3
+      #       metadataServer:
+      #         activeCount: 1
+      #         activeStandby: true
+      #     storageClass:
+      #       enabled: true
+      #       isDefault: false
+      #       name: ceph-filesystem
+      #       reclaimPolicy: Delete
+      #       allowVolumeExpansion: true
+      #       mountOptions: []
+      #       parameters:
+      #         csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+      #         csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+      #         csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+      #         csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+      #         csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+      #         csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+      #         csi.storage.k8s.io/fstype: ext4
+
+      cephObjectStores: []
