@@ -28,6 +28,22 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    service:
+      main:
+        ports:
+          main:
+            loadBalancerIP: ${BLOCKY_IP}
+            type: LoadBalancer
+      dnstcp:
+        ports:
+          dnstcp:
+            loadBalancerIP: ${BLOCKY_IP}
+            type: LoadBalancer
+      dnsudp:
+        ports:
+          dnsudp:
+            loadBalancerIP: ${BLOCKY_IP}
+            type: LoadBalancer
     customDNS:
       mapping:
         - domain: plex.schouten-lebbing.nl
@@ -56,22 +72,6 @@ spec:
           dnsserver: 192.168.10.200
         - domain: inmanic.schouten-lebbing.nl
           dnsserver: 192.168.10.200
-    service:
-      main:
-        ports:
-          main:
-            loadBalancerIP: ${BLOCKY_IP}
-            type: LoadBalancer
-      dnstcp:
-        ports:
-          dnstcp:
-            loadBalancerIP: ${BLOCKY_IP}
-            type: LoadBalancer
-      dnsudp:
-        ports:
-          dnsudp:
-            loadBalancerIP: ${BLOCKY_IP}
-            type: LoadBalancer
     # -- set blocking settings using Lists
     # Primarily designed for inclusion in the TrueNAS SCALE GUI
     blocking:
