@@ -131,14 +131,14 @@ spec:
                               values:
                                 - rook-ceph-osd-prepare
                         topologyKey: kubernetes.io/hostname
-              resources: {}
+              resources:
               # These are the OSD daemon limits. For OSD prepare limits, see the separate section below for "prepareosd" resources
-              #   limits:
-              #     cpu: "500m"
-              #     memory: "4Gi"
-              #   requests:
-              #     cpu: "500m"
-              #     memory: "4Gi"
+                limits:
+                  cpu: "500m"
+                  memory: "4Gi"
+                requests:
+                  cpu: "15m"
+                  memory: "50Mi"
               volumeClaimTemplates:
                 - metadata:
                     name: data
