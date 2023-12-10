@@ -139,3 +139,6 @@ spec:
     redis:
       fallbackDefaults:
         storageClass: "openebs-hostpath"
+      persistence:
+        data:
+          storageClass: "openebs-hostpath"
