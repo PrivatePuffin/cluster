@@ -26,15 +26,9 @@ spec:
             retries: 3
     values:
         crds:
-            enabled: true
+          enabled: true
         csi:
-            kubeletDirPath: /var/lib/kubelet
-            enableCSIHostNetwork: true
-            pluginTolerations:
-                - effect: NoExecute
-                  operator: Exists
-                - effect: NoSchedule
-                  operator: Exists
+          csiAddons: true
         monitoring:
             enabled: true
         resources:
