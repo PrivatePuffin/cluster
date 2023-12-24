@@ -1,12 +1,12 @@
 clusterName: main
-talosVersion: v1.5.5
-kubernetesVersion: v1.28.4
+talosVersion: v1.6.1
+kubernetesVersion: v1.29.0
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
-    - ENC[AES256_GCM,data:MsTxAse6,iv:QS4eSq0jseK+CEKoNy5np7PQ27PgcHXSa6ap/yG3X+U=,tag:avdyX1U2Ju5nbyow6Gn8dA==,type:str]
+    - ENC[AES256_GCM,data:1UK0OREe,iv:QAI76oRfEL2n6KjLxh3In0a8liyaiBOzLo+Lg6rHH+Y=,tag:7GNS+BhiXgxlmtlc2s+01Q==,type:str]
 additionalApiServerCertSans:
-    - ENC[AES256_GCM,data:fs3gGbpb,iv:Foby6lZhrVMQPZxtUN+aKIWykozFi+PGBmtkFLlvySM=,tag:DqUQeaPdhHi3o7rPb0TXUw==,type:str]
+    - ENC[AES256_GCM,data:FTr4v9Mg,iv:yD8RqWQ8Mmj/Y8qlenlGuZAmJZCJutQqV7myT+PahFo=,tag:uPOeqPDrvKggUv0PmIbgqA==,type:str]
 # Warning: Also used in Cilium CNI values!
 clusterPodNets:
     - 172.16.0.0/16
@@ -62,10 +62,18 @@ nodes:
               gateway: ${GATEWAY}
           vip:
             ip: ${VIP}
-    - hostname: k8s-worker-1
-      ipAddress: 192.168.10.111
+    - hostname: k8s-worker-vm-1
+      ipAddress: 192.168.10.112
       installDiskSelector:
-        size: <= 600GB
+        size: <= 400GB
+    - hostname: k8s-worker-vm-2
+      ipAddress: 192.168.10.122
+      installDiskSelector:
+        size: <= 400GB
+    - hostname: k8s-worker-vm-3
+      ipAddress: 192.168.10.132
+      installDiskSelector:
+        size: <= 400GB
 controlPlane:
     patches:
         - '@./patches/controlplane.json'
@@ -112,14 +120,14 @@ sops:
         - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB3U0JPdGd2WXdBNnZVaGxT
-            MUNZMG01a0hYS1hYQzFaWGl0NGhNTy9LREFBCk90S0hTV00xaWRxWTB4d0NsRUlt
-            VGZNaXJXMEVZcHZ4UUJtMXdaMnV0NTgKLS0tIGQ5MGlsUXlzSHVZTHJuL3dhNEUw
-            OVZDN2cvTU0rNStLS1YycTlBZVFQU1UKC12uBDKqHpVLmLQTGNdeeNrxBhxE9KqM
-            ffvuxLq4XNuuXfsHSgIwmw3QXbjbZPYJxxQJYRiIHDQVdzEcY7NVgw==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBFYkFHWCtWNXcyNWNzblkv
+            bjFaVkhTN2thdTE4d3ozODFLaTVVY1BTclZnCjd2R0RaNklCL0R1cDR0WDZmbU03
+            RUFzSkFtYlZwdVo2MW1xMlpEYTB0encKLS0tIGdVQ0ZZZm1DOHBnZlVzUjMvWUgw
+            SkxidmdyMnZreGJOWUcxUGhaeXlEZFEKE1w1QiachjfNGivoibrHfsN4TZHnUFEn
+            aaIPbpGoXuGDVOvma+ULtRfshrUcyBrqvS3G2emTq/SDpihuz9p6vg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-10T11:06:27Z"
-    mac: ENC[AES256_GCM,data:bI1Od2tyJ/h1q+JZ22yFmj6ARKtXvIHpRuxOu5rMPzKygInYrPFuiF1PR+Fc7PwcJB5lXC8iPdtyoFWTay38il0rC/oYu03tPdHZUkRfdH32IbjD+gUzFw+1nOxTGYfWuDFNJrEDqE2eh+6MIcU7t/Ah/jicigW8w0uHYplIijY=,iv:D1Pd50xqR6e04l29H5S8E9Mo5IR8XcItdLpq2BbSJTA=,tag:7W3+AkCUNXouIiuZ9a0I0Q==,type:str]
+    lastmodified: "2023-12-24T21:50:37Z"
+    mac: ENC[AES256_GCM,data:uq8yHWsclfhFHtTsnA13J4qFNf/g+r0aMgGLfY1CusJPGL8b2CaHsy8eOMpnTOSW4sOSTTCP2gZ07HwglQiFME0gCltZPJcbDcBGpH+O0vZepsLiYa/lcE7m2YCchNv4ZF5UOcpKFTgoqsTBoUujQJ85oCgN5d2lgyKQ/JQ1Kk8=,iv:jb27ECwJPKNpOHtqBeX/g2vP/XkuUBU8Pi9AQYuqhhk=,tag:JflqR6ratlKVFi86+x3KGQ==,type:str]
     pgp: []
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.8.1

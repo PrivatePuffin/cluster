@@ -5,3 +5,6 @@ main-k8s-worker-1.yaml
 main-k8s-worker-2.yaml
 main-k8s-worker-3.yaml
 talosconfig
+main-k8s-worker-vm-1.yaml
+main-k8s-worker-vm-2.yaml
+main-k8s-worker-vm-3.yaml
