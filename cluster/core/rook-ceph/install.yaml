@@ -9,7 +9,6 @@ spec:
   path: ./cluster/core/rook-ceph/cluster
   dependsOn:
     - name: operators-rook-ceph
-    - name: operators-openebs
   sourceRef:
     kind: GitRepository
     name: flux-system
