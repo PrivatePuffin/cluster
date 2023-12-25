@@ -41,7 +41,7 @@ spec:
     customDNS:
       mapping:
         - domain: schouten-lebbing.nl
-          dnsserver: 192.168.10.203
+          dnsserver: 192.168.10.202
     # -- set blocking settings using Lists
     # Primarily designed for inclusion in the TrueNAS SCALE GUI
     blocking:
