@@ -40,32 +40,8 @@ spec:
         type: LoadBalancer
     customDNS:
       mapping:
-        - domain: plex.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: sonarr.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: radarr.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: lidarr.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: tautulli.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: vaultwarden.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: bitwarden.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: auth.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: n8n.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: overseerr.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: prowlarr.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: transmission.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
-        - domain: inmanic.schouten-lebbing.nl
-          dnsserver: 192.168.10.200
+        - domain: schouten-lebbing.nl
+          dnsserver: 192.168.10.203
     # -- set blocking settings using Lists
     # Primarily designed for inclusion in the TrueNAS SCALE GUI
     blocking:
