@@ -41,7 +41,7 @@ spec:
           type: "cloudflare"
           # for cloudflare
           cfapitoken: "${CLOUDFLARE_TOKEN}"
-        - name: ks-le-prod
+        - name: tc-le-prod
           # Used for both logging in to the DNS provider AND ACME registration
           email: "${EMAIL}"
           server: 'https://acme-v02.api.letsencrypt.org/directory'
@@ -74,7 +74,7 @@ spec:
       certificates:
         - name: tc-wildcard
           enabled: true
-          certificateIssuer: ks-le-prod
+          certificateIssuer: tc-le-prod
           hosts:
             - truecharts.org
             - '*.truecharts.org'
