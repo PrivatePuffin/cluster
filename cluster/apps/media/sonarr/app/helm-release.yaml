@@ -47,11 +47,11 @@ spec:
       media:
         enabled: true
         existingClaim: media-nfs-pvc
-        mountMath: "/media"
+        mountPath: "/media"
       downloads:
         enabled: true
         existingClaim: downloads-nfs-pvc
-        mountMath: "/downloads"
+        mountPath: "/downloads"
       backup:
         enabled: true
         existingClaim: media-backups-pvc

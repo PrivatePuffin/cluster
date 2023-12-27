@@ -47,4 +47,4 @@ spec:
       downloads:
         enabled: true
         existingClaim: downloads-nfs-pvc
-        mountMath: "/downloads"
+        mountPath: "/downloads"
