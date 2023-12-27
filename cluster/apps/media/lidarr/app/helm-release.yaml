@@ -39,7 +39,7 @@ spec:
         integrations:
           traefik:
             enabled: true
-          cert-manager:
+          certManager:
             enabled: true
             certificateIssuer: ks-le-prod
         ingressClassName:  ""
