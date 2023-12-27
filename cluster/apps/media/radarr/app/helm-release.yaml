@@ -36,7 +36,12 @@ spec:
     ingress:
       main:
         enabled: true
-        certificateIssuer: ks-le-prod
+        integrations:
+          traefik:
+            enabled: true
+          cert-manager:
+            enabled: true
+            certificateIssuer: ks-le-prod
         ingressClassName:  ""
         hosts:
           - host: radarr.${BASE_DOMAIN2}
