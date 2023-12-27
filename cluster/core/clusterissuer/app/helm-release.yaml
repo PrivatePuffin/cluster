@@ -41,7 +41,7 @@ spec:
           type: "cloudflare"
           # for cloudflare
           cfapitoken: "${CLOUDFLARE_TOKEN}"
-        - name: le-prod
+        - name: ks-le-prod
           # Used for both logging in to the DNS provider AND ACME registration
           email: "${EMAIL}"
           server: 'https://acme-v02.api.letsencrypt.org/directory'
@@ -49,7 +49,7 @@ spec:
           type: "cloudflare"
           # for cloudflare
           cfapitoken: "${CLOUDFLARE_TOKEN}"
-        - name: le-staging
+        - name: ks-le-staging
           # Used for both logging in to the DNS provider AND ACME registration
           email: "${EMAIL2}"
           server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
@@ -57,7 +57,7 @@ spec:
           type: "cloudflare"
           # for cloudflare
           cfapitoken: "${CLOUDFLARE_TOKEN2}"
-        - name: le-prod
+        - name: ks-le-prod
           # Used for both logging in to the DNS provider AND ACME registration
           email: "${EMAIL2}"
           server: 'https://acme-v02.api.letsencrypt.org/directory'
@@ -74,13 +74,13 @@ spec:
       certificates:
         - name: tc-wildcard
           enabled: true
-          certificateIssuer: le-prod
+          certificateIssuer: ks-le-prod
           hosts:
             - truecharts.org
             - '*.truecharts.org'
         - name: wildcard
           enabled: true
-          certificateIssuer: le-prod
+          certificateIssuer: ks-le-prod
           hosts:
             - kjeldschouten.nl
             - '*.kjeldschouten.nl'
