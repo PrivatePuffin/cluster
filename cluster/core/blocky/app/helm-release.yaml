@@ -104,11 +104,3 @@ spec:
         options:
           - name: tls_servername
             value: cloudflare-dns.com
-    fallbackDefaults:
-      storageClass: "openebs-hostpath"
-    redis:
-      fallbackDefaults:
-        storageClass: "openebs-hostpath"
-      persistence:
-        data:
-          storageClass: "openebs-hostpath"
