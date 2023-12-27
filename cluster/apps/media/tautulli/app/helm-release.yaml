@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: bazarr
+  name: tautulli
   namespace: media
 spec:
   interval: 15m
   chart:
     spec:
-      chart: bazarr
+      chart: tautulli
       version: 10.0.2
       sourceRef:
         kind: HelmRepository
@@ -46,19 +46,11 @@ spec:
             certificateIssuer: ks-le-prod
         ingressClassName:  ""
         hosts:
-          - host: bazarr.${BASE_DOMAIN2}
+          - host: tautulli.${BASE_DOMAIN2}
             paths:
               - path: /
                 pathType: Prefix
     persistence:
-      media:
-        enabled: true
-        existingClaim: media-nfs-pvc
-        mountPath: "/media"
-      downloads:
-        enabled: true
-        existingClaim: downloads-nfs-pvc
-        mountPath: "/downloads"
       backup:
         enabled: true
         existingClaim: media-backups-pvc

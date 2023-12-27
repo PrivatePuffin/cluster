@@ -12,3 +12,6 @@ resources:
   - qbittorrent/install.yaml
   - radarr/install.yaml
   - sonarr/install.yaml
+  - bazarr/install.yaml
+  - overseerr/install.yaml
+  - tautulli/install.yaml
