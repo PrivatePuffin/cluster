@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: autobrr
-      version: 6.0.4
+      version: 7.1.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
