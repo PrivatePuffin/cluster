@@ -35,8 +35,6 @@ spec:
 
     ingress:
       main:
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls: 'true'
         enabled: true
         integrations:
           traefik:
