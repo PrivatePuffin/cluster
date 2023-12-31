@@ -31,7 +31,9 @@ spec:
 
 
 
-
+    metrics:
+      main:
+        enabled: false
 
     ingress:
       main:

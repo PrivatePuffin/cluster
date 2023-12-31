@@ -30,7 +30,9 @@ spec:
   values:
 
 
-
+    metrics:
+      main:
+        enabled: false
 
 
     ingress:
