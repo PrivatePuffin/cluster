@@ -37,8 +37,6 @@ spec:
         enabled: true
 
         ingress:
-          annotations:
-            traefik.ingress.kubernetes.io/router.tls: 'true'
           # -- Enable an ingress for the code-server add-on.
           enabled: true
           integrations:
