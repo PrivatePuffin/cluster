@@ -35,8 +35,6 @@ spec:
 
     ingress:
       main:
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls: 'true'
         enabled: true
         integrations:
           traefik:
@@ -62,7 +60,7 @@ spec:
           # -- Enable an ingress for the code-server add-on.
           enabled: true
           hosts:
-            - host: code.recyclarr.${BASE_DOMAIN2}
+            - host: recyclarr-code.${BASE_DOMAIN2}
               paths:
                 - path: /
                   # Ignored if not kubeVersion >= 1.14-0
