@@ -35,9 +35,6 @@ spec:
         type: DaemonSet
     defaultCertificate: tc-wildcard
     service:
-      main:
-        loadBalancerIP: ${TRAEFIK_IP}
-        type: LoadBalancer
       tcp:
         loadBalancerIP: ${TRAEFIK_IP}
         ports:
@@ -64,3 +61,18 @@ spec:
               trustedIPs: []
               # -- Trust every incoming connection
               insecureMode: false
+    ingress:
+      main:
+        enabled: true
+        integrations:
+          traefik:
+            enabled: true
+          certManager:
+            enabled: true
+            certificateIssuer: ks-le-prod
+        ingressClassName:  ""
+        hosts:
+          - host: traefik.${BASE_DOMAIN2}
+            paths:
+              - path: /
+                pathType: Prefix
