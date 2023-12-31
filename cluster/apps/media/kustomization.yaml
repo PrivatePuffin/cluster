@@ -15,3 +15,5 @@ resources:
   - bazarr/install.yaml
   - overseerr/install.yaml
   - tautulli/install.yaml
+  - recyclarr/install.yaml
+  - autobrr/install.yaml
