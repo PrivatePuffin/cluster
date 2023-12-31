@@ -53,8 +53,8 @@ spec:
     persistence:
       media:
         enabled: true
-        existingClaim: media-nfs-pvc
-        mountPath: "/media"
+        existingClaim: media-music-nfs-pvc
+        mountPath: "/media/music"
       downloads:
         enabled: true
         existingClaim: downloads-nfs-pvc

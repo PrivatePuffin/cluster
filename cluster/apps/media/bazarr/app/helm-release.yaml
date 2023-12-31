@@ -51,10 +51,14 @@ spec:
               - path: /
                 pathType: Prefix
     persistence:
-      media:
+      series:
         enabled: true
-        existingClaim: media-nfs-pvc
-        mountPath: "/media"
+        existingClaim: media-series-nfs-pvc
+        mountPath: "/media/series"
+      movies:
+        enabled: true
+        existingClaim: media-movies-nfs-pvc
+        mountPath: "/media/movies"
       downloads:
         enabled: true
         existingClaim: downloads-nfs-pvc
