@@ -30,6 +30,9 @@ spec:
   values:
 
 
+    workload:
+      exportarr:
+        enabled: false
 
     metrics:
       main:

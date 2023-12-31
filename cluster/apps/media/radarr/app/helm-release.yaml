@@ -33,7 +33,9 @@ spec:
     metrics:
       main:
         enabled: false
-
+    workload:
+      exportarr:
+        enabled: false
 
     ingress:
       main:

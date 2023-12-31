@@ -29,7 +29,9 @@ spec:
     keepHistory: false
   values:
 
-
+    workload:
+      exportarr:
+        enabled: false
 
     metrics:
       main:
