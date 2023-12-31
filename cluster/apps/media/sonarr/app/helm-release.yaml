@@ -51,7 +51,7 @@ spec:
               - path: /
                 pathType: Prefix
     persistence:
-      media:
+      series:
         enabled: true
         existingClaim: media-series-nfs-pvc
         mountPath: "/media/series"

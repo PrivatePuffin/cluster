@@ -51,7 +51,7 @@ spec:
               - path: /
                 pathType: Prefix
     persistence:
-      media:
+      music:
         enabled: true
         existingClaim: media-music-nfs-pvc
         mountPath: "/media/music"

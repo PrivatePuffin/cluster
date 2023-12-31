@@ -51,7 +51,7 @@ spec:
               - path: /
                 pathType: Prefix
     persistence:
-      media:
+      movies:
         enabled: true
         existingClaim: media-movies-nfs-pvc
         mountPath: "/media/movies"
