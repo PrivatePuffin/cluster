@@ -29,25 +29,6 @@ spec:
     keepHistory: false
   values:
 
-
-
-
-
-    ingress:
-      main:
-        enabled: true
-        integrations:
-          traefik:
-            enabled: true
-          certManager:
-            enabled: true
-            certificateIssuer: ks-le-prod
-        ingressClassName:  ""
-        hosts:
-          - host: recyclarr.${BASE_DOMAIN2}
-            paths:
-              - path: /
-                pathType: Prefix
     addons:
       # -- The common library supports adding a code-server add-on to access files. It can be configured under this key.
       # @default -- See values.yaml
@@ -59,8 +40,14 @@ spec:
         ingress:
           # -- Enable an ingress for the code-server add-on.
           enabled: true
+          integrations:
+            traefik:
+              enabled: true
+            certManager:
+              enabled: true
+              certificateIssuer: ks-le-prod
           hosts:
-            - host: recyclarr-code.${BASE_DOMAIN2}
+            - host: recyclarr.${BASE_DOMAIN2}
               paths:
                 - path: /
                   # Ignored if not kubeVersion >= 1.14-0
