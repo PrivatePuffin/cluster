@@ -4,6 +4,7 @@ metadata:
     name: truecharts
     namespace: flux-system
 spec:
+    type: oci
     interval: 10m
     url: oci://tccr.io/truecharts
     timeout: 3m
