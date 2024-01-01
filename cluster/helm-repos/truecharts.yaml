@@ -1,10 +1,10 @@
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/source.toolkit.fluxcd.io/helmrepository_v1beta2.json
+apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
     name: truecharts
     namespace: flux-system
 spec:
     type: oci
-    interval: 10m
+    interval: 5m
     url: oci://tccr.io/truecharts
-    timeout: 3m
