@@ -13,7 +13,7 @@ spec:
       version: 12.1.3
       sourceRef:
         kind: HelmRepository
-        name: truecharts
+        name: truechartsoci
         namespace: flux-system
       interval: 15m
   maxHistory: 3
@@ -85,7 +85,7 @@ spec:
     k8sgateway:
       # -- list of processed domains
       domains:
-      - domain: "truecharts.org"
+      - domain: "truechartsoci.org"
         # -- Optional configuration option for DNS01 challenge that will redirect all acme
         # challenge requests to external cloud domain (e.g. managed by cert-manager)
         # See: https://cert-manager.io/docs/configuration/acme/dns01/

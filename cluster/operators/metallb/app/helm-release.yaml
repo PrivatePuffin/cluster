@@ -7,12 +7,12 @@ spec:
     interval: 5m
     chart:
         spec:
-            # renovate: registryUrl=https://charts.truecharts.org
+            # renovate: registryUrl=https://charts.truechartsoci.org
             chart: metallb
             version: 11.0.0
             sourceRef:
                 kind: HelmRepository
-                name: truecharts
+                name: truechartsoci
                 namespace: flux-system
             interval: 5m
     install:

@@ -13,7 +13,7 @@ spec:
       version: 6.1.3
       sourceRef:
         kind: HelmRepository
-        name: truecharts
+        name: truechartsoci
         namespace: flux-system
       interval: 15m
   maxHistory: 3
@@ -76,8 +76,8 @@ spec:
           enabled: true
           certificateIssuer: tc-le-prod
           hosts:
-            - truecharts.org
-            - '*.truecharts.org'
+            - truechartsoci.org
+            - '*.truechartsoci.org'
         - name: wildcard
           enabled: true
           certificateIssuer: ks-le-prod
