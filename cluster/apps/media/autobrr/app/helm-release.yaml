@@ -29,10 +29,6 @@ spec:
     keepHistory: false
   values:
 
-
-
-
-
     ingress:
       main:
         enabled: true
