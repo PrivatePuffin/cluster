@@ -1,0 +1,95 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: unpackerr
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: unpackerr
+      version: 12.1.4
+      sourceRef:
+        kind: HelmRepository
+        name: truechartsoci
+        namespace: flux-system
+      interval: 15m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          env:
+            UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
+            UN_SONARR_0_API_KEY: 4c78712a6abb4cf6b400af5a577ff31b
+            UN_SONARR_0_PATHS_0: /downloads/torrent/compelete/series
+            UN_SONARR_0_PROTOCOLS: torrent
+            UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
+            UN_RADARR_0_API_KEY: 2f29c7093821486ea6733fcc62a84eac
+            UN_RADARR_0_PATHS_0: /downloads/torrent/compelete/movies
+            UN_RADARR_0_PROTOCOLS: torrent
+            UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
+            UN_LIDARR_0_API_KEY: 0cd9c7a9c69248c289878376139e654a
+            UN_LIDARR_0_PATHS_0: /downloads/torrent/compelete/music
+            UN_LIDARR_0_PROTOCOLS: torrent
+            # UN_READARR_0_URL: http://readarr.media.svc.cluster.local:8686
+            # UN_READARR_0_API_KEY:
+            # UN_READARR_0_PATHS_0: /downloads/torrent/compelete/books
+            # UN_READARR_0_PROTOCOLS: torrent
+
+
+
+    ingress:
+      main:
+        annotations:
+          traefik.ingress.kubernetes.io/router.tls: 'true'
+        enabled: true
+        integrations:
+          traefik:
+            enabled: true
+          certManager:
+            enabled: true
+            certificateIssuer: ks-le-prod
+        ingressClassName:  ""
+        hosts:
+          - host: unpackerr.${BASE_DOMAIN2}
+            paths:
+              - path: /
+                pathType: Prefix
+    persistence:
+      media:
+        enabled: true
+        existingClaim: media-nfs-pvc
+        mountPath: "/media"
+      series:
+        enabled: true
+        existingClaim: media-series-nfs-pvc
+        mountPath: "/media/series"
+      movies:
+        enabled: true
+        existingClaim: media-movies-nfs-pvc
+        mountPath: "/media/movies"
+      downloads:
+        enabled: true
+        existingClaim: downloads-nfs-pvc
+        mountPath: "/downloads"
+      backup:
+        enabled: true
+        existingClaim: media-backups-pvc
+        mountPath: /config/backups
+        readOnly: false
