@@ -19,3 +19,4 @@ resources:
   - autobrr/install.yaml
   - unpackerr/install.yaml
   - readarr/install.yaml
+  - sabnzbd/install.yaml

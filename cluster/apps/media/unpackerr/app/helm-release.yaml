@@ -29,28 +29,28 @@ spec:
     keepHistory: false
   values:
 
-workload:
-  main:
-    podSpec:
-      containers:
-        main:
-          env:
-            UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
-            UN_SONARR_0_API_KEY: 4c78712a6abb4cf6b400af5a577ff31b
-            UN_SONARR_0_PATHS_0: /downloads/torrent/compelete/series
-            UN_SONARR_0_PROTOCOLS: torrent
-            UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
-            UN_RADARR_0_API_KEY: 2f29c7093821486ea6733fcc62a84eac
-            UN_RADARR_0_PATHS_0: /downloads/torrent/compelete/movies
-            UN_RADARR_0_PROTOCOLS: torrent
-            UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
-            UN_LIDARR_0_API_KEY: 0cd9c7a9c69248c289878376139e654a
-            UN_LIDARR_0_PATHS_0: /downloads/torrent/compelete/music
-            UN_LIDARR_0_PROTOCOLS: torrent
-            # UN_READARR_0_URL: http://readarr.media.svc.cluster.local:8686
-            # UN_READARR_0_API_KEY:
-            # UN_READARR_0_PATHS_0: /downloads/torrent/compelete/books
-            # UN_READARR_0_PROTOCOLS: torrent
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                UN_SONARR_0_URL: http://sonarr.media.svc.cluster.local:8989
+                UN_SONARR_0_API_KEY: 4c78712a6abb4cf6b400af5a577ff31b
+                UN_SONARR_0_PATHS_0: /downloads/torrent/compelete/series
+                UN_SONARR_0_PROTOCOLS: torrent
+                UN_RADARR_0_URL: http://radarr.media.svc.cluster.local:7878
+                UN_RADARR_0_API_KEY: 2f29c7093821486ea6733fcc62a84eac
+                UN_RADARR_0_PATHS_0: /downloads/torrent/compelete/movies
+                UN_RADARR_0_PROTOCOLS: torrent
+                UN_LIDARR_0_URL: http://lidarr.media.svc.cluster.local:8686
+                UN_LIDARR_0_API_KEY: 0cd9c7a9c69248c289878376139e654a
+                UN_LIDARR_0_PATHS_0: /downloads/torrent/compelete/music
+                UN_LIDARR_0_PROTOCOLS: torrent
+                # UN_READARR_0_URL: http://readarr.media.svc.cluster.local:8686
+                # UN_READARR_0_API_KEY:
+                # UN_READARR_0_PATHS_0: /downloads/torrent/compelete/books
+                # UN_READARR_0_PROTOCOLS: torrent
 
 
 
