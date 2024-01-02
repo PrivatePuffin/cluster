@@ -146,3 +146,40 @@ spec:
   resources:
     requests:
       storage: 1Mi
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: media-books-nfs-pv
+  namespace: media
+spec:
+  storageClassName: media-books-nfs
+  capacity:
+    storage: 1Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: 192.168.10.21
+    path: "/mnt/tank/library/books"
+  mountOptions:
+    - nfsvers=4
+    - tcp
+    - intr
+    - hard
+    - noatime
+    - nodiratime
+    - nolock
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: media-books-nfs-pvc
+  namespace: media
+spec:
+  storageClassName: media-books-nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi

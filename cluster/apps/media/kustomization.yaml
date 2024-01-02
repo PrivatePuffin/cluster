@@ -18,3 +18,4 @@ resources:
   - recyclarr/install.yaml
   - autobrr/install.yaml
   - unpackerr/install.yaml
+  - readarr/install.yaml

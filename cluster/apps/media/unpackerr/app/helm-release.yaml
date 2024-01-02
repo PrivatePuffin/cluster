@@ -84,6 +84,14 @@ workload:
         enabled: true
         existingClaim: media-movies-nfs-pvc
         mountPath: "/media/movies"
+      music:
+        enabled: true
+        existingClaim: media-music-nfs-pvc
+        mountPath: "/media/music"
+      books:
+        enabled: true
+        existingClaim: media-books-nfs-pvc
+        mountPath: "/media/books"
       downloads:
         enabled: true
         existingClaim: downloads-nfs-pvc
