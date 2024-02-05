@@ -65,6 +65,22 @@ spec:
           type: "cloudflare"
           # for cloudflare
           cfapitoken: "${CLOUDFLARE_TOKEN2}"
+        - name: oh-le-staging
+          # Used for both logging in to the DNS provider AND ACME registration
+          email: "${EMAIL3}"
+          server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
+          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
+          type: "cloudflare"
+          # for cloudflare
+          cfapitoken: "${CLOUDFLARE_TOKEN3}"
+        - name: oh-le-prod
+          # Used for both logging in to the DNS provider AND ACME registration
+          email: "${EMAIL3}"
+          server: 'https://acme-v02.api.letsencrypt.org/directory'
+          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
+          type: "cloudflare"
+          # for cloudflare
+          cfapitoken: "${CLOUDFLARE_TOKEN3}"
 
     clusterCertificates:
       # Namespaces in which the certificates must be available
@@ -76,8 +92,16 @@ spec:
           enabled: true
           certificateIssuer: tc-le-prod
           hosts:
-            - truechartsoci.org
-            - '*.truechartsoci.org'
+            - truecharts.org
+            - '*.truecharts.org'
+        - name: oh-wildcard
+          enabled: true
+          certificateIssuer: oh-le-prod
+          hosts:
+            - openhosted.io
+            - '*.openhosted.io'
+            - openhosted.org
+            - '*.openhosted.org'
         - name: wildcard
           enabled: true
           certificateIssuer: ks-le-prod
