@@ -28,6 +28,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    homeassistant:
+      trusted_proxies:
+        - 172.16.0.0/16
+        - 172.17.0.0/16
     ingress:
       main:
         annotations:
