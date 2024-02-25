@@ -117,6 +117,24 @@
       "additionalProperties": false,
       "type": "object"
     },
+    "CNIConfig": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "urls": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "flannel": {
+          "$ref": "#/$defs/FlannelCNIConfig"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
     "Customization": {
       "properties": {
         "extraKernelArgs": {
@@ -282,6 +300,80 @@
       "additionalProperties": false,
       "type": "object"
     },
+    "FlannelCNIConfig": {
+      "properties": {
+        "extraArgs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "ImageFactory": {
+      "properties": {
+        "registryURL": {
+          "type": "string",
+          "description": "Registry url or the image",
+          "default": "factory.talos.dev"
+        },
+        "schematicEndpoint": {
+          "type": "string",
+          "default": "/schematics"
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Protocol of the registry(https or http)",
+          "default": "https"
+        },
+        "installerURLTmpl": {
+          "type": "string",
+          "description": "Template for installer image URL",
+          "default": "{{.RegistryURL}}/installer{{if .Secureboot}}-secureboot{{end}}/{{.ID}}:{{.Version}}"
+        },
+        "ISOURLTmpl": {
+          "type": "string",
+          "description": "Template for ISO image URL",
+          "default": "{{.Protocol}}://{{.RegistryURL}}/image/{{.ID}}/{{.Version}}/{{.Mode}}-{{.Arch}}{{if .Secureboot}}-secureboot{{end}}{{if and .Secureboot .UseUKI}}-uki.efi{{else}}.iso{{end}}"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "IngressConfigWrapper": {
+      "properties": {
+        "subnet": {
+          "type": "string",
+          "description": "Source subnet"
+        },
+        "except": {
+          "type": "string",
+          "description": "Source subnet to exclude from the subnet"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "IngressFirewallWrapper": {
+      "properties": {
+        "defaultAction": {
+          "type": "string",
+          "description": "Default action for all not explicitly configured traffic",
+          "default": "block"
+        },
+        "rules": {
+          "items": {
+            "$ref": "#/$defs/NetworkRuleWrapper"
+          },
+          "type": "array",
+          "description": "List of matching network rules to allow or block against the defaultAction"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
     "InstallDiskSelectorWrapper": {
       "properties": {
         "size": {
@@ -316,15 +408,6 @@
           ]
         },
         "busPath": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false,
-      "type": "object"
-    },
-    "InstallExtensionConfig": {
-      "properties": {
-        "image": {
           "type": "string"
         }
       },
@@ -379,6 +462,32 @@
       "additionalProperties": false,
       "type": "object"
     },
+    "MachineSpec": {
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "Machine mode (e.g: metal)",
+          "default": "metal"
+        },
+        "arch": {
+          "type": "string",
+          "description": "Machine architecture (e.g: amd64",
+          "default": "amd64"
+        },
+        "secureboot": {
+          "type": "boolean",
+          "description": "Whether to enable Secure Boot",
+          "default": false
+        },
+        "useUKI": {
+          "type": "boolean",
+          "description": "Whether to use UKI if Secure Boot is enabled",
+          "default": false
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
     "MetaValue": {
       "properties": {
         "key": {
@@ -404,6 +513,30 @@
         },
         "driver": {
           "type": "string"
+        },
+        "physical": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "NetworkRuleWrapper": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the rule"
+        },
+        "portSelector": {
+          "$ref": "#/$defs/PortSelectorWrapper",
+          "description": "Ports and protocols on the host affected by the rule"
+        },
+        "ingress": {
+          "items": {
+            "$ref": "#/$defs/IngressConfigWrapper"
+          },
+          "type": "array",
+          "description": "List of source subnets allowed to access the host ports/protocols"
         }
       },
       "additionalProperties": false,
@@ -440,13 +573,6 @@
           "type": "boolean",
           "description": "Whether the node is a controlplane"
         },
-        "nodeLabels": {
-          "additionalProperties": {
-            "type": "string"
-          },
-          "type": "object",
-          "description": "Labels to be added to the node"
-        },
         "installDisk": {
           "type": "string",
           "description": "The disk used for installation"
@@ -454,6 +580,28 @@
         "installDiskSelector": {
           "$ref": "#/$defs/InstallDiskSelectorWrapper",
           "description": "Look up disk used for installation"
+        },
+        "overridePatches": {
+          "type": "boolean",
+          "description": "Whether \"patches\" defined here should override the one defined in node group"
+        },
+        "overrideExtraManifests": {
+          "type": "boolean",
+          "description": "Whether \"extraManifests\" defined here should override the one defined in node group"
+        },
+        "nodeLabels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "description": "Labels to be added to the node"
+        },
+        "nodeTaints": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "description": "Node taints for the node. Effect is optional"
         },
         "machineDisks": {
           "items": {
@@ -468,13 +616,6 @@
           },
           "type": "array",
           "description": "List of files to create inside the node"
-        },
-        "extensions": {
-          "items": {
-            "$ref": "#/$defs/InstallExtensionConfig"
-          },
-          "type": "array",
-          "description": "DEPRECATED: use \"schematic\" instead"
         },
         "disableSearchDomain": {
           "type": "boolean",
@@ -501,16 +642,12 @@
           "type": "array",
           "description": "List of network interface configuration for the node"
         },
-        "configPatches": {
+        "extraManifests": {
           "items": {
-            "type": "object"
+            "type": "string"
           },
           "type": "array",
-          "description": "DEPRECATED: use \"patches\" instead"
-        },
-        "inlinePatch": {
-          "type": "object",
-          "description": "DEPRECATED: use \"patches\" instead"
+          "description": "List of manifest files to be added to the node"
         },
         "patches": {
           "items": {
@@ -529,6 +666,14 @@
         "schematic": {
           "$ref": "#/$defs/Schematic",
           "description": "Talos image customization to be used in the installer image"
+        },
+        "machineSpec": {
+          "$ref": "#/$defs/MachineSpec",
+          "description": "Machine hardware specification"
+        },
+        "ingressFirewall": {
+          "$ref": "#/$defs/IngressFirewallWrapper",
+          "description": "Machine firewall specification"
         }
       },
       "additionalProperties": false,
@@ -537,6 +682,113 @@
         "hostname",
         "ipAddress"
       ]
+    },
+    "NodeConfigs": {
+      "properties": {
+        "nodeLabels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "description": "Labels to be added to the node"
+        },
+        "nodeTaints": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object",
+          "description": "Node taints for the node. Effect is optional"
+        },
+        "machineDisks": {
+          "items": {
+            "$ref": "#/$defs/MachineDisk"
+          },
+          "type": "array",
+          "description": "List of additional disks to partition"
+        },
+        "machineFiles": {
+          "items": {
+            "$ref": "#/$defs/MachineFile"
+          },
+          "type": "array",
+          "description": "List of files to create inside the node"
+        },
+        "disableSearchDomain": {
+          "type": "boolean",
+          "description": "Whether to disable generating default search domain"
+        },
+        "kernelModules": {
+          "items": {
+            "$ref": "#/$defs/KernelModuleConfig"
+          },
+          "type": "array",
+          "description": "List of additional kernel modules to load inside the node"
+        },
+        "nameservers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "List of nameservers for the node"
+        },
+        "networkInterfaces": {
+          "items": {
+            "$ref": "#/$defs/Device"
+          },
+          "type": "array",
+          "description": "List of network interface configuration for the node"
+        },
+        "extraManifests": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "List of manifest files to be added to the node"
+        },
+        "patches": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "description": "Patches to be applied to the node"
+        },
+        "talosImageURL": {
+          "type": "string",
+          "description": "Talos installer image url for the node",
+          "examples": [
+            "factory.talos.dev/installer/e9c7ef96884d4fbc8c0a1304ccca4bb0287d766a8b4125997cb9dbe84262144e"
+          ]
+        },
+        "schematic": {
+          "$ref": "#/$defs/Schematic",
+          "description": "Talos image customization to be used in the installer image"
+        },
+        "machineSpec": {
+          "$ref": "#/$defs/MachineSpec",
+          "description": "Machine hardware specification"
+        },
+        "ingressFirewall": {
+          "$ref": "#/$defs/IngressFirewallWrapper",
+          "description": "Machine firewall specification"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "PortSelectorWrapper": {
+      "properties": {
+        "ports": {
+          "items": true,
+          "type": "array",
+          "description": "List of ports or port ranges"
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Protocol (can be tcp or udp)"
+        }
+      },
+      "additionalProperties": false,
+      "type": "object"
     },
     "Route": {
       "properties": {
@@ -594,11 +846,6 @@
         "clusterName": {
           "type": "string",
           "description": "Name of the cluster"
-        },
-        "talosImageURL": {
-          "type": "string",
-          "description": "The image URL used to perform installation",
-          "default": "ghcr.io/siderolabs/installer"
         },
         "talosVersion": {
           "type": "string",
@@ -665,7 +912,7 @@
           "description": "The service subnet CIDR list"
         },
         "cniConfig": {
-          "$ref": "#/$defs/cniConfig",
+          "$ref": "#/$defs/CNIConfig",
           "description": "The CNI to be used for the cluster's network"
         },
         "patches": {
@@ -682,13 +929,16 @@
           "type": "array",
           "description": "List of configurations for Node"
         },
+        "imageFactory": {
+          "$ref": "#/$defs/ImageFactory"
+        },
         "controlPlane": {
-          "$ref": "#/$defs/controlPlane",
-          "description": "Configurations targetted for controlplane nodes"
+          "$ref": "#/$defs/NodeConfigs",
+          "description": "Configurations targetted for all controlplane nodes"
         },
         "worker": {
-          "$ref": "#/$defs/worker",
-          "description": "Configurations targetted for worker nodes"
+          "$ref": "#/$defs/NodeConfigs",
+          "description": "Configurations targetted for all worker nodes"
         }
       },
       "additionalProperties": false,
@@ -758,82 +1008,6 @@
         "$ref": "#/$defs/Vlan"
       },
       "type": "array"
-    },
-    "cniConfig": {
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": "The name of CNI to use"
-        },
-        "urls": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array",
-          "description": "List of URLs containing manifests to apply for the CNI"
-        }
-      },
-      "additionalProperties": false,
-      "type": "object",
-      "required": [
-        "name"
-      ]
-    },
-    "controlPlane": {
-      "properties": {
-        "configPatches": {
-          "items": {
-            "type": "object"
-          },
-          "type": "array",
-          "description": "DEPRECATED: use \"patches\" instead"
-        },
-        "inlinePatch": {
-          "type": "object",
-          "description": "DEPRECATED: use \"patches\" instead"
-        },
-        "patches": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array",
-          "description": "Patches to be applied to all controlplane nodes"
-        },
-        "schematic": {
-          "$ref": "#/$defs/Schematic",
-          "description": "Talos image customization to be applied to all controlplane nodes"
-        }
-      },
-      "additionalProperties": false,
-      "type": "object"
-    },
-    "worker": {
-      "properties": {
-        "configPatches": {
-          "items": {
-            "type": "object"
-          },
-          "type": "array",
-          "description": "DEPRECATED: use \"patches\" instead"
-        },
-        "inlinePatch": {
-          "type": "object",
-          "description": "DEPRECATED: use \"patches\" instead"
-        },
-        "patches": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array",
-          "description": "Patches to be applied to all worker nodes"
-        },
-        "schematic": {
-          "$ref": "#/$defs/Schematic",
-          "description": "Talos image customization to be applied to all worker nodes"
-        }
-      },
-      "additionalProperties": false,
-      "type": "object"
     }
   }
 }
