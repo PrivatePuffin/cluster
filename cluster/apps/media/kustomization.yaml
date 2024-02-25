@@ -20,3 +20,4 @@ resources:
   - unpackerr/install.yaml
   - readarr/install.yaml
   - sabnzbd/install.yaml
+  - bitmagnet/install.yaml
