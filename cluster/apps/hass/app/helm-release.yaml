@@ -41,7 +41,7 @@ spec:
             certificateIssuer: ks-le-prod
         ingressClassName:  ""
         hosts:
-          - host: home.${BASE_DOMAIN2}
+          - host: hass.${BASE_DOMAIN2}
             paths:
               - path: /
                 pathType: Prefix
