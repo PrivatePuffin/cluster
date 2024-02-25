@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: unpackerr
-      version: 12.1.4
+      version: 13.1.2
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
@@ -52,25 +52,6 @@ spec:
                 # UN_READARR_0_PATHS_0: /downloads/torrent/compelete/books
                 # UN_READARR_0_PROTOCOLS: torrent
 
-
-
-    ingress:
-      main:
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls: 'true'
-        enabled: true
-        integrations:
-          traefik:
-            enabled: true
-          certManager:
-            enabled: true
-            certificateIssuer: ks-le-prod
-        ingressClassName:  ""
-        hosts:
-          - host: unpackerr.${BASE_DOMAIN2}
-            paths:
-              - path: /
-                pathType: Prefix
     persistence:
       media:
         enabled: true
