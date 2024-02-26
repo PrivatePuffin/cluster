@@ -28,6 +28,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    metrics:
+      main:
+        enabled: false
     workload:
       main:
         replicas: 1
