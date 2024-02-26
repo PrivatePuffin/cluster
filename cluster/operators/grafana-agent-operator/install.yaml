@@ -3,10 +3,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps-prometheus
+  name: operators-grafana-agent-operator
   namespace: flux-system
 spec:
-  path: ./cluster/apps/metrics/prometheus/app
+  path: ./cluster/operators/grafana-agent-operator/app
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -14,9 +14,4 @@ spec:
   wait: false
   interval: 30m
   retryInterval: 1m
-  timeout: 5m
-  postBuild:
-    substitute: {}
-    substituteFrom:
-      - kind: ConfigMap
-        name: cluster-config
+  timeout: 15m
