@@ -28,4 +28,30 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  values: {}
+  values:
+    mimir:
+      nginx:
+        # Ingress configuration
+        ingress:
+          # -- Specifies whether an ingress for the nginx should be created
+          enabled: true
+          # -- Ingress Class Name. MAY be required for Kubernetes versions >= 1.18
+          # ingressClassName: nginx
+          # -- Annotations for the nginx ingress
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            cert-manager.io/cluster-issuer: tc-le-prod
+            cert-manager.io/private-key-rotation-policy: Always
+            traefik.ingress.kubernetes.io/router.tls: 'true'
+          # -- Hosts configuration for the nginx ingress
+          hosts:
+            - host: nginx.mimir.${BASE_DOMAIN}
+              paths:
+                - path: /
+                  # -- pathType (e.g. ImplementationSpecific, Prefix, .. etc.) might also be required by some Ingress Controllers
+                  pathType: Prefix
+          # -- TLS configuration for the nginx ingress
+          tls:
+            - secretName: mimir-nginx-tls
+              hosts:
+                - nginx.mimir.${BASE_DOMAIN}
