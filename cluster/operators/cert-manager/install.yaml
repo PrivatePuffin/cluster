@@ -8,7 +8,7 @@ metadata:
 spec:
   path: ./cluster/operators/cert-manager/app
   dependsOn:
-    - name: operators-prometheus-operator
+    - name: operators-grafana-agent-operator
   sourceRef:
     kind: GitRepository
     name: flux-system
