@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: prometheus
-      version: 17.2.2
+      version: 17.4.2
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
