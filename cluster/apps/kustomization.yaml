@@ -5,4 +5,5 @@ resources:
   - kms/install.yaml
   - homepage/install.yaml
   - hass/install.yaml
+  - kubeapps/install.yaml
   - metrics

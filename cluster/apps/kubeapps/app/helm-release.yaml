@@ -3,15 +3,15 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: grafana
-  namespace: grafana
+  name: kubeapps
+  namespace: kubeapps
 spec:
   interval: 15m
   timeout: 5m
   chart:
     spec:
-      chart: grafana
-      version: 14.0.2
+      chart: kubeapps
+      version: 2.1.5
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
@@ -42,7 +42,7 @@ spec:
             certificateIssuer: ks-le-prod
         ingressClassName:  ""
         hosts:
-          - host: grafana2.${BASE_DOMAIN2}
+          - host: kubeapps.${BASE_DOMAIN2}
             paths:
               - path: /
                 pathType: Prefix
