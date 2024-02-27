@@ -6,7 +6,7 @@ metadata:
   name: apps-kubeapps
   namespace: flux-system
 spec:
-  path: ./cluster/apps/metrics/kubeapps/app
+  path: ./cluster/apps/kubeapps/app
   sourceRef:
     kind: GitRepository
     name: flux-system
