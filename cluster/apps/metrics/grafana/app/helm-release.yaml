@@ -42,7 +42,7 @@ spec:
             certificateIssuer: ks-le-prod
         ingressClassName:  ""
         hosts:
-          - host: grafana2.${BASE_DOMAIN2}
+          - host: grafana.${BASE_DOMAIN2}
             paths:
               - path: /
                 pathType: Prefix

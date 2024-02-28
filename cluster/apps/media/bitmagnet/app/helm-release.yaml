@@ -29,7 +29,7 @@ spec:
     keepHistory: false
   values:
     global:
-      stopAll: true
+      stopAll: false
     workload:
       main:
         podSpec:
@@ -53,3 +53,9 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+    cnpg:
+      cluster:
+        storage:
+          storageClass: "openebs-hostpath"
+        walStorage:
+          storageClass: "openebs-hostpath"

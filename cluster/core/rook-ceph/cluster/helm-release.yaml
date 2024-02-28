@@ -157,7 +157,7 @@ spec:
           storageClass:
             enabled: true
             name: ceph-nvme-2
-            isDefault: true
+            isDefault: false
             reclaimPolicy: Retain
             allowVolumeExpansion: true
             parameters:
@@ -177,7 +177,7 @@ spec:
           storageClass:
             enabled: true
             name: ceph-hdd
-            isDefault: true
+            isDefault: false
             reclaimPolicy: Retain
             allowVolumeExpansion: true
             parameters:
@@ -197,7 +197,7 @@ spec:
           storageClass:
             enabled: true
             name: ceph-hdd-2
-            isDefault: true
+            isDefault: false
             reclaimPolicy: Retain
             allowVolumeExpansion: true
             parameters:
