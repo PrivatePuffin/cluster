@@ -103,13 +103,23 @@ spec:
           ssl: false
 
         storage:
-          useAllNodes: true
+          useAllNodes: false
           useAllDevices: true
-          config:
-            deviceClass: nvme
-            osdsPerDevice: "1"
           # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement
           onlyApplyOSDPlacement: false
+          nodes:
+            - name: k8s-worker-vm-1
+              config:
+                deviceClass: nvme
+                osdsPerDevice: "1"
+            - name: k8s-worker-vm-2
+              config:
+                deviceClass: nvme
+                osdsPerDevice: "1"
+            - name: k8s-worker-vm-3
+              config:
+                deviceClass: nvme
+                osdsPerDevice: "1"
 
 
       ingress:
