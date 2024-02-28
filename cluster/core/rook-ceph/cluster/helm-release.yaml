@@ -121,7 +121,7 @@ spec:
             traefik.ingress.kubernetes.io/router.tls: 'true'
           tls:
             - hosts:
-                - gitops.${BASE_DOMAIN}
+                - rook.${BASE_DOMAIN2}
               secretName: rook-ceph-dashboard
           host:
             name: "rook.${BASE_DOMAIN2}"
