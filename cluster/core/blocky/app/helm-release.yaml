@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: blocky
-      version: 13.5.7
+      version: 13.5.9
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
@@ -107,3 +107,6 @@ spec:
         options:
           - name: tls_servername
             value: cloudflare-dns.com
+    queryLog:
+      # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console
+      type: "postgresql"
