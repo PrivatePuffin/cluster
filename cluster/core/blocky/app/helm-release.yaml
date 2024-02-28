@@ -108,8 +108,9 @@ spec:
           - name: tls_servername
             value: cloudflare-dns.com
     cnpg:
-      cluster:
-        storage:
-          storageClass: "openebs-hostpath"
-        walStorage:
-          storageClass: "openebs-hostpath"
+      main:
+        cluster:
+          storage:
+            storageClass: "openebs-hostpath"
+          walStorage:
+            storageClass: "openebs-hostpath"
