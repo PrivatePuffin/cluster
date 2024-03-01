@@ -95,19 +95,22 @@
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor"],
       "semanticCommitType": "feat",
-      "semanticCommitScope": "container"
+      "semanticCommitScope": "container",
+      "automerge": true
     },
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["patch"],
       "semanticCommitType": "fix",
-      "semanticCommitScope": "container"
+      "semanticCommitScope": "container",
+      "automerge": true
     },
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["digest"],
       "semanticCommitType": "chore",
-      "semanticCommitScope": "container"
+      "semanticCommitScope": "container",
+      "automerge": true
     },
     {
       "matchDatasources": ["helm"],
@@ -118,7 +121,8 @@
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["minor"],
       "semanticCommitType": "feat",
-      "semanticCommitScope": "helm"
+      "semanticCommitScope": "helm",
+      "automerge": true
     },
     {
       "matchDatasources": ["helm"],
@@ -167,11 +171,13 @@
     },
     {
       "matchUpdateTypes": ["minor"],
-      "labels": ["type/minor"]
+      "labels": ["type/minor"],
+      "automerge": true
     },
     {
       "matchUpdateTypes": ["patch"],
-      "labels": ["type/patch"]
+      "labels": ["type/patch"],
+      "automerge": true
     },
     {
       "matchDatasources": ["docker"],
