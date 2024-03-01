@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: homepage
-      version: 6.3.4
+      version: 6.5.0
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
