@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: smartctl-exporter
+  namespace: smartctl-exporter
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: smartctl-exporter
+      version: 2.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: truechartsoci
+        namespace: flux-system
+      interval: 15m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values: {}
