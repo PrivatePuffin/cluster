@@ -71,6 +71,27 @@ nodes:
               gateway: ${GATEWAY}
           vip:
             ip: ${VIP}
+    - hostname: k8s-worker-1
+      ipAddress: 192.168.10.111
+      nameservers:
+        - 8.8.8.8
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 600GB
+    - hostname: k8s-worker-2
+      ipAddress: 192.168.10.121
+      nameservers:
+        - 8.8.8.8
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 600GB
+    - hostname: k8s-worker-3
+      ipAddress: 192.168.10.131
+      nameservers:
+        - 8.8.8.8
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 600GB
     - hostname: k8s-worker-vm-1
       ipAddress: 192.168.10.112
       nameservers:
@@ -92,6 +113,7 @@ nodes:
         - 1.1.1.1
       installDiskSelector:
         size: <= 400GB
+
 controlPlane:
     patches:
         - '@./patches/controlplane.json'
@@ -120,7 +142,7 @@ worker:
             systemExtensions:
                 officialExtensions:
                     # Enable where needed
-                    # - siderolabs/amd-ucode
+                    - siderolabs/amd-ucode
                     # - siderolabs/bnx2-bnx2x
                     - siderolabs/iscsi-tools
                     - siderolabs/qemu-guest-agent
