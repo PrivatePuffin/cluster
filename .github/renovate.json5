@@ -5,8 +5,7 @@
     "docker:enableMajor",
     ":disableRateLimiting",
     ":dependencyDashboard",
-    ":semanticCommits",
-    ":automergeBranch"
+    ":semanticCommits"
   ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
