@@ -17,7 +17,6 @@ spec:
         name: fairwinds-charts
         namespace: flux-system
       interval: 15m
-  timeout: 20m
   maxHistory: 3
   install:
     createNamespace: true
