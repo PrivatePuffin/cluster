@@ -5,26 +5,25 @@ metadata:
     name: reloader
     namespace: system
 spec:
-    interval: 15m
+  interval: 15m
   timeout: 20m
-    chart:
-        spec:
-            chart: reloader
-            version: 1.0.69
-            sourceRef:
-                kind: HelmRepository
-                name: stakater-charts
-                namespace: flux-system
-            interval: 15m
-  timeout: 20m
-    maxHistory: 3
-    install:
-        createNamespace: true
-        remediation:
-            retries: 3
-    upgrade:
-        cleanupOnFail: true
-        remediation:
-            retries: 3
-    uninstall:
-        keepHistory: false
+  chart:
+      spec:
+          chart: reloader
+          version: 1.0.69
+          sourceRef:
+              kind: HelmRepository
+              name: stakater-charts
+              namespace: flux-system
+          interval: 15m
+  maxHistory: 3
+  install:
+      createNamespace: true
+      remediation:
+          retries: 3
+  upgrade:
+      cleanupOnFail: true
+      remediation:
+          retries: 3
+  uninstall:
+      keepHistory: false

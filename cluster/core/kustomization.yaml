@@ -8,3 +8,4 @@ resources:
   - kyverno
   - blocky/install.yaml
   - rook-ceph/install.yaml
+  - authentik/install.yaml

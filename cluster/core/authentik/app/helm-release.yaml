@@ -1,0 +1,99 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: authentik
+  namespace: authentik
+spec:
+  interval: 15m
+  timeout: 20m
+  chart:
+    spec:
+      chart: authentik
+      version: 24.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: truechartsoci
+        namespace: flux-system
+      interval: 15m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    authentik:
+      credentials:
+        # Only works on initial install
+        email: ${EMAIL2}
+        password: ${AUTHENTIKPASS}
+        # Optional, only set if you want to use it
+        bootstrapToken: ""
+      general:
+        disableUpdateCheck: true
+        disableStartupAnalytics: true
+        allowUserChangeName: true
+        allowUserChangeEmail: true
+        allowUserChangeUsername: true
+        overwriteDefaultBlueprints: false
+        gdprCompliance: false
+        tokenLength: 128
+        impersonation: true
+        avatars:
+          - gravatar
+          - initials
+        footerLinks:
+          - name: TrueCharts
+            href: https://truecharts.org
+      email:
+        host: "${SMTP}"
+        port: 587
+        username: ${ICLOGIN}
+        password: ${ICPASS}
+        useTLS: true
+        from: "noreply@truecharts.org"
+      logging:
+        # info, debug, warning, error, trace
+        logLevel: debug
+      geoip:
+        enabled: false
+        # Ignored if enabled is true
+        # If enabled is false, and this is true, the
+        # built-in GeoIP database will be wiped
+        wipeBuiltInDb: false
+        editionID: GeoLite2-City
+        frequency: 8
+        accountID: ""
+        licenseKey: ""
+      outposts:
+        proxy:
+          enabled: false
+          token: ""
+        radius:
+          enabled: false
+          token: ""
+        ldap:
+          enabled: false
+          token: ""
+    ingress:
+      main:
+        enabled: true
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: tc-le-prod
+        ingressClassName:  ""
+        hosts:
+          - host: authentik.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
