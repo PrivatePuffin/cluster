@@ -7,7 +7,6 @@ metadata:
   namespace: intel-device-plugin
 spec:
   interval: 15m
-  timeout: 20m
   chart:
     spec:
       chart: intel-device-plugins-operator

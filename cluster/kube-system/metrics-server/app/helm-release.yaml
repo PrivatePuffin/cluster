@@ -6,7 +6,6 @@ metadata:
     namespace: kube-system
 spec:
   interval: 15m
-  timeout: 20m
   chart:
       spec:
           chart: metrics-server
@@ -16,6 +15,7 @@ spec:
               name: kubernetes-sigs-metrics-server-charts
               namespace: flux-system
           interval: 15m
+  timeout: 20m
   maxHistory: 3
   install:
       createNamespace: true

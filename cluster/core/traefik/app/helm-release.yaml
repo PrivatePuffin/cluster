@@ -7,7 +7,6 @@ metadata:
   namespace: traefik
 spec:
   interval: 15m
-  timeout: 20m
   chart:
     spec:
       chart: traefik
@@ -17,6 +16,7 @@ spec:
         name: truechartsoci
         namespace: flux-system
       interval: 15m
+  timeout: 20m
   maxHistory: 3
   install:
     createNamespace: true
