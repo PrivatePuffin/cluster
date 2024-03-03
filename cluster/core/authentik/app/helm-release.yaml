@@ -77,13 +77,13 @@ spec:
       outposts:
         proxy:
           enabled: true
-          token: ${TCPROX}
+          token: ${AUTHPROX}
         radius:
           enabled: true
-          token: ${TCRAD}
+          token: ${AUTHRAD}
         ldap:
           enabled: true
-          token: ${TCLDAP}
+          token: ${AUTHLDAP}
     ingress:
       main:
         enabled: true
@@ -105,7 +105,7 @@ spec:
           walStorage:
             storageClass: "openebs-hostpath"
         backups:
-          enabled: false
+          enabled: true
           endpointURL: "${S3URL}"
           provider: s3
           s3:
