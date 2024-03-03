@@ -40,16 +40,16 @@ spec:
 
     ingress:
       main:
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls: 'true'
         enabled: true
         integrations:
           traefik:
             enabled: true
+            middlewares:
+              - name: auth
+                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: ks-le-prod
-        ingressClassName:  ""
         hosts:
           - host: sonarr.${BASE_DOMAIN2}
             paths:
