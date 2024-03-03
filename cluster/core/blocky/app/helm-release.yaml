@@ -150,7 +150,6 @@ spec:
             storageClass: "openebs-hostpath"
           walStorage:
             storageClass: "openebs-hostpath"
-
         backups:
           enabled: true
           endpointURL: "${S3URL}"

@@ -56,3 +56,21 @@ spec:
             storageClass: "openebs-hostpath"
           walStorage:
             storageClass: "openebs-hostpath"
+        backups:
+          enabled: true
+          endpointURL: "${S3URL}"
+          provider: s3
+          s3:
+            bucket: "${S3PREFIX}-cnpg-hass"
+            path: "/"
+            accessKey: "${S3ID}"
+            secretKey: "${S3KEY}"
+        recovery:
+          method: object_store
+          endpointURL: "${S3URL}"
+          provider: s3
+          s3:
+            bucket: "${S3PREFIX}-cnpg-hass"
+            path: "/"
+            accessKey: "${S3ID}"
+            secretKey: "${S3KEY}"
