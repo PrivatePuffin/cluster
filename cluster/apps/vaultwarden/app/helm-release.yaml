@@ -50,7 +50,7 @@ spec:
        # hibpApiKey:
 
       admin:
-        enabled: true
+        enabled: false
         disableAdminToken: false
         token: ${VWADMIN}
       smtp:
