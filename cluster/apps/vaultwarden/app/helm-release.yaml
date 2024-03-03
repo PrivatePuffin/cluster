@@ -55,7 +55,7 @@ spec:
         disableAdminToken: false
         token: ${VWADMIN}
       smtp:
-        enabled: false
+        enabled: true
         host: "${SMTP}"
         from: "no-reply@truecharts.org"
         fromName: "TrueCharts Vaultwarden"
