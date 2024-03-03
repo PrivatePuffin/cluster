@@ -86,8 +86,6 @@ spec:
       main:
         enabled: true
         integrations:
-          traefik:
-            enabled: true
           certManager:
             enabled: true
             certificateIssuer: ks-le-prod
