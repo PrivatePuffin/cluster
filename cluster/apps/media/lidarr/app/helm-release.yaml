@@ -48,9 +48,6 @@ spec:
             middlewares:
               - name: auth
                 namespace: traefik
-            middlewares:
-              - name: auth
-                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: ks-le-prod

@@ -51,7 +51,6 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: ks-le-prod
-        ingressClassName:  ""
         hosts:
           - host: bitmagnet.${BASE_DOMAIN2}
             paths:

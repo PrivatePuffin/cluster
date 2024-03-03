@@ -38,12 +38,8 @@ spec:
               env:
                 SABNZBD__HOST_WHITELIST_ENTRIES: "nzbd.${BASE_DOMAIN2}"
 
-
-
     ingress:
       main:
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls: 'true'
         enabled: true
         integrations:
           traefik:
@@ -54,7 +50,6 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: ks-le-prod
-        ingressClassName:  ""
         hosts:
           - host: nzbd.${BASE_DOMAIN2}
             paths:

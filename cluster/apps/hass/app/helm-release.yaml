@@ -35,8 +35,6 @@ spec:
         - 172.17.0.0/16
     ingress:
       main:
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls: 'true'
         enabled: true
         integrations:
           traefik:
@@ -47,7 +45,6 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: ks-le-prod
-        ingressClassName:  ""
         hosts:
           - host: hass.${BASE_DOMAIN2}
             paths:

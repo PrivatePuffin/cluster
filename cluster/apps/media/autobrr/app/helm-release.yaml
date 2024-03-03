@@ -42,7 +42,6 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: ks-le-prod
-        ingressClassName:  ""
         hosts:
           - host: autobrr.${BASE_DOMAIN2}
             paths:
