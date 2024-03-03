@@ -76,14 +76,14 @@ spec:
         licenseKey: ""
       outposts:
         proxy:
-          enabled: false
-          token: ""
+          enabled: true
+          token: ${TCPROX}
         radius:
-          enabled: false
-          token: ""
+          enabled: true
+          token: ${TCRAD}
         ldap:
-          enabled: false
-          token: ""
+          enabled: true
+          token: ${TCLDAP}
     ingress:
       main:
         enabled: true
