@@ -84,8 +84,6 @@ spec:
 
     ingress:
       main:
-        annotations:
-          traefik.ingress.kubernetes.io/router.tls: 'true'
         enabled: true
         integrations:
           traefik:
@@ -93,12 +91,9 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: ks-le-prod
-        ingressClassName:  ""
         hosts:
-          - host: vaultwarden.${BASE_DOMAIN2}
-            paths:
-              - path: /
-                pathType: Prefix
+          - host: vaultwarden.${BASE_DOMAIN}
+
     cnpg:
       main:
         cluster:
