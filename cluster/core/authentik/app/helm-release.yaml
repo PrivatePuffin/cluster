@@ -103,9 +103,9 @@ spec:
           proxy: http
         hosts:
           -  host: auth.${BASE_DOMAIN}
-              paths:
-                - path: /
-                  pathType: Prefix
+             paths:
+               - path: /
+                 pathType: Prefix
         integrations:
           certManager:
             enabled: true
