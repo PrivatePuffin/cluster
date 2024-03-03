@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 24.2.0
+      version: 24.2.2
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
@@ -31,6 +31,15 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    podSpec:
+      # TODO: Remove this after Authentik fixed their shit
+      hostAliases:
+        - ip: "192.168.10.101"
+          hostnames:
+            - "auth.truecharts.org"
+            - "auth.kjeldschouten.nl"
+            - "authentik.truecharts.org"
+
     authentik:
       credentials:
         # Only works on initial install
@@ -78,6 +87,8 @@ spec:
         proxy:
           enabled: true
           token: ${AUTHPROX}
+          host: https://authentik.truecharts.org
+          browserHost: https://authentik.truecharts.org
         radius:
           enabled: true
           token: ${AUTHRAD}
