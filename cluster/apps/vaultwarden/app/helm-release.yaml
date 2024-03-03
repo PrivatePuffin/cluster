@@ -92,6 +92,9 @@ spec:
             enabled: true
             certificateIssuer: ks-le-prod
         hosts:
+            paths:
+              - path: /
+                pathType: Prefix
           - host: vaultwarden.${BASE_DOMAIN}
 
     cnpg:
