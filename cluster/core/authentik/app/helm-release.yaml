@@ -36,9 +36,9 @@ spec:
       hostAliases:
         - ip: "192.168.10.101"
           hostnames:
-            - "auth.truecharts.org"
-            - "auth.kjeldschouten.nl"
-            - "authentik.truecharts.org"
+            - "auth.${BASE_DOMAIN}"
+            - "auth.${BASE_DOMAIN2}"
+            - "authentik.${BASE_DOMAIN}"
 
     authentik:
       credentials:
@@ -62,7 +62,7 @@ spec:
           - initials
         footerLinks:
           - name: TrueCharts
-            href: https://truecharts.org
+            href: https://${BASE_DOMAIN}
       email:
         host: "${SMTP}"
         port: 587
@@ -87,8 +87,8 @@ spec:
         proxy:
           enabled: true
           token: ${AUTHPROX}
-          host: https://authentik.truecharts.org
-          browserHost: https://authentik.truecharts.org
+          host: https://authentik.${BASE_DOMAIN}
+          browserHost: https://authentik.${BASE_DOMAIN}
         radius:
           enabled: true
           token: ${AUTHRAD}
