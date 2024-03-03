@@ -106,14 +106,14 @@ spec:
              paths:
                - path: /
                  pathType: Prefix
-          -  host: ${BASE_DOMAIN}
-             paths:
-               - path: /outpost.goauthentik.io
-                 pathType: Prefix
-          -  host: ${BASE_DOMAIN2}
-             paths:
-               - path: /outpost.goauthentik.io
-                 pathType: Prefix
+          # -  host: ${BASE_DOMAIN}
+          #    paths:
+          #      - path: /outpost.goauthentik.io
+          #        pathType: Prefix
+          # -  host: ${BASE_DOMAIN2}
+          #    paths:
+          #      - path: /outpost.goauthentik.io
+          #        pathType: Prefix
           -  host: '*.${BASE_DOMAIN}'
              paths:
                - path: /outpost.goauthentik.io
