@@ -91,12 +91,37 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: tc-le-prod
-        ingressClassName:  ""
         hosts:
           - host: authentik.${BASE_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
+      proxy:
+        enabled: true
+        primary: false
+        targetSelector:
+          proxy: http
+        hosts:
+          -  host: auth.${BASE_DOMAIN}
+              paths:
+                - path: /
+                  pathType: Prefix
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: tc-le-prod
+          traefik:
+            enabled: true
+            entrypoints:
+              - websecure
+            enableFixedMiddlewares: true
+            forceTLS: true
+            allowCors: false
+            fixedMiddlewares:
+              - name: chain-basic
+                namespace: ""
+            middlewares: []
+
     cnpg:
       main:
         cluster:
