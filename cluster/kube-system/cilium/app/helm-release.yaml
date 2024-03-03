@@ -11,6 +11,7 @@ metadata:
         app.kubernetes.io/managed-by: Helm
 spec:
     interval: 15m
+  timeout: 20m
     chart:
         spec:
             chart: cilium
@@ -20,6 +21,7 @@ spec:
                 name: cilium-charts
                 namespace: flux-system
             interval: 15m
+  timeout: 20m
     maxHistory: 3
     install:
         remediation:

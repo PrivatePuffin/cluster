@@ -6,6 +6,7 @@ metadata:
     namespace: system
 spec:
     interval: 15m
+  timeout: 20m
     chart:
         spec:
             chart: descheduler
@@ -15,6 +16,7 @@ spec:
                 name: descheduler-charts
                 namespace: flux-system
             interval: 15m
+  timeout: 20m
     maxHistory: 3
     install:
         createNamespace: true
