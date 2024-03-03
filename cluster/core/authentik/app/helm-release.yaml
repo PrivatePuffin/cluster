@@ -100,7 +100,7 @@ spec:
         enabled: true
         primary: false
         targetSelector:
-          proxy: http
+          proxy: https
         hosts:
           -  host: auth.${BASE_DOMAIN}
              paths:
