@@ -31,7 +31,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    podSpec:
+    podOptions:
       # TODO: Remove this after Authentik fixed their shit
       hostAliases:
         - ip: "192.168.10.101"
