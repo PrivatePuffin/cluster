@@ -89,11 +89,45 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: tc-le-prod
+          traefik:
+            enabled: true
+            middlewares:
+              - name: bouncer
+                namespace: traefik
         hosts:
           - host: vaultwarden.${BASE_DOMAIN2}
             paths:
               - path: /
                 pathType: Prefix
+      admin:
+        enabled: true
+        primary: false
+        targetSelector:
+          proxy: https
+        hosts:
+          -  host: vaultwarden.${BASE_DOMAIN2}
+             paths:
+               - path: /admin
+                 pathType: Prefix
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: tc-le-prod
+          traefik:
+            enabled: true
+            middlewares:
+              - name: bouncer
+                namespace: traefik
+              - name: auth
+                namespace: traefik
+            entrypoints:
+              - websecure
+            enableFixedMiddlewares: true
+            forceTLS: true
+            allowCors: false
+            fixedMiddlewares:
+              - name: chain-basic
+                namespace: ""
 
     cnpg:
       main:
