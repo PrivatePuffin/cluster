@@ -131,6 +131,7 @@ spec:
 
     cnpg:
       main:
+        mode: recovery
         cluster:
           storage:
             storageClass: "openebs-hostpath"
