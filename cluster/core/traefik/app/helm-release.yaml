@@ -111,7 +111,7 @@ spec:
           trustForwardHeader: true
           tls:
             insecureSkipVerify: true
-      crowdsecBouncer:
+      bouncer:
         - name: bouncer
           enabled: true
           logLevel: DEBUG
