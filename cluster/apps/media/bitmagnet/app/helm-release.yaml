@@ -64,7 +64,7 @@ spec:
           walStorage:
             storageClass: "openebs-hostpath"
         backups:
-          enabled: true
+          enabled: false
           endpointURL: "${S3URL}"
           provider: s3
           s3:
