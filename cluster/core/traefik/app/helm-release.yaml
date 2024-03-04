@@ -118,7 +118,11 @@ spec:
           crowdsecMode: none
           crowdsecLapiHost: crowdsec-service.crowdsec:8080
           forwardedHeadersTrustedIPs: []
-          clientTrustedIPs: []
+          clientTrustedIPs:
+            - 172.16.0.0/16
+            - 172.17.0.0/16
+            - 192.168.10.0/24
+            - 192.168.20.0/24
           crowdsecLapiTLSCertificateAuthorityFile: /etc/traefik/crowdsec-certs/ca.crt
           crowdsecLapiTLSCertificateBouncerFile: /etc/traefik/crowdsec-certs/tls.crt
           crowdsecLapiTLSCertificateBouncerKeyFile: /etc/traefik/crowdsec-certs/tls.key

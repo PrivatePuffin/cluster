@@ -39,7 +39,7 @@ spec:
             - "auth.${BASE_DOMAIN}"
             - "auth.${BASE_DOMAIN2}"
             - "my.${BASE_DOMAIN}"
-
+            - "my.${BASE_DOMAIN2}"
     authentik:
       credentials:
         # Only works on initial install
