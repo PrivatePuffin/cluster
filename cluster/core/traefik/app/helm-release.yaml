@@ -114,7 +114,7 @@ spec:
       bouncer:
         - name: bouncer
           enabled: true
-          logLevel: DEBUG
+          logLevel: INFO
           crowdsecMode: none
           crowdsecLapiHost: crowdsec-service.crowdsec:8080
           forwardedHeadersTrustedIPs: []
