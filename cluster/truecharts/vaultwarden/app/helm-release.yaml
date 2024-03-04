@@ -103,7 +103,7 @@ spec:
         enabled: true
         primary: false
         targetSelector:
-          proxy: https
+          main: main
         hosts:
           -  host: vaultwarden.${BASE_DOMAIN2}
              paths:
