@@ -46,18 +46,17 @@ spec:
     service:
       tcp:
         loadBalancerIP: ${TRAEFIK_IP}
+        externalTrafficPolicy: local
         ports:
           web:
             enabled: true
             port: 80
             protocol: http
-            externalTrafficPolicy: local
             redirectTo: websecure
           websecure:
             enabled: true
             port: 443
             protocol: https
-            externalTrafficPolicy: local
             # -- Configure (Forwarded Headers)[https://doc.traefik.io/traefik/routing/entrypoints/#forwarded-headers] Support
             forwardedHeaders:
               enabled: false
