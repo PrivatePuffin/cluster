@@ -43,7 +43,7 @@ spec:
             enabled: true
             certificateIssuer: ks-le-prod
         hosts:
-          - host: readarr.${BASE_DOMAIN2}
+          - host: readarr.${BASE_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

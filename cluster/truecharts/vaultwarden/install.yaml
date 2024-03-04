@@ -6,7 +6,7 @@ metadata:
   name: apps-vaultwarden
   namespace: flux-system
 spec:
-  path: ./cluster/apps/vaultwarden/app
+  path: ./cluster/truecharts/vaultwarden/app
   sourceRef:
     kind: GitRepository
     name: flux-system

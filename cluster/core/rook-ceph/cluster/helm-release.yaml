@@ -131,10 +131,10 @@ spec:
             traefik.ingress.kubernetes.io/router.tls: 'true'
           tls:
             - hosts:
-                - rook.${BASE_DOMAIN2}
+                - rook.${BASE_DOMAIN}
               secretName: rook-ceph-dashboard
           host:
-            name: "rook.${BASE_DOMAIN2}"
+            name: "rook.${BASE_DOMAIN}"
             path: "/"
 
       cephBlockPools:

@@ -34,54 +34,38 @@ spec:
         enabled: true
         name: "selfsigned"
       ACME:
-        - name: tc-le-staging
-          # Used for both logging in to the DNS provider AND ACME registration
-          email: "${EMAIL}"
-          server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
-          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
-          type: "cloudflare"
-          # for cloudflare
-          cfapitoken: "${CLOUDFLARE_TOKEN}"
-        - name: tc-le-prod
-          # Used for both logging in to the DNS provider AND ACME registration
-          email: "${EMAIL}"
-          server: 'https://acme-v02.api.letsencrypt.org/directory'
-          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
-          type: "cloudflare"
-          # for cloudflare
-          cfapitoken: "${CLOUDFLARE_TOKEN}"
         - name: ks-le-staging
           # Used for both logging in to the DNS provider AND ACME registration
-          email: "${EMAIL2}"
+          email: "${EMAIL}"
           server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
           # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
           type: "cloudflare"
           # for cloudflare
-          cfapitoken: "${CLOUDFLARE_TOKEN2}"
+          cfapitoken: "${CLOUDFLARE_TOKEN}"
         - name: ks-le-prod
           # Used for both logging in to the DNS provider AND ACME registration
+          email: "${EMAIL}"
+          server: 'https://acme-v02.api.letsencrypt.org/directory'
+          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
+          type: "cloudflare"
+          # for cloudflare
+          cfapitoken: "${CLOUDFLARE_TOKEN}"
+        - name: tc-le-staging
+          # Used for both logging in to the DNS provider AND ACME registration
+          email: "${EMAIL2}"
+          server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
+          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
+          type: "cloudflare"
+          # for cloudflare
+          cfapitoken: "${CLOUDFLARE_TOKEN2}"
+        - name: tc-le-prod
+          # Used for both logging in to the DNS provider AND ACME registration
           email: "${EMAIL2}"
           server: 'https://acme-v02.api.letsencrypt.org/directory'
           # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
           type: "cloudflare"
           # for cloudflare
           cfapitoken: "${CLOUDFLARE_TOKEN2}"
-        - name: oh-le-staging
-          # Used for both logging in to the DNS provider AND ACME registration
-          email: "${EMAIL3}"
-          server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
-          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
-          type: "cloudflare"
-          # for cloudflare
-          cfapitoken: "${CLOUDFLARE_TOKEN3}"
-        - name: oh-le-prod
-          # Used for both logging in to the DNS provider AND ACME registration
-          email: "${EMAIL3}"
-          server: 'https://acme-v02.api.letsencrypt.org/directory'
-          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
-          type: "cloudflare"
-          # for cloudflare
-          cfapitoken: "${CLOUDFLARE_TOKEN3}"
 
     clusterCertificates:
       # Namespaces in which the certificates must be available
@@ -95,14 +79,6 @@ spec:
           hosts:
             - truecharts.org
             - '*.truecharts.org'
-        - name: oh-wildcard
-          enabled: true
-          certificateIssuer: oh-le-prod
-          hosts:
-            - openhosted.io
-            - '*.openhosted.io'
-            - openhosted.org
-            - '*.openhosted.org'
         - name: wildcard
           enabled: true
           certificateIssuer: ks-le-prod

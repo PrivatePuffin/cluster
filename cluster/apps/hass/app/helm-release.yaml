@@ -46,7 +46,7 @@ spec:
             enabled: true
             certificateIssuer: ks-le-prod
         hosts:
-          - host: hass.${BASE_DOMAIN2}
+          - host: hass.${BASE_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

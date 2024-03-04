@@ -53,10 +53,10 @@ spec:
           traefik.ingress.kubernetes.io/router.tls: 'true'
         tls:
           - hosts:
-              - goldilocks.${BASE_DOMAIN}
+              - goldilocks.${BASE_DOMAIN2}
             secretName: monitoring-goldilocks
         hosts:
-          - host: "goldilocks.${BASE_DOMAIN}"
+          - host: "goldilocks.${BASE_DOMAIN2}"
             paths:
               - path: /
                 type: Prefix

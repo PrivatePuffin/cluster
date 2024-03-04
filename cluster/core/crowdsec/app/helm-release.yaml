@@ -71,7 +71,7 @@ spec:
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
             traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd
             traefik.ingress.kubernetes.io/router.tls: 'true'
-          host: crowdsec.${BASE_DOMAIN2}
+          host: crowdsec.${BASE_DOMAIN}
 
       env:
         # For an internal test, disable the Online API

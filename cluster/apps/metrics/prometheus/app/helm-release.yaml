@@ -42,7 +42,7 @@ spec:
             enabled: true
             certificateIssuer: ks-le-prod
         hosts:
-          - host: prometheus.${BASE_DOMAIN2}
+          - host: prometheus.${BASE_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

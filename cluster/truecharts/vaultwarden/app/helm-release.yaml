@@ -90,7 +90,7 @@ spec:
             enabled: true
             certificateIssuer: tc-le-prod
         hosts:
-          - host: vaultwarden.${BASE_DOMAIN}
+          - host: vaultwarden.${BASE_DOMAIN2}
             paths:
               - path: /
                 pathType: Prefix

@@ -42,7 +42,7 @@ spec:
             enabled: true
             certificateIssuer: ks-le-prod
         hosts:
-          - host: kubeapps.${BASE_DOMAIN2}
+          - host: kubeapps.${BASE_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

@@ -50,7 +50,7 @@ spec:
               enabled: true
               certificateIssuer: ks-le-prod
           hosts:
-            - host: recyclarr.${BASE_DOMAIN2}
+            - host: recyclarr.${BASE_DOMAIN}
               paths:
                 - path: /
                   # Ignored if not kubeVersion >= 1.14-0

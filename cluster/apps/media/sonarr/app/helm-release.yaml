@@ -51,7 +51,7 @@ spec:
             enabled: true
             certificateIssuer: ks-le-prod
         hosts:
-          - host: sonarr.${BASE_DOMAIN2}
+          - host: sonarr.${BASE_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

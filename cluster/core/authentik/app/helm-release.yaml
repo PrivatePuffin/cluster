@@ -36,10 +36,10 @@ spec:
       hostAliases:
         - ip: "192.168.10.101"
           hostnames:
-            - "auth.${BASE_DOMAIN}"
             - "auth.${BASE_DOMAIN2}"
-            - "my.${BASE_DOMAIN}"
+            - "auth.${BASE_DOMAIN}"
             - "my.${BASE_DOMAIN2}"
+            - "my.${BASE_DOMAIN}"
     authentik:
       credentials:
         # Only works on initial install
@@ -62,7 +62,7 @@ spec:
           - initials
         footerLinks:
           - name: TrueCharts
-            href: https://${BASE_DOMAIN}
+            href: https://${BASE_DOMAIN2}
       email:
         host: "${SMTP}"
         port: 587
@@ -87,8 +87,8 @@ spec:
         proxy:
           enabled: true
           token: ${AUTHPROX}
-          host: https://my.${BASE_DOMAIN}
-          browserHost: https://my.${BASE_DOMAIN}
+          host: https://my.${BASE_DOMAIN2}
+          browserHost: https://my.${BASE_DOMAIN2}
         radius:
           enabled: true
           token: ${AUTHRAD}
@@ -108,7 +108,7 @@ spec:
             enabled: true
             certificateIssuer: tc-le-prod
         hosts:
-          - host: my.${BASE_DOMAIN}
+          - host: my.${BASE_DOMAIN2}
             paths:
               - path: /
                 pathType: Prefix
@@ -118,15 +118,15 @@ spec:
         targetSelector:
           proxy: https
         hosts:
-          -  host: auth.${BASE_DOMAIN}
+          -  host: auth.${BASE_DOMAIN2}
              paths:
                - path: /
                  pathType: Prefix
-          -  host: "*.${BASE_DOMAIN}"
+          -  host: "*.${BASE_DOMAIN2}"
              paths:
                - path: /outpost.goauthentik.io
                  pathType: Prefix
-          # -  host: ${BASE_DOMAIN}
+          # -  host: ${BASE_DOMAIN2}
           #    paths:
           #      - path: /outpost.goauthentik.io
           #        pathType: Prefix
@@ -154,15 +154,15 @@ spec:
         targetSelector:
           proxy: https
         hosts:
-          -  host: auth.${BASE_DOMAIN2}
+          -  host: auth.${BASE_DOMAIN}
              paths:
                - path: /
                  pathType: Prefix
-          -  host: "*.${BASE_DOMAIN2}"
+          -  host: "*.${BASE_DOMAIN}"
              paths:
                - path: /outpost.goauthentik.io
                  pathType: Prefix
-          # -  host: ${BASE_DOMAIN2}
+          # -  host: ${BASE_DOMAIN}
           #    paths:
           #      - path: /outpost.goauthentik.io
           #        pathType: Prefix

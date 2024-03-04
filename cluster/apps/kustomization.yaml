@@ -7,4 +7,3 @@ resources:
   - homepage/install.yaml
   - hass/install.yaml
   - kubeapps/install.yaml
-  - vaultwarden/install.yaml

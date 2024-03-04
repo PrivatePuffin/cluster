@@ -10,6 +10,7 @@ resources:
   - system.yaml
   - core.yaml
   - apps.yaml
+  - truecharts.yaml
   - monitoring.yaml
   - add-ons/install.yaml
   - weave-gitops/install.yaml
