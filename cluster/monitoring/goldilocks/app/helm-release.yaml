@@ -48,15 +48,15 @@ spec:
         enabled: true
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          cert-manager.io/cluster-issuer: tc-le-prod
+          cert-manager.io/cluster-issuer: ks-le-prod
           cert-manager.io/private-key-rotation-policy: Always
           traefik.ingress.kubernetes.io/router.tls: 'true'
         tls:
           - hosts:
-              - goldilocks.${BASE_DOMAIN2}
+              - goldilocks.${BASE_DOMAIN}
             secretName: monitoring-goldilocks
         hosts:
-          - host: "goldilocks.${BASE_DOMAIN2}"
+          - host: "goldilocks.${BASE_DOMAIN}"
             paths:
               - path: /
                 type: Prefix
