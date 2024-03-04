@@ -43,7 +43,7 @@ spec:
     authentik:
       credentials:
         # Only works on initial install
-        email: ${EMAIL2}
+        email: ${AUTHENTIKLOGIN}
         password: ${AUTHENTIKPASS}
         # Optional, only set if you want to use it
         bootstrapToken: ""
