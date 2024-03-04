@@ -54,6 +54,10 @@ spec:
         # When testing, allow bans on private networks
         - name: DISABLE_PARSERS
           value: "crowdsecurity/whitelists"
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
     lapi:
       dashboard:
         enabled: true
@@ -72,8 +76,12 @@ spec:
       env:
         # For an internal test, disable the Online API
         - name: DISABLE_ONLINE_API
-          value: "true"
+          value: "false"
         - name: ENROLL_KEY
           value: "${CSKEY}"
         - name: ENROLL_INSTANCE_NAME
           value: "cluster"
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
