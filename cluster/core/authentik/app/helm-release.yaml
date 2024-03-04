@@ -72,7 +72,7 @@ spec:
         from: "noreply@truecharts.org"
       logging:
         # info, debug, warning, error, trace
-        logLevel: debug
+        logLevel: error
       geoip:
         enabled: false
         # Ignored if enabled is true
@@ -99,6 +99,11 @@ spec:
       main:
         enabled: true
         integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: bouncer
+                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: tc-le-prod
@@ -132,6 +137,9 @@ spec:
             certificateIssuer: tc-le-prod
           traefik:
             enabled: true
+            middlewares:
+              - name: bouncer
+                namespace: traefik
             entrypoints:
               - websecure
             enableFixedMiddlewares: true
@@ -140,7 +148,6 @@ spec:
             fixedMiddlewares:
               - name: chain-basic
                 namespace: ""
-            middlewares: []
       proxy-priv:
         enabled: true
         primary: false
@@ -165,6 +172,9 @@ spec:
             certificateIssuer: ks-le-prod
           traefik:
             enabled: true
+            middlewares:
+              - name: bouncer
+                namespace: traefik
             entrypoints:
               - websecure
             enableFixedMiddlewares: true
@@ -173,7 +183,6 @@ spec:
             fixedMiddlewares:
               - name: chain-basic
                 namespace: ""
-            middlewares: []
 
     cnpg:
       main:
