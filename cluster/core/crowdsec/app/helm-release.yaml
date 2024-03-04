@@ -1,0 +1,75 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: crowdsec
+  namespace: crowdsec
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: crowdsec
+      version: 0.9.12
+      sourceRef:
+        kind: HelmRepository
+        name: crowdsec-charts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    container_runtime: containerd
+    tls:
+      enabled: true
+      bouncer:
+        reflector:
+          namespaces: ["traefik"]
+    agent:
+      # Specify each pod whose logs you want to process
+      acquisition:
+        # The namespace where the pod is located
+        - namespace: traefik
+          # The pod name
+          podName: traefik-*
+          # as in crowdsec configuration, we need to specify the program name to find a matching parser
+          program: traefik
+      env:
+        - name: PARSERS
+          value: "crowdsecurity/cri-logs"
+        - name: COLLECTIONS
+          value: "crowdsecurity/traefik"
+        # When testing, allow bans on private networks
+        - name: DISABLE_PARSERS
+          value: "crowdsecurity/whitelists"
+    lapi:
+      dashboard:
+        enabled: true
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: ks-le-prod
+            cert-manager.io/private-key-rotation-policy: Always
+            meta.helm.sh/release-name: traefik
+            meta.helm.sh/release-namespace: traefik
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd
+            traefik.ingress.kubernetes.io/router.tls: 'true'
+          host: crowdsec.${BASE_DOMAIN2}
+
+      env:
+        # For an internal test, disable the Online API
+        - name: DISABLE_ONLINE_API
+          value: "true"

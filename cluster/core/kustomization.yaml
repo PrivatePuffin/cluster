@@ -4,6 +4,7 @@ resources:
   - metallb-config/install.yaml
   - clusterissuer/install.yaml
   - traefik/install.yaml
+  - crowdsec/install.yaml
   - velero/install.yaml
   - kyverno
   - blocky/install.yaml

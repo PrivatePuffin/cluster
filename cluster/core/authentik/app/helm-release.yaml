@@ -38,7 +38,7 @@ spec:
           hostnames:
             - "auth.${BASE_DOMAIN}"
             - "auth.${BASE_DOMAIN2}"
-            - "authentik.${BASE_DOMAIN}"
+            - "my.${BASE_DOMAIN}"
 
     authentik:
       credentials:
@@ -87,8 +87,8 @@ spec:
         proxy:
           enabled: true
           token: ${AUTHPROX}
-          host: https://authentik.${BASE_DOMAIN}
-          browserHost: https://authentik.${BASE_DOMAIN}
+          host: https://my.${BASE_DOMAIN}
+          browserHost: https://my.${BASE_DOMAIN}
         radius:
           enabled: true
           token: ${AUTHRAD}
@@ -103,7 +103,7 @@ spec:
             enabled: true
             certificateIssuer: tc-le-prod
         hosts:
-          - host: authentik.${BASE_DOMAIN}
+          - host: my.${BASE_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix

@@ -8,6 +8,7 @@ resources:
     - bjw-s-charts.yaml
     - cilium-charts.yaml
     - cloudnative-pg-charts.yaml
+    - crowdsec-charts.yaml
     - deliveryhero-charts.yaml
     - democratic-csi-charts.yaml
     - descheduler-charts.yaml
