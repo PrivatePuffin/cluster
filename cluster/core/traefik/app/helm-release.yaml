@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 26.2.1
+      version: 26.4.0
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
@@ -101,3 +101,14 @@ spec:
           trustForwardHeader: true
           tls:
             insecureSkipVerify: true
+      crowdsecBouncer:
+        - name: bouncer
+          enabled: true
+          logLevel: DEBUG
+          crowdsecMode: none
+          crowdsecLapiHost: crowdsec-service.crowdsec:8080
+          forwardedHeadersTrustedIPs: []
+          clientTrustedIPs: []
+          crowdsecLapiTLSCertificateAuthorityFile: /etc/traefik/crowdsec-certs/ca.crt
+          crowdsecLapiTLSCertificateBouncerFile: /etc/traefik/crowdsec-certs/tls.crt
+          crowdsecLapiTLSCertificateBouncerKeyFile: /etc/traefik/crowdsec-certs/tls.key
