@@ -11,6 +11,7 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "rebaseWhen": "conflicted",
+  "automergeType": "pr",
   "flux": {
     "fileMatch": [
       "(^|/)cluster/.+\\.ya?ml(\\.j2)?$"
@@ -47,7 +48,7 @@
       "description": ["Auto merge Github Actions"],
       "matchManagers": ["github-actions"],
       "automerge": true,
-      "automergeType": "branch",
+      "automergeType": "pr",
       "ignoreTests": true,
       "matchUpdateTypes": ["minor", "patch"]
     },
