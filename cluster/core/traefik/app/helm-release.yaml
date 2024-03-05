@@ -46,7 +46,6 @@ spec:
     service:
       tcp:
         loadBalancerIP: ${TRAEFIK_IP}
-        externalTrafficPolicy: local
         ports:
           web:
             enabled: true
