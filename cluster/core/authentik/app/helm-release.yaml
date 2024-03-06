@@ -205,6 +205,7 @@ spec:
         recovery:
           method: object_store
           endpointURL: "${S3URL}"
+          serverName: authentik-cnpg-main
           provider: s3
           s3:
             bucket: "${S3PREFIX}-cnpg-authentik"
