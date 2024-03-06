@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: "Flux Diff"
+name: "Tests"
 
 on:
   pull_request:
@@ -11,7 +11,28 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
+env:
+  KUBERNETES_DIR: ./cluster
+
 jobs:
+  kubeconform:
+    name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Setup Workflow Tools
+        run: brew install fluxcd/tap/flux kubeconform kustomize
+
+      - name: Run kubeconform
+        shell: bash
+        run: bash ./.github/scripts/kubeconform.sh ${{ env.KUBERNETES_DIR }}
+
+
   flux-diff:
     name: Flux Diff
     runs-on: ubuntu-latest
@@ -65,4 +86,18 @@ jobs:
           message: |
             ```diff
             ${{ steps.diff.outputs.diff }}
-            ```
+
+  automerge-and-approve:
+    needs:
+      - Kubeconform
+      - flux-diff
+    name: Automerge and Approve build
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        uses: pascalgn/automerge-action@58724c982461efbb7865b3762d7bff0d4756f57a # v0.16.2
+        env:
+          GITHUB_TOKEN: "${{ secrets.PERS_PAT }}"
+          UPDATE_RETRIES: 12
+          UPDATE_RETRY_SLEEP: 60000
+          MERGE_METHOD: squash

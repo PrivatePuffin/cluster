@@ -170,12 +170,17 @@
     },
     {
       "matchUpdateTypes": ["minor"],
-      "labels": ["type/minor"],
+      "labels": ["type/minor", "automerge"],
       "automerge": true
     },
     {
       "matchUpdateTypes": ["patch"],
-      "labels": ["type/patch"],
+      "labels": ["type/patch", "automerge"],
+      "automerge": true
+    },
+    {
+      "matchUpdateTypes": ["digest"],
+      "labels": ["type/digest", "automerge"],
       "automerge": true
     },
     {
