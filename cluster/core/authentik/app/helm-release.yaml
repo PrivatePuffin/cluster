@@ -186,13 +186,15 @@ spec:
 
     cnpg:
       main:
+        mode: recovery
         cluster:
           storage:
             storageClass: "openebs-hostpath"
           walStorage:
             storageClass: "openebs-hostpath"
         backups:
-          enabled: true
+          enabled: false
+          revision: 1
           endpointURL: "${S3URL}"
           provider: s3
           s3:
