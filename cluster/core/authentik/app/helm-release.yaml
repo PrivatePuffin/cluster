@@ -194,7 +194,7 @@ spec:
             storageClass: "openebs-hostpath"
         backups:
           enabled: true
-          revision: 1
+          serverName: vaultwarden-cnpg-main-1
           endpointURL: "${S3URL}"
           provider: s3
           s3:
@@ -205,7 +205,6 @@ spec:
         recovery:
           method: object_store
           endpointURL: "${S3URL}"
-          serverName: authentik-cnpg-main
           provider: s3
           s3:
             bucket: "${S3PREFIX}-cnpg-authentik"
