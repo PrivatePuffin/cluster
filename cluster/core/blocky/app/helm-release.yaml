@@ -31,7 +31,7 @@ spec:
   values:
     service:
       dns:
-        externalTrafficPolicy: local
+        externalTrafficPolicy: Local
         loadBalancerIP: ${BLOCKY_IP}
         type: LoadBalancer
     customDNS:
