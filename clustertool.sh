@@ -57,8 +57,6 @@ curl -Ss https://i.jpillora.com/vmware-tanzu/velero! | bash > /dev/null || echo 
 echo "Installing talhelper..."
 curl -Ssl https://i.jpillora.com/budimanjojo/talhelper! | bash > /dev/null || echo "installation failed..."
 
-cp talhelper /usr/local/bin/talhelper &&  chmod +x /usr/local/bin/talhelper || echo "installation failed..."
-
 echo "Installing pre-commit..."
 pip install pre-commit > /dev/null || pip install pre-commit --break-system-packages > /dev/null || echo "Installing pre-commit failed, non-critical continuing..."
 
