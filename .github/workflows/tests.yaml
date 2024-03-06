@@ -97,7 +97,7 @@ jobs:
       - name: automerge
         uses: pascalgn/automerge-action@58724c982461efbb7865b3762d7bff0d4756f57a # v0.16.2
         env:
-          GITHUB_TOKEN: "${{ secrets.DEV PAT }}"
+          GITHUB_TOKEN: "${{ secrets.DEV_PAT }}"
           UPDATE_RETRIES: 12
           UPDATE_RETRY_SLEEP: 60000
           MERGE_METHOD: squash
