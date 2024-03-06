@@ -39,9 +39,6 @@ spec:
         format: common
       access:
         enabled: true
-    workload:
-      main:
-        type: DaemonSet
     defaultCertificate: tc-wildcard
     service:
       tcp:
