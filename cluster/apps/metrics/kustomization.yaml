@@ -5,5 +5,5 @@ resources:
   - grafana/install.yaml
   - unpoller/install.yaml
   - truenas-exporter/install.yaml
-  - smartctl-exporter/install.yaml
+  # - smartctl-exporter/install.yaml
   - speedtest-exporter/install.yaml
