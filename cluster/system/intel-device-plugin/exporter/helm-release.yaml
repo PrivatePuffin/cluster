@@ -27,6 +27,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    fallbackDefaults:
+      accessModes:
+        - ReadWriteMany
     controllers:
       main:
         type: daemonset

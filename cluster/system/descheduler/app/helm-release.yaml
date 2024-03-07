@@ -28,6 +28,9 @@ spec:
     uninstall:
         keepHistory: false
     values:
+    fallbackDefaults:
+      accessModes:
+        - ReadWriteMany
         kind: Deployment
         deschedulerPolicy:
             strategies:

@@ -27,6 +27,9 @@ spec:
   uninstall:
       keepHistory: false
   values:
+    fallbackDefaults:
+      accessModes:
+        - ReadWriteMany
       metrics:
           enabled: true
       serviceMonitor:
