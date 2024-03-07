@@ -31,9 +31,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fallbackDefaults:
-      accessModes:
-        - ReadWriteMany
+
     container_runtime: containerd
     tls:
       enabled: true

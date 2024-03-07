@@ -36,9 +36,7 @@ spec:
         - kind: ConfigMap
           name: cilium-values
     values:
-    fallbackDefaults:
-      accessModes:
-        - ReadWriteMany
+
         hubble:
             metrics:
                 serviceMonitor:

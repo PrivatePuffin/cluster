@@ -31,9 +31,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fallbackDefaults:
-      accessModes:
-        - ReadWriteMany
+
     podOptions:
       # TODO: Remove this after Authentik fixed their shit
       hostAliases:

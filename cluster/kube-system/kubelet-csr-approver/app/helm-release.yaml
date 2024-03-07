@@ -16,9 +16,7 @@ spec:
                 namespace: flux-system
             interval: 30m
     values:
-    fallbackDefaults:
-      accessModes:
-        - ReadWriteMany
+
       providerRegex: |
           ^(k8s-[1-6])$
       bypassDnsResolution: true

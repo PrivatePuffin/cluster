@@ -25,9 +25,7 @@ spec:
         remediation:
             retries: 3
     values:
-    fallbackDefaults:
-      accessModes:
-        - ReadWriteMany
+
         crds:
           enabled: true
         csi:

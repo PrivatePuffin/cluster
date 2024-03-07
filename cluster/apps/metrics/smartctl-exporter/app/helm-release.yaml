@@ -29,6 +29,3 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fallbackDefaults:
-      accessModes:
-        - ReadWriteMany

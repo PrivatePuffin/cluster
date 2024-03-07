@@ -31,9 +31,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fallbackDefaults:
-      accessModes:
-        - ReadWriteMany
+
     logs:
       general:
         # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
