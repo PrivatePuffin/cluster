@@ -34,6 +34,7 @@ spec:
 
     podOptions:
       # TODO: Remove this after Authentik fixed their shit
+      defaultSpread: false
       hostAliases:
         - ip: "192.168.10.101"
           hostnames:
