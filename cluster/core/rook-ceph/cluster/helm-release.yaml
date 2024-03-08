@@ -243,7 +243,7 @@ spec:
             enabled: true
             isDefault: false
             name: ceph-filesystem-nvme-3
-            reclaimPolicy: Delete
+            reclaimPolicy: Retain
             allowVolumeExpansion: true
             mountOptions: []
         - name: ceph-filesystem-nvme-2
@@ -265,7 +265,7 @@ spec:
             enabled: true
             isDefault: false
             name: ceph-filesystem-nvme-2
-            reclaimPolicy: Delete
+            reclaimPolicy: Retain
             allowVolumeExpansion: true
             mountOptions: []
         # - name: ceph-filesystem-hdd-3
@@ -287,7 +287,7 @@ spec:
         #     enabled: true
         #     isDefault: false
         #     name: ceph-filesystem-hdd-3
-        #     reclaimPolicy: Delete
+        #     reclaimPolicy: Retain
         #     allowVolumeExpansion: true
         #     mountOptions: []
         # - name: ceph-filesystem-hdd-2
@@ -309,7 +309,7 @@ spec:
         #     enabled: true
         #     isDefault: false
         #     name: ceph-filesystem-hdd-2
-        #     reclaimPolicy: Delete
+        #     reclaimPolicy: Retain
         #     allowVolumeExpansion: true
 
 
