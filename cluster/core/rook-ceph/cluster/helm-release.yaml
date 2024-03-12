@@ -120,6 +120,9 @@ spec:
               config:
                 deviceClass: nvme
                 osdsPerDevice: "1"
+            - name: k8s-worker-1
+            - name: k8s-worker-2
+            - name: k8s-worker-3
 
 
       ingress:
