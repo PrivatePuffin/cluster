@@ -161,7 +161,7 @@ spec:
             enabled: true
             name: ceph-nvme
             isDefault: true
-            reclaimPolicy: Retain
+            reclaimPolicy: Delete
             allowVolumeExpansion: true
             parameters:
               csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
@@ -182,7 +182,7 @@ spec:
             enabled: true
             name: ceph-nvme-2
             isDefault: false
-            reclaimPolicy: Retain
+            reclaimPolicy: Delete
             allowVolumeExpansion: true
             parameters:
               csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
@@ -255,7 +255,7 @@ spec:
             enabled: true
             isDefault: false
             name: ceph-filesystem-nvme-3
-            reclaimPolicy: Retain
+            reclaimPolicy: Delete
             allowVolumeExpansion: true
             mountOptions: []
         - name: ceph-filesystem-nvme-2
@@ -277,7 +277,7 @@ spec:
             enabled: true
             isDefault: false
             name: ceph-filesystem-nvme-2
-            reclaimPolicy: Retain
+            reclaimPolicy: Delete
             allowVolumeExpansion: true
             mountOptions: []
         # - name: ceph-filesystem-hdd-3
