@@ -141,7 +141,6 @@ spec:
             storageClass: "openebs-hostpath"
         backups:
           enabled: true
-          serverName: vaultwarden-cnpg-main-1
           endpointURL: "${S3URL}"
           provider: s3
           s3:
