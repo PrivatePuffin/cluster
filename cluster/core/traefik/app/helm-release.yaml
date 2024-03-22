@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 26.9.3
+      version: 26.9.4
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
