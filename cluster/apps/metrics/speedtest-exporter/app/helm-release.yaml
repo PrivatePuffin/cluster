@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: speedtest-exporter
-      version: 10.8.1
+      version: 10.8.2
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
