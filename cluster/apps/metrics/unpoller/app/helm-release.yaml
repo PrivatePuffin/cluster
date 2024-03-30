@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: unpoller
-      version: 10.9.4
+      version: 10.9.5
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
