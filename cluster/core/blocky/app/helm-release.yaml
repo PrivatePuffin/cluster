@@ -29,10 +29,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    workload:
-      main:
-        replicas: 1
-
     service:
       dns:
         externalTrafficPolicy: Local
