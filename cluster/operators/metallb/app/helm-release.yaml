@@ -9,7 +9,7 @@ spec:
         spec:
             # renovate: registryUrl=https://charts.truechartsoci.org
             chart: metallb
-            version: 14.8.5
+            version: 14.8.6
             sourceRef:
                 kind: HelmRepository
                 name: truechartsoci
