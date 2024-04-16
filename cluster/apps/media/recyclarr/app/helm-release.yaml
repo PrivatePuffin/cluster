@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: recyclarr
-      version: 9.8.4
+      version: 9.8.5
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
