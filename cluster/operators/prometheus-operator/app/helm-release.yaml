@@ -9,7 +9,7 @@ spec:
         spec:
             # renovate: registryUrl=https://charts.truechartsoci.org
             chart: prometheus-operator
-            version: 6.10.7
+            version: 6.10.10
             sourceRef:
                 kind: HelmRepository
                 name: truechartsoci
