@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: clusterissuer
-      version: 7.8.8
+      version: 7.8.11
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
