@@ -148,7 +148,6 @@ spec:
           host:
             name: "rook.${BASE_DOMAIN}"
             path: "/"
-
       cephBlockPools:
         - name: ceph-nvme
           spec:
@@ -171,70 +170,11 @@ spec:
               csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
               csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
               csi.storage.k8s.io/fstype: ext4
-        - name: ceph-nvme-2
-          spec:
-            failureDomain: host
-            deviceClass: nvme
-            enableRBDStats: true
-            replicated:
-              size: 2
-          storageClass:
-            enabled: true
-            name: ceph-nvme-2
-            isDefault: false
-            reclaimPolicy: Delete
-            allowVolumeExpansion: true
-            parameters:
-              csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-              csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
-              csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-              csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
-              csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-              csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
-              csi.storage.k8s.io/fstype: ext4
-        # - name: ceph-hdd
-        #   spec:
-        #     failureDomain: host
-        #     deviceClass: hdd
-        #     enableRBDStats: true
-        #     replicated:
-        #       size: 3
-        #   storageClass:
-        #     enabled: true
-        #     name: ceph-hdd
-        #     isDefault: false
-        #     reclaimPolicy: Retain
-        #     allowVolumeExpansion: true
-        #     parameters:
-        #       csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-        #       csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
-        #       csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-        #       csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
-        #       csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-        #       csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
-        #       csi.storage.k8s.io/fstype: ext4
-        # - name: ceph-hdd-2
-        #   spec:
-        #     failureDomain: host
-        #     deviceClass: hdd
-        #     enableRBDStats: true
-        #     replicated:
-        #       size: 2
-        #   storageClass:
-        #     enabled: true
-        #     name: ceph-hdd-2
-        #     isDefault: false
-        #     reclaimPolicy: Retain
-        #     allowVolumeExpansion: true
-        #     parameters:
-        #       csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
-        #       csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
-        #       csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
-        #       csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
-        #       csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
-        #       csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
-        #       csi.storage.k8s.io/fstype: ext4
-        #
+      cephBlockPoolsVolumeSnapshotClass:
+        enabled: true
+        name: csi-ceph-blockpool
+        isDefault: true
+        deletionPolicy: Delete
       cephFileSystems:
         - name: ceph-filesystem-nvme-3
           spec:
@@ -258,71 +198,12 @@ spec:
             reclaimPolicy: Delete
             allowVolumeExpansion: true
             mountOptions: []
-        - name: ceph-filesystem-nvme-2
-          spec:
-            metadataPool:
-              deviceClass: nvme
-              replicated:
-                size: 3
-            dataPools:
-              - failureDomain: host
-                name: data1
-                deviceClass: nvme
-                replicated:
-                  size: 2
-            metadataServer:
-              activeCount: 1
-              activeStandby: true
-          storageClass:
-            enabled: true
-            isDefault: false
-            name: ceph-filesystem-nvme-2
-            reclaimPolicy: Delete
-            allowVolumeExpansion: true
-            mountOptions: []
-        # - name: ceph-filesystem-hdd-3
-        #   spec:
-        #     metadataPool:
-        #       deviceClass: nvme
-        #       replicated:
-        #         size: 3
-        #     dataPools:
-        #       - failureDomain: host
-        #         name: data2
-        #         deviceClass: hdd
-        #         replicated:
-        #           size: 3
-        #     metadataServer:
-        #       activeCount: 1
-        #       activeStandby: true
-        #   storageClass:
-        #     enabled: true
-        #     isDefault: false
-        #     name: ceph-filesystem-hdd-3
-        #     reclaimPolicy: Retain
-        #     allowVolumeExpansion: true
-        #     mountOptions: []
-        # - name: ceph-filesystem-hdd-2
-        #   spec:
-        #     metadataPool:
-        #       deviceClass: nvme
-        #       replicated:
-        #         size: 3
-        #     dataPools:
-        #       - failureDomain: host
-        #         name: data3
-        #         deviceClass: hdd
-        #         replicated:
-        #           size: 2
-        #     metadataServer:
-        #       activeCount: 1
-        #       activeStandby: true
-        #   storageClass:
-        #     enabled: true
-        #     isDefault: false
-        #     name: ceph-filesystem-hdd-2
-        #     reclaimPolicy: Retain
-        #     allowVolumeExpansion: true
+      cephFileSystemVolumeSnapshotClass:
+        enabled: true
+        name: csi-ceph-filesystem
+        isDefault: false
+        deletionPolicy: Delete
+
 
 
       cephObjectStores: []
