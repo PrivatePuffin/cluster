@@ -37,6 +37,17 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
 
+    persistence:
+      config:
+        volsync:
+          - name: b2
+            type: restic
+            credentials: s3
+            dest:
+              enabled: false
+            src:
+              enabled: true
+
     ingress:
       main:
         enabled: true
