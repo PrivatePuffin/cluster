@@ -1,7 +1,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-    name: snapshotcontroller
+    name: snapshot-controller
     namespace: kube-system
 spec:
     interval: 5m

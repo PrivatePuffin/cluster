@@ -6,4 +6,4 @@ resources:
     - kubelet-csr-approver/install.yaml
     - metrics-server/install.yaml
     - volumesnapshots/install.yaml
-    - snapshotcontroller/install.yaml
+    - snapshot-controller/install.yaml
