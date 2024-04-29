@@ -61,7 +61,7 @@ spec:
                 pathType: Prefix
 
     persistence:
-      data:
+      config:
         volsync:
           - name: b2
             type: restic
