@@ -19,5 +19,14 @@ spec:
         remediation:
             retries: 3
     upgrade:
-        remediation:
-            retries: 3
+      cleanupOnFail: true
+      crds: CreateReplace
+      remediation:
+        strategy: rollback
+        retries: 3
+    values:
+      controller:
+        serviceMonitor:
+          create: false
+      webhook:
+        enabled: false
