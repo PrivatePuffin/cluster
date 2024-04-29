@@ -31,6 +31,13 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    credentials:
+      s3:
+        type: s3
+        url "${S3URL}"
+        bucket: "${S3PREFIX}-authentik"
+        accessKey: "${S3ID}"
+        secretKey: "${S3KEY}"
 
     podOptions:
       # TODO: Remove this after Authentik fixed their shit
