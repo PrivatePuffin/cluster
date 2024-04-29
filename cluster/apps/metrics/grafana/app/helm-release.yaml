@@ -103,4 +103,3 @@ spec:
         recovery:
           method: object_store
           credentials: s3
-          credentials: s3
