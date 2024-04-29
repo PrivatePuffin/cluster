@@ -9,7 +9,7 @@ spec:
         spec:
             # renovate: registryUrl=https://charts.truechartsoci.org
             chart: cloudnative-pg
-            version: 6.11.0
+            version: 7.0.1
             sourceRef:
                 kind: HelmRepository
                 name: truechartsoci
