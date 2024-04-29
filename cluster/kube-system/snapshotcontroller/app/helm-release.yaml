@@ -7,7 +7,7 @@ spec:
     interval: 5m
     chart:
         spec:
-            chart: snapshotcontroller
+            chart: snapshot-controller
             version: 2.2.1
             sourceRef:
                 kind: HelmRepository
