@@ -205,6 +205,8 @@ spec:
             credentials: s3
             dest:
 
+              capacity: "100Gi"
+
               accessModes:
                 - ReadWriteMany
               enabled: true
@@ -219,6 +221,8 @@ spec:
             type: restic
             credentials: s3
             dest:
+
+              capacity: "100Gi"
 
               accessModes:
                 - ReadWriteMany
@@ -235,6 +239,8 @@ spec:
             credentials: s3
             dest:
 
+              capacity: "100Gi"
+
               accessModes:
                 - ReadWriteMany
               enabled: true
@@ -250,6 +256,8 @@ spec:
             credentials: s3
             dest:
 
+              capacity: "100Gi"
+
               accessModes:
                 - ReadWriteMany
               enabled: true
@@ -264,6 +272,8 @@ spec:
             type: restic
             credentials: s3
             dest:
+
+              capacity: "100Gi"
 
               accessModes:
                 - ReadWriteMany

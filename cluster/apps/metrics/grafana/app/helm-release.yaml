@@ -50,6 +50,8 @@ spec:
             credentials: s3
             dest:
 
+              capacity: "100Gi"
+
               accessModes:
                 - ReadWriteOnce
               enabled: true
@@ -61,6 +63,8 @@ spec:
             type: restic
             credentials: s3
             dest:
+
+              capacity: "100Gi"
 
               accessModes:
                 - ReadWriteOnce

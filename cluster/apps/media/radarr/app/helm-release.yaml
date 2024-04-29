@@ -70,6 +70,8 @@ spec:
             credentials: s3
             dest:
 
+              capacity: "100Gi"
+
               accessModes:
                 - ReadWriteOnce
               enabled: true
