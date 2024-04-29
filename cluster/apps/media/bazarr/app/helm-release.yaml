@@ -36,6 +36,7 @@ spec:
         bucket: "${S3PREFIX}-bazarr"
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
+        encrKey: "${S3KEY}"
 
     ingress:
       main:
