@@ -126,7 +126,7 @@ spec:
           walStorage:
             storageClass: "openebs-hostpath"
         backups:
-          enabled: false
+          enabled: true
           credentials: s3
         recovery:
           method: object_store

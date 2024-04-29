@@ -38,6 +38,16 @@ spec:
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
 
+    persistence:
+      config:
+        volsync:
+          - name: b2
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
 
     addons:
       # -- The common library supports adding a code-server add-on to access files. It can be configured under this key.

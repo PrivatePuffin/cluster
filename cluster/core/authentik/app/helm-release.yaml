@@ -194,6 +194,68 @@ spec:
               - name: chain-basic
                 namespace: ""
 
+    persistence:
+      media:
+        accessModes:
+          - ReadWriteMany
+        storageClass: ceph-filesystem-nvme-3
+        volsync:
+          - name: b2-media
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
+      templates:
+        accessModes:
+          - ReadWriteMany
+        storageClass: ceph-filesystem-nvme-3
+        volsync:
+          - name: b2-templates
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
+      blueprints:
+        accessModes:
+          - ReadWriteMany
+        storageClass: ceph-filesystem-nvme-3
+        volsync:
+          - name: b2-blueprints
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
+      certs:
+        accessModes:
+          - ReadWriteMany
+        storageClass: ceph-filesystem-nvme-3
+        volsync:
+          - name: b2-certs
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
+      geoip:
+        accessModes:
+          - ReadWriteMany
+        storageClass: ceph-filesystem-nvme-3
+        volsync:
+          - name: b2-geoip
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
+
     cnpg:
       main:
         # mode: recovery
@@ -203,7 +265,7 @@ spec:
           walStorage:
             storageClass: "openebs-hostpath"
         backups:
-          enabled: false
+          enabled: true
           credentials: s3
         recovery:
           method: object_store

@@ -57,6 +57,15 @@ spec:
               - path: /
                 pathType: Prefix
     persistence:
+      config:
+        volsync:
+          - name: b2
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
       books:
         enabled: true
         existingClaim: media-books-nfs-pvc

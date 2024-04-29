@@ -63,6 +63,15 @@ spec:
                 # UN_READARR_0_PROTOCOLS: torrent
 
     persistence:
+      config:
+        volsync:
+          - name: b2
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
       media:
         enabled: true
         existingClaim: media-nfs-pvc

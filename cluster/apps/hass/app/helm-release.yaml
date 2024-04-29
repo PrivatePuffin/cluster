@@ -59,6 +59,17 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+
+    persistence:
+      data:
+        volsync:
+          - name: b2
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
     cnpg:
       main:
         cluster:
@@ -67,7 +78,7 @@ spec:
           walStorage:
             storageClass: "openebs-hostpath"
         backups:
-          enabled: false
+          enabled: true
           credentials: s3
         recovery:
           method: object_store

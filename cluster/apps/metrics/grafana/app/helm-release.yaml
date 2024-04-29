@@ -29,6 +29,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    workload:
+      main:
+        replicas: 2
+
     credentials:
       s3:
         type: s3
@@ -37,6 +41,26 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
+
+    persistence:
+      config:
+        volsync:
+          - name: b2
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
+      data:
+        volsync:
+          - name: b2-data
+            type: restic
+            credentials: s3
+            dest:
+              enabled: true
+            src:
+              enabled: true
 
     ingress:
       main:
@@ -55,6 +79,7 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
+
     cnpg:
       main:
         cluster:
@@ -62,3 +87,10 @@ spec:
             storageClass: "openebs-hostpath"
           walStorage:
             storageClass: "openebs-hostpath"
+        backups:
+          enabled: true
+          credentials: s3
+        recovery:
+          method: object_store
+          credentials: s3
+          credentials: s3
