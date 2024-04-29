@@ -32,7 +32,7 @@ spec:
     credentials:
       s3:
         type: s3
-        url "${S3URL}"
+        url: "${S3URL}"
         bucket: "${S3PREFIX}-tautulli"
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"

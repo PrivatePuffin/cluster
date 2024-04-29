@@ -32,7 +32,7 @@ spec:
     credentials:
       s3:
         type: s3
-        url "${S3URL}"
+        url: "${S3URL}"
         bucket: "${S3PREFIX}-bitmagnet"
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
@@ -73,19 +73,8 @@ spec:
             storageClass: "openebs-hostpath"
         backups:
           enabled: false
-          endpointURL: "${S3URL}"
-          provider: s3
-          s3:
-            bucket: "${S3PREFIX}-cnpg-bitmagnet"
-            path: "/"
-            accessKey: "${S3ID}"
-            secretKey: "${S3KEY}"
+          credentials: s3
+
         recovery:
           method: object_store
-          endpointURL: "${S3URL}"
-          provider: s3
-          s3:
-            bucket: "${S3PREFIX}-cnpg-bitmagnet"
-            path: "/"
-            accessKey: "${S3ID}"
-            secretKey: "${S3KEY}"
+          credentials: s3
