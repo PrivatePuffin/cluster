@@ -204,6 +204,9 @@ spec:
             type: restic
             credentials: s3
             dest:
+
+              accessModes:
+                - ReadWriteMany
               enabled: true
             src:
               enabled: true
@@ -216,6 +219,9 @@ spec:
             type: restic
             credentials: s3
             dest:
+
+              accessModes:
+                - ReadWriteMany
               enabled: true
             src:
               enabled: true
@@ -228,6 +234,9 @@ spec:
             type: restic
             credentials: s3
             dest:
+
+              accessModes:
+                - ReadWriteMany
               enabled: true
             src:
               enabled: true
@@ -240,6 +249,9 @@ spec:
             type: restic
             credentials: s3
             dest:
+
+              accessModes:
+                - ReadWriteMany
               enabled: true
             src:
               enabled: true
@@ -252,6 +264,9 @@ spec:
             type: restic
             credentials: s3
             dest:
+
+              accessModes:
+                - ReadWriteMany
               enabled: true
             src:
               enabled: true
