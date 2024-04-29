@@ -133,7 +133,6 @@ spec:
                 deviceClass: nvme
                 osdsPerDevice: "1"
 
-
       ingress:
         dashboard:
           annotations:
