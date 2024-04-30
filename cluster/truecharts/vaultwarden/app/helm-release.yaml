@@ -92,18 +92,14 @@ spec:
 
     persistence:
       data:
-        storageClass: ceph-filesystem-nvme-3
-        accessModes:
-          - ReadWriteMany
         volsync:
           - name: b2
             type: restic
             credentials: s3
             dest:
-
               capacity: "100Gi"
               accessModes:
-                - ReadWriteMany
+                - ReadWriteOnce
               enabled: true
             src:
               enabled: true
