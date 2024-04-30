@@ -5,5 +5,3 @@ resources:
     - cilium/install.yaml
     - kubelet-csr-approver/install.yaml
     - metrics-server/install.yaml
-    - volumesnapshots/install.yaml
-    - snapshot-controller/install.yaml

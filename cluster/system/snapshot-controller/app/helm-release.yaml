@@ -2,16 +2,16 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
     name: snapshot-controller
-    namespace: kube-system
+    namespace: system
 spec:
     interval: 5m
     chart:
         spec:
             chart: snapshot-controller
-            version: 2.2.1
+            version: 1.0.0
             sourceRef:
                 kind: HelmRepository
-                name: piraeus-charts
+                name: truechartsoci
                 namespace: flux-system
             interval: 5m
     install:
@@ -25,8 +25,3 @@ spec:
         strategy: rollback
         retries: 3
     values:
-      controller:
-        serviceMonitor:
-          create: false
-      webhook:
-        enabled: false

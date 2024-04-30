@@ -3,10 +3,10 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: kube-system-snapshot-controller
+  name: system-snapshot-controller
   namespace: flux-system
 spec:
-  path: ./cluster/kube-system/snapshot-controller/app
+  path: ./cluster/system/snapshot-controller/app
   sourceRef:
     kind: GitRepository
     name: flux-system
