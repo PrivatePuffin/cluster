@@ -9,7 +9,7 @@ spec:
         spec:
             # renovate: registryUrl=https://charts.truechartsoci.org
             chart: cert-manager
-            version: 5.0.2
+            version: 5.0.3
             sourceRef:
                 kind: HelmRepository
                 name: truechartsoci
