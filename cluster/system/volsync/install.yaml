@@ -6,7 +6,7 @@ metadata:
   name: operators-volsync
   namespace: flux-system
 spec:
-  path: ./cluster/operators/volsync/app
+  path: ./cluster/system/volsync/app
   sourceRef:
     kind: GitRepository
     name: flux-system
