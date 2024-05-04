@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: prowlarr
-      version: 17.0.5
+      version: 17.0.4
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
@@ -65,7 +65,7 @@ spec:
     persistence:
       config:
         volsync:
-          - name: b2
+          - name: b2-r2
             type: restic
             credentials: s3
             dest:
