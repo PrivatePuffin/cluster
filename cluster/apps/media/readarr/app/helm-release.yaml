@@ -38,6 +38,13 @@ spec:
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
 
+    workload:
+      exportarr:
+        enabled: false
+
+    metrics:
+      main:
+        enabled: false
 
     ingress:
       main:
