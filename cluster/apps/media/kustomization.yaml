@@ -21,3 +21,4 @@ resources:
   - readarr/install.yaml
   - sabnzbd/install.yaml
   - bitmagnet/install.yaml
+  - flaresolverr/install.yaml
