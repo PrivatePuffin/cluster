@@ -76,7 +76,7 @@ spec:
           traefik:
             enabled: true
             middlewares:
-              - name: auth
+              - name: local
                 namespace: traefik
               - name: bouncer
                 namespace: traefik
@@ -90,6 +90,11 @@ spec:
               - path: /
                 pathType: Prefix
     middlewares:
+      ipWhiteList:
+        - name: local
+          sourceRange:
+            - 192.168.10.0/24
+            - 192.168.20.0/24
       forwardAuth:
         - name: auth
           address: https://authentik-proxy.authentik.svc.cluster.local:10228/outpost.goauthentik.io/auth/traefik

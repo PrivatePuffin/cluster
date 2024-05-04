@@ -37,7 +37,8 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
-
+    metrics:
+      enabled: false
 
     ingress:
       main:
@@ -46,7 +47,7 @@ spec:
           traefik:
             enabled: true
             middlewares:
-              - name: auth
+              - name: local
                 namespace: traefik
           certManager:
             enabled: true

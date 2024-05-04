@@ -45,7 +45,7 @@ spec:
           traefik:
             enabled: true
             middlewares:
-              - name: auth
+              - name: local
                 namespace: traefik
           certManager:
             enabled: true
