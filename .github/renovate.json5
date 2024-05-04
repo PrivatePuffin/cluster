@@ -59,6 +59,7 @@
       "matchPackagePatterns": ["flux"],
       "matchDatasources": ["docker", "github-tags"],
       "versioning": "semver",
+      "automerge": false,
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
       },
