@@ -27,7 +27,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: hass-backups-pvc
-  namespace: media
+  namespace: hass
 spec:
   storageClassName: hass-backups-pvc
   accessModes:
