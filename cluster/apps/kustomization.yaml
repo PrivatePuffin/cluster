@@ -6,4 +6,5 @@ resources:
   - kms/install.yaml
   - homepage/install.yaml
   - hass/install.yaml
+  - mosquitto/install.yaml
   - kubeapps/install.yaml
