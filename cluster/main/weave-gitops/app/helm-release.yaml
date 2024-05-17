@@ -41,6 +41,7 @@ spec:
         cert-manager.io/cluster-issuer: ks-le-prod
         cert-manager.io/private-key-rotation-policy: Always
         traefik.ingress.kubernetes.io/router.tls: 'true'
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-bouncer@kubernetescrd,traefik-local@kubernetescrd
       tls:
         - hosts:
             - gitops.${BASE_DOMAIN}

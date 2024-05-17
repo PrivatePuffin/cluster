@@ -45,6 +45,8 @@ spec:
           traefik:
             enabled: true
             middlewares:
+              - name: bouncer
+                namespace: traefik
               - name: local
                 namespace: traefik
           certManager:
