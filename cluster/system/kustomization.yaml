@@ -7,6 +7,5 @@ resources:
     - reloader/install.yaml
     - kubernetes-reflector/install.yaml
     # - intel-device-plugin/install.yaml
-    - vpa/install.yaml
     - snapshot-controller/install.yaml
     - volsync/install.yaml

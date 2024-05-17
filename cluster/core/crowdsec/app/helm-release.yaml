@@ -70,8 +70,8 @@ spec:
             meta.helm.sh/release-name: traefik
             meta.helm.sh/release-namespace: traefik
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
-            traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd
             traefik.ingress.kubernetes.io/router.tls: 'true'
+            traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-bouncer@kubernetescrd,traefik-local@kubernetescrd
           host: crowdsec.${BASE_DOMAIN}
 
       env:

@@ -47,6 +47,10 @@ spec:
             middlewares:
               - name: auth
                 namespace: traefik
+              - name: local
+                namespace: traefik
+              - name: bouncer
+                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: ks-le-prod
