@@ -36,21 +36,21 @@ spec:
         - kind: ConfigMap
           name: cilium-values
     values:
-
-        hubble:
-            metrics:
-                serviceMonitor:
-                    enabled: true
-            relay:
-                prometheus:
-                    serviceMonitor:
-                        enabled: true
-        prometheus:
+        operator:
+          prometheus:
             enabled: true
             serviceMonitor:
-                enabled: true
-        operator:
-            prometheus:
-                enabled: true
-                serviceMonitor:
-                    enabled: true
+              enabled: true
+          dashboards:
+            enabled: true
+            annotations:
+              grafana_folder: Cilium
+        prometheus:
+          enabled: true
+          serviceMonitor:
+            enabled: true
+            trustCRDsExist: true
+        dashboards:
+          enabled: true
+          annotations:
+            grafana_folder: Cilium
