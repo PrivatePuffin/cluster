@@ -26,23 +26,3 @@ spec:
             retries: 3
     values:
         fullnameOverride: gha-runner-scale-set-controller
-sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age:
-        - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBYanBCWnZyM2dRdmg3MEZH
-            azRrYlh5OVRkTzQxTG0xeXVMSURUVmQ0eFhrCjFTckszRUowUGE4Y0NCaDFVaUU1
-            MENseDdibWE0YWFwcWlZNzN6QTNiN2cKLS0tIEp3UGdYQk8xSFVzS1ZxbVFXTmFJ
-            bkJzS21CVXpKaExrVGRsZFl0Y3g1S0UKzvZ+BvOqKDzssrD4gIwIVsYuBUj3/rbz
-            93dvgb1r8LsW9j7N9LfnOB3zF0LOk5LFlgnOCTg9SsVI9syq6qroEA==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-21T12:15:37Z"
-    mac: ENC[AES256_GCM,data:TozQgO5acvVEJNssdp26dW3m1y2+KexS4305Pw7jQ1AjI1uN1qiBuhapCR7qelY1EwMZaPn8hNq41GKI/wF7LrgI1YR4iATiJALOtfcDYWHii1FoqMX0bQ9YEqbtiD5aHK5NX2Jpk7z303JG7/75UHm+kDjk1x849hglnzxCauM=,iv:vRNfj/+Kv/Y3Y1M5TLM+X60CzNXAQ3FFgZVm5+75sZ0=,tag:jTYFRU0XaczoLqXA4VBmYQ==,type:str]
-    pgp: []
-    encrypted_regex: ((?i)(github_app_private_key|github_app_installation_id))
-    version: 3.8.1
