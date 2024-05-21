@@ -25,3 +25,7 @@ creation_rules:
     encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
     age: >-
       age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+  - path_regex: cluster.*gha-runner-scale-set.*helmrelease.yaml
+    encrypted_regex: "((?i)(github_app_private_key|github_app_installation_id))"
+    age: >-
+      age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq

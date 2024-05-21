@@ -1,50 +1,68 @@
----
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: gha-runner-scale-set-truecharts-helmstaging
-  namespace: actions-runner
+    name: gha-runner-scale-set-truecharts-helmstaging
+    namespace: actions-runner
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: gha-runner-scale-set
-      version: 0.9.1
-      sourceRef:
-        kind: HelmRepository
-        name: actions-runner-controller-charts
-        namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
-  dependsOn:
-    - name: gha-runner-scale-set-controller
-      namespace: actions-runner
-  values:
-    nameOverride: gha-runner-scale-set-truecharts-helmstaging
-    runnerScaleSetName: gha-runner-scale-set-truecharts-helmstaging
-    minRunners: 0
-    maxRunners: 2
-    containerMode:
-      type: dind
-    githubConfigSecret:
-      github_app_id: "${ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID}"
-      github_app_installation_id: "50992546"
-      github_app_private_key: |
-        ${ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY}
-    githubConfigUrl: https://github.com/truecharts
-    # template:
-    #   spec:
-    #     containers:
-    #       - name: runner
-    #         image: ghcr.io/onedr0p/actions-runner:2.316.1@sha256:32f392f2db95247bccb45782528b29d028f9b7c617729fff309e4c5de83b9b7d
-    #         command: ["/home/runner/run.sh"]
-    # controllerServiceAccount:
-    #   name: gha-runner-scale-set-controller
-    #   namespace: actions-runner
+    interval: 30m
+    chart:
+        spec:
+            chart: gha-runner-scale-set
+            version: 0.9.1
+            sourceRef:
+                kind: HelmRepository
+                name: actions-runner-controller-charts
+                namespace: flux-system
+    install:
+        remediation:
+            retries: 3
+    upgrade:
+        cleanupOnFail: true
+        remediation:
+            strategy: rollback
+            retries: 3
+    dependsOn:
+        - name: gha-runner-scale-set-controller
+          namespace: actions-runner
+    values:
+        nameOverride: gha-runner-scale-set-truecharts-helmstaging
+        runnerScaleSetName: gha-runner-scale-set-truecharts-helmstaging
+        minRunners: 0
+        maxRunners: 2
+        containerMode:
+            type: dind
+        githubConfigSecret:
+            github_app_id: ${ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID}
+            github_app_installation_id: ENC[AES256_GCM,data:yeq9njix4nw=,iv:XbSjFDwoEcc8JSHdOWNcjX1JeF7vOo7ZWE6M2ejKNCU=,tag:UOtk31r7x69UFC4YD6AJJA==,type:str]
+            github_app_private_key: ENC[AES256_GCM,data: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,iv:rJ58Mh3z452kJuoxzZdtkjT/M4EM6Wrq3FknBCOcGk4=,tag:TeLONuasH+TA1IdkL8FLRw==,type:str]
+        githubConfigUrl: https://github.com/truecharts
+        # template:
+        #   spec:
+        #     containers:
+        #       - name: runner
+        #         image: ghcr.io/onedr0p/actions-runner:2.316.1@sha256:32f392f2db95247bccb45782528b29d028f9b7c617729fff309e4c5de83b9b7d
+        #         command: ["/home/runner/run.sh"]
+        # controllerServiceAccount:
+        #   name: gha-runner-scale-set-controller
+        #   namespace: actions-runner
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBaaUZiSjViaHNxSWp2VTlZ
+            c0tKbVpEc2dGR0JtekFYbGMzb1U2Umc1bEIwCkRKdjdRRTlXeTVvVkdKZXd4SlZY
+            UklydVB4R3lYOWsxMERsWjhjVzRtUXMKLS0tIFl2RVVDYWdWSldPOUlYTHRWT2ly
+            a09mVHZZa1oyLzhuWnhBbmxHcTM4QTQKEPV/r8eFsKBPfZdXvCFu967RAr+moJPQ
+            VzvSIGT8LvlWvHq8o55v0/BKWGuDB5Veu7/IQCIlkvfMo3cA0VmcQw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-05-21T12:15:37Z"
+    mac: ENC[AES256_GCM,data:da2iHbntRJfS+TWcUYfenkElGK+ty+xsk6ixds6UvLayNxz9RDHjZqRFtqZqfFzD2XysLvZHyfAB8XKERInNXsujfsD9f0NgK3BxO2+Gn+Ho2gNDZftzUci4Csq4UaCdh4iV6xHRN3awpTrcUXO6uT8Zmk8/YW6tMY2eqrT5wX4=,iv:C8RDf71JM/3UOzS3Y9qybGQHq1L/PWBC2b0Zd31dNmM=,tag:oypL200hDkk8ZV5ERu8XWw==,type:str]
+    pgp: []
+    encrypted_regex: ((?i)(github_app_private_key|github_app_installation_id))
+    version: 3.8.1
