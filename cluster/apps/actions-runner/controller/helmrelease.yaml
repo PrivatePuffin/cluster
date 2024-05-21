@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: gha-runner-scale-set-controller
+    name: actions-runner-controller
     namespace: actions-runner
 spec:
     interval: 30m
@@ -25,4 +25,4 @@ spec:
             strategy: rollback
             retries: 3
     values:
-        fullnameOverride: gha-runner-scale-set-controller
+        fullnameOverride: actions-runner-controller
