@@ -29,7 +29,7 @@ spec:
   values:
     nameOverride: actions-runner-helmstaging
     runnerScaleSetName: actions-runner-helmstaging
-    minRunners: 0
+    minRunners: 1
     maxRunners: 2
     containerMode:
       type: dind
