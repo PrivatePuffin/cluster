@@ -1,68 +1,76 @@
+---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: gha-runner-scale-set-truecharts-helmstaging
-    namespace: actions-runner
+  name: gha-runner-scale-set-truecharts-helmstaging
+  namespace: actions-runner
 spec:
-    interval: 30m
-    chart:
-        spec:
-            chart: gha-runner-scale-set
-            version: 0.9.1
-            sourceRef:
-                kind: HelmRepository
-                name: actions-runner-controller-charts
-                namespace: flux-system
-    install:
-        remediation:
-            retries: 3
-    upgrade:
-        cleanupOnFail: true
-        remediation:
-            strategy: rollback
-            retries: 3
-    dependsOn:
-        - name: gha-runner-scale-set-controller
-          namespace: actions-runner
-    values:
-        nameOverride: gha-runner-scale-set-truecharts-helmstaging
-        runnerScaleSetName: gha-runner-scale-set-truecharts-helmstaging
-        minRunners: 0
-        maxRunners: 2
-        containerMode:
-            type: dind
-        githubConfigSecret:
-            github_app_id: ${ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID}
-            github_app_installation_id: ENC[AES256_GCM,data:lf++ijRCK3A=,iv:C/BtuinBrZmIIccnw2Bs/lI7pD2NT5pRzSsQ1AeX24I=,tag:eUaQ0qJCN3gXlX7jaSZRyQ==,type:str]
-            github_app_private_key: ENC[AES256_GCM,data:ytRqEKRcQun5XF2hNlm8dr/5gJ2gH7E3wesHr+NOBxJXGitHSJBufbp/fs7CCleACADK5JAlvKipqaGEcm5WFhs65P+9xvLk/e9X6ABIkk+jRQ19inLIj0Ljmfj9tXrCfUKnCy+pBpB1olFSaTCENouQva2/F44u81I3IhnQwvb70INv9kmypT/wg5LGYgo9c0J76wQvS0E+1hLRPeCzirz0sII0BnRpLdiC0UARC+NDPdV5ybJxEkeDuBxaDmB5omZtWQ0S8llIOKyN4C+OsZEajElwSvxZUGIwg2JVZoKTjwukwrkiMLWnYpffOU0kfdkrOYb76pUTVzKWK8jy2ZLASZUmAlXaaLzqRhqhJu63YDpArxjS5cvOr+mWoy5OOJIf6nrtUxdQiL878XKiStbdQRw09avwBQCrK62a0kEvCbqcigEGeFFTakBmZJO185dqs0HnukhfRzMOF70XiNZgBTVFNh4oku8r4QmcnyxVamhuwtozfbq136Rzvk9m7wZVFddST8YbhqqqBQaMn4L5F1GVDVr20mBPjtWzyAfht3DS3WE5db6Fl6KD0oGZyy6H+Vu4VXVaPqokZ0GjISSQ5XqPBgGNZaO1Omnl5WopPUfD1P0B8FBOHUGF9njBC7+/49DWjpAb8n0rciVM9vwq+C9zy3pLMYacomrKGnYaUO4RvuloW0ZXT3cVvtwa03KpgPXe3RFra6bx43BZP8mxRoIm/uKf8lu/RksMMVD9bKPRiRsedC8uO2BZ87/FU6LXNG4uaQPk5IMJfcHoDJvKX3/EfEg91MA6AH80bSsYn/NvhLQWY1/ibP3xdAdypigsGB4ZuxDK2xc9hHTdwoxJUEes20nAQxCYk4oIpn+I4n5pXf9uo4ayO617Vxj8umVREkOqIe4RL/mBmAp3IUg/TKaKrSDvcejWpFrjHK6MIFuXYuvBP5Z8COq6zvt/cR54BmofObGDWO1QfkL8QGINt2zezW9vnNjPIYidsuhFyDeO96oOdj0yypgV9loFDQDVXSluGocCUC2UKAHXH5v8zk5EVTGIDu2p97XBomC+Z9gxojK8AYDAJT375vLRQFmgZFpxHde6aYSKHjiBJgmK5XqW1QfD3eg0xDe+YArmYXCMoZz+a6jes8jMaoRDsIQNJguMfg1Oj1Vmz93xBqksDwchKQDBK3dXqftwnk9QPwpgTUhtFd3d4egIuxKRZwNF8bg8KwIIz2UXhpJtmt5N17U2f0dYoEccIp/iueXvVOI1RbEC5jeNLG4IZ8IW1MCUEA21K8Voan1sYoXjcG4cIYzz+mHaigHQC14BAdEjAR6NS2m6toomcmvoCOuUasWKWBFMzP4baBtUOzPxJsMSzcy95yEapBGyA5mmbYauA+i7v0wUnGSAnOILcMHJw6Zlm9UvTiYlDYroOwQTJV3SA+4iOASyGUq27nvR8Hx4DfJadVF720B5hgiV9arxx6KzfuRhqQgthA2lii1RxX9TADcBWGdsn1B879TQk5OugnncWvsn79GE0E0h2JUQi2s9KpYs6ZoKL+YNVcBmqUlg84Wl9uuY0wet3mZPh+Z0pSf4eEKv7Wzah49Vov2jv28FPk+94MSANq1StuaaZ7PjzqHXFG01DmUTp4gl+Rj7FBeIk7TjLzOpzF8FVEI5DjpG402q47c+FTYTKcKJP8uEk5paPTeLeEIG4BcP6ALaS4+2j+GvaKx9DniokW4PxoBVb/qk0OQ4SAx14PMRjxDFPX9OSE2ux79ZViRLRGPvPZzIx8YO6nJWmF4PqWnZU0FdVdALJqUQrTgdC0HDiDVsDiqbkLn1x+SsrQvHoFtgUkfVWAIWidyMD8MZwwQ9yEUpW5oGLCXpEY1wziNJFayKgOAFCT+TpEpODPON7liKK4ThngfaXm5zwaVcCjrYH5fY62dbs9PWYVdnzwd4Wd4jOOpSS8kjxuXpiTXIRGrHRK5a+vWcngYzlpA8+n1SeviwD+Ujv+GgXV8QTzMxQWggzuR0Lwyu09BMhMxYi4XSlMpmEvUFD600B4pV8OFHmtdAxQOwSb3oGlT16/ca6LFE2bEFtIDeH+nTKql6iYeH3dcbHZyGe4vUyTrUs+IRJS759Hlqu7wQjoTD75rQkNn7rFZaRhJS5wa5DBPuPrJ/KQqhBqtDk7zZrRRyK8f/3ot5X2V8mr01V3UNYnrWXPwNH2rvGAKD7zVhb3DsjN+JOzFYw6MjmwNhbJlrK38=,iv:/s9DZXy+9KLHyhmh5M9+Jm7eKT5TYo2iJfmzjbIC540=,tag:n1IH2dHnTmkJ4VCq2IGeSA==,type:str]
-        githubConfigUrl: https://github.com/truecharts
-        # template:
-        #   spec:
-        #     containers:
-        #       - name: runner
-        #         image: ghcr.io/onedr0p/actions-runner:2.316.1@sha256:32f392f2db95247bccb45782528b29d028f9b7c617729fff309e4c5de83b9b7d
-        #         command: ["/home/runner/run.sh"]
-        # controllerServiceAccount:
-        #   name: gha-runner-scale-set-controller
-        #   namespace: actions-runner
-sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age:
-        - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBvRTd6cER3ZEQ2WTJROWU2
-            Zkc3VnZsbWFMT2kxZmNHWElsR1pkMkhuc2tvCjNLSzdhaTdLNE82cGQvNmFqTlFE
-            R2lyalJHMVJSNjdwYnJTeC9uWTlwYlEKLS0tIElOTGpqOE9qS2JYaWVGMkN4TExR
-            Qm5jMjg4Uy83a29EVjFUbDhIY3NSaUEKD7OqmnRvmdSJyamvkruyYPd2XRi8ISx+
-            UPd0A+XYwd8wBqhuatVeDH7LuEHTA0+i5pobpE5XYkIMdQHaqDmvyQ==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-05-21T12:23:18Z"
-    mac: ENC[AES256_GCM,data:T7KWNQs4F2GKUkpXO+h2Hkd+3X2osDO1UiP0UTN5XCme9LVDVHKTRKgZpwN88N8Op0pgDDYA+MYyVwkPSuKR7SOo2SYUnwmJjrVVcaBFKDiDMulNYODdk8z56hSMbftq9pN7bB6eCE0PBQ1ODC8ddcr98O0PsvpFoQxVRE+4xmI=,iv:ZBWWslGdXL1oYq9XI5gKdl2Y5Ey18FEaV/z1ffn3AbM=,tag:zpgBwpXgE/e0cahnDLePjw==,type:str]
-    pgp: []
-    encrypted_regex: ((?i)(github_app_private_key|github_app_installation_id))
-    version: 3.8.1
+  interval: 30m
+  chart:
+    spec:
+      chart: gha-runner-scale-set
+      version: 0.9.1
+      sourceRef:
+        kind: HelmRepository
+        name: actions-runner-controller-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: gha-runner-scale-set-controller
+      namespace: actions-runner
+  values:
+    nameOverride: gha-runner-scale-set-truecharts-helmstaging
+    runnerScaleSetName: gha-runner-scale-set-truecharts-helmstaging
+    minRunners: 1
+    maxRunners: 2
+    containerMode:
+      type: dind
+    githubConfigSecret:
+      github_app_id: "${ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID}"
+      github_app_installation_id: "50992546"
+      github_app_private_key: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEpAIBAAKCAQEA0AmgV8ns+WDqTDIWzUrFVlW6jn9n/kavjbio80gmAkHzjAHN
+        gIWsoxOEaA1TCRYcSwSfdXKKFfM9qbkqk4uhafk+l7OpN1PYKnJ2y6k5tvCoJxqQ
+        NOVcJmazfIhXh9/1uUqzITjgGuxS3nKmWThk/lq1dn67b8XxlGaKTBDuyj8psFDv
+        WWB+jsenJlHKSTlIEnENPDSzH/0d25jh1r4uS14xuAh3leDC61ncGW4NQ6GfK6u6
+        YI7coVu38Ik2DoJLkDMaCMWqMno4DLlj/pEriIc0D3rmwIqt16rfKjkNHsW4g+ms
+        QtqkOz0HS8ndY1he0IGlbcSWRwmAgl/cO/a0ZQIDAQABAoIBAGObqFVATqGcwLIY
+        7Yf/+/p5c6iU4iMCjz3JI8PQULqV/1mS52VZG669QpFbh91647MblIn0fJ9D5stj
+        6DnbCj8mYszZ7fSaxY6VXcHn1cV89tY6Rr+87eFJHTlMQrTBC/NbC+elRtA9RPRT
+        asifUuPiZK5GwdIjsaa/bgo7tUnKFODPb/nMjBHYcu9A7PUInjZC49Vg3Fv5eY79
+        WRphlvdAmebTJ5iWE/fDPdjAZpNuXRxJX1zclNxSThiFn8Fui0V1/Lvgh6rxFrcE
+        839FWSxRSrdNf0fjp23Kj3+hYOg5G9hOWplVD0AZbBQTOjn7BwjJvl8/WlilFgPK
+        uNTfRWUCgYEA9mpOjLAmjLVRv9aq/THxgjDxTylajvTwG3wPMfiDoNgiEY8awIjC
+        jyslvtRrLP7BVmzwJij53qqIRiHj/6TThZgEy2ynUSQmGmXEZHMaWB8EfJVZR+QM
+        7yVKACNMwII+f/KfxpcWCdmCnbEDT0JF+ysU7uGfRLJvLFn9wVF/9usCgYEA2CEs
+        Aspo/q3mJ9y59pvluWhjSyttbwvtnJgmMgtjNfYpxKT94aPJ3XQPa+AEcJU+hlGa
+        Yrf6ZvqX/+bxcRADG7rNwHGrLCHk67Kopf9KBEZq+ch3Ptvx8w+53BzrO/rYsH3S
+        P3r3ufxdGrWliTdXjBan5GniEJVI3M1vt18Pze8CgYEArnFFmE1fjP8Tl2Zl+Aay
+        PQNe4TaaWFfH3v0tWKfgry4yuBGB08k9StM1zmlcUicrQX6vZ6Rcd6hr/pIhcSoD
+        YDDlPAl4TXX0z3050g62GKokp/mmkcE88tOIFp7mx+WsTzG4sILm5CQqVm4otKRr
+        HEs8b3wkHyLelxxCCugiWe8CgYEAmwR/6qh/Ulwsfl7kyyraRHfI8Dt/zGxDy1Od
+        4bslN6kOIEsvBc5SlZIPFZKh3JZPOEwDbdcDtST8LMHaXvvbHuKHfQaKfab56MxG
+        Bnnq/tH7HJlaXi2nhmy7JFNhra2oCj7UtE9gq3eE2Al9Z8PX+VSuqzf+u2I31pdL
+        D70ROuUCgYAkk97eoHAKKNvBjyujuVxKMzvqqQJ25YcwSn9RSRZ47uoCBSMtbYIv
+        lxwOw3RjcjzzwOv0aej3UzKs2mLrsNnLzieoedOvaqBKHymW/NuRXT2jOZjII/pj
+        F9myG8iDrLsuyd8KcAxhXCsdZENOT8aQRQI6MrtuYh/vM5+RtHcx+w==
+        -----END RSA PRIVATE KEY-----
+    githubConfigUrl: https://github.com/truecharts
+    # template:
+    #   spec:
+    #     containers:
+    #       - name: runner
+    #         image: ghcr.io/onedr0p/actions-runner:2.316.1@sha256:32f392f2db95247bccb45782528b29d028f9b7c617729fff309e4c5de83b9b7d
+    #         command: ["/home/runner/run.sh"]
+    controllerServiceAccount:
+      name: gha-runner-scale-set-controller
+      namespace: actions-runner
