@@ -29,7 +29,7 @@ spec:
   values:
     nameOverride: gha-runner-scale-set-truecharts
     runnerScaleSetName: gha-runner-scale-set-truecharts
-    minRunners: 1
+    minRunners: 0
     maxRunners: 6
     containerMode:
       type: dind

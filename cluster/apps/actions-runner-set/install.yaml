@@ -14,7 +14,7 @@ metadata:
   name: gha-runner-scale-set-controller
   namespace: flux-system
 spec:
-  path: ./cluster/apps/apps-actions-runner/gha-runner-scale-set-controller/app
+  path: ./cluster/apps/actions-runner/gha-runner-scale-set-controller
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -36,7 +36,7 @@ spec:
 #   name: gha-runner-scale-set
 #   namespace: flux-system
 # spec:
-#   path: ./cluster/apps/hass/gha-runner-scale-set/app
+#   path: ./cluster/apps/actions-runner/gha-runner-scale-set
 #   sourceRef:
 #     kind: GitRepository
 #     name: flux-system
