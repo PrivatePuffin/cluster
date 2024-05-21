@@ -27,8 +27,8 @@ spec:
     - name: actions-runner-controller
       namespace: actions-runner
   values:
-    nameOverride: gha-runner-scale-set-truecharts-helmstaging
-    runnerScaleSetName: gha-runner-scale-set-truecharts-helmstaging
+    nameOverride: actions-runner-helmstaging
+    runnerScaleSetName: actions-runner-helmstaging
     minRunners: 1
     maxRunners: 2
     containerMode:
