@@ -8,3 +8,4 @@ resources:
   - hass/install.yaml
   - mosquitto/install.yaml
   - kubeapps/install.yaml
+  - actions-runner-set/install.yaml

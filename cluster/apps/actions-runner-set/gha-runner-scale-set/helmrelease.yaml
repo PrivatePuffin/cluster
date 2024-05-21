@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gha-runner-scale-set-truecharts
+  namespace: actions-runner
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: gha-runner-scale-set
+      version: 0.9.1
+      sourceRef:
+        kind: HelmRepository
+        name: actions-runner-controller
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: gha-runner-scale-set-controller
+      namespace: actions-runner
+  values:
+    nameOverride: gha-runner-scale-set-truecharts
+    runnerScaleSetName: gha-runner-scale-set-truecharts
+    minRunners: 1
+    maxRunners: 6
+    containerMode:
+      type: dind
+    githubConfigSecret:
+      github_app_id: "${ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID}"
+      github_app_installation_id: "${ACTION_RUNNER_CONTROLLER_GITHUB_INSTALLATION_ID}"
+      github_app_private_key: "${ACTION_RUNNER_CONTROLLER_GITHUB_PRIVATE_KEY}"
+    githubConfigUrl: https://github.com/truecharts
+    # template:
+    #   spec:
+    #     containers:
+    #       - name: runner
+    #         image: ghcr.io/onedr0p/actions-runner:2.316.1@sha256:32f392f2db95247bccb45782528b29d028f9b7c617729fff309e4c5de83b9b7d
+    #         command: ["/home/runner/run.sh"]
+    # controllerServiceAccount:
+    #   name: gha-runner-scale-set-controller
+    #   namespace: actions-runner

@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: actions-runner
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    volsync.backube/privileged-movers: "true"
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: gha-runner-scale-set-controller
+  namespace: flux-system
+spec:
+  path: ./cluster/apps/apps-actions-runner/gha-runner-scale-set-controller/app
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  prune: true
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+  postBuild:
+    substitute: {}
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-config
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: gha-runner-scale-set
+#   namespace: flux-system
+# spec:
+#   path: ./cluster/apps/hass/gha-runner-scale-set/app
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   prune: true
+#   wait: false
+#   interval: 30m
+#   retryInterval: 1m
+#   timeout: 5m
+#   postBuild:
+#     substitute: {}
+#     substituteFrom:
+#       - kind: ConfigMap
+#         name: cluster-config
