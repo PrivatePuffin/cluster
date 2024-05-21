@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: actions-runner-helmstaging
+  name: actions-runner-large
   namespace: actions-runner
 spec:
   interval: 30m
@@ -27,10 +27,10 @@ spec:
     - name: actions-runner-controller
       namespace: actions-runner
   values:
-    nameOverride: actions-runner-helmstaging
-    runnerScaleSetName: actions-runner-helmstaging
+    nameOverride: actions-runner-large
+    runnerScaleSetName: actions-runner-large
     minRunners: 1
-    maxRunners: 2
+    maxRunners: 6
     containerMode:
       type: dind
     githubConfigSecret:

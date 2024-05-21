@@ -1,0 +1,76 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: actions-runner-medium
+  namespace: actions-runner
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: gha-runner-scale-set
+      version: 0.9.1
+      sourceRef:
+        kind: HelmRepository
+        name: actions-runner-controller-charts
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: actions-runner-controller
+      namespace: actions-runner
+  values:
+    nameOverride: actions-runner-medium
+    runnerScaleSetName: actions-runner-medium
+    minRunners: 1
+    maxRunners: 6
+    containerMode:
+      type: dind
+    githubConfigSecret:
+      github_app_id: "${ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID}"
+      github_app_installation_id: "50992546"
+      github_app_private_key: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEpAIBAAKCAQEA0AmgV8ns+WDqTDIWzUrFVlW6jn9n/kavjbio80gmAkHzjAHN
+        gIWsoxOEaA1TCRYcSwSfdXKKFfM9qbkqk4uhafk+l7OpN1PYKnJ2y6k5tvCoJxqQ
+        NOVcJmazfIhXh9/1uUqzITjgGuxS3nKmWThk/lq1dn67b8XxlGaKTBDuyj8psFDv
+        WWB+jsenJlHKSTlIEnENPDSzH/0d25jh1r4uS14xuAh3leDC61ncGW4NQ6GfK6u6
+        YI7coVu38Ik2DoJLkDMaCMWqMno4DLlj/pEriIc0D3rmwIqt16rfKjkNHsW4g+ms
+        QtqkOz0HS8ndY1he0IGlbcSWRwmAgl/cO/a0ZQIDAQABAoIBAGObqFVATqGcwLIY
+        7Yf/+/p5c6iU4iMCjz3JI8PQULqV/1mS52VZG669QpFbh91647MblIn0fJ9D5stj
+        6DnbCj8mYszZ7fSaxY6VXcHn1cV89tY6Rr+87eFJHTlMQrTBC/NbC+elRtA9RPRT
+        asifUuPiZK5GwdIjsaa/bgo7tUnKFODPb/nMjBHYcu9A7PUInjZC49Vg3Fv5eY79
+        WRphlvdAmebTJ5iWE/fDPdjAZpNuXRxJX1zclNxSThiFn8Fui0V1/Lvgh6rxFrcE
+        839FWSxRSrdNf0fjp23Kj3+hYOg5G9hOWplVD0AZbBQTOjn7BwjJvl8/WlilFgPK
+        uNTfRWUCgYEA9mpOjLAmjLVRv9aq/THxgjDxTylajvTwG3wPMfiDoNgiEY8awIjC
+        jyslvtRrLP7BVmzwJij53qqIRiHj/6TThZgEy2ynUSQmGmXEZHMaWB8EfJVZR+QM
+        7yVKACNMwII+f/KfxpcWCdmCnbEDT0JF+ysU7uGfRLJvLFn9wVF/9usCgYEA2CEs
+        Aspo/q3mJ9y59pvluWhjSyttbwvtnJgmMgtjNfYpxKT94aPJ3XQPa+AEcJU+hlGa
+        Yrf6ZvqX/+bxcRADG7rNwHGrLCHk67Kopf9KBEZq+ch3Ptvx8w+53BzrO/rYsH3S
+        P3r3ufxdGrWliTdXjBan5GniEJVI3M1vt18Pze8CgYEArnFFmE1fjP8Tl2Zl+Aay
+        PQNe4TaaWFfH3v0tWKfgry4yuBGB08k9StM1zmlcUicrQX6vZ6Rcd6hr/pIhcSoD
+        YDDlPAl4TXX0z3050g62GKokp/mmkcE88tOIFp7mx+WsTzG4sILm5CQqVm4otKRr
+        HEs8b3wkHyLelxxCCugiWe8CgYEAmwR/6qh/Ulwsfl7kyyraRHfI8Dt/zGxDy1Od
+        4bslN6kOIEsvBc5SlZIPFZKh3JZPOEwDbdcDtST8LMHaXvvbHuKHfQaKfab56MxG
+        Bnnq/tH7HJlaXi2nhmy7JFNhra2oCj7UtE9gq3eE2Al9Z8PX+VSuqzf+u2I31pdL
+        D70ROuUCgYAkk97eoHAKKNvBjyujuVxKMzvqqQJ25YcwSn9RSRZ47uoCBSMtbYIv
+        lxwOw3RjcjzzwOv0aej3UzKs2mLrsNnLzieoedOvaqBKHymW/NuRXT2jOZjII/pj
+        F9myG8iDrLsuyd8KcAxhXCsdZENOT8aQRQI6MrtuYh/vM5+RtHcx+w==
+        -----END RSA PRIVATE KEY-----
+    githubConfigUrl: https://github.com/truecharts
+    controllerServiceAccount:
+      name: actions-runner-controller
+      namespace: actions-runner
+    template:
+      spec:
+        containers:
+          - name: runner
+            image: ghcr.io/onedr0p/actions-runner:2.316.1@sha256:32f392f2db95247bccb45782528b29d028f9b7c617729fff309e4c5de83b9b7d
+            command: ["/home/runner/run.sh"]
