@@ -72,5 +72,5 @@ spec:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/truecharts/charts-ci:latest@sha256:5c49a3adaf5bf552f1470055e6b684fbb2bab03db9dd29875829f7eac3a71bc0
+            image: ghcr.io/truecharts/charts-ci:latest@sha256:c40152aaf3b5457b96bfe442146125158ba388085609e21d3c49ab7677096d4c
             command: ["/home/runner/run.sh"]
