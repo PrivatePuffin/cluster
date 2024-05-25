@@ -33,6 +33,10 @@ spec:
       main:
         loadBalancerIP: ${HASS_IP}
         type: LoadBalancer
+        ports:
+          colot:
+            port: 5683
+            targetPort: 5683
     credentials:
       s3:
         type: s3
