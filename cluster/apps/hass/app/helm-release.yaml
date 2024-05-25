@@ -36,7 +36,7 @@ spec:
         ports:
           colot:
             enabled: true
-            protocol: UDP
+            protocol: udp
             port: 5683
             targetPort: 5683
     credentials:
