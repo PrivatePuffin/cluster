@@ -79,9 +79,20 @@ spec:
               enabled: true
       backup:
         enabled: true
-        existingClaim: hass-backups-pvc
+        volsync:
+          - name: b2
+            type: restic
+            credentials: s3
+            dest:
+
+              capacity: "100Gi"
+
+              accessModes:
+                - ReadWriteOnce
+              enabled: true
+            src:
+              enabled: true
         mountPath: /config/backups
-        readOnly: false
 
     cnpg:
       main:
