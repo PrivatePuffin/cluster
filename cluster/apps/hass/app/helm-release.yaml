@@ -35,6 +35,7 @@ spec:
         type: LoadBalancer
         ports:
           colot:
+            protocol: UDP
             port: 5683
             targetPort: 5683
     credentials:
