@@ -206,11 +206,11 @@ spec:
             type: restic
             credentials: s3
             dest:
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
             src:
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
       templates:
@@ -222,11 +222,11 @@ spec:
             type: restic
             credentials: s3
             dest:
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
             src:
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
       blueprints:
@@ -239,11 +239,11 @@ spec:
             credentials: s3
             dest:
               enabled: true
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
             src:
               enabled: true
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
       certs:
         accessModes:
@@ -254,12 +254,12 @@ spec:
             type: restic
             credentials: s3
             dest:
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
             src:
               enabled: true
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
       geoip:
         accessModes:
@@ -270,12 +270,12 @@ spec:
             type: restic
             credentials: s3
             dest:
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
             src:
               enabled: true
-              storageClassName: eph-filesystem-nvme-3
+              storageClassName: ceph-filesystem-nvme-3
               volumeSnapshotClassName: csi-ceph-filesystem
 
     cnpg:
