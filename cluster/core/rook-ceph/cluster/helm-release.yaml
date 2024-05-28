@@ -4,7 +4,8 @@ metadata:
     name: rook-ceph-cluster
     namespace: rook-ceph
 spec:
-    interval: 5m
+    interval: 30m
+    timeout: 15m
     releaseName: rook-ceph-cluster
     chart:
         spec:
@@ -16,12 +17,9 @@ spec:
                 name: rook-ceph-charts
                 namespace: flux-system
     install:
-        createNamespace: true
-        crds: CreateReplace
         remediation:
             retries: 3
     upgrade:
-        crds: CreateReplace
         remediation:
             retries: 3
     values:
@@ -34,7 +32,7 @@ spec:
         [global]
         bdev_enable_discard = true
         bdev_async_discard = true
-        bluefs_buffered_io = false
+        osd_class_update_on_start = false
       cephClusterSpec:
         mgr:
           count: 3
@@ -45,23 +43,22 @@ spec:
         resources:
           mgr:
             requests:
-              cpu: "25m"
-              memory: "49M"
+              cpu: 100m
+              memory: 512Mi
             limits:
-              cpu: 2
-              memory: "1485M"
+              memory: 2Gi
           mon:
             requests:
-              cpu: "25m"
-              memory: "49M"
+              cpu: 50m
+              memory: 512Mi
             limits:
-              memory: "3390M"
+              memory: 1Gi
           osd:
             requests:
-              cpu: "25m"
-              memory: "49M"
+              cpu: 500m
+              memory: 2Gi
             limits:
-              memory: "5944M"
+              memory: 6Gi
           prepareosd:
             limits:
               cpu: 100m
@@ -71,10 +68,10 @@ spec:
               memory: 51Mi
           mgr-sidecar:
             requests:
-              cpu: "25m"
-              memory: "49M"
+              cpu: 50m
+              memory: 128Mi
             limits:
-              memory: "227M"
+              memory: 256Mi
           crashcollector:
             requests:
               cpu: "25m"
@@ -162,7 +159,10 @@ spec:
             isDefault: true
             reclaimPolicy: Delete
             allowVolumeExpansion: true
+            volumeBindingMode: Immediate
             parameters:
+              imageFormat: "2"
+              imageFeatures: layering
               csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
               csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
               csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
@@ -191,13 +191,39 @@ spec:
             metadataServer:
               activeCount: 1
               activeStandby: true
+              priorityClassName: system-cluster-critical
+              placement:
+                topologySpreadConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: DoNotSchedule
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/name: ceph-mds
+                        app.kubernetes.io/part-of: ceph-filesystem-nvme-3
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 1Gi
+                limits:
+                  memory: 4Gi
           storageClass:
             enabled: true
             isDefault: false
             name: ceph-filesystem-nvme-3
             reclaimPolicy: Delete
             allowVolumeExpansion: true
+            pool: data0
+            volumeBindingMode: Immediate
             mountOptions: []
+            parameters:
+              csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+              csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
+              csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+              csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
+              csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+              csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
+              csi.storage.k8s.io/fstype: ext4
       cephFileSystemVolumeSnapshotClass:
         enabled: true
         name: csi-ceph-filesystem
