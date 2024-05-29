@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: unpackerr
-      version: 14.0.6
+      version: 14.0.8
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
