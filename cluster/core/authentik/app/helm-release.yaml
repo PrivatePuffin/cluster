@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 26.1.7
+      version: 26.1.8
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
