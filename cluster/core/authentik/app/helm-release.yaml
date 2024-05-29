@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 26.1.8
+      version: 26.1.6
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
@@ -44,7 +44,7 @@ spec:
       # TODO: Remove this after Authentik fixed their shit
       defaultSpread: false
       hostAliases:
-        - ip: "192.168.10.101"
+        - ip: "192.168.10.201"
           hostnames:
             - "auth.${BASE_DOMAIN2}"
             - "auth.${BASE_DOMAIN}"
