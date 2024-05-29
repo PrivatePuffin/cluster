@@ -41,10 +41,9 @@ spec:
         encrKey: "${S3KEY}"
 
     workload:
-      # ===== Server =====
       main:
-        enabled: true
-        type: Deployment
+        replicas: 2
+      worker:
         replicas: 2
 
     podOptions:
