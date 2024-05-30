@@ -37,7 +37,9 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
-
+    workload:
+      main:
+        replicas: 2
     vaultwarden:
       allowSignups: true
       signupDomains:
