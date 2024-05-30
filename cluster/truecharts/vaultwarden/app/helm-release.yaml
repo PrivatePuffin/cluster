@@ -92,16 +92,20 @@ spec:
 
     persistence:
       data:
+        accessModes:
+          - ReadWriteMany
+        storageClass: ceph-filesystem-nvme-3
         volsync:
           - name: b2
             type: restic
             credentials: s3
             dest:
-              capacity: "100Gi"
-              accessModes:
-                - ReadWriteOnce
+              storageClassName: ceph-filesystem-nvme-3
+              volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
             src:
+              storageClassName: ceph-filesystem-nvme-3
+              volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
 
     ingress:
@@ -157,11 +161,6 @@ spec:
     cnpg:
       main:
         # mode: recovery
-        cluster:
-          storage:
-            storageClass: "openebs-hostpath"
-          walStorage:
-            storageClass: "openebs-hostpath"
         backups:
           enabled: true
           credentials: s3
