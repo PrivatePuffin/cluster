@@ -92,20 +92,18 @@ spec:
 
     persistence:
       data:
-        accessModes:
-          - ReadWriteMany
-        storageClass: ceph-filesystem-nvme-3
+        #accessModes:
+        #  - ReadWriteMany
+        # storageClass: ceph-filesystem-nvme-3
         volsync:
           - name: b2
             type: restic
             credentials: s3
             dest:
-              storageClassName: ceph-filesystem-nvme-3
-              volumeSnapshotClassName: csi-ceph-filesystem
+              #volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
             src:
-              storageClassName: ceph-filesystem-nvme-3
-              volumeSnapshotClassName: csi-ceph-filesystem
+              #volumeSnapshotClassName: csi-ceph-filesystem
               enabled: true
 
     ingress:
