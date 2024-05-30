@@ -45,6 +45,14 @@ spec:
         replicas: 2
       worker:
         replicas: 2
+      proxy:
+        replicas: 2
+      radius:
+        replicas: 2
+      ldap:
+        replicas: 2
+      geoip:
+        replicas: 2
 
     podOptions:
       hostAliases:
