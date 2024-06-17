@@ -72,10 +72,10 @@ spec:
             credentials: s3
             dest:
               enabled: true
-              cacheCapacity: 10 Gi
+              cacheCapacity: 10Gi
             src:
               enabled: true
-              cacheCapacity: 10 Gi
+              cacheCapacity: 10Gi
       backup:
         enabled: true
         existingClaim: media-backups-pvc

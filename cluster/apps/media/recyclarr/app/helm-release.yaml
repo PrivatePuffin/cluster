@@ -46,10 +46,10 @@ spec:
             credentials: s3
             dest:
               enabled: true
-              cacheCapacity: 10 Gi
+              cacheCapacity: 10Gi
             src:
               enabled: true
-              cacheCapacity: 10 Gi
+              cacheCapacity: 10Gi
 
     addons:
       # -- The common library supports adding a code-server add-on to access files. It can be configured under this key.

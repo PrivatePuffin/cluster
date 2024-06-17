@@ -85,11 +85,11 @@ spec:
             type: restic
             credentials: b2
             dest:
-              cacheCapacity: 10 Gi
+              cacheCapacity: 10Gi
               enabled: true
             src:
               enabled: true
-              cacheCapacity: 10 Gi
+              cacheCapacity: 10Gi
       media:
         enabled: true
         existingClaim: media-nfs-pvc
