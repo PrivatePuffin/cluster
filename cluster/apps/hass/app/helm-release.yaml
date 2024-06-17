@@ -106,11 +106,6 @@ spec:
 
     cnpg:
       main:
-        cluster:
-          storage:
-            storageClass: "openebs-hostpath"
-          walStorage:
-            storageClass: "openebs-hostpath"
         backups:
           enabled: true
           credentials: s3
