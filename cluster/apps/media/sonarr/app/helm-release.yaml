@@ -75,7 +75,6 @@ spec:
             src:
               enabled: true
               cacheCapacity: 10Gi
-              cacheCapacity: 10Gi
       media:
         enabled: true
         existingClaim: media-nfs-pvc
