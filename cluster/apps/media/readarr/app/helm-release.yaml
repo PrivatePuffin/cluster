@@ -73,9 +73,6 @@ spec:
             credentials: s3
             dest:
               cacheCapacity: 10 Gi
-
-
-
               accessModes:
                 - ReadWriteOnce
               enabled: true

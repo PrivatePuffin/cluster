@@ -36,10 +36,7 @@ spec:
         bucket: "${S3PREFIX}-unpackerr"
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
-        encrKey: "${S3KEY}"
-
-
-    workload:
+        encrKey: "${S3KEY}"    workload:
       main:
         podSpec:
           containers:
@@ -70,9 +67,6 @@ spec:
             credentials: s3
             dest:
               cacheCapacity: 10 Gi
-
-
-
               accessModes:
                 - ReadWriteOnce
               enabled: true

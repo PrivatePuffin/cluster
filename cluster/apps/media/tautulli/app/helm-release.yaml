@@ -36,10 +36,7 @@ spec:
         bucket: "${S3PREFIX}-tautulli"
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
-        encrKey: "${S3KEY}"
-
-
-    ingress:
+        encrKey: "${S3KEY}"    ingress:
       main:
         enabled: true
         integrations:
@@ -66,9 +63,6 @@ spec:
             credentials: s3
             dest:
               cacheCapacity: 10 Gi
-
-
-
               accessModes:
                 - ReadWriteOnce
               enabled: true

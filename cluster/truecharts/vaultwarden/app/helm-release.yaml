@@ -157,10 +157,7 @@ spec:
             allowCors: false
             fixedMiddlewares:
               - name: chain-basic
-                namespace: ""
-
-
-    cnpg:
+                namespace: ""    cnpg:
       main:
         # mode: recovery
         backups:
