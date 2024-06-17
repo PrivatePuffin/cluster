@@ -41,7 +41,7 @@ spec:
     plex:
       # User Defined
       serverIP: ${PLEX_IP}
-      additionalAdvertiseURL: "https://87.99.224.3:32400,http://87.99.224.3:32400"
+      additionalAdvertiseURL: "https://149.143.65.75:32400,http://149.143.65.75:32400"
       disableGDM: true
       requireHTTPS: false
 
