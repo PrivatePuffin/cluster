@@ -72,6 +72,7 @@ spec:
             type: restic
             credentials: s3
             dest:
+              cacheCapacity: 10Gi
 
               capacity: "100Gi"
 
@@ -80,6 +81,7 @@ spec:
               enabled: true
             src:
               enabled: true
+              cacheCapacity: 10Gi
       books:
         enabled: true
         existingClaim: media-books-nfs-pvc
