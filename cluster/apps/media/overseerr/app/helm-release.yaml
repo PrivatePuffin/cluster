@@ -64,16 +64,16 @@ spec:
             type: restic
             credentials: s3
             dest:
-              cacheCapacity: 10Gi
+              cacheCapacity: 10 Gi
 
-              capacity: "100Gi"
+
 
               accessModes:
                 - ReadWriteOnce
               enabled: true
             src:
               enabled: true
-              cacheCapacity: 10Gi
+              cacheCapacity: 10 Gi
       series:
         enabled: true
         existingClaim: media-series-nfs-pvc
