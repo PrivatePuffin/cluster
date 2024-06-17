@@ -44,30 +44,26 @@ spec:
 
     persistence:
       config:
+        accessModes:
+          - ReadWriteMany
+        storageClass: ceph-filesystem-nvme-3
         volsync:
           - name: b2
             type: restic
             credentials: s3
             dest:
-
-
-
-              accessModes:
-                - ReadWriteOnce
               enabled: true
             src:
               enabled: true
       data:
+        accessModes:
+          - ReadWriteMany
+        storageClass: ceph-filesystem-nvme-3
         volsync:
           - name: b2-data
             type: restic
             credentials: s3
             dest:
-
-
-
-              accessModes:
-                - ReadWriteOnce
               enabled: true
             src:
               enabled: true
