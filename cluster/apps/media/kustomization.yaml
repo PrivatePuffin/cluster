@@ -22,3 +22,4 @@ resources:
   - sabnzbd/install.yaml
   - bitmagnet/install.yaml
   - flaresolverr/install.yaml
+  - plex/install.yaml

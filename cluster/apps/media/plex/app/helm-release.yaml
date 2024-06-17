@@ -1,0 +1,110 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: media
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: plex
+      version: 19.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: truechartsoci
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    credentials:
+      b2:
+        type: s3
+        url: "${S3URL}"
+        bucket: "${S3PREFIX}-plex"
+        accessKey: "${S3ID}"
+        secretKey: "${S3KEY}"
+        encrKey: "${S3KEY}"
+
+    plex:
+      # User Defined
+      serverIP: ${PLEX_IP}
+      additionalAdvertiseURL: "https://87.99.224.3:32400,http://87.99.224.3:32400"
+      disableGDM: true
+      requireHTTPS: false
+
+    service:
+      main:
+        loadBalancerIP: ${PLEX_IP}
+
+    ## TODO: Enable
+    # workload:
+    #   main:
+    #     podSpec:
+    #       containers:
+    #         container-name:
+    #           resources:
+    #             limits:
+    #               intel.com/i915: 1
+
+    ingress:
+      main:
+        enabled: true
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+              - name: bouncer
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: ks-le-prod
+        hosts:
+          - host: plex.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+    persistence:
+      config:
+        volsync:
+          - name: data
+            type: restic
+            credentials: b2
+            dest:
+              enabled: true
+            src:
+              enabled: true
+      media:
+        enabled: true
+        existingClaim: media-nfs-pvc
+        mountPath: "/media"
+      series:
+        enabled: true
+        existingClaim: media-series-nfs-pvc
+        mountPath: "/media/series"
+      music:
+        enabled: true
+        existingClaim: media-music-nfs-pvc
+        mountPath: "/media/music"
+      movies:
+        enabled: true
+        existingClaim: media-movies-nfs-pvc
+        mountPath: "/media/movies"
+      porn:
+        enabled: true
+        existingClaim: media-porn-nfs-pvc
+        mountPath: "/media/porn"
