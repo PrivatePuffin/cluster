@@ -9,7 +9,7 @@ spec:
         spec:
             # renovate: registryUrl=https://charts.truechartsoci.org
             chart: volsync
-            version: 1.0.8
+            version: 2.1.0
             sourceRef:
                 kind: HelmRepository
                 name: truechartsoci
