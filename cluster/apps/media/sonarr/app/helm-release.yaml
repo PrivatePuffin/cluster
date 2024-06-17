@@ -36,7 +36,8 @@ spec:
         bucket: "${S3PREFIX}-sonarr"
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
-        encrKey: "${S3KEY}"    workload:
+        encrKey: "${S3KEY}"
+    workload:
       exportarr:
         enabled: false
 
