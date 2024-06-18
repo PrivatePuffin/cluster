@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 29.1.0
+      version: 29.0.6
       sourceRef:
         kind: HelmRepository
         name: truechartsoci
@@ -93,6 +93,8 @@ spec:
       ipWhiteList:
         - name: local
           sourceRange:
+            - 172.16.0.0/16
+            - 172.17.0.0/16
             - 192.168.10.0/24
             - 192.168.20.0/24
       forwardAuth:
