@@ -9,3 +9,4 @@ resources:
     # - intel-device-plugin/install.yaml
     - snapshot-controller/install.yaml
     - volsync/install.yaml
+    - traefik-crds/install.yaml
