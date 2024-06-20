@@ -1,6 +1,6 @@
 clusterName: main
-talosVersion: v1.6.5
-kubernetesVersion: v1.29.2
+talosVersion: v1.7.4
+kubernetesVersion: v1.30.2
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
@@ -21,7 +21,7 @@ nodes:
       ipAddress: ${MASTER1IP}
       controlPlane: true
       nameservers:
-        - 8.8.8.8
+        - 192.168.10.200
         - 1.1.1.1
       installDiskSelector:
         size: <= 1TB
@@ -39,7 +39,7 @@ nodes:
       ipAddress: ${MASTER2IP}
       controlPlane: true
       nameservers:
-        - 8.8.8.8
+        - 192.168.10.200
         - 1.1.1.1
       installDiskSelector:
         size: <= 1TB
@@ -57,7 +57,7 @@ nodes:
       ipAddress: ${MASTER3IP}
       controlPlane: true
       nameservers:
-        - 8.8.8.8
+        - 192.168.10.200
         - 1.1.1.1
       installDiskSelector:
         size: <= 1TB
@@ -74,28 +74,28 @@ nodes:
     - hostname: k8s-worker-1
       ipAddress: 192.168.10.111
       nameservers:
-        - 8.8.8.8
+        - 192.168.10.200
         - 1.1.1.1
       installDiskSelector:
         size: <= 600GB
     - hostname: k8s-worker-2
       ipAddress: 192.168.10.121
       nameservers:
-        - 8.8.8.8
+        - 192.168.10.200
         - 1.1.1.1
       installDiskSelector:
         size: <= 600GB
     - hostname: k8s-worker-3
       ipAddress: 192.168.10.131
       nameservers:
-        - 8.8.8.8
+        - 192.168.10.200
         - 1.1.1.1
       installDiskSelector:
         size: <= 600GB
     - hostname: k8s-worker-4
       ipAddress: 192.168.10.141
       nameservers:
-        - 8.8.8.8
+        - 192.168.10.200
         - 1.1.1.1
       installDiskSelector:
         size: <= 600GB

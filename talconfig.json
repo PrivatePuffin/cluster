@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/budimanjojo/talhelper/pkg/config/talhelper-config",
+  "$id": "https://github.com/budimanjojo/talhelper/v3/pkg/config/talhelper-config",
   "$ref": "#/$defs/TalhelperConfig",
   "$defs": {
     "Bond": {

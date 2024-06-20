@@ -51,9 +51,6 @@ curl -Ss https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | b
 echo "Installing Kustomize"
 rm -f kustomize && curl -Ss "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/kustomize/v5.2.1/hack/install_kustomize.sh" | bash  &&  mv kustomize /usr/local/bin/kustomize &&  chmod +x /usr/local/bin/kustomize || echo "installation failed..."
 
-echo "Installing velerocli..."
-curl -Ss https://i.jpillora.com/vmware-tanzu/velero! | bash > /dev/null || echo "installation failed..."
-
 echo "Installing talhelper..."
 curl -Ssl https://i.jpillora.com/budimanjojo/talhelper! | bash > /dev/null || echo "installation failed..."
 
