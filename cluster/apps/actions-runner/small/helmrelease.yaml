@@ -1,76 +1,69 @@
----
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: actions-runner-small
-  namespace: actions-runner
+    name: actions-runner-small
+    namespace: actions-runner
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: gha-runner-scale-set
-      version: 0.9.2
-      sourceRef:
-        kind: HelmRepository
-        name: actions-runner-controller-charts
-        namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
-  dependsOn:
-    - name: actions-runner-controller
-      namespace: actions-runner
-  values:
-    nameOverride: actions-runner-small
-    runnerScaleSetName: actions-runner-small
-    minRunners: 1
-    maxRunners: 6
-    containerMode:
-      type: dind
-    githubConfigSecret:
-      github_app_id: "${ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID}"
-      github_app_installation_id: "50992546"
-      github_app_private_key: |
-        -----BEGIN RSA PRIVATE KEY-----
-        MIIEpAIBAAKCAQEA0AmgV8ns+WDqTDIWzUrFVlW6jn9n/kavjbio80gmAkHzjAHN
-        gIWsoxOEaA1TCRYcSwSfdXKKFfM9qbkqk4uhafk+l7OpN1PYKnJ2y6k5tvCoJxqQ
-        NOVcJmazfIhXh9/1uUqzITjgGuxS3nKmWThk/lq1dn67b8XxlGaKTBDuyj8psFDv
-        WWB+jsenJlHKSTlIEnENPDSzH/0d25jh1r4uS14xuAh3leDC61ncGW4NQ6GfK6u6
-        YI7coVu38Ik2DoJLkDMaCMWqMno4DLlj/pEriIc0D3rmwIqt16rfKjkNHsW4g+ms
-        QtqkOz0HS8ndY1he0IGlbcSWRwmAgl/cO/a0ZQIDAQABAoIBAGObqFVATqGcwLIY
-        7Yf/+/p5c6iU4iMCjz3JI8PQULqV/1mS52VZG669QpFbh91647MblIn0fJ9D5stj
-        6DnbCj8mYszZ7fSaxY6VXcHn1cV89tY6Rr+87eFJHTlMQrTBC/NbC+elRtA9RPRT
-        asifUuPiZK5GwdIjsaa/bgo7tUnKFODPb/nMjBHYcu9A7PUInjZC49Vg3Fv5eY79
-        WRphlvdAmebTJ5iWE/fDPdjAZpNuXRxJX1zclNxSThiFn8Fui0V1/Lvgh6rxFrcE
-        839FWSxRSrdNf0fjp23Kj3+hYOg5G9hOWplVD0AZbBQTOjn7BwjJvl8/WlilFgPK
-        uNTfRWUCgYEA9mpOjLAmjLVRv9aq/THxgjDxTylajvTwG3wPMfiDoNgiEY8awIjC
-        jyslvtRrLP7BVmzwJij53qqIRiHj/6TThZgEy2ynUSQmGmXEZHMaWB8EfJVZR+QM
-        7yVKACNMwII+f/KfxpcWCdmCnbEDT0JF+ysU7uGfRLJvLFn9wVF/9usCgYEA2CEs
-        Aspo/q3mJ9y59pvluWhjSyttbwvtnJgmMgtjNfYpxKT94aPJ3XQPa+AEcJU+hlGa
-        Yrf6ZvqX/+bxcRADG7rNwHGrLCHk67Kopf9KBEZq+ch3Ptvx8w+53BzrO/rYsH3S
-        P3r3ufxdGrWliTdXjBan5GniEJVI3M1vt18Pze8CgYEArnFFmE1fjP8Tl2Zl+Aay
-        PQNe4TaaWFfH3v0tWKfgry4yuBGB08k9StM1zmlcUicrQX6vZ6Rcd6hr/pIhcSoD
-        YDDlPAl4TXX0z3050g62GKokp/mmkcE88tOIFp7mx+WsTzG4sILm5CQqVm4otKRr
-        HEs8b3wkHyLelxxCCugiWe8CgYEAmwR/6qh/Ulwsfl7kyyraRHfI8Dt/zGxDy1Od
-        4bslN6kOIEsvBc5SlZIPFZKh3JZPOEwDbdcDtST8LMHaXvvbHuKHfQaKfab56MxG
-        Bnnq/tH7HJlaXi2nhmy7JFNhra2oCj7UtE9gq3eE2Al9Z8PX+VSuqzf+u2I31pdL
-        D70ROuUCgYAkk97eoHAKKNvBjyujuVxKMzvqqQJ25YcwSn9RSRZ47uoCBSMtbYIv
-        lxwOw3RjcjzzwOv0aej3UzKs2mLrsNnLzieoedOvaqBKHymW/NuRXT2jOZjII/pj
-        F9myG8iDrLsuyd8KcAxhXCsdZENOT8aQRQI6MrtuYh/vM5+RtHcx+w==
-        -----END RSA PRIVATE KEY-----
-    githubConfigUrl: https://github.com/truecharts
-    controllerServiceAccount:
-      name: actions-runner-controller
-      namespace: actions-runner
-    template:
-      spec:
-        containers:
-          - name: runner
-            image: ghcr.io/onedr0p/actions-runner:2.317.0@sha256:3d4da03fe81a05940d70b953cd289703a6f499d72dc78a4c506667ce17350049
-            command: ["/home/runner/run.sh"]
+    interval: 30m
+    chart:
+        spec:
+            chart: gha-runner-scale-set
+            version: 0.9.2
+            sourceRef:
+                kind: HelmRepository
+                name: actions-runner-controller-charts
+                namespace: flux-system
+    install:
+        remediation:
+            retries: 3
+    upgrade:
+        cleanupOnFail: true
+        remediation:
+            strategy: rollback
+            retries: 3
+    dependsOn:
+        - name: actions-runner-controller
+          namespace: actions-runner
+    values:
+        nameOverride: actions-runner-small
+        runnerScaleSetName: actions-runner-small
+        minRunners: 1
+        maxRunners: 6
+        containerMode:
+            type: dind
+        githubConfigSecret:
+            github_app_id: ${ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID}
+            github_app_installation_id: ENC[AES256_GCM,data:pCuDXUa+Zxg=,iv:V+N7u1u0rmJkbvM0fXdf6eiKQRUhIPZ00bL0FTPGJCs=,tag:Ehi7AT97zy4Apx5yU1NV6Q==,type:str]
+            github_app_private_key: ENC[AES256_GCM,data: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,iv:4mpEsjGo9WYweFQoB8AWAmHAHBrds2lEwQw4E8pHwsw=,tag:4XPjBX9Fmt5TTguy+A53Iw==,type:str]
+        githubConfigUrl: https://github.com/truecharts
+        controllerServiceAccount:
+            name: actions-runner-controller
+            namespace: actions-runner
+        template:
+            spec:
+                containers:
+                    - name: runner
+                      image: ghcr.io/truecharts/charts-ci:latestsha256:c5cd9b58d7cbaae65e5f5c4d8e6ee3c5182d6645ba0166863051ccfe747bb940
+                      command:
+                        - /home/runner/run.sh
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2MXY4SEZBaFdpbFdzcnJL
+            bnM5SmhzWW1sbm5kRjZsc2F0SFdqVWowU1VFCm9qZVBCOHM1bTdDalByUENodktY
+            b0Y3NVQ0ZHpSRGJyQk9QQ1M5ZnJMNFEKLS0tIElzY0lDMGhIdzI2RkdkOVFBbk9s
+            YVdnc0I0TkQwRmV5Q0NuZTRYWFE2czQKLYyTMBkNEXx0K9DhuVusJ14mVOapaD7m
+            WxixioipxcfyCIRnY/UI29QSAzbnPayJouB8Qr35bO7fDAn9wbqaqQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-06-23T18:58:19Z"
+    mac: ENC[AES256_GCM,data:TPZM7H2jZT01lIZYZ52Y+81f3/inrBLwmAylhEEaHhDeinOoZ7qjGvCiWG1h7G5L2qSrFvKtxIdfWE3dO3dGVJ400eMCYsB+pDnnm+IsXAJM4jo8RpC5VwGVI8lh5d4VN0DEnbJFyyivbguP+qNu7Z3i2nGRnvco/0fkKdgimFM=,iv:/wLbZbGWgYQERNYCp+wE2c0Vp9Ln3yukZDB8HfZa2D8=,tag:1NMI9GLwfvWxDzEutRnlFQ==,type:str]
+    pgp: []
+    encrypted_regex: ((?i)(github_app_private_key|github_app_installation_id))
+    version: 3.8.1
