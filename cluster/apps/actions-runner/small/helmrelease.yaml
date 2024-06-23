@@ -34,8 +34,8 @@ spec:
             type: dind
         githubConfigSecret:
             github_app_id: ${ACTION_RUNNER_CONTROLLER_GITHUB_APP_ID}
-            github_app_installation_id: ENC[AES256_GCM,data:pCuDXUa+Zxg=,iv:V+N7u1u0rmJkbvM0fXdf6eiKQRUhIPZ00bL0FTPGJCs=,tag:Ehi7AT97zy4Apx5yU1NV6Q==,type:str]
-            github_app_private_key: ENC[AES256_GCM,data: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,iv:4mpEsjGo9WYweFQoB8AWAmHAHBrds2lEwQw4E8pHwsw=,tag:4XPjBX9Fmt5TTguy+A53Iw==,type:str]
+            github_app_installation_id: ENC[AES256_GCM,data:1EgzhRerf0Y=,iv:d0RtdfxRdeBv6BGuAYl+1KKv/4mZMQhnsubNjTCLL6c=,tag:v7WQAzbE6w7Ee0lLBVLAyA==,type:str]
+            github_app_private_key: ENC[AES256_GCM,data:IVK1FsbWkGOSfSYO+7YxQT4e8klbNOG+RXMhGNfrPZ46itCk59Cdbo/jPzBS//hr7vMXw/KTuX6Gauiz0/+GpZjTG5vtsF2gMARgW52+Kc+T+hAFercb7ctBZo3FWjA3TiYMedzDSCag+rYY7jLD39uCwq+0yyPm8hCKYrmu/Rn29kPUfseuzCQiRvgR7sm2aCkmw/HtXqsdQjPweO0MwvldWcCcvSgGTyy9z3rq0od/7lmJS3fXcdFm+TO2uc8BBkdpkv3M+/O8gm4wthXI+VKFDITBRheyxeYwD/f9tpMPU0Lwm3YHweock7F+R/CUKbuKhpmceJF0anvEf8uTm8HJAzU3LwIwHCOiZDBx0e39jL2xkbDsWBIzDS4H0ZcgM+TVZIr6Aw+rDqC+QA7mS7dDFf3hXnpajItlVH0b62v77PDVx2fQ11O2OlQmxnOC1VIWaulFHD/2cf3p1Dx+szZG3MxpCIVNBkwdc47Ew2pHuVTSDVI4Pi7PUrepsHzNjanzaK8kYgr78iN6AWMsyb1d+5lQfYX0Z1+OcfEQqmaeJNpO1E0VTtyvkmvgqlPMy7Ptr+GvfJYCwfIxNGNhoGqa8aF5ELshPB2471P1T9ycwV74OEIRcKv74z1gOgwlxm5xaOFNeQhwiTEfh7ECKevZuTook9og/oJffyKB91X+KcVAtZoR4C6QiJs7cYoH3Qb8hIN5IzuFpRhVZuj1L/9rw6+DQ1TeQZpHyXVDO0cD51wB1Sz/yUeCkWCZPmKRTOulUUdp84HG20685eOoJLfvyVUqR/P2W849ZZpWAf6A4gupTB1wOdawJgO8jdY8eUExL1y+gRvSOrFlgATiPJOGrPWGcIQGuzobjec8JGMcStaSMXr2PYrCWbb+NSkl/wZ7I0qoY0T8CoPEyb96qXdQrLg1cwN7NMRx9OivZYi71mO5fmgy3Gu/xdiXZxZiUvNpvIZbAJ3L9znutsRG1oxZ2pjWGp3xDzUy9+mdDg5N7qa20lEcIiZXd8xUaabEmkCzOu7HuTUC8sZpOPObqxA5hUHQBDKrraHEtv9i2zA0KldHI6rbLYQ+B1L0Be2K+xqKiKt0jiWW/I+up5QBzh1RSaQ+z5Jb+uuFjum6XpDV8tUcYkCrkEqOTX0kIXtOUQ1NhbHC9I6ArBsSKt0vukktQ3fKbhe+/UunJ4f5mm9n3z/WViXfq8efjLKwZePhvrci0CxctnlKpEs3s+sYAQua85mmCCK+9NvEqCbIcQ59LsOJky9vf2Iwy/hywukHU9YDN2UShDtssxHm81M80ihFaikLOc3m5J8oeloTYUcjnSaEjRkDKU7t72g1JQZTlS7Ed5HxXlt/x0CQY+46liPkLGnNUpaX4DPZ16KjISM2MjSqUaovDoqJgiUgHDz8IVrbJfFmR4jZ+Yej2Yh1c6fWushAldw8Wxhv0FWSbd+aCKzmR5BWfJseBL8f0NuBTpCvIH7j3S7ptYzhhytCPzC2e9CL5ng+Kx/BfaIdf+vJUxsXEg46h7bvCLZRx48A7k0Ds+l5hK/rpLpOBo7ZHX1JfqNVdy1DHN6wI/U2CHOmFI2cxhdJju01TemdGx0KrbKWpVWpm5BiemuRhp3lz0/vWjCbwjqUzZZRgXlM+YHoFZskEBa6+9lknUwv2vxC6FZuzEb63ti5UJz8+lP3GdJqVxm1JTs90q7vU+j7MnthcQ6qFBc9UH+75yNYdyvuBXl04wIVly0L2EliJMbDI4Vd45WpoPNZZVrZCkd3UhEzUQhUM1zXw5LOH4enN/n1JmOQtCXeZcJOkziEA4Ij1uu3h1MCbX9sSwZeKctIW3k32KPad2tPREUPQGmZSMbJXJDd8LzclBp+cQMwYYOn/jOHF9Re1RnCcfTpeZR8eV6vsxeFApXCl+M3VZ1uRB9ovty2HO3rXqKEf5rFfeNYDSher6AR8SW3BlwU0jLF7bpaySwXREtA95UuUcYFrFKPWcFviLIBCiQH02BSW8sj3wvf7x44RdzaYz6h/cgsCA9bJ/u2Fv6kho+waB/qQLpwVHJ4YRLBts6Oe6B60aNkYBt4Az6Gz5svSbSq3AUjCv61V6WAs2PToY8991QcRSev20rTiv5HRPA2Kl1LVlKaamoM+EmH97EsY8b8a14klHCoKUN5ayzC9ada4SWXTWPjZke5YhTb2PRNqZFuMraDC0EuQUIS6p7JKRHNoTzenXNIX6b//E4pg98iaw==,iv:cXXpNMpsAaiqfHhxGkqpvmfSB7F+ZUZ30hUFoczyNKY=,tag:qOjNLWVL9rONN8ZLeKSDsA==,type:str]
         githubConfigUrl: https://github.com/truecharts
         controllerServiceAccount:
             name: actions-runner-controller
@@ -44,7 +44,7 @@ spec:
             spec:
                 containers:
                     - name: runner
-                      image: ghcr.io/truecharts/charts-ci:latestsha256:c5cd9b58d7cbaae65e5f5c4d8e6ee3c5182d6645ba0166863051ccfe747bb940
+                      image: ghcr.io/truecharts/charts-ci:latest@sha256:c5cd9b58d7cbaae65e5f5c4d8e6ee3c5182d6645ba0166863051ccfe747bb940
                       command:
                         - /home/runner/run.sh
 sops:
@@ -56,14 +56,14 @@ sops:
         - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2MXY4SEZBaFdpbFdzcnJL
-            bnM5SmhzWW1sbm5kRjZsc2F0SFdqVWowU1VFCm9qZVBCOHM1bTdDalByUENodktY
-            b0Y3NVQ0ZHpSRGJyQk9QQ1M5ZnJMNFEKLS0tIElzY0lDMGhIdzI2RkdkOVFBbk9s
-            YVdnc0I0TkQwRmV5Q0NuZTRYWFE2czQKLYyTMBkNEXx0K9DhuVusJ14mVOapaD7m
-            WxixioipxcfyCIRnY/UI29QSAzbnPayJouB8Qr35bO7fDAn9wbqaqQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2TmZkb2R2b1pCN3Zob1E1
+            U3ExUWpLMUhuS3A1RkN5aGFEdTJ0SE1aOERVCi9IYTlIOWFKREJ4ekJEWWRDTWtH
+            ZG14QUFVbkkyYjNqcllIUzNFcXI0ZG8KLS0tIHZ2SVFZZFJOaTBwYzE2Mm1Ub3Mw
+            RmZ4TDI1bnArQ1g0aVBLVjAzblI2encKx9pqNlVRrfUofDWdFsR07OpJm2CcJ90w
+            LR1vZeIlIQDuEP3tD3+VwR9Z0t9a5OMyP41OodNDhUHlAbTJtkPxUg==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-23T18:58:19Z"
-    mac: ENC[AES256_GCM,data:TPZM7H2jZT01lIZYZ52Y+81f3/inrBLwmAylhEEaHhDeinOoZ7qjGvCiWG1h7G5L2qSrFvKtxIdfWE3dO3dGVJ400eMCYsB+pDnnm+IsXAJM4jo8RpC5VwGVI8lh5d4VN0DEnbJFyyivbguP+qNu7Z3i2nGRnvco/0fkKdgimFM=,iv:/wLbZbGWgYQERNYCp+wE2c0Vp9Ln3yukZDB8HfZa2D8=,tag:1NMI9GLwfvWxDzEutRnlFQ==,type:str]
+    lastmodified: "2024-06-23T19:01:54Z"
+    mac: ENC[AES256_GCM,data:hrNm6FKtOgQQ6oiL99JB2BDzJ26L7fB3X+pjLXE86lGYJmETX25ocgOctpgCMe29D2iZkLryij4JCWdObyOTh2jmR4CiV8QmTQis5MPY/jFX+0K0Htdr0XYBEhntM9nx2lWbKw0kEWGQq2CSg1dASCWgCby3PCx+T2xcKr5bEjc=,iv:/o8JO1dvKlM+7AVecfEljxG+k1p7zv9hMaogr8HhiaM=,tag:A7cY/w34Xr4rxm5+JuI+XA==,type:str]
     pgp: []
     encrypted_regex: ((?i)(github_app_private_key|github_app_installation_id))
     version: 3.8.1
