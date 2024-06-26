@@ -27,8 +27,8 @@ spec:
     values:
         nameOverride: actions-runner-large
         runnerScaleSetName: actions-runner-large
-        minRunners: 1
-        maxRunners: 6
+        minRunners: 3
+        maxRunners: 12
         containerMode:
             type: dind
         githubConfigSecret:
