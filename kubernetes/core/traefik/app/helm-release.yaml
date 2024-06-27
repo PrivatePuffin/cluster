@@ -42,6 +42,8 @@ spec:
         enabled: true
     defaultCertificate: tc-wildcard
     service:
+      main:
+        type: ClusterIP
       tcp:
         loadBalancerIP: ${TRAEFIK_IP}
         externalTrafficPolicy: Local
