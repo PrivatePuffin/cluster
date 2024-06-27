@@ -51,3 +51,4 @@ resources:
   - truecharts.yaml
   - truechartsoci.yaml
   - weave-gitops.yaml
+# more goes here!
