@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: core-clusterissuer
+  name: clusterissuer
   namespace: flux-system
 spec:
   path: ./kubernetes/core/clusterissuer/app
@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
   dependsOn:
-    - name: operators-cert-manager
+    - name: cert-manager
   prune: true
   wait: false
   interval: 30m

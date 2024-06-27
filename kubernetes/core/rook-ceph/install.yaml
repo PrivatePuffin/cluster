@@ -8,7 +8,7 @@ metadata:
 spec:
   path: ./kubernetes/core/rook-ceph/cluster
   dependsOn:
-    - name: operators-rook-ceph
+    - name: rook-ceph
   sourceRef:
     kind: GitRepository
     name: flux-system
