@@ -11,7 +11,7 @@ spec:
     kind: GitRepository
     name: flux-system
   dependsOn:
-    - name: operators-prometheus-operator
+    - name: prometheus-operator
   prune: true
   wait: false
   interval: 30m
