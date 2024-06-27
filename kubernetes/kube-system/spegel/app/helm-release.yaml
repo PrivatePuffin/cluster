@@ -28,7 +28,7 @@ spec:
       grafanaDashboard:
         enabled: true
       serviceMonitor:
-        enabled: true
+        enabled: false
       spegel:
         containerdSock: /run/containerd/containerd.sock
         containerdRegistryConfigPath: /etc/cri/conf.d/hosts
