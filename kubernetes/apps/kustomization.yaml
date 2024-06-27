@@ -9,3 +9,4 @@ resources:
   - mosquitto/install.yaml
   - kubeapps/install.yaml
   - actions-runner/install.yaml
+  - kubernetes-dashboard/install.yaml
