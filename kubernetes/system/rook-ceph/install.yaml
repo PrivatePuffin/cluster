@@ -3,10 +3,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: operators-cloudnative-pg
+  name: rook-ceph
   namespace: flux-system
 spec:
-  path: ./kubernetes/operators/cloudnative-pg/app
+  path: ./kubernetes/system/rook-ceph/app
+  dependsOn:
+    - name: prometheus-operator
   sourceRef:
     kind: GitRepository
     name: flux-system

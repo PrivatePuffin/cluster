@@ -25,6 +25,3 @@ spec:
         remediation:
             retries: 3
     values:
-      localpv-provisioner:
-        hostpathClass:
-          isDefaultClass: true

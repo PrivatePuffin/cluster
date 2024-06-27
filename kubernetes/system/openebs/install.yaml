@@ -3,12 +3,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: operators-metallb
+  name: openebs
   namespace: flux-system
 spec:
-  path: ./kubernetes/operators/metallb/app
+  path: ./kubernetes/system/openebs/app
   dependsOn:
-    - name: operators-prometheus-operator
+    - name: prometheus-operator
   sourceRef:
     kind: GitRepository
     name: flux-system
