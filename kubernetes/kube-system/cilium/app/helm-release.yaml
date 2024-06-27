@@ -32,25 +32,63 @@ spec:
             remediateLastFailure: true
     uninstall:
         keepHistory: false
-    valuesFrom:
-        - kind: ConfigMap
-          name: cilium-values
     values:
-        operator:
-          prometheus:
-            enabled: true
-            serviceMonitor:
-              enabled: true
-          dashboards:
-            enabled: true
-            annotations:
-              grafana_folder: Cilium
+      # autoDirectNodeRoutes: true
+      # routingMode: native
+      cluster:
+         name: ${CLUSTERNAME}
+         id: "1"
+      ipv4NativeRoutingCIDR: ${PODNET}
+      securityContext:
+        privileged: true
+        capabilities:
+          ciliumAgent:
+            - CHOWN
+            - KILL
+            - NET_ADMIN
+            - NET_RAW
+            - IPC_LOCK
+            - SYS_ADMIN
+            - SYS_RESOURCE
+            - DAC_OVERRIDE
+            - FOWNER
+            - SETGID
+            - SETUID
+          cleanCiliumState:
+            - NET_ADMIN
+            - SYS_ADMIN
+            - SYS_RESOURCE
+      cgroup:
+        automount:
+          enabled: false
+        hostRoot: /sys/fs/cgroup
+      enableRuntimeDeviceDetection: true
+      endpointRoutes:
+        enabled: true
+      ipam:
+        mode: kubernetes
+      k8sServiceHost: 127.0.0.1
+      k8sServicePort: 7445
+      kubeProxyReplacement: true
+      kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
+      localRedirectPolicy: true
+      rollOutCiliumPods: true
+      operator:
+        rollOutPods: true
         prometheus:
           enabled: true
           serviceMonitor:
             enabled: true
-            trustCRDsExist: true
         dashboards:
+          enabled: true
+          annotations:
+            grafana_folder: Cilium
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+          trustCRDsExist: true
+      dashboards:
           enabled: true
           annotations:
             grafana_folder: Cilium
