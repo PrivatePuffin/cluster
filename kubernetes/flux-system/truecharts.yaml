@@ -7,8 +7,6 @@ spec:
     interval: 10m0s
     dependsOn:
     - name: kube-system
-    - name: crds
-    - name: operators
     - name: system
     - name: core
     - name: helm-repos
