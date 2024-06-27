@@ -4,14 +4,14 @@ kubernetesVersion: v1.30.2
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
-    - ENC[AES256_GCM,data:C7w4FGke,iv:1bVF+IZ7/6nKURrofijtlLD6dkJMOXXkBRwkKcXjdtc=,tag:ggs2jUwEJufjJrfFLFB1nA==,type:str]
+    - ${VIP}
 additionalApiServerCertSans:
-    - ENC[AES256_GCM,data:JRr8OmDn,iv:6iZwEgH4v7dugokp2Cd9ovFgpALqbExC0ptlKKqZIDs=,tag:ojw31JQwXKg5VPAW9BH59Q==,type:str]
+    - ${VIP}
 # Warning: Also used in Cilium CNI values!
 clusterPodNets:
-    - 172.16.0.0/16
+    - ${PODNET}
 clusterSvcNets:
-    - 172.17.0.0/16
+    - ${SVCNET}
 cniConfig:
     name: none
 patches:
@@ -167,23 +167,3 @@ worker:
                     # - siderolabs/i915-ucode
                     # - siderolabs/intel-ucode
                     # - siderolabs/thunderbolt
-sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age:
-        - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA5M3Erb0RzeUFnMVFoYWla
-            V1JDSXkvS1NrQ2FUY1QxdXVKYUhjOVNHYmtZCmlsb3VmWklXRlNYZEF6KzV1c0lB
-            d2hua2FkaUR5VTByd0FYRm9LZTAzejgKLS0tIDRyYm1FVnpNaEIzWGxUK0k4c2Ro
-            L2hJOEI1U3ZxNGkxQnFWbzBzN1dBVEEKo3aZwTL1JnxgRsvrKgCuC2ANwmXUgjY8
-            Xi8fbwE/MiO8xuNzOLtLS063z3cwJmBtPcDDVGV87GhiRU29N+bmWw==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2023-12-24T22:55:12Z"
-    mac: ENC[AES256_GCM,data:HZT+Gll9Jv2Tgu5oX7NSeG41KWeGt5OAIkydSznudEberMG4ckLmD2NIbtPMNInoH4EjWnI6ciZBAa8NmOsOlRqviy4FrjvTNou/9Az4wjinFaSLJxIp/UodAJsgd0qgIWFqKAVLe4TdERWuRM0Kykm63vX7ldYdTcIt9h9yDFw=,iv:NIj+5oEcpogx/QzIAiNU9wr5GErOIbVGqohhHw/5/4Q=,tag:xlt/DQkASgdhJRNNF1SVNQ==,type:str]
-    pgp: []
-    encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
-    version: 3.8.1

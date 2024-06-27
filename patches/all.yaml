@@ -1,0 +1,52 @@
+- op: replace
+  path: /machine/time
+  value:
+    "disabled": false
+    "servers":
+      - "time.cloudflare.com"
+- op: replace
+  path: /cluster/proxy
+  value:
+    "disabled": true
+- op: add
+  path: /machine/kubelet/extraArgs
+  value:
+    "rotate-server-certificates": true
+- op: add
+  path: /machine/kubelet/extraConfig
+  value:
+    "maxPods": 250
+    "shutdownGracePeriod": "15s"
+    "shutdownGracePeriodCriticalPods": "10s"
+- op: add
+  path: /machine/kubelet/extraMounts
+  value:
+    - "destination": "/var/openebs/local"
+      "type": "bind"
+      "source": "/var/openebs/local"
+      "options":
+        - "bind"
+        - "rshared"
+        - "rw"
+- op: replace
+  path: /cluster/apiServer/admissionControl
+  value:
+      - name: PodSecurity
+        configuration:
+          apiVersion: pod-security.admission.config.k8s.io/v1alpha1
+          defaults:
+            audit: restricted
+            audit-version: latest
+            enforce: baseline
+            enforce-version: latest
+            warn: restricted
+            warn-version: latest
+          exemptions:
+            namespaces:
+              - kube-system
+              - metallb
+              - openebs
+              - kubernetes-dashboard
+            runtimeClasses: []
+            usernames: []
+          kind: PodSecurityConfiguration

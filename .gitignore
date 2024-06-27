@@ -14,3 +14,4 @@ deps/cni/values.yaml
 !deps/cni
 !deps/certificate-approver
 !deps/certificate-approver/kustomization.yaml
+clustertool.exe

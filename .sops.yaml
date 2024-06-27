@@ -1,31 +1,17 @@
+## Do not edit between this and DO NOT REMOVE
+
 creation_rules:
-  # - path_regex: cluster.*\.ya?ml
-  #   encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
-  #   age: >-
-  #     age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
-  - path_regex: cluster.*\.secret.ya?ml
-    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
-    age: >-
-      age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
-  - path_regex: .*\.secret
-    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
-    age: >-
-      age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
-  - path_regex: age.agekey.enc
-    age: >-
-      age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+  - path_regex: ^kubernetes.*values.ya?ml$
+    age: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+  - path_regex: ^kubernetes.*\.secret.ya?ml
+    age: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
   - path_regex: talenv.yaml
-    age: >-
-      age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+    age: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
   - path_regex: talsecret.yaml
-    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
-    age: >-
-      age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
-  - path_regex: talconfig.yaml
-    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
-    age: >-
-      age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
-  - path_regex: cluster.*actions-runner.*helmrelease.yaml
-    encrypted_regex: "((?i)(github_app_private_key|github_app_installation_id))"
-    age: >-
-      age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+    age: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+
+
+## DO NOT REMOVE: Personal setting go under this line
+
+  - path_regex: kubernetes.*actions-runner.*helmrelease.yaml
+    age: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
