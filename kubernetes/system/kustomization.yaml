@@ -6,7 +6,14 @@ resources:
     - node-feature-discovery/install.yaml
     - reloader/install.yaml
     - kubernetes-reflector/install.yaml
-    # - intel-device-plugin/install.yaml
     - snapshot-controller/install.yaml
     - volsync/install.yaml
     - traefik-crds/install.yaml
+    - cert-manager/install.yaml
+    - csi-driver-nfs/install.yaml
+    - cloudnative-pg/install.yaml
+    - csi-driver-smb/install.yaml
+    - metallb/install.yaml
+    - openebs/install.yaml
+    - prometheus-operator/install.yaml
+    - rook-ceph/install.yaml
