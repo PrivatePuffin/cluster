@@ -42,7 +42,7 @@ spec:
               SYSTEM_UPGRADE_JOB_PRIVILEGED: true
               SYSTEM_UPGRADE_JOB_TTL_SECONDS_AFTER_FINISH: 900
               SYSTEM_UPGRADE_PLAN_POLLING_INTERVAL: 15m
-              SYSTEM_UPGRADE_CONTROLLER_NAME: *app
+              SYSTEM_UPGRADE_CONTROLLER_NAME: system-update-controller
               SYSTEM_UPGRADE_CONTROLLER_NAMESPACE:
                 valueFrom:
                   fieldRef:
