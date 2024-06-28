@@ -1,5 +1,5 @@
 clusterName: main
-talosVersion: v1.7.4
+talosVersion: v1.7.5
 kubernetesVersion: v1.30.2
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
@@ -15,7 +15,7 @@ clusterSvcNets:
 cniConfig:
     name: none
 patches:
-    - '@./patches/all.json'
+    - '@./patches/all.yaml'
 nodes:
     - hostname: k8s-control-1
       ipAddress: ${MASTER1IP}
@@ -134,8 +134,10 @@ nodes:
 
 controlPlane:
     patches:
-        - '@./patches/controlplane.json'
+        - '@./patches/controlplane.yaml'
         - '@./patches/sopssecret.yaml'
+        - '@./patches/manifests.yaml'
+        # - '@./patches/nvidia.yaml'
         # schematic:
         #     customization:
         #         # Required when not using enx* mac adress above in networkInterfaces
@@ -151,8 +153,8 @@ controlPlane:
         #                 # - siderolabs/qemu-guest-agent
 worker:
     patches:
-        - '@./patches/worker.json'
-        # - '@./patches/nvidia.json'
+        - '@./patches/worker.yaml'
+        # - '@./patches/nvidia.yaml'
     schematic:
         customization:
             systemExtensions:
