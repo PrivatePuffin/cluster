@@ -1,3 +1,9 @@
+# TODO try to see if we can fetch this on per-node basis...
+TALOS_SCHEMATIC_ID: d715f723f882b1e1e8063f1b89f237dcc0e3bd000f9f970243af59c8baae0100
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+TALOS_VERSION: v1.7.5
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+KUBERNETES_VERSION: v1.30.2
 #ENC[AES256_GCM,data:Mi9qVpdTRv+sTOUiVeej7BX9fFqs2RuQA9JrQwfX/aYiBqtAQMF65PfpTW41+WZjem0EsP38KS3PxyBX5q3RE+c=,iv:Ki61wxk9wUOV9v9/FtaFIQN+m1DZaue1XBBI+X5Tc0E=,tag:pPPj+6RuC5CweFP0x4JUEQ==,type:comment]
 #ENC[AES256_GCM,data:RJZkjVyxSRduFReo0cRWMW9ycIS2khtAMPWfs9q71yxDkE1Z/gFAyqiW/Bb+X+zIuG4OEBvsk+laEe2z89Q=,iv:MwLp6s7v8KIOkan0xxa0f5OcybXFTyW2BiChLJ1F7XU=,tag:XZ/NeBgABMt2GzzzMtC4SA==,type:comment]
 CLUSTERNAME: ENC[AES256_GCM,data:x+NS6w==,iv:r17PSMpbcUPoZO2Hlkq96kjOFl6MAYZxP46q6h6eVlo=,tag:xRTA/RF8HnyLM37joRjmng==,type:str]
