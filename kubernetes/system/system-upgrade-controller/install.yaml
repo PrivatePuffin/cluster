@@ -16,7 +16,7 @@ metadata:
 spec:
   targetNamespace: system-upgrade
   dependsOn:
-    - name: node-feature-discovery-rules
+    - name: node-feature-discovery
   path: ./kubernetes/system/system-upgrade-controller/app
   prune: true
   sourceRef:
