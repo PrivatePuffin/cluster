@@ -15,3 +15,4 @@ resources:
     - openebs/install.yaml
     - prometheus-operator/install.yaml
     - rook-ceph/install.yaml
+    - system-upgrade-controller/install.yaml

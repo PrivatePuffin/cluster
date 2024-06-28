@@ -1,6 +1,6 @@
 clusterName: main
-talosVersion: v1.7.5
-kubernetesVersion: v1.30.2
+talosVersion: ${TALOS_VERSION}
+kubernetesVersion: ${KUBERNETES_VERSION}
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
