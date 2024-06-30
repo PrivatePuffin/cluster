@@ -26,7 +26,7 @@ spec:
     - key: node-role.kubernetes.io/control-plane
       operator: Exists
       effect: NoSchedule
-  prepare: prepare-system-upgrade-controller
+  prepare:
     image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
     envs:
       - name: NODE_IP
@@ -38,7 +38,12 @@ spec:
       - health
       - --server=false
   upgrade:
-    <<: prepare-system-upgrade-controller
+    image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
+    envs:
+      - name: NODE_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
     args:
       - --nodes=$(NODE_IP)
       - upgrade-k8s
