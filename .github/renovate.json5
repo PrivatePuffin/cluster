@@ -14,7 +14,8 @@
   "automergeType": "pr",
   "flux": {
     "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$",
+      "^takconfig.yaml"
     ]
   },
   "helm-values": {
