@@ -38,7 +38,7 @@ spec:
       - health
       - --server=false
   upgrade:
-    <<: *prepare
+    <<: prepare
     args:
       - --nodes=$(NODE_IP)
       - upgrade-k8s

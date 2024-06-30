@@ -1,6 +1,8 @@
 clusterName: main
-talosVersion: ${TALOS_VERSION}
-kubernetesVersion: ${KUBERNETES_VERSION}
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.7.5
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.30.2
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
@@ -138,7 +140,10 @@ controlPlane:
         - '@./patches/sopssecret.yaml'
         - '@./patches/manifests.yaml'
         # - '@./patches/nvidia.yaml'
-        # schematic:
+    schematic:
+      overlay:
+        image: siderolabs/sbc-raspberrypi
+        name: rpi_generic
         #     customization:
         #         # Required when not using enx* mac adress above in networkInterfaces
         #         # extraKernelArgs:
