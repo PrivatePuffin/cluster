@@ -16,7 +16,4 @@ spec:
                 namespace: flux-system
             interval: 30m
     values:
-
-      providerRegex: |
-          ^(k8s-[1-6])$
       bypassDnsResolution: true
