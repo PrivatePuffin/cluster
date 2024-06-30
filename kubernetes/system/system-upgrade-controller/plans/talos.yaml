@@ -42,10 +42,17 @@ spec:
       - health
       - --server=false
   upgrade:
-    <<: prepare-system-upgrade
+    envFrom:
+      - configMapRef:
+           name: schematics
+    envs:
+      - name: NODE_IP
+        valueFrom:
+          fieldRef:
+            fieldPath: status.hostIP
     args:
       - --nodes=$(NODE_IP)
       - upgrade
-      - --image=factory.talos.dev/installer/$(tmpvar=$(NODE_IP) && echo ${!tmpvar}):$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
+      - --image=factory.talos.dev/installer/$(tmpvar=$(NODE_IP); eval echo \$$tmpvar):$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --preserve=true
       - --wait=false
