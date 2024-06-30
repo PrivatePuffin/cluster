@@ -27,7 +27,7 @@ spec:
     - key: node-role.kubernetes.io/control-plane
       operator: Exists
       effect: NoSchedule
-  prepare: prepare-system-upgrade
+  prepare:
     image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
     envFrom:
       - configMapRef:
