@@ -2,10 +2,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: system-upgrade
-  annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    volsync.backube/privileged-movers: "true"
+    name: system-upgrade
+    annotations:
+        volsync.backube/privileged-movers: "true"
+    labels:
+        kustomize.toolkit.fluxcd.io/prune: disabled
+        goldilocks.fairwinds.com/enabled: "true"
+        pod-security.kubernetes.io/enforce: privileged
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
