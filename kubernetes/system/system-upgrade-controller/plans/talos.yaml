@@ -42,6 +42,7 @@ spec:
       - health
       - --server=false
   upgrade:
+    image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
     envFrom:
       - configMapRef:
            name: schematics
