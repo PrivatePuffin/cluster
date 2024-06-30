@@ -15,7 +15,7 @@
   "flux": {
     "fileMatch": [
       "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$",
-      "^takconfig.yaml"
+      "^talconfig.yaml"
     ]
   },
   "helm-values": {
