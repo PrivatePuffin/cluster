@@ -15,3 +15,5 @@ deps/cni/values.yaml
 !deps/certificate-approver
 !deps/certificate-approver/kustomization.yaml
 clustertool.exe
+kubeconfig
+*kubeconfig
