@@ -1,0 +1,13 @@
+age.agekey
+talconfig.json
+clusterconfig
+patches/sopssecret.yaml
+cluster/main/kubernetes/**/bootstrap-values.yaml.ct
+^clustertool.exe
+^clustertool*
+^clustertool
+*clustersettings.secret.yaml
+*kubeconfig
+*clustertool.exe
+clustertool.exe
+clustertool

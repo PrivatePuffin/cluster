@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - cilium
+  - descheduler
+  - intel-device-plugins
+  - kubelet-csr-approver
+  - metrics-server
+  - node-feature-discovery
+  - nvidia-gpu-operator
+  - spegel

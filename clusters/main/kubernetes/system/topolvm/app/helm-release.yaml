@@ -1,0 +1,34 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: topolvm
+    namespace: topolvm-system
+spec:
+    interval: 5m
+    releaseName: topolvm
+    chart:
+        spec:
+            chart: topolvm
+            version: 15.1.0
+            sourceRef:
+                kind: HelmRepository
+                name: topolvm
+                namespace: flux-system
+    install:
+        createNamespace: true
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    upgrade:
+        crds: CreateReplace
+        remediation:
+            retries: 3
+    values:
+      # lvmd service
+      lvmd:
+        # lvmd.deviceClasses -- Specify the device-class settings.
+        deviceClasses:
+          - name: main
+            volume-group: topolvm_all
+            default: true
+            spare-gb: 10

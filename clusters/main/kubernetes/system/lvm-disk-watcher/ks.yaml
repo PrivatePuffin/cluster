@@ -1,0 +1,13 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: lvm-disk-watcher
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: clusters/main/kubernetes/system/lvm-disk-watcher/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: cluster
+

@@ -1,10 +1,10 @@
-clusterName: main
+clusterName: ${CLUSTERNAME}
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.7.5
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.30.2
 endpoint: https://${VIP}:6443
-allowSchedulingOnControlPlanes: false
+allowSchedulingOnControlPlanes: true
 additionalMachineCertSans:
     - ${VIP}
 additionalApiServerCertSans:
@@ -17,7 +17,7 @@ clusterSvcNets:
 cniConfig:
     name: none
 patches:
-    - '@./patches/all.yaml'
+    - '@./clusters/${CLUSTERNAME}/talos/patches/all.yaml'
 nodes:
     - hostname: k8s-control-1
       ipAddress: ${MASTER1IP}
@@ -107,68 +107,44 @@ nodes:
                   officialExtensions:
                       - siderolabs/iscsi-tools
                       - siderolabs/qemu-guest-agent
-    # - hostname: k8s-worker-vm-2
-    #   ipAddress: 192.168.10.122
-    #   nameservers:
-    #     - 8.8.8.8
-    #     - 1.1.1.1
-    #   installDiskSelector:
-    #     size: <= 400GB
-    #   schematic:
-    #       customization:
-    #           systemExtensions:
-    #               officialExtensions:
-    #                   - siderolabs/iscsi-tools
-    #                   - siderolabs/qemu-guest-agent
-    # - hostname: k8s-worker-vm-3
-    #   ipAddress: 192.168.10.132
-    #   nameservers:
-    #     - 8.8.8.8
-    #     - 1.1.1.1
-    #   installDiskSelector:
-    #     size: <= 400GB
-    #   schematic:
-    #       customization:
-    #           systemExtensions:
-    #               officialExtensions:
-    #                   - siderolabs/iscsi-tools
-    #                   - siderolabs/qemu-guest-agent
-
 controlPlane:
     patches:
-        - '@./patches/controlplane.yaml'
-        - '@./patches/sopssecret.yaml'
-        - '@./patches/manifests.yaml'
+        - '@./clusters/${CLUSTERNAME}/talos/patches/controlplane.yaml'
+        - '@./clusters/${CLUSTERNAME}/talos/patches/sopssecret.yaml'
+        - '@./clusters/${CLUSTERNAME}/talos/patches/manifests.yaml'
         # - '@./patches/nvidia.yaml'
     schematic:
-      overlay:
-        image: siderolabs/sbc-raspberrypi
-        name: rpi_generic
-        #     customization:
-        #         # Required when not using enx* mac adress above in networkInterfaces
-        #         # extraKernelArgs:
-        #         #    - net.ifnames=0
-        #         systemExtensions:
-        #             officialExtensions:
-        #                 # Enable where needed
-        #                 # - siderolabs/amd-ucode
-        #                 # - siderolabs/bnx2-bnx2x
-        #                 # - siderolabs/i915-ucode
-        #                 # - siderolabs/intel-ucode
-        #                 # - siderolabs/qemu-guest-agent
+        overlay:
+         image: siderolabs/sbc-raspberrypi
+         name: rpi_generic
+        customization:
+            extraKernelArgs:
+                - net.ifnames=0
+            systemExtensions:
+                officialExtensions:
+                    - siderolabs/iscsi-tools
+                    - siderolabs/qemu-guest-agent
+                    # Enable where needed
+                    # - siderolabs/amd-ucode
+                    # - siderolabs/bnx2-bnx2x
+                    # - siderolabs/drbd
+                    # - siderolabs/gasket-driver
+                    # - siderolabs/i915-ucode
+                    # - siderolabs/intel-ucode
+                    # - siderolabs/thunderbolt
 worker:
     patches:
-        - '@./patches/worker.yaml'
+        - '@./clusters/${CLUSTERNAME}/talos/patches/worker.yaml'
         # - '@./patches/nvidia.yaml'
     schematic:
         customization:
             systemExtensions:
                 officialExtensions:
                     # Enable where needed
-                    - siderolabs/amd-ucode
+                    # - siderolabs/amd-ucode
                     # - siderolabs/bnx2-bnx2x
                     - siderolabs/iscsi-tools
-                    # - siderolabs/qemu-guest-agent
+                    - siderolabs/qemu-guest-agent
                     # - siderolabs/drbd
                     # - siderolabs/gasket-driver
                     # - siderolabs/i915-ucode

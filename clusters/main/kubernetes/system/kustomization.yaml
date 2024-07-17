@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - cert-manager
+  - cloudnative-pg
+  - csi-driver-nfs
+  - csi-driver-smb
+  - kubernetes-reflector
+  - lvm-disk-watcher
+  - metallb
+  - openebs
+  - prometheus-operator
+  - snapshot-controller
+  - system-upgrade-controller
+  - topolvm
+  - traefik-crds
+  - volsync
