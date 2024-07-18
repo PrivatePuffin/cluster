@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - hass/ks.yaml
+  - homepage/ks.yaml
+  - kms/ks.yaml
+  - kubeapps/ks.yaml
+  - kubernetes-dashboard/ks.yaml
+  - media
+  - metrics
+  - mosquitto/ks.yaml
+  - actions-runner/ks.yaml

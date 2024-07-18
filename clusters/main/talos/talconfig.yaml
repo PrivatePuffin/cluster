@@ -1,0 +1,152 @@
+clusterName: ${CLUSTERNAME}
+# renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+talosVersion: v1.7.5
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.30.2
+endpoint: https://${VIP}:6443
+allowSchedulingOnControlPlanes: true
+additionalMachineCertSans:
+    - ${VIP}
+additionalApiServerCertSans:
+    - ${VIP}
+# Warning: Also used in Cilium CNI values!
+clusterPodNets:
+    - ${PODNET}
+clusterSvcNets:
+    - ${SVCNET}
+cniConfig:
+    name: none
+patches:
+    - '@./clusters/${CLUSTERNAME}/talos/patches/all.yaml'
+nodes:
+    - hostname: k8s-control-1
+      ipAddress: ${MASTER1IP}
+      controlPlane: true
+      nameservers:
+        - 192.168.10.200
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 1TB
+      networkInterfaces:
+        # suffix is the adapter mac adres.
+        - interface: enxd83add59cce3
+          addresses:
+            - ${MASTER1IP}/24
+          routes:
+            - network: 0.0.0.0/0
+              gateway: ${GATEWAY}
+          vip:
+            ip: ${VIP}
+    - hostname: k8s-control-2
+      ipAddress: ${MASTER2IP}
+      controlPlane: true
+      nameservers:
+        - 192.168.10.200
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 1TB
+      networkInterfaces:
+        # suffix is the adapter mac adres.
+        - interface: enxd83add598b01
+          addresses:
+            - ${MASTER2IP}/24
+          routes:
+            - network: 0.0.0.0/0
+              gateway: ${GATEWAY}
+          vip:
+            ip: ${VIP}
+    - hostname: k8s-control-3
+      ipAddress: ${MASTER3IP}
+      controlPlane: true
+      nameservers:
+        - 192.168.10.200
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 1TB
+      networkInterfaces:
+        # suffix is the adapter mac adres.
+        - interface: enxd83add59cc24
+          addresses:
+            - ${MASTER3IP}/24
+          routes:
+            - network: 0.0.0.0/0
+              gateway: ${GATEWAY}
+          vip:
+            ip: ${VIP}
+    - hostname: k8s-worker-1
+      ipAddress: 192.168.10.111
+      nameservers:
+        - 192.168.10.200
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 600GB
+    - hostname: k8s-worker-2
+      ipAddress: 192.168.10.121
+      nameservers:
+        - 192.168.10.200
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 600GB
+    - hostname: k8s-worker-3
+      ipAddress: 192.168.10.131
+      nameservers:
+        - 192.168.10.200
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 600GB
+    - hostname: k8s-worker-4
+      ipAddress: 192.168.10.141
+      nameservers:
+        - 192.168.10.200
+        - 1.1.1.1
+      installDiskSelector:
+        size: <= 600GB
+      schematic:
+          customization:
+              systemExtensions:
+                  officialExtensions:
+                      - siderolabs/iscsi-tools
+                      - siderolabs/qemu-guest-agent
+controlPlane:
+    patches:
+        - '@./clusters/${CLUSTERNAME}/talos/patches/controlplane.yaml'
+        - '@./clusters/${CLUSTERNAME}/talos/patches/sopssecret.yaml'
+        - '@./clusters/${CLUSTERNAME}/talos/patches/manifests.yaml'
+        # - '@./patches/nvidia.yaml'
+    schematic:
+        overlay:
+         image: siderolabs/sbc-raspberrypi
+         name: rpi_generic
+        customization:
+            extraKernelArgs:
+                - net.ifnames=0
+            systemExtensions:
+                officialExtensions:
+                    - siderolabs/iscsi-tools
+                    - siderolabs/qemu-guest-agent
+                    # Enable where needed
+                    # - siderolabs/amd-ucode
+                    # - siderolabs/bnx2-bnx2x
+                    # - siderolabs/drbd
+                    # - siderolabs/gasket-driver
+                    # - siderolabs/i915-ucode
+                    # - siderolabs/intel-ucode
+                    # - siderolabs/thunderbolt
+worker:
+    patches:
+        - '@./clusters/${CLUSTERNAME}/talos/patches/worker.yaml'
+        # - '@./patches/nvidia.yaml'
+    schematic:
+        customization:
+            systemExtensions:
+                officialExtensions:
+                    # Enable where needed
+                    # - siderolabs/amd-ucode
+                    # - siderolabs/bnx2-bnx2x
+                    - siderolabs/iscsi-tools
+                    - siderolabs/qemu-guest-agent
+                    # - siderolabs/drbd
+                    # - siderolabs/gasket-driver
+                    # - siderolabs/i915-ucode
+                    # - siderolabs/intel-ucode
+                    # - siderolabs/thunderbolt

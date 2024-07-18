@@ -1,0 +1,134 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: traefik
+  namespace: traefik
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: traefik
+      version: 29.1.6
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+
+    logs:
+      general:
+        # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
+        level: ERROR
+        # -- Set the format of General Logs to be either Common Log Format or JSON. For more information: https://doc.traefik.io/traefik/observability/logs/#format
+        format: common
+      access:
+        enabled: true
+    defaultCertificate: tc-wildcard
+    service:
+      main:
+        type: ClusterIP
+      tcp:
+        loadBalancerIP: ${TRAEFIK_IP}
+        externalTrafficPolicy: Local
+        ports:
+          web:
+            enabled: true
+            port: 80
+            protocol: http
+            redirectTo: websecure
+          websecure:
+            enabled: true
+            port: 443
+            protocol: https
+            # -- Configure (Forwarded Headers)[https://doc.traefik.io/traefik/routing/entrypoints/#forwarded-headers] Support
+            forwardedHeaders:
+              enabled: false
+              # -- List of trusted IP and CIDR references
+              trustedIPs: []
+              # -- Trust all forwarded headers
+              insecureMode: false
+            # -- Configure (Proxy Protocol Headers)[https://doc.traefik.io/traefik/routing/entrypoints/#proxyprotocol] Support
+            proxyProtocol:
+              enabled: false
+              # -- Only IPs in trustedIPs will lead to remote client address replacement
+              trustedIPs: []
+              # -- Trust every incoming connection
+              insecureMode: false
+    ingress:
+      main:
+        enabled: false
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+              - name: bouncer
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: ks-le-prod
+
+        hosts:
+          - host: traefik.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+    middlewares:
+      ipWhiteList:
+        - name: local
+          sourceRange:
+            - 172.16.0.0/16
+            - 172.17.0.0/16
+            - 192.168.10.0/24
+            - 192.168.20.0/24
+      forwardAuth:
+        - name: auth
+          address: https://authentik-proxy.authentik.svc.cluster.local:10228/outpost.goauthentik.io/auth/traefik
+          authResponseHeaders:
+              - X-authentik-username
+              - X-authentik-groups
+              - X-authentik-email
+              - X-authentik-name
+              - X-authentik-uid
+              - X-authentik-jwt
+              - X-authentik-meta-jwks
+              - X-authentik-meta-outpost
+              - X-authentik-meta-provider
+              - X-authentik-meta-app
+              - X-authentik-meta-version
+          trustForwardHeader: true
+          tls:
+            insecureSkipVerify: true
+      bouncer:
+        - name: bouncer
+          enabled: true
+          logLevel: INFO
+          crowdsecMode: stream
+          crowdsecLapiHost: crowdsec-service.crowdsec:8080
+          forwardedHeadersTrustedIPs: []
+          clientTrustedIPs:
+            - 172.16.0.0/16
+            - 172.17.0.0/16
+            - 192.168.10.0/24
+            - 192.168.20.0/24
+          crowdsecLapiTLSCertificateAuthorityFile: /etc/traefik/crowdsec-certs/ca.crt
+          crowdsecLapiTLSCertificateBouncerFile: /etc/traefik/crowdsec-certs/tls.crt
+          crowdsecLapiTLSCertificateBouncerKeyFile: /etc/traefik/crowdsec-certs/tls.key
