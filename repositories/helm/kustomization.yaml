@@ -50,6 +50,7 @@ resources:
   - stakater.yaml
   - stevehipwell.yaml
   - tf-controller.yaml
+  - topolvm.yaml
   - traefik.yaml
   - truecharts.yaml
   - truechartsoci.yaml
