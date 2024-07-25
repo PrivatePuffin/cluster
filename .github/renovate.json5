@@ -14,18 +14,18 @@
   "automergeType": "pr",
   "flux": {
     "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$",
+      "(^|/)clusters/.+\\.ya?ml(\\.j2)?$",
       "^talconfig.yaml"
     ]
   },
   "helm-values": {
     "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)clusters/.+\\.ya?ml(\\.j2)?$"
     ]
   },
   "kubernetes": {
     "fileMatch": [
-      "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)clusters/.+\\.ya?ml(\\.j2)?$"
     ]
   },
   "kustomize": {
