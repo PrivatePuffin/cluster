@@ -3,204 +3,38 @@
   "extends": [
     "config:recommended",
     "docker:enableMajor",
+    "replacements:k8s-registry-move",
+    ":automergeBranch",
     ":disableRateLimiting",
     ":dependencyDashboard",
-    ":semanticCommits"
+    ":semanticCommits",
+    ":skipStatusChecks",
+    ":timezone(Europe/Amsterdam)",
+    "github>Ornias1993/cluster//.github/renovate/allowedVersions.json5",
+    "github>Ornias1993/cluster//.github/renovate/autoMerge.json5",
+    "github>Ornias1993/cluster//.github/renovate/clusters.json5",
+    "github>Ornias1993/cluster//.github/renovate/commitMessage.json5",
+    "github>Ornias1993/cluster//.github/renovate/groups.json5",
+    "github>Ornias1993/cluster//.github/renovate/labels.json5",
+    "github>Ornias1993/cluster//.github/renovate/packageRules.json5",
+    "github>Ornias1993/cluster//.github/renovate/semanticCommits.json5"
   ],
-  "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
-  "rebaseWhen": "conflicted",
-  "automergeType": "pr",
+  "ignorePaths": ["**/*.sops.*", "**/.archive/**", "**/resources/**"],
   "flux": {
     "fileMatch": [
-      "(^|/)clusters/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)clusters/.+\\.ya?ml(?:\\.j2)?$"
     ]
   },
   "helm-values": {
     "fileMatch": [
-      "(^|/)clusters/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)clusters/.+\\.ya?ml(?:\\.j2)?$"
     ]
   },
   "kubernetes": {
     "fileMatch": [
-      "(^|/)clusters/.+\\.ya?ml(\\.j2)?$"
+      "(^|/)clusters/.+\\.ya?ml(?:\\.j2)?$"
     ]
-  },
-  "kustomize": {
-    "fileMatch": [
-      "(^|/)kustomization\\.ya?ml(\\.j2)?$"
-    ]
-  },
-  "pip_requirements": {
-    "fileMatch": [
-      "(^|/)[\\w-]*requirements(-\\w+)?\\.(txt|pip)(\\.j2)?$"
-    ]
-  },
-  // commit message topics
-  "commitMessageTopic": "{{depName}}",
-  "commitMessageExtra": "to {{newVersion}}",
-  "commitMessageSuffix": "",
-  // package rules
-  "packageRules": [
-    // automerge
-    {
-      "description": ["Auto merge Github Actions"],
-      "matchManagers": ["github-actions"],
-      "automerge": true,
-      "automergeType": "pr",
-      "ignoreTests": true,
-      "matchUpdateTypes": ["minor", "patch"]
-    },
-    // groups
-    {
-      "description": ["Flux Group"],
-      "groupName": "Flux",
-      "matchPackagePatterns": ["flux"],
-      "matchDatasources": ["docker", "github-tags"],
-      "versioning": "semver",
-      "automerge": false,
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "separateMinorPatch": true
-    },
-    {
-      "description": ["System Upgrade Controller Group"],
-      "groupName": "System Upgrade Controller",
-      "matchPackagePatterns": ["system-upgrade-controller"],
-      "matchDatasources": ["docker", "github-releases"],
-      "group": {
-        "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "separateMinorPatch": true
-    },
-    // custom versioning
-    // commit message topics
-    {
-      "matchDatasources": ["helm"],
-      "commitMessageTopic": "chart {{depName}}"
-    },
-    {
-      "matchDatasources": ["docker"],
-      "commitMessageTopic": "image {{depName}}"
-    },
-    // commit messages
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(container)!: "
-    },
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "container",
-      "automerge": true
-    },
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "container",
-      "automerge": true
-    },
-    {
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["digest"],
-      "semanticCommitType": "chore",
-      "semanticCommitScope": "container",
-      "automerge": true
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(helm)!: "
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "helm",
-      "automerge": true
-    },
-    {
-      "matchDatasources": ["helm"],
-      "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "helm"
-    },
-    {
-      "matchDatasources": ["github-releases", "github-tags"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(github-release)!: "
-    },
-    {
-      "matchDatasources": ["github-releases", "github-tags"],
-      "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "github-release"
-    },
-    {
-      "matchDatasources": ["github-releases", "github-tags"],
-      "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "github-release"
-    },
-    {
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["major"],
-      "commitMessagePrefix": "feat(github-action)!: "
-    },
-    {
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["minor"],
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "github-action"
-    },
-    {
-      "matchManagers": ["github-actions"],
-      "matchUpdateTypes": ["patch"],
-      "semanticCommitType": "fix",
-      "semanticCommitScope": "github-action"
-    },
-    // labels
-    {
-      "matchUpdateTypes": ["major"],
-      "labels": ["type/major"]
-    },
-    {
-      "matchUpdateTypes": ["minor"],
-      "labels": ["type/minor", "automerge"],
-      "automerge": true
-    },
-    {
-      "matchUpdateTypes": ["patch"],
-      "labels": ["type/patch", "automerge"],
-      "automerge": true
-    },
-    {
-      "matchUpdateTypes": ["digest"],
-      "labels": ["type/digest", "automerge"],
-      "automerge": true
-    },
-    {
-      "matchDatasources": ["docker"],
-      "addLabels": ["renovate/container"]
-    },
-    {
-      "matchDatasources": ["helm"],
-      "addLabels": ["renovate/helm"]
-    },
-    {
-      "matchDatasources": ["github-releases", "github-tags"],
-      "addLabels": ["renovate/github-release"]
-    },
-    {
-      "matchManagers": ["github-actions"],
-      "addLabels": ["renovate/github-action"]
-    }
-  ],
-  // custom managers
-  "customManagers": []
+  }
 }
