@@ -43,7 +43,7 @@ spec:
             spec:
                 containers:
                     - name: runner
-                      image: ghcr.io/truecharts/charts-ci:latest@sha256:75e19bc93f1cebc8716f3b9bda4d2368e1c985112c7d4c39e325d21418fb3597
+                      image: ghcr.io/truecharts/charts-ci:latest@sha256:7d29e77b2c65922c759b871ac89fcd398713f7dc4fd3494919b327d79fae3bf6
                       command:
                         - /home/runner/run.sh
 sops:
