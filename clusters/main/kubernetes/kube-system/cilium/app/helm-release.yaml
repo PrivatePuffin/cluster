@@ -37,7 +37,7 @@ spec:
       # routingMode: native
       cluster:
          name: ${CLUSTERNAME}
-         id: "1"
+         id: 1
       ipv4NativeRoutingCIDR: ${PODNET}
       securityContext:
         privileged: true
