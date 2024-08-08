@@ -33,6 +33,8 @@ spec:
     uninstall:
         keepHistory: false
     values:
+      hubble:
+        enabled: false
       # autoDirectNodeRoutes: true
       # routingMode: native
       cluster:
