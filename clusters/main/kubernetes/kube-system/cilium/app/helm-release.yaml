@@ -38,7 +38,7 @@ spec:
       # autoDirectNodeRoutes: true
       # routingMode: native
       cluster:
-         name: ${CLUSTERNAME}
+         name: main
          id: 1
       ipv4NativeRoutingCIDR: ${PODNET}
       securityContext:
