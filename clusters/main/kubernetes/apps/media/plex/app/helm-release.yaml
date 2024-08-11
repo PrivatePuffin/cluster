@@ -41,7 +41,7 @@ spec:
     plex:
       # User Defined
       serverIP: ${PLEX_IP}
-      additionalAdvertiseURL: "https://149.143.65.75:32400,http://149.143.65.75:32400,https://192.168.10.207:32400,http://192.168.10.207:32400,http://plex.kjeldschouten.nl:32400,,https://plex.kjeldschouten.nl"
+      additionalAdvertiseURL: "https://82.139.102.194:32400,http://82.139.102.194:32400,https://192.168.10.207:32400,http://192.168.10.207:32400,http://plex.kjeldschouten.nl:32400,,https://plex.kjeldschouten.nl"
       disableGDM: true
       requireHTTPS: false
 
