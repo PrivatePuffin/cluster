@@ -67,6 +67,22 @@ spec:
           type: "cloudflare"
           # for cloudflare
           cfapitoken: "${CLOUDFLARE_TOKEN2}"
+        - name: sc-le-staging
+          # Used for both logging in to the DNS provider AND ACME registration
+          email: "${EMAIL2}"
+          server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
+          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
+          type: "cloudflare"
+          # for cloudflare
+          cfapitoken: "${CLOUDFLARE_TOKEN2}"
+        - name: sc-le-prod
+          # Used for both logging in to the DNS provider AND ACME registration
+          email: "${EMAIL2}"
+          server: 'https://acme-v02.api.letsencrypt.org/directory'
+          # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns
+          type: "cloudflare"
+          # for cloudflare
+          cfapitoken: "${CLOUDFLARE_TOKEN2}"
 
     clusterCertificates:
       # Namespaces in which the certificates must be available
@@ -88,3 +104,12 @@ spec:
             - '*.kjeldschouten.nl'
             - schouten-lebbing.nl
             - '*.kjeldschouten.nl'
+        - name: sc-wildcard
+          enabled: true
+          certificateIssuer: sc-le-prod
+          hosts:
+            - sixcraft.org
+            - '*.sixcraft.org'
+
+
+
