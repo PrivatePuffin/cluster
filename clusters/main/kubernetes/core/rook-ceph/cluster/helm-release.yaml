@@ -173,7 +173,7 @@ spec:
           storageClass:
             enabled: true
             name: ceph-nvme2
-            isDefault: true
+            isDefault: false
             reclaimPolicy: Delete
             allowVolumeExpansion: true
             volumeBindingMode: Immediate
