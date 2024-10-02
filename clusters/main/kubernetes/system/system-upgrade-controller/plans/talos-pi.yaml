@@ -22,9 +22,6 @@ spec:
       - key: feature.node.kubernetes.io/system-os_release.VERSION_ID
         operator: NotIn
         values: ["${TALOS_VERSION}"]
-      - key: extensions.talos.dev/schematic
-        operator: In
-        values: ["ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9"]
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
