@@ -41,7 +41,7 @@ spec:
   wait: false
   retryInterval: 1m
   timeout: 5m
-  postBuild:
+  preBuild:
     substitute:
       TALOS_SCHEMATIC_ID_PI: 1cf3a7b9d2ebae9167a4c3b034ed890223de18bea67b4895a46df3bf5f051a82
       # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
