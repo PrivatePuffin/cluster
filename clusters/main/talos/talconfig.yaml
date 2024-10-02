@@ -118,8 +118,6 @@ controlPlane:
          image: siderolabs/sbc-raspberrypi
          name: rpi_generic
         customization:
-            extraKernelArgs:
-                - net.ifnames=0
             systemExtensions:
                 officialExtensions:
                     - siderolabs/iscsi-tools
