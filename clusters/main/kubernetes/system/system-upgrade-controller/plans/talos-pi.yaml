@@ -47,3 +47,4 @@ spec:
       - --image=factory.talos.dev/installer/${TALOS_SCHEMATIC_ID_PI}:$(SYSTEM_UPGRADE_PLAN_LATEST_VERSION)
       - --preserve=true
       - --wait=false
+      - --mode=staged

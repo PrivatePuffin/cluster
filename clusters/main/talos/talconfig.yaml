@@ -105,7 +105,6 @@ nodes:
           customization:
               systemExtensions:
                   officialExtensions:
-                      - siderolabs/iscsi-tools
                       - siderolabs/qemu-guest-agent
 controlPlane:
     patches:
@@ -117,19 +116,6 @@ controlPlane:
         overlay:
          image: siderolabs/sbc-raspberrypi
          name: rpi_generic
-        customization:
-            systemExtensions:
-                officialExtensions:
-                    - siderolabs/iscsi-tools
-                    - siderolabs/qemu-guest-agent
-                    # Enable where needed
-                    # - siderolabs/amd-ucode
-                    # - siderolabs/bnx2-bnx2x
-                    # - siderolabs/drbd
-                    # - siderolabs/gasket-driver
-                    # - siderolabs/i915-ucode
-                    # - siderolabs/intel-ucode
-                    # - siderolabs/thunderbolt
 worker:
     patches:
         - '@./clusters/${CLUSTERNAME}/talos/patches/worker.yaml'
@@ -138,13 +124,4 @@ worker:
         customization:
             systemExtensions:
                 officialExtensions:
-                    # Enable where needed
-                    # - siderolabs/amd-ucode
-                    # - siderolabs/bnx2-bnx2x
-                    - siderolabs/iscsi-tools
                     - siderolabs/qemu-guest-agent
-                    # - siderolabs/drbd
-                    # - siderolabs/gasket-driver
-                    # - siderolabs/i915-ucode
-                    # - siderolabs/intel-ucode
-                    # - siderolabs/thunderbolt
