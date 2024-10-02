@@ -4,7 +4,6 @@ metadata:
   name: schematics
   namespace: system-upgrade
 data:
-
   192.168.10.110: 1cf3a7b9d2ebae9167a4c3b034ed890223de18bea67b4895a46df3bf5f051a82
   192.168.10.120: 1cf3a7b9d2ebae9167a4c3b034ed890223de18bea67b4895a46df3bf5f051a82
   192.168.10.130: 1cf3a7b9d2ebae9167a4c3b034ed890223de18bea67b4895a46df3bf5f051a82
