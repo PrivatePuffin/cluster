@@ -4,6 +4,7 @@ metadata:
     name: upgrade-settings
     namespace: flux-system
 data:
+  TALOS_SCHEMATIC_ID_BASE: dc7b152cb3ea99b821fcb7340ce7168313ce393d663740b791c36f6e95fc8586
   TALOS_SCHEMATIC_ID_PI: 1cf3a7b9d2ebae9167a4c3b034ed890223de18bea67b4895a46df3bf5f051a82
   TALOS_VERSION: 'v1.8.0'
   KUBERNETES_VERSION: v1.30.0
