@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: upgrade-settings
+    namespace: flux-system
+data:
+  TALOS_SCHEMATIC_ID_PI: 1cf3a7b9d2ebae9167a4c3b034ed890223de18bea67b4895a46df3bf5f051a82
+  TALOS_VERSION: 'v1.8.0'
+  KUBERNETES_VERSION: v1.30.0
