@@ -4,7 +4,7 @@ metadata:
     name: upgrade-settings
     namespace: flux-system
 data:
-  TALOS_SCHEMATIC_ID_BASE: dc7b152cb3ea99b821fcb7340ce7168313ce393d663740b791c36f6e95fc8586
+  TALOS_SCHEMATIC_ID_BASE: 376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
   TALOS_SCHEMATIC_ID_PI: ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
   TALOS_SCHEMATIC_ID_VM: ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
   # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
