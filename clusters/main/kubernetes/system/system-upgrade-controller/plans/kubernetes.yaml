@@ -20,7 +20,7 @@ spec:
         values: ["talos"]
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
-      - key: kubernetes.io/hostname=
+      - key: kubernetes.io/hostname
         operator: In
         values: ["k8s-control-1"]
   tolerations:
