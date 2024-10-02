@@ -29,7 +29,7 @@ metadata:
   name: system-upgrade-controller-plans
   namespace: flux-system
   labels:
-    "substitution.flux.home.arpa/disabled": "true"
+    substitution.flux.home.arpa/disabled: "true"
 spec:
   interval: 10m
   path: clusters/main/kubernetes/system/system-upgrade-controller/plans
