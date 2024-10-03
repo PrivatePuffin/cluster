@@ -128,6 +128,13 @@ spec:
     queryLog:
       # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console
       type: ""
+
+    configmap:
+      dashboard:
+        enabled: false
+      datasource:
+        enabled: false
+
     cnpg:
       main:
         enabled: false
