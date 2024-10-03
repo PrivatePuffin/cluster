@@ -107,15 +107,15 @@ spec:
         licenseKey: ""
       outposts:
         proxy:
-          enabled: true
+          enabled: false
           token: ${AUTHPROX}
           host: https://my.${BASE_DOMAIN2}
           browserHost: https://my.${BASE_DOMAIN2}
         radius:
-          enabled: true
+          enabled: false
           token: ${AUTHRAD}
         ldap:
-          enabled: true
+          enabled: false
           token: ${AUTHLDAP}
     ingress:
       main:
