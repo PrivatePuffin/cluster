@@ -32,6 +32,7 @@ spec:
       spegel:
         containerdSock: /run/containerd/containerd.sock
         containerdRegistryConfigPath: /etc/cri/conf.d/hosts
+        appendMirrors: true
         registries:
           - https://tccr.io
           - https://cgr.dev
