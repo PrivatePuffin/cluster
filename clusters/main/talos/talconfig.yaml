@@ -80,6 +80,11 @@ nodes:
         - 1.1.1.1
       installDiskSelector:
         size: <= 600GB
+      schematic:
+          customization:
+              systemExtensions:
+                  officialExtensions:
+                      - siderolabs/amd-ucode
     - hostname: k8s-worker-2
       ipAddress: 192.168.10.121
       nameservers:
@@ -87,6 +92,11 @@ nodes:
         - 1.1.1.1
       installDiskSelector:
         size: <= 600GB
+      schematic:
+          customization:
+              systemExtensions:
+                  officialExtensions:
+                      - siderolabs/amd-ucode
     - hostname: k8s-worker-3
       ipAddress: 192.168.10.131
       nameservers:
@@ -94,6 +104,11 @@ nodes:
         - 1.1.1.1
       installDiskSelector:
         size: <= 600GB
+      schematic:
+          customization:
+              systemExtensions:
+                  officialExtensions:
+                      - siderolabs/amd-ucode
     - hostname: k8s-worker-4
       ipAddress: 192.168.10.141
       nameservers:
@@ -106,6 +121,7 @@ nodes:
               systemExtensions:
                   officialExtensions:
                       - siderolabs/qemu-guest-agent
+                      
 controlPlane:
     patches:
         - '@./clusters/${CLUSTERNAME}/talos/patches/controlplane.yaml'
@@ -120,8 +136,3 @@ worker:
     patches:
         - '@./clusters/${CLUSTERNAME}/talos/patches/worker.yaml'
         # - '@./patches/nvidia.yaml'
-    schematic:
-        customization:
-            systemExtensions:
-                officialExtensions:
-                    - siderolabs/qemu-guest-agent

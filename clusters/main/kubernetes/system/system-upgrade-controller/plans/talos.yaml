@@ -2,7 +2,7 @@
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
-  name: talos-base
+  name: talos
 spec:
   version: ${TALOS_VERSION}
   serviceAccountName: system-upgrade
@@ -14,8 +14,6 @@ spec:
   exclusive: true
   nodeSelector:
     matchExpressions:
-      - key: node-role.kubernetes.io/control-plane
-        operator: Exists
       - key: feature.node.kubernetes.io/system-os_release.ID
         operator: In
         values: ["talos"]

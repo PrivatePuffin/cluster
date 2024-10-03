@@ -5,5 +5,4 @@ kind: Kustomization
 resources: 
   # - schematics.yaml
   - kubernetes.yaml
-  - talos-base.yaml
   - talos.yaml

@@ -4,10 +4,6 @@ metadata:
     name: upgrade-settings
     namespace: flux-system
 data:
-  TALOS_SCHEMATIC_ID_BASE: 376567988ad370138ad8b2698212367b8edcb69b5fd68c80be1f2ec7d603b4ba
-  TALOS_SCHEMATIC_ID_PI: ee21ef4a5ef808a9b7484cc0dda0f25075021691c8c09a276591eedb638ea1f9
-  TALOS_SCHEMATIC_ID_VM: ce4c980550dd2ab1b17bbf2b08801c7eb59418eafe8f279833297925d67c7515
-  # TALOS_SCHEMATIC_ID_AM4-intel: 247b159d67cd49a2d5112a7e5d6dcfee4cdd7a2a740ad2ad872e395742359a6d
   # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
   TALOS_VERSION: v1.8.0
   # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
