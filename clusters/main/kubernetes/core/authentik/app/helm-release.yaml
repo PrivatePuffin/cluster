@@ -152,6 +152,7 @@ spec:
           #    paths:
           #      - path: /outpost.goauthentik.io
           #        pathType: Prefix
+          
 
         integrations:
           certManager:
