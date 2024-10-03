@@ -124,7 +124,10 @@ spec:
         options:
           - name: tls_servername
             value: cloudflare-dns.com
-
+    # CANNOT be defined in above yaml section
+    queryLog:
+      # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console
+      type: ""
     cnpg:
       main:
         cluster:
