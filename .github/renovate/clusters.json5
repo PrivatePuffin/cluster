@@ -3,7 +3,7 @@
   "packageRules": [
     {
       "description": ["Separate PRs for main cluster"],
-      "matchFileNames": ["**/clusters/main/kubernetes/**"],
+      "matchFileNames": ["**/clusters/main/**"],
       "additionalBranchPrefix": "main-"
     }
   ]
