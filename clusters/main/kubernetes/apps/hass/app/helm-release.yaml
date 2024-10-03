@@ -89,7 +89,6 @@ spec:
               enabled: true
       backup:
         enabled: true
-        storageClass: ceph-nvme2
         volsync:
           - name: b2
             type: restic
