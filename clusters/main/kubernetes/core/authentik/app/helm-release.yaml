@@ -135,7 +135,7 @@ spec:
               - path: /
                 pathType: Prefix
       proxy:
-        enabled: true
+        enabled: false
         primary: false
         targetSelector:
           proxy: https
@@ -172,7 +172,7 @@ spec:
               - name: chain-basic
                 namespace: ""
       proxy-priv:
-        enabled: true
+        enabled: false
         primary: false
         targetSelector:
           proxy: https
