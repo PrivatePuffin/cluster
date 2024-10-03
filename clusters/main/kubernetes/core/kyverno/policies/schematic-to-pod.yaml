@@ -21,7 +21,7 @@ spec:
             kinds:
             - Pod/binding
             names:
-            - apply-talos-*
+            - apply-talos*
       context:
       - name: node
         variable:
