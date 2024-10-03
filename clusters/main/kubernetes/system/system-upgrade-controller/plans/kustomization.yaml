@@ -8,3 +8,4 @@ resources:
   - talos-pi.yaml
   - talos-base.yaml
   - talos-vm.yaml
+  - talos.yaml

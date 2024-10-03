@@ -20,6 +20,9 @@ spec:
         values: ["talos"]
       - key: node-role.kubernetes.io/control-plane
         operator: Exists
+      - key: feature.node.kubernetes.io/system-os_release.VERSION_ID
+        operator: In
+        values: ["${TALOS_VERSION}"]
       - key: kubernetes.io/hostname
         operator: In
         values: ["k8s-control-1"]
