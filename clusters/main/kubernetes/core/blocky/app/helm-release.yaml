@@ -130,6 +130,7 @@ spec:
       type: ""
     cnpg:
       main:
+        enabled: false
         cluster:
           storage:
             storageClass: “ceph-nvme2”
