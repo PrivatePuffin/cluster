@@ -42,7 +42,6 @@ spec:
         externalTrafficPolicy: Local
         loadBalancerIP: ${BLOCKY_IP}
         type: LoadBalancer
-
     # -- set blocking settings using Lists
     # Primarily designed for inclusion in the TrueNAS SCALE GUI
     blocking:
@@ -125,7 +124,7 @@ spec:
         options:
           - name: tls_servername
             value: cloudflare-dns.com
-            
+
     cnpg:
       main:
         cluster:
