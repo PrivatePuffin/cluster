@@ -85,6 +85,8 @@ nodes:
               systemExtensions:
                   officialExtensions:
                       - siderolabs/amd-ucode
+                      - siderolabs/iscsi-tools
+                      - siderolabs/util-linux-tools
     - hostname: k8s-worker-2
       ipAddress: 192.168.10.121
       nameservers:
@@ -97,6 +99,9 @@ nodes:
               systemExtensions:
                   officialExtensions:
                       - siderolabs/amd-ucode
+                      - siderolabs/iscsi-tools
+                      - siderolabs/util-linux-tools
+
     - hostname: k8s-worker-3
       ipAddress: 192.168.10.131
       nameservers:
@@ -109,6 +114,8 @@ nodes:
               systemExtensions:
                   officialExtensions:
                       - siderolabs/amd-ucode
+                      - siderolabs/iscsi-tools
+                      - siderolabs/util-linux-tools
     - hostname: k8s-worker-4
       ipAddress: 192.168.10.141
       nameservers:
@@ -121,6 +128,8 @@ nodes:
               systemExtensions:
                   officialExtensions:
                       - siderolabs/qemu-guest-agent
+                      - siderolabs/util-linux-tools
+                      - siderolabs/iscsi-tools
 controlPlane:
     patches:
         - '@./clusters/${CLUSTERNAME}/talos/patches/controlplane.yaml'
