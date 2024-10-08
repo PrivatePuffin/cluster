@@ -6,7 +6,6 @@ resources:
   - blocky/ks.yaml
   - clusterissuer/ks.yaml
   - crowdsec/ks.yaml
-  - kyverno/ks.yaml
   - metallb-config/ks.yaml
   - rook-ceph/ks.yaml
   - traefik/ks.yaml
