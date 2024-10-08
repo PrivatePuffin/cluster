@@ -4,7 +4,7 @@ talosVersion: v1.8.0
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.31.1
 endpoint: https://${VIP}:6443
-allowSchedulingOnControlPlanes: true
+allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
     - ${VIP}
 additionalApiServerCertSans:
@@ -17,7 +17,7 @@ clusterSvcNets:
 cniConfig:
     name: none
 patches:
-    - '@./clusters/${CLUSTERNAME}/talos/patches/all.yaml'
+    - '@./clusters/${CLUSTERNAME}/talos/patches/all-custom.yaml'
 nodes:
     - hostname: k8s-control-1
       ipAddress: ${MASTER1IP}
@@ -147,7 +147,7 @@ controlPlane:
          name: rpi_generic
 worker:
     patches:
-        - '@./clusters/${CLUSTERNAME}/talos/patches/worker.yaml'
+        - '@./clusters/${CLUSTERNAME}/talos/patches/worker-custom.yaml'
         # - '@./patches/nvidia.yaml'
     schematic:
         customization:
