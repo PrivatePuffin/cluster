@@ -10,3 +10,5 @@ resources:
   - metallb-config/ks.yaml
   - rook-ceph/ks.yaml
   - traefik/ks.yaml
+  - kyverno-policies/ks.yaml
+  - system-upgrade-controller-plans/ks.yaml

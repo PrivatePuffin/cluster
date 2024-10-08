@@ -16,3 +16,6 @@ resources:
   - system-upgrade-controller/ks.yaml
   - traefik-crds/ks.yaml
   - volsync/ks.yaml
+  - kyverno/ks.yaml
+  - longhorn/ks.yaml
+  - topolvm/ks.yaml

@@ -1,15 +1,4 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: system-upgrade
-  annotations:
-    volsync.backube/privileged-movers: "true"
-  labels:
-    kustomize.toolkit.fluxcd.io/prune: disabled
-    goldilocks.fairwinds.com/enabled: "true"
-    pod-security.kubernetes.io/enforce: privileged
----
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -22,22 +11,3 @@ spec:
   sourceRef:
       kind: GitRepository
       name: cluster
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: system-upgrade-controller-plans
-  namespace: flux-system
-spec:
-  interval: 10m
-  path: clusters/main/kubernetes/system/system-upgrade-controller/plans
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: cluster
-  targetNamespace: system-upgrade
-  dependsOn:
-  - name: system-upgrade-controller
-  wait: false
-  retryInterval: 1m
-  timeout: 5m
