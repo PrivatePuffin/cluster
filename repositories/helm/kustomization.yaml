@@ -35,6 +35,7 @@ resources:
   - kubernetes-sigs-metrics-server.yaml
   - kustomization.yaml
   - kyverno.yaml
+  - longhorn.yaml
   - lwolf.yaml
   - metallb.yaml
   - metrics-server.yaml
