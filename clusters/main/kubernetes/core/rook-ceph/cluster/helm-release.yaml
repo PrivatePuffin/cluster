@@ -145,6 +145,7 @@ spec:
             enableRBDStats: true
             replicated:
               size: 3
+              requireSafeReplicaSize: false
           storageClass:
             enabled: true
             name: ceph-nvme
@@ -170,6 +171,7 @@ spec:
             enableRBDStats: true
             replicated:
               size: 2
+              requireSafeReplicaSize: false
           storageClass:
             enabled: true
             name: ceph-nvme2
