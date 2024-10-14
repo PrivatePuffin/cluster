@@ -107,10 +107,6 @@ spec:
     cnpg:
       main:
         cluster:
-          storage:
-            storageClass: “ceph-nvme2”
-          walStorage:
-            storageClass: “ceph-nvme2”
         backups:
           enabled: true
           credentials: s3
