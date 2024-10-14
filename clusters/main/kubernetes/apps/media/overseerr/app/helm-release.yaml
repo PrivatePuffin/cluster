@@ -69,20 +69,21 @@ spec:
             src:
               enabled: true
               cacheCapacity: 10Gi
-      series:
-        enabled: true
-        existingClaim: media-series-nfs-pvc
-        mountPath: "/media/series"
-      movies:
-        enabled: true
-        existingClaim: media-movies-nfs-pvc
-        mountPath: "/media/movies"
-      downloads:
-        enabled: true
-        existingClaim: downloads-nfs-pvc
-        mountPath: "/downloads"
-      backup:
-        enabled: true
-        existingClaim: media-backups-pvc
-        mountPath: /config/backups
-        readOnly: false
+      #series:
+      #  enabled: true
+      #  existingClaim: media-series-nfs-pvc
+      #  mountPath: "/media/series"
+      #movies:
+      #  enabled: true
+      #  existingClaim: media-movies-nfs-pvc
+      #  mountPath: "/media/movies"
+      #downloads:
+      #  enabled: true
+      #  existingClaim: downloads-nfs-pvc
+      #  mountPath: "/downloads"
+      #backup:
+      #  enabled: true
+      #  existingClaim: media-backups-pvc
+      #  mountPath: /config/backups
+      #  readOnly: false
+#

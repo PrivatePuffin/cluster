@@ -17,7 +17,7 @@ clusterSvcNets:
 cniConfig:
     name: none
 patches:
-    - '@./clusters/${CLUSTERNAME}/talos/patches/all-custom.yaml'
+    - '@./patches/all-custom.yaml'
 nodes:
     - hostname: k8s-control-1
       ipAddress: ${MASTER1IP}
@@ -132,9 +132,9 @@ nodes:
                       - siderolabs/iscsi-tools
 controlPlane:
     patches:
-        - '@./clusters/${CLUSTERNAME}/talos/patches/controlplane.yaml'
-        - '@./clusters/${CLUSTERNAME}/talos/patches/sopssecret.yaml'
-        - '@./clusters/${CLUSTERNAME}/talos/patches/manifests.yaml'
+        - '@./patches/controlplane.yaml'
+        - '@./patches/sopssecret.yaml'
+        - '@./patches/manifests.yaml'
         # - '@./patches/nvidia.yaml'
     schematic:
         customization:
@@ -147,7 +147,7 @@ controlPlane:
          name: rpi_generic
 worker:
     patches:
-        - '@./clusters/${CLUSTERNAME}/talos/patches/worker-custom.yaml'
+        - '@./patches/worker-custom.yaml'
         # - '@./patches/nvidia.yaml'
     schematic:
         customization:

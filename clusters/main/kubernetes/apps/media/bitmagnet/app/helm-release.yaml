@@ -39,7 +39,7 @@ spec:
         encrKey: "${S3KEY}"
 
     global:
-      stopAll: true
+      stopAll: false
     workload:
       main:
         podSpec:
