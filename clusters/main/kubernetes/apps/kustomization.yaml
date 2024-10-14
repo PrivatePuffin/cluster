@@ -7,3 +7,6 @@ resources:
   - metrics
   - mosquitto/ks.yaml
   - actions-runner/ks.yaml
+  - bitmagnet/ks.yaml
+  - flaresolverr/ks.yaml
+  - jackett/ks.yaml
