@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: flaresolverr
-  namespace: media
+  name: jackett
+  namespace: jackett
 spec:
   interval: 15m
   chart:
     spec:
-      chart: flaresolverr
-      version: 15.2.0
+      chart: jackett
+      version: 22.2.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -33,7 +33,7 @@ spec:
       s3:
         type: s3
         url: "${S3URL}"
-        bucket: "${S3PREFIX}-flaresolverr"
+        bucket: "${S3PREFIX}-jackett"
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
@@ -50,8 +50,23 @@ spec:
             src:
               enabled: true
               cacheCapacity: 10Gi
-      backup:
+
+    ingress:
+      main:
         enabled: true
-        existingClaim: media-backups-pvc
-        mountPath: /config/Backups
-        readOnly: false
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+              - name: bouncer
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: ks-le-prod
+        hosts:
+          - host: jackett.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
