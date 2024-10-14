@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/apps/media/bitmagnet/app
+  path: clusters/main/kubernetes/apps/bitmagnet/app
   prune: true
   sourceRef:
     kind: GitRepository
