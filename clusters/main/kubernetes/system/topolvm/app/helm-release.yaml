@@ -10,7 +10,7 @@ spec:
         spec:
 
             chart: topolvm
-            version: 1.7.1
+            version: 15.4.0
             sourceRef:
                 kind: HelmRepository
                 name: topolvm

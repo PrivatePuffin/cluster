@@ -17,3 +17,4 @@ resources:
   - sonarr/ks.yaml
   - unpackerr/ks.yaml
   - media-backups-pvc.yaml
+  - overseerr/ks.yaml
