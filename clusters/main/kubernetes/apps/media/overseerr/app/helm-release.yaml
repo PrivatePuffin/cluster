@@ -3,14 +3,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: lidarr
+  name: overseerr
   namespace: media
 spec:
   interval: 15m
   chart:
     spec:
-      chart: lidarr
-      version: 23.3.0
+      chart: overseerr
+      version: 15.2.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -33,17 +33,10 @@ spec:
       s3:
         type: s3
         url: "${S3URL}"
-        bucket: "${S3PREFIX}-lidarr"
+        bucket: "${S3PREFIX}-overseerr"
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
-    workload:
-      exportarr:
-        enabled: false
-
-    metrics:
-      main:
-        enabled: false
 
     ingress:
       main:
@@ -60,7 +53,7 @@ spec:
             enabled: true
             certificateIssuer: ks-le-prod
         hosts:
-          - host: lidarr.${BASE_DOMAIN}
+          - host: media.${BASE_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
@@ -71,23 +64,11 @@ spec:
             type: restic
             credentials: s3
             dest:
-              cacheCapacity: 10Gi
               enabled: true
+              cacheCapacity: 10Gi
             src:
               enabled: true
               cacheCapacity: 10Gi
-      media:
-        enabled: true
-        existingClaim: media-nfs-pvc
-        mountPath: "/media"
-      music:
-        enabled: true
-        existingClaim: media-music-nfs-pvc
-        mountPath: "/media/music"
-      downloads:
-        enabled: true
-        existingClaim: downloads-nfs-pvc
-        mountPath: "/downloads"
       backup:
         enabled: true
         mountPath: /config/Backups
@@ -101,3 +82,4 @@ spec:
             src:
               enabled: true
               cacheCapacity: 10Gi
+#

@@ -100,6 +100,7 @@ spec:
         mountPath: "/downloads"
       backup:
         enabled: true
+        mountPath: /config/Backups
         volsync:
           - name: b2
             type: restic
