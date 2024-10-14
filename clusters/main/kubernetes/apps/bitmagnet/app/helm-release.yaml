@@ -69,7 +69,6 @@ spec:
                 pathType: Prefix
     cnpg:
       main:
-        cluster:
         backups:
           enabled: false
           credentials: s3
