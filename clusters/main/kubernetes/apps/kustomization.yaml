@@ -13,3 +13,4 @@ resources:
   - overseerr/ks.yaml
   - prowlarr/ks.yaml
   - tautulli/ks.yaml
+  - zilean/ks.yaml
