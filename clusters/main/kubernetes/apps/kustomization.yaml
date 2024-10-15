@@ -14,3 +14,4 @@ resources:
   - prowlarr/ks.yaml
   - tautulli/ks.yaml
   - zilean/ks.yaml
+  - zurg/ks.yaml
