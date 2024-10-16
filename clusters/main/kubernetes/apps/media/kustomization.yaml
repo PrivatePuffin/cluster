@@ -16,4 +16,4 @@ resources:
   - sabnzbd/ks.yaml
   - sonarr/ks.yaml
   - unpackerr/ks.yaml
-  - media-backups-pvc.yaml
+  - riven/ks.yaml
