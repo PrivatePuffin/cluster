@@ -14,7 +14,6 @@ creation_rules:
 
 
 ## DO NOT REMOVE: Personal setting go under this line
-
   - path_regex: clusters.*kubernetes.*actions-runner.*helmrelease.yaml
     age: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
     encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
