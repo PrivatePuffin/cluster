@@ -1,0 +1,69 @@
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: actions-runners
+    namespace: actions-runners
+spec:
+    interval: 30m
+    chart:
+        spec:
+            chart: gha-runner-scale-set
+            version: 0.9.3
+            sourceRef:
+                kind: HelmRepository
+                name: actions-runner-controller
+                namespace: flux-system
+    install:
+        remediation:
+            retries: 3
+    upgrade:
+        remediation:
+            strategy: rollback
+            retries: 3
+    dependsOn:
+        - name: actions-runner-controller
+          namespace: actions-runner-controller
+    values:
+        nameOverride: ENC[AES256_GCM,data:BRFVOZmx9MfmBDzKpCd9,iv:TB00Kf9zSfiVm5tYJMWQI+FN3RHJ/2A+lRNIWurps7g=,tag:GEmWvmvD1kYrGznh9JWZZw==,type:str]
+        runnerScaleSetName: ENC[AES256_GCM,data:9x/Hs1W7fFSfVFrV+pHw,iv:od6n0N4CU4iiD0/iTXcxLIyzO5AXJ4BN5qc5DTWXqsk=,tag:ZSaRQ/rbbwAMZ9bzXFFa9A==,type:str]
+        minRunners: 3
+        maxRunners: 12
+        containerMode:
+            type: dind
+        githubConfigSecret:
+            github_app_id: ENC[AES256_GCM,data:FmZztplUlWLcHOfBLGsblqyrfSyHVhzWbp3l7wEgWlHbG0l9KeSgLcc=,iv:31yYKnSyhsaHUKdPmik3vewNtcRAv+O6dQm++2QFieU=,tag:Pi22ypcVr1imYs4BllqB4Q==,type:str]
+            github_app_installation_id: ENC[AES256_GCM,data:8UxNxf+OHPc=,iv:yVb0qlgsh5HADIbF7kBLr920mwqJ+Y0hgxtYxEbkjac=,tag:NytmQtRqJZG6N3tf++H8SQ==,type:str]
+            github_app_private_key: ENC[AES256_GCM,data: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,iv:co+TYmcs1siqi4w4EWb27+kb8iirtGlVdTeM75nT4xU=,tag:B7VtokrjQl9ZBuGhWQ8vgw==,type:str]
+        githubConfigUrl: https://github.com/truecharts
+        controllerServiceAccount:
+            name: actions-runner-controller
+            namespace: actions-runner-controller
+        template:
+            spec:
+                containers:
+                    - name: runner
+                      image: ghcr.io/truecharts/charts-ci:latest@sha256:7541472ba15b8488c54651ef028cbfc286d9a0c72fc066500ae2c6cef60ba84b
+                      command:
+                        - /home/runner/run.sh
+sops:
+    shamir_threshold: 3
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBwNExZaktGcVVBMWlrNTRu
+            THhUZ3FtaVFxYzlQVHhhdyszSCt1ZmM5ZEdVCjgzVjBJQ0ViRmh2cW9CMmJuUlBR
+            bzFmWURjOUpGUW1NMHIyYldLaTdjVlUKLS0tIERoZHZvU3JTM3YveW5vcWVuNDQ3
+            RjZsOXVDRGFVT3NaWDc2aW9CRllkWnMK+xrSHvP8VmdanNZlD8HmGoJpjDwAn45m
+            GeD9/1tjSG6mRJhoBlrH06NnYbpKgnXKNNMtigpUMrp3siDGrqgCgw==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-10-17T21:43:17Z"
+    mac: ENC[AES256_GCM,data:IuTBTrGgFSy135NMpoOtywiUUYaXZegjFKjr7uS7VqvSL64SxLr30RRSuv7hpXkX+q2+QR3aIincjAF5duFtYdSHgKI9BIinV4EmubtW1E0xAInGK1bqrsBUrnyASJbfh//qXac9r3QYHc3nF8zb+dlxsLEm31T6FZDcBmnsF0g=,iv:d9zkN52bVkpYiuLn6pslneG/8fgbVN98kl+8OsfELaA=,tag:imBWO5o/vkyXSZRKcA44pw==,type:str]
+    pgp: []
+    encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
+    version: 3.9.1
