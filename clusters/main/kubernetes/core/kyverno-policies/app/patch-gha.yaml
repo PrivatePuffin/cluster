@@ -19,13 +19,6 @@ spec:
               - AutoscalingRunnerSet
       mutate:
         patchesJson6902: |
-          - target:
-              group: actions.github.com
-              version: v1alpha1
-              kind: AutoscalingRunnerSet
-              name: "*"
-              namespace: "*"
-            patch: |-
               - op: replace
                 path: /spec/template/spec/containers/1/args
                 value:
