@@ -13,9 +13,10 @@ spec:
   rules:
     - name: update-dind-args-rule
       match:
-        resources:
-          kinds:
-            - AutoscalingRunnerSet
+        any:
+        - resources:
+            kinds:
+              - AutoscalingRunnerSet
       mutate:
         patchesJson6902: |
           - target:
