@@ -5,3 +5,4 @@ resources:
   - schematic-to-pod.yaml
   - patch-gha.yaml
   - ensure-digest.yaml
+  - safe-to-evict.yaml
