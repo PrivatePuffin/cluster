@@ -46,39 +46,13 @@ spec:
                       image: ghcr.io/truecharts/charts-ci:latest@sha256:7541472ba15b8488c54651ef028cbfc286d9a0c72fc066500ae2c6cef60ba84b
                       command:
                         - /home/runner/run.sh
-                      volumeMounts:
-                        - name: work
-                          mountPath: /home/runner/_work
-                        - name: dind-sock
-                          mountPath: /var/run
-                        - name: dind-externals
-                          mountPath: /home/runner/externals
                     - name: dind
-                      image: docker:26.0.0-dind
-                      securityContext:
-                        privileged: true
-                      env:
-                        - name: DOCKER_GROUP_GID
-                          value: "568"
+                      image: docker.io/docker:26.0.0-dind
                       args:
                         - dockerd
                         - --host=unix:///var/run/docker.sock
                         - --group=$(DOCKER_GROUP_GID)
                         - --registry-mirror=http://spegel-registry.kube-system.svc.cluster.local:5000
-                      volumeMounts:
-                        - name: work
-                          mountPath: /home/runner/_work
-                        - name: dind-sock
-                          mountPath: /var/run
-                        - name: dind-externals
-                          mountPath: /home/runner/externals
-                volumes:
-                    - name: work
-                      emptyDir: {}
-                    - name: dind-sock
-                      emptyDir: {}
-                    - name: dind-externals
-                      emptyDir: {}
 sops:
     shamir_threshold: 3
     kms: []
