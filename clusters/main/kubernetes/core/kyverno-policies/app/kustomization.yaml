@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - schematic-to-pod.yaml
   - patch-gha.yaml
+  - ensure-digest.yaml
