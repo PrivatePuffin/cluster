@@ -31,5 +31,5 @@ spec:
                 value:
                   - dockerd
                   - --host=unix:///var/run/docker.sock
-                  - --group=$(DOCKER_GROUP_GID)
+                  - --group=123
                   - --registry-mirror=http://spegel-registry.kube-system.svc.cluster.local:5000
