@@ -42,10 +42,10 @@ spec:
             kubernetesModeWorkVolumeClaim:
                 accessModes:
                     - ReadWriteOnce
-                storageClassName: ceph-nvme2
+                storageClassName: openebs-hostpath
                 resources:
                     requests:
-                        storage: 16Gi
+                        storage: 32Gi
         template:
             spec:
                 containers:
