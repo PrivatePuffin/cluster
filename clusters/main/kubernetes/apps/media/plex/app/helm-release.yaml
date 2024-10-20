@@ -81,6 +81,7 @@ spec:
                 pathType: Prefix
     persistence:
       config:
+        size: 200Gi
         volsync:
           - name: data
             type: restic
