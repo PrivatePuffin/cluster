@@ -26,4 +26,6 @@ spec:
                   - --host=unix:///var/run/docker.sock
                   - --group=123
                   - --registry-mirror=http://spegel-registry.kube-system.svc.cluster.local:5000
-                  - --insecure-registry=http://spegel-registry.kube-system.svc.cluster.local:5000
+                  - --insecure-registry=spegel-registry.kube-system.svc.cluster.local:5000
+                  - --feature=containerd-snapshotter
+                  - --debug="true"
