@@ -92,6 +92,7 @@ spec:
             src:
               enabled: true
               cacheCapacity: 10Gi
+      ## TODO: Setup transcode        
       media:
         enabled: true
         existingClaim: media-nfs-pvc
