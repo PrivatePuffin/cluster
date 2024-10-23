@@ -132,7 +132,7 @@ nodes:
                       - siderolabs/iscsi-tools
 controlPlane:
     patches:
-        - '@./patches/controlplane.yaml'
+        - '@./patches/controlplan2.yaml'
         - '@./patches/sopssecret.yaml'
         - '@./patches/manifests.yaml'
         # - '@./patches/nvidia.yaml'
