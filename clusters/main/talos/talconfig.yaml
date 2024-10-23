@@ -17,7 +17,7 @@ clusterSvcNets:
 cniConfig:
     name: none
 patches:
-    - '@./patches/all-custom.yaml'
+    - '@./patches/all.yaml'
 nodes:
     - hostname: k8s-control-1
       ipAddress: ${MASTER1IP}
@@ -147,7 +147,7 @@ controlPlane:
          name: rpi_generic
 worker:
     patches:
-        - '@./patches/worker-custom.yaml'
+        - '@./patches/worker.yaml'
         # - '@./patches/nvidia.yaml'
     schematic:
         customization:

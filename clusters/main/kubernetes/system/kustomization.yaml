@@ -19,3 +19,4 @@ resources:
   - kyverno/ks.yaml
   - longhorn/ks.yaml
   - topolvm/ks.yaml
+  - spegel/ks.yaml

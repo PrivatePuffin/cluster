@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/kube-system/spegel/app
+  path: clusters/main/kubernetes/system/spegel/app
   prune: true
   sourceRef:
     kind: GitRepository
