@@ -3,6 +3,8 @@ age.agekey
 talconfig.json
 patches/sopssecret.yaml
 *patches/sopssecret.yaml
+*patches/all.yaml
+patches/all.yaml
 clustertool.exe
 kubeconfig
 *kubeconfig
