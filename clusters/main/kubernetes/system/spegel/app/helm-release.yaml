@@ -24,6 +24,13 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    securityContext:
+      container:
+        runAsUser: 0
+        runAsGroup: 0
+        readOnlyRootFilesystem: true
+    pod:
+      fsGroup: 0
     persistence:
       containerd-content:
         enabled: true
