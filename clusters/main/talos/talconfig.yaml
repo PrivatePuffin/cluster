@@ -2,7 +2,7 @@ clusterName: ${CLUSTERNAME}
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.8.1
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.31.1
+kubernetesVersion: v1.31.2
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
@@ -17,7 +17,7 @@ clusterSvcNets:
 cniConfig:
     name: none
 patches:
-    - '@./patches/all-custom.yaml'
+    - '@./patches/all.yaml'
 nodes:
     - hostname: k8s-control-1
       ipAddress: ${MASTER1IP}
@@ -132,7 +132,7 @@ nodes:
                       - siderolabs/iscsi-tools
 controlPlane:
     patches:
-        - '@./patches/controlplane.yaml'
+        - '@./patches/controlplan2.yaml'
         - '@./patches/sopssecret.yaml'
         - '@./patches/manifests.yaml'
         # - '@./patches/nvidia.yaml'
@@ -147,7 +147,7 @@ controlPlane:
          name: rpi_generic
 worker:
     patches:
-        - '@./patches/worker-custom.yaml'
+        - '@./patches/worker.yaml'
         # - '@./patches/nvidia.yaml'
     schematic:
         customization:
