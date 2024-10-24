@@ -13,7 +13,7 @@ metadata:
     policies.kyverno.io/description: >-
       Image tags are mutable and the change of an image can result in the same tag.
       This policy resolves the image digest of each image in a container and replaces
-      the image with the fully resolved reference which includes the digest rather than tag.      
+      the image with the fully resolved reference which includes the digest rather than tag.
 spec:
   background: false
   rules:
@@ -31,6 +31,8 @@ spec:
     mutate:
       foreach:
       - list: "request.object.spec.containers"
+        # Exclude containers with 'cloudnative-pg' in the name
+        filter: "element.name != 'cloudnative-pg'"
         context:
           - name: resolvedRef
             imageRegistry:
@@ -39,5 +41,5 @@ spec:
         patchStrategicMerge:
           spec:
             containers:
-            - name: "{{ element.name }}"           
+            - name: "{{ element.name }}"
               image: "{{ resolvedRef }}"
