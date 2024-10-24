@@ -11,3 +11,4 @@ kubeconfig
 clustertool
 sopssecret.yaml
 .DS_Store
+sopsscret.secret.yaml
