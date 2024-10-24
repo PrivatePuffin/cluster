@@ -29,6 +29,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    global:
+      stopAll: true
     credentials:
       s3:
         type: s3
@@ -56,7 +58,7 @@ spec:
       # @default -- See values.yaml
       codeserver:
         # -- Enable running a code-server container in the pod
-        enabled: true
+        enabled: false
 
         ingress:
           # -- Enable an ingress for the code-server add-on.
