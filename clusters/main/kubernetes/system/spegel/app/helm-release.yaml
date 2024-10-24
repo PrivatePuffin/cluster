@@ -23,4 +23,18 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  values: {}
+  values:
+    persistence:
+      containerd-content:
+        enabled: true
+        type: hostPath
+        mountPath: "{{ .Values.spegel.containerdContentPath }}"
+        hostPath: "{{ .Values.spegel.containerdContentPath }}"
+        hostPathType: Directory
+        readOnly: true
+      containerd-config:
+        enabled: true
+        type: hostPath
+        mountPath: "{{ .Values.spegel.containerdRegistryConfigPath }}"
+        hostPath: "{{ .Values.spegel.containerdRegistryConfigPath }}"
+        hostPathType: DirectoryOrCreate
