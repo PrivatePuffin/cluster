@@ -42,6 +42,9 @@ spec:
       containerd-config:
         enabled: true
         type: hostPath
-        mountPath: "{{ .Values.spegel.containerdRegistryConfigPath }}"
         hostPath: "{{ .Values.spegel.containerdRegistryConfigPath }}"
         hostPathType: DirectoryOrCreate
+        targetSelector:
+          main:
+            configuration:
+              mountPath: "{{ .Values.spegel.containerdRegistryConfigPath }}"
