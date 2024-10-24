@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: spegel
-      version: 2.0.4
+      version: 2.0.6
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -24,27 +24,3 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    securityContext:
-      container:
-        runAsUser: 0
-        runAsGroup: 0
-        readOnlyRootFilesystem: true
-    pod:
-      fsGroup: 0
-    persistence:
-      containerd-content:
-        enabled: true
-        type: hostPath
-        mountPath: "{{ .Values.spegel.containerdContentPath }}"
-        hostPath: "{{ .Values.spegel.containerdContentPath }}"
-        hostPathType: Directory
-        readOnly: true
-      containerd-config:
-        enabled: true
-        type: hostPath
-        hostPath: "{{ .Values.spegel.containerdRegistryConfigPath }}"
-        hostPathType: DirectoryOrCreate
-        targetSelector:
-          main:
-            configuration:
-              mountPath: "{{ .Values.spegel.containerdRegistryConfigPath }}"
