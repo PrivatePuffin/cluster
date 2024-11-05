@@ -7,4 +7,3 @@ resources:
   - flux-system/ks.yaml
   - kube-system
   - system
-  - truecharts

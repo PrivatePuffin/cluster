@@ -6,9 +6,7 @@ resources:
   - media
   - metrics
   - mosquitto/ks.yaml
-  - bitmagnet/ks.yaml
   - flaresolverr/ks.yaml
-  - jackett/ks.yaml
   - overseerr/ks.yaml
   - prowlarr/ks.yaml
   - tautulli/ks.yaml
