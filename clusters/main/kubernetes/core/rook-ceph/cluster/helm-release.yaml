@@ -25,6 +25,7 @@ spec:
     values:
       toolbox:
         enabled: true
+      removeOSDsIfOutAndSafeToRemove: true
       monitoring:
         enabled: true
         createPrometheusRules: false
@@ -154,8 +155,8 @@ spec:
             allowVolumeExpansion: true
             volumeBindingMode: Immediate
             parameters:
-              imageFormat: "2"
-              imageFeatures: layering
+              # imageFormat: "2"
+              imageFeatures: ["layering", "exclusive-lock", "object-map", "fast-diff"]
               csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
               csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
               csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
@@ -180,7 +181,7 @@ spec:
             allowVolumeExpansion: true
             volumeBindingMode: Immediate
             parameters:
-              imageFormat: "2"
+              # imageFormat: "2"
               imageFeatures: layering
               csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
               csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
@@ -230,6 +231,53 @@ spec:
             enabled: true
             isDefault: false
             name: ceph-filesystem-nvme-3
+            reclaimPolicy: Delete
+            allowVolumeExpansion: true
+            pool: data0
+            volumeBindingMode: Immediate
+            mountOptions: []
+            parameters:
+              csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
+              csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
+              csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
+              csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
+              csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
+              csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
+        - name: ceph-filesystem
+          spec:
+            metadataPool:
+              deviceClass: nvme
+              replicated:
+                size: 3
+            dataPools:
+              - failureDomain: host
+                name: data0
+                # deviceClass: nvme
+                replicated:
+                  size: 3
+            metadataServer:
+              activeCount: 1
+              activeStandby: true
+              priorityClassName: system-cluster-critical
+              placement:
+                topologySpreadConstraints:
+                  - maxSkew: 1
+                    topologyKey: kubernetes.io/hostname
+                    whenUnsatisfiable: DoNotSchedule
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/name: ceph-mds
+                        app.kubernetes.io/part-of: ceph-filesystem
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 1Gi
+                limits:
+                  memory: 4Gi
+          storageClass:
+            enabled: true
+            isDefault: false
+            name: ceph-filesystem
             reclaimPolicy: Delete
             allowVolumeExpansion: true
             pool: data0
