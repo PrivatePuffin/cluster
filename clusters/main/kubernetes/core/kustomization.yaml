@@ -12,3 +12,4 @@ resources:
   - kyverno-policies/ks.yaml
   - system-upgrade-controller-plans/ks.yaml
   - actions-runner-controller/ks.yaml
+  - docker-registry/ks.yaml

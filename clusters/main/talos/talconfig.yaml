@@ -20,6 +20,7 @@ cniConfig:
     name: none
 patches:
     - '@./patches/all.yaml'
+    - '@./patches/custom.yaml'
 nodes:
     - hostname: k8s-control-1
       ipAddress: ${MASTER1IP}
