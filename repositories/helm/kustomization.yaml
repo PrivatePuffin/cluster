@@ -55,5 +55,6 @@ resources:
   - traefik.yaml
   - truecharts.yaml
   - truechartsoci.yaml
+  - twuni.yaml
   - weave-gitops.yaml
 # more goes here!
