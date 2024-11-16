@@ -155,7 +155,7 @@ spec:
             allowVolumeExpansion: true
             volumeBindingMode: Immediate
             parameters:
-              # imageFormat: "2"
+              imageFormat: "2"
               imageFeatures: layering
               csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
               csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
@@ -181,7 +181,7 @@ spec:
             allowVolumeExpansion: true
             volumeBindingMode: Immediate
             parameters:
-              # imageFormat: "2"
+              imageFormat: "2"
               imageFeatures: layering
               csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
               csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
@@ -196,53 +196,6 @@ spec:
         isDefault: true
         deletionPolicy: Delete
       cephFileSystems:
-        - name: ceph-filesystem-nvme-3
-          spec:
-            metadataPool:
-              deviceClass: nvme
-              replicated:
-                size: 3
-            dataPools:
-              - failureDomain: host
-                name: data0
-                deviceClass: nvme
-                replicated:
-                  size: 3
-            metadataServer:
-              activeCount: 1
-              activeStandby: true
-              priorityClassName: system-cluster-critical
-              placement:
-                topologySpreadConstraints:
-                  - maxSkew: 1
-                    topologyKey: kubernetes.io/hostname
-                    whenUnsatisfiable: DoNotSchedule
-                    labelSelector:
-                      matchLabels:
-                        app.kubernetes.io/name: ceph-mds
-                        app.kubernetes.io/part-of: ceph-filesystem-nvme-3
-              resources:
-                requests:
-                  cpu: 100m
-                  memory: 1Gi
-                limits:
-                  memory: 4Gi
-          storageClass:
-            enabled: true
-            isDefault: false
-            name: ceph-filesystem-nvme-3
-            reclaimPolicy: Delete
-            allowVolumeExpansion: true
-            pool: data0
-            volumeBindingMode: Immediate
-            mountOptions: []
-            parameters:
-              csi.storage.k8s.io/provisioner-secret-name: rook-csi-cephfs-provisioner
-              csi.storage.k8s.io/provisioner-secret-namespace: "{{ .Release.Namespace }}"
-              csi.storage.k8s.io/controller-expand-secret-name: rook-csi-cephfs-provisioner
-              csi.storage.k8s.io/controller-expand-secret-namespace: "{{ .Release.Namespace }}"
-              csi.storage.k8s.io/node-stage-secret-name: rook-csi-cephfs-node
-              csi.storage.k8s.io/node-stage-secret-namespace: "{{ .Release.Namespace }}"
         - name: ceph-filesystem
           spec:
             metadataPool:
@@ -252,7 +205,7 @@ spec:
             dataPools:
               - failureDomain: host
                 name: data0
-                deviceClass: hdd
+                # deviceClass: nvme
                 replicated:
                   size: 1
             metadataServer:
@@ -296,6 +249,54 @@ spec:
         isDefault: false
         deletionPolicy: Delete
 
-
-
-      cephObjectStores: []
+      # Enable and Configure an Object Store
+      cephObjectStores:
+        - name: ceph-objectstore
+          # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Object-Storage/ceph-object-store-crd.md#object-store-settings for available configuration
+          spec:
+            metadataPool:
+              failureDomain: host
+              replicated:
+                size: 3
+            dataPool:
+              failureDomain: host
+              replicated:
+                size: 1
+            preservePoolsOnDelete: true
+            gateway:
+              port: 80
+              resources:
+                limits:
+                  memory: "2Gi"
+                requests:
+                  cpu: "1000m"
+                  memory: "1Gi"
+              # securePort: 443
+              # sslCertificateRef:
+              instances: 1
+              priorityClassName: system-cluster-critical
+          storageClass:
+            enabled: true
+            name: ceph-objectstore
+            reclaimPolicy: Delete
+            volumeBindingMode: "Immediate"
+            annotations: {}
+            labels: {}
+            # see https://github.com/rook/rook/blob/master/Documentation/Storage-Configuration/Object-Storage-RGW/ceph-object-bucket-claim.md#storageclass for available configuration
+          ingress:
+            # Enable an ingress for the ceph-objectstore
+            enabled: false
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: websecure
+              cert-manager.io/cluster-issuer: ks-le-prod
+              cert-manager.io/private-key-rotation-policy: Always
+              traefik.ingress.kubernetes.io/router.tls: 'true'
+              traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-bouncer@kubernetescrd,traefik-local@kubernetescrd
+            tls:
+              - hosts:
+                  - s3.${BASE_DOMAIN}
+                secretName: rook-ceph-s3
+            host:
+              name: "s3.${BASE_DOMAIN}"
+              path: "/"
+            
