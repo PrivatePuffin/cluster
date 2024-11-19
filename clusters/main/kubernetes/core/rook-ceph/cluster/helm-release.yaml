@@ -251,7 +251,7 @@ spec:
                 limits:
                   memory: "2Gi"
                 requests:
-                  cpu: "1000m"
+                  cpu: "1001m"
                   memory: "1Gi"
               # securePort: 443
               # sslCertificateRef:
