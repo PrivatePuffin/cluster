@@ -54,18 +54,10 @@ spec:
             type: restic
             credentials: s3
             dest:
-              enabled: false
+              enabled: true
             src:
               enabled: true
-          - name: b2
-            type: restic
-            credentials: b2
-            dest:
-              enabled: true
-              cacheCapacity: 10Gi
-            src:
-              enabled: true
-              cacheCapacity: 10Gi
+
 
     addons:
       # -- The common library supports adding a code-server add-on to access files. It can be configured under this key.

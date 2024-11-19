@@ -78,7 +78,7 @@ spec:
             type: restic
             credentials: s3
             dest:
-              enabled: false
+              enabled: true
             src:
               enabled: true
           - name: b2-r2
@@ -98,15 +98,7 @@ spec:
             type: restic
             credentials: s3
             dest:
-              enabled: false
-            src:
-              enabled: true
-          - name: b2
-            type: restic
-            credentials: b2
-            dest:
-              cacheCapacity: 10Gi
               enabled: true
             src:
               enabled: true
-              cacheCapacity: 10Gi
+

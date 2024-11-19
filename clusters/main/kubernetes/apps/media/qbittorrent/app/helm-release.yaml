@@ -73,18 +73,10 @@ spec:
             type: restic
             credentials: s3
             dest:
-              enabled: false
+              enabled: true
             src:
               enabled: true
-          - name: b2
-            type: restic
-            credentials: b2
-            dest:
-              enabled: true
-              cacheCapacity: 10Gi
-            src:
-              enabled: true
-              cacheCapacity: 10Gi
+
       downloads:
         enabled: true
         existingClaim: downloads-nfs-pvc
