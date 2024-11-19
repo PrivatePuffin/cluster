@@ -25,7 +25,7 @@ spec:
     values:
       toolbox:
         enabled: true
-      removeOSDsIfOutAndSafeToRemove: false
+      removeOSDsIfOutAndSafeToRemove: true
       monitoring:
         enabled: true
         createPrometheusRules: false
@@ -34,6 +34,9 @@ spec:
         bdev_enable_discard = true
         bdev_async_discard = true
         osd_class_update_on_start = false
+        bluestore_compression_algorithm: lz4
+        bluestore_compression_mode: aggressive
+        bluestore_compression_required_ratio: .875
       cephClusterSpec:
         mgr:
           count: 3
