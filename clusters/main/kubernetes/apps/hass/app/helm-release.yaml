@@ -98,7 +98,7 @@ spec:
       main:
         backups:
           enabled: true
-          credentials: b2
+          credentials: s3
         recovery:
           method: object_store
-          credentials: b2
+          credentials: s3
