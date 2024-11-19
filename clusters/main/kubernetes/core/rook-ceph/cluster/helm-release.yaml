@@ -250,55 +250,55 @@ spec:
         deletionPolicy: Delete
 
       # Enable and Configure an Object Store
-      cephObjectStores:
-        - name: ceph-objectstore
-          # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Object-Storage/ceph-object-store-crd.md#object-store-settings for available configuration
-          spec:
-            metadataPool:
-              failureDomain: host
-              deviceClass: nvme
-              replicated:
-                size: 3
-            dataPool:
-              failureDomain: host
-              # deviceClass: nvme
-              replicated:
-                size: 3
-            preservePoolsOnDelete: true
-            gateway:
-              port: 80
-              resources:
-                limits:
-                  memory: "2Gi"
-                requests:
-                  cpu: "1000m"
-                  memory: "1Gi"
-              # securePort: 443
-              # sslCertificateRef:
-              instances: 1
-              priorityClassName: system-cluster-critical
-          storageClass:
-            enabled: true
-            name: ceph-objectstore
-            reclaimPolicy: Delete
-            volumeBindingMode: "Immediate"
-            annotations: {}
-            labels: {}
-            # see https://github.com/rook/rook/blob/master/Documentation/Storage-Configuration/Object-Storage-RGW/ceph-object-bucket-claim.md#storageclass for available configuration
-          ingress:
-            # Enable an ingress for the ceph-objectstore
-            enabled: false
-            annotations:
-              traefik.ingress.kubernetes.io/router.entrypoints: websecure
-              cert-manager.io/cluster-issuer: ks-le-prod
-              cert-manager.io/private-key-rotation-policy: Always
-              traefik.ingress.kubernetes.io/router.tls: 'true'
-              traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-bouncer@kubernetescrd,traefik-local@kubernetescrd
-            tls:
-              - hosts:
-                  - s3.${BASE_DOMAIN}
-                secretName: rook-ceph-s3
-            host:
-              name: "s3.${BASE_DOMAIN}"
-              path: "/"
+      # cephObjectStores:
+      #   - name: ceph-objectstore
+      #     # see https://github.com/rook/rook/blob/master/Documentation/CRDs/Object-Storage/ceph-object-store-crd.md#object-store-settings for available configuration
+      #     spec:
+      #       metadataPool:
+      #         failureDomain: host
+      #         deviceClass: nvme
+      #         replicated:
+      #           size: 3
+      #       dataPool:
+      #         failureDomain: host
+      #         # deviceClass: nvme
+      #         replicated:
+      #           size: 3
+      #       preservePoolsOnDelete: true
+      #       gateway:
+      #         port: 80
+      #         resources:
+      #           limits:
+      #             memory: "2Gi"
+      #           requests:
+      #             cpu: "1000m"
+      #             memory: "1Gi"
+      #         # securePort: 443
+      #         # sslCertificateRef:
+      #         instances: 1
+      #         priorityClassName: system-cluster-critical
+      #     storageClass:
+      #       enabled: true
+      #       name: ceph-objectstore
+      #       reclaimPolicy: Delete
+      #       volumeBindingMode: "Immediate"
+      #       annotations: {}
+      #       labels: {}
+      #       # see https://github.com/rook/rook/blob/master/Documentation/Storage-Configuration/Object-Storage-RGW/ceph-object-bucket-claim.md#storageclass for available configuration
+      #     ingress:
+      #       # Enable an ingress for the ceph-objectstore
+      #       enabled: false
+      #       annotations:
+      #         traefik.ingress.kubernetes.io/router.entrypoints: websecure
+      #         cert-manager.io/cluster-issuer: ks-le-prod
+      #         cert-manager.io/private-key-rotation-policy: Always
+      #         traefik.ingress.kubernetes.io/router.tls: 'true'
+      #         traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-bouncer@kubernetescrd,traefik-local@kubernetescrd
+      #       tls:
+      #         - hosts:
+      #             - s3.${BASE_DOMAIN}
+      #           secretName: rook-ceph-s3
+      #       host:
+      #         name: "s3.${BASE_DOMAIN}"
+      #         path: "/"
             
