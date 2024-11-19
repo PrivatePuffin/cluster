@@ -68,7 +68,7 @@ spec:
     persistence:
       config:
         volsync:
-          - name: b2
+          - name: b2-r2
             type: restic
             credentials: s3
             dest:
