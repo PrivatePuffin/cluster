@@ -83,7 +83,7 @@ spec:
       config:
         size: 200Gi
         volsync:
-          - name: b2
+          - name: data
             type: restic
             credentials: s3
             dest:
