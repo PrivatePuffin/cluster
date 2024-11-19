@@ -54,7 +54,7 @@ spec:
           traefik:
             enabled: true
             middlewares:
-              - name: b2
+              - name: local
                 namespace: traefik
               - name: bouncer
                 namespace: traefik
