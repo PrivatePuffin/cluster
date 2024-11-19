@@ -9,3 +9,4 @@ resources:
   - ./upgradesettings.yaml
   - ./namespace.yaml
   # - sopsscret.secret.yaml
+  # - sopssecret.secret.yaml
