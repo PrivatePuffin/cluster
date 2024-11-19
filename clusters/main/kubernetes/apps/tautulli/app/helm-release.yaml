@@ -37,6 +37,13 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
+      b2:
+        type: s3
+        url: "${S3URL_BB}"
+        bucket: "${S3PREFIX_BB}-tautulli"
+        accessKey: "${S3ID_BB}"
+        secretKey: "${S3KEY_BB}"
+        encrKey: "${S3KEY_BB}"
 
 
     ingress:
@@ -61,9 +68,16 @@ spec:
     persistence:
       config:
         volsync:
-          - name: b2
+          - name: local
             type: restic
             credentials: s3
+            dest:
+              enabled: false
+            src:
+              enabled: true
+          - name: b2
+            type: restic
+            credentials: b2
             dest:
               enabled: true
               cacheCapacity: 10Gi
@@ -74,9 +88,16 @@ spec:
         enabled: true
         mountPath: /config/Backups
         volsync:
-          - name: b2
+          - name: local
             type: restic
             credentials: s3
+            dest:
+              enabled: false
+            src:
+              enabled: true
+          - name: b2
+            type: restic
+            credentials: b2
             dest:
               cacheCapacity: 10Gi
               enabled: true

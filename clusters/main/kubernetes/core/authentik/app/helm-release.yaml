@@ -39,6 +39,13 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
+      b2:
+        type: s3
+        url: "${S3URL_BB}"
+        bucket: "${S3PREFIX_BB}-authentik"
+        accessKey: "${S3ID_BB}"
+        secretKey: "${S3KEY_BB}"
+        encrKey: "${S3KEY_BB}"
 
     workload:
       main:
@@ -213,9 +220,16 @@ spec:
           - ReadWriteMany
         storageClass: ceph-filesystem
         volsync:
-          - name: b2-media
+          - name: local
             type: restic
             credentials: s3
+            dest:
+              enabled: false
+            src:
+              enabled: true
+          - name: b2-media
+            type: restic
+            credentials: b2
             dest:
               storageClassName: ceph-nvme
               volumeSnapshotClassName: csi-ceph-filesystem
@@ -229,9 +243,16 @@ spec:
           - ReadWriteMany
         storageClass: ceph-filesystem
         volsync:
-          - name: b2-templates
+          - name: local
             type: restic
             credentials: s3
+            dest:
+              enabled: false
+            src:
+              enabled: true
+          - name: b2-templates
+            type: restic
+            credentials: b2
             dest:
               storageClassName: ceph-nvme
               volumeSnapshotClassName: csi-ceph-filesystem
@@ -245,9 +266,16 @@ spec:
           - ReadWriteMany
         storageClass: ceph-filesystem
         volsync:
-          - name: b2-blueprints
+          - name: local
             type: restic
             credentials: s3
+            dest:
+              enabled: false
+            src:
+              enabled: true
+          - name: b2-blueprints
+            type: restic
+            credentials: b2
             dest:
               enabled: true
               storageClassName: ceph-nvme
@@ -261,9 +289,16 @@ spec:
           - ReadWriteMany
         storageClass: ceph-filesystem
         volsync:
-          - name: b2-certs
+          - name: local
             type: restic
             credentials: s3
+            dest:
+              enabled: false
+            src:
+              enabled: true
+          - name: b2-certs
+            type: restic
+            credentials: b2
             dest:
               storageClassName: ceph-nvme
               volumeSnapshotClassName: csi-ceph-filesystem
@@ -277,9 +312,16 @@ spec:
           - ReadWriteMany
         storageClass: ceph-filesystem
         volsync:
-          - name: b2-geoip
+          - name: local
             type: restic
             credentials: s3
+            dest:
+              enabled: false
+            src:
+              enabled: true
+          - name: b2-geoip
+            type: restic
+            credentials: b2
             dest:
               storageClassName: ceph-nvme
               volumeSnapshotClassName: csi-ceph-filesystem
@@ -294,7 +336,7 @@ spec:
         # mode: recovery
         backups:
           enabled: true
-          credentials: s3
+          credentials: b2
         recovery:
           method: object_store
-          credentials: s3
+          credentials: b2

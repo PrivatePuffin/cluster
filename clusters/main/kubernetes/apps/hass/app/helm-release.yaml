@@ -47,6 +47,13 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
+      b2:
+        type: s3
+        url: "${S3URL_BB}"
+        bucket: "${S3PREFIX_BB}-hass"
+        accessKey: "${S3ID_BB}"
+        secretKey: "${S3KEY_BB}"
+        encrKey: "${S3KEY_BB}"
 
     homeassistant:
       trusted_proxies:
@@ -75,13 +82,17 @@ spec:
     persistence:
       config:
         volsync:
-          - name: b2
+          - name: local
             type: restic
             credentials: s3
             dest:
-
-
-
+              enabled: false
+            src:
+              enabled: true
+          - name: b2
+            type: restic
+            credentials: b2
+            dest:
               accessModes:
                 - ReadWriteOnce
               enabled: true
@@ -90,9 +101,16 @@ spec:
       backup:
         enabled: true
         volsync:
-          - name: b2
+          - name: local
             type: restic
             credentials: s3
+            dest:
+              enabled: false
+            src:
+              enabled: true
+          - name: b2
+            type: restic
+            credentials: b2
             dest:
 
 
@@ -108,7 +126,7 @@ spec:
       main:
         backups:
           enabled: true
-          credentials: s3
+          credentials: b2
         recovery:
           method: object_store
-          credentials: s3
+          credentials: b2
