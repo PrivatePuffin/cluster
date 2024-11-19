@@ -268,7 +268,7 @@ spec:
             labels: {}
             # see https://github.com/rook/rook/blob/master/Documentation/Storage-Configuration/Object-Storage-RGW/ceph-object-bucket-claim.md#storageclass for available configuration
           ingress:
-            enabled: false
+            enabled: true
             annotations:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
               cert-manager.io/cluster-issuer: ks-le-prod
