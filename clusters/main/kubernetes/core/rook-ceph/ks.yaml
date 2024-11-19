@@ -6,7 +6,7 @@ metadata:
 spec:
   interval: 10m
   path: clusters/main/kubernetes/core/rook-ceph/cluster
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: cluster
