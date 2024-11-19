@@ -51,7 +51,7 @@ spec:
     #       traefik:
     #         enabled: true
     #         middlewares:
-    #           - name: local
+    #           - name: b2
     #             namespace: traefik
     #       certManager:
     #         enabled: true
@@ -65,7 +65,7 @@ spec:
     persistence:
       data:
         volsync:
-          - name: local
+          - name: b2
             type: restic
             credentials: s3
             dest:

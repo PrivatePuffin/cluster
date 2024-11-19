@@ -78,7 +78,7 @@ spec:
           traefik:
             enabled: true
             middlewares:
-              - name: local
+              - name: b2
                 namespace: traefik
               - name: bouncer
                 namespace: traefik
@@ -93,7 +93,7 @@ spec:
                 pathType: Prefix
     middlewares:
       ipWhiteList:
-        - name: local
+        - name: b2
           sourceRange:
             - 172.16.0.0/16
             - 172.17.0.0/16

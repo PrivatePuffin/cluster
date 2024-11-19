@@ -44,7 +44,7 @@ spec:
     persistence:
       config:
         volsync:
-          - name: local
+          - name: b2
             type: restic
             credentials: s3
             dest:
@@ -69,7 +69,7 @@ spec:
               middlewares:
                 - name: auth
                   namespace: traefik
-                - name: local
+                - name: b2
                   namespace: traefik
                 - name: bouncer
                   namespace: traefik
