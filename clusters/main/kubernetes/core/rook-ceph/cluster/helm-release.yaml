@@ -37,6 +37,8 @@ spec:
         bluestore_compression_algorithm = lz4
         bluestore_compression_mode = aggressive
         bluestore_compression_required_ratio = .875
+        rbd_default_stripe_unit 65536
+        rbd_default_stripe_count 16
       cephClusterSpec:
         mgr:
           count: 3
