@@ -37,13 +37,6 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
-      b2:
-        type: s3
-        url: "${S3URL_BB}"
-        bucket: "${S3PREFIX_BB}-plex"
-        accessKey: "${S3ID_BB}"
-        secretKey: "${S3KEY_BB}"
-        encrKey: "${S3KEY_BB}"
 
     plex:
       # User Defined
@@ -94,18 +87,11 @@ spec:
             type: restic
             credentials: s3
             dest:
+              cacheCapacity: 20Gi
               enabled: true
             src:
               enabled: true
-          - name: data
-            type: restic
-            credentials: b2
-            dest:
-              cacheCapacity: 10Gi
-              enabled: true
-            src:
-              enabled: true
-              cacheCapacity: 10Gi
+              cacheCapacity: 20Gi
       ## TODO: Setup transcode        
       media:
         enabled: true
