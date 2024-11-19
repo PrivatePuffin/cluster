@@ -144,6 +144,8 @@ spec:
             failureDomain: host
             deviceClass: nvme
             enableRBDStats: true
+            parameters:
+              compression_mode: agressive
             replicated:
               size: 3
               requireSafeReplicaSize: false
@@ -170,6 +172,8 @@ spec:
             failureDomain: host
             deviceClass: nvme
             enableRBDStats: true
+            parameters:
+              compression_mode: agressive
             replicated:
               size: 2
               requireSafeReplicaSize: false
