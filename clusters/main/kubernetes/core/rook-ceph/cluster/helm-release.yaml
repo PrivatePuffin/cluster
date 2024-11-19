@@ -21,11 +21,11 @@ spec:
             retries: 3
     upgrade:
         remediation:
-            retries: 3
+            retries: 1
     values:
       toolbox:
         enabled: true
-      removeOSDsIfOutAndSafeToRemove: true
+      removeOSDsIfOutAndSafeToRemove: false
       monitoring:
         enabled: true
         createPrometheusRules: false
