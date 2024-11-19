@@ -10,6 +10,4 @@ resources:
   - overseerr/ks.yaml
   - prowlarr/ks.yaml
   - tautulli/ks.yaml
-  - zilean/ks.yaml
-  - zurg/ks.yaml
   - actions-runners/ks.yaml
