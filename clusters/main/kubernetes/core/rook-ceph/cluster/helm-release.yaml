@@ -207,7 +207,7 @@ spec:
                   labelSelector:
                     matchLabels:
                       app.kubernetes.io/name: ceph-mds
-                      app.kubernetes.io/part-of: *cephFileSystemName
+                      app.kubernetes.io/part-of: ceph-filesystem
           storageClass:
             enabled: true
             isDefault: false
