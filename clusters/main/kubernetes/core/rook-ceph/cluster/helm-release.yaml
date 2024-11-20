@@ -132,16 +132,16 @@ spec:
         dashboard:
           annotations:
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
-            cert-manager.io/cluster-issuer: ks-le-prod
+            cert-manager.io/cluster-issuer: domain-0-le-prod
             cert-manager.io/private-key-rotation-policy: Always
             traefik.ingress.kubernetes.io/router.tls: 'true'
             traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-bouncer@kubernetescrd,traefik-local@kubernetescrd
           tls:
             - hosts:
-                - rook.${BASE_DOMAIN}
+                - rook.${DOMAIN_0}
               secretName: rook-ceph-dashboard
           host:
-            name: "rook.${BASE_DOMAIN}"
+            name: "rook.${DOMAIN_0}"
             path: "/"
       cephBlockPools:
         - name: ceph-nvme
@@ -271,15 +271,15 @@ spec:
             enabled: true
             annotations:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
-              cert-manager.io/cluster-issuer: ks-le-prod
+              cert-manager.io/cluster-issuer: domain-0-le-prod
               cert-manager.io/private-key-rotation-policy: Always
               traefik.ingress.kubernetes.io/router.tls: 'true'
               traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-bouncer@kubernetescrd,traefik-local@kubernetescrd
             tls:
               - hosts:
-                  - s3.${BASE_DOMAIN}
+                  - s3.${DOMAIN_0}
                 secretName: rook-ceph-s3
             host:
-              name: "s3.${BASE_DOMAIN}"
+              name: "s3.${DOMAIN_0}"
               path: "/"
             
