@@ -29,6 +29,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    ## set stopAll to "true" if you do not want to use blocky
+    # and/or disable its service
+    global:
+      stopAll: false
     credentials:
       s3:
         type: s3
@@ -93,24 +97,18 @@ spec:
           groups:
             - default
             # - ads
+
     k8sgateway:
       # -- list of processed domains
       domains:
-      - domain: "truecharts.org"
+      - domain: "${DOMAIN_0}"
         # -- Optional configuration option for DNS01 challenge that will redirect all acme
         # challenge requests to external cloud domain (e.g. managed by cert-manager)
         # See: https://cert-manager.io/docs/configuration/acme/dns01/
         dnsChallenge:
           enabled: false
           domain: dns01.clouddns.com
-      - domain: "kjeldschouten.nl"
-        # -- Optional configuration option for DNS01 challenge that will redirect all acme
-        # challenge requests to external cloud domain (e.g. managed by cert-manager)
-        # See: https://cert-manager.io/docs/configuration/acme/dns01/
-        dnsChallenge:
-          enabled: false
-          domain: dns01.clouddns.com
-      - domain: "sixcraft.org"
+      - domain: "${DOMAIN_1}"
         # -- Optional configuration option for DNS01 challenge that will redirect all acme
         # challenge requests to external cloud domain (e.g. managed by cert-manager)
         # See: https://cert-manager.io/docs/configuration/acme/dns01/
@@ -125,9 +123,10 @@ spec:
         options:
           - name: tls_servername
             value: cloudflare-dns.com
+
     # CANNOT be defined in above yaml section
     queryLog:
-      # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console
+      # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console only
       type: ""
 
     configmap:

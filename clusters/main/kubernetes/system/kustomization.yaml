@@ -17,4 +17,4 @@ resources:
   - volsync/ks.yaml
   - kyverno/ks.yaml
   - spegel/ks.yaml
-  - longhorn/ks.yaml
+  # - longhorn/ks.yaml
