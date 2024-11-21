@@ -106,27 +106,10 @@ spec:
           ssl: false
 
         storage:
-          useAllNodes: false
+          useAllNodes: true
           useAllDevices: true
           # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement
           onlyApplyOSDPlacement: false
-          nodes:
-            - name: k8s-worker-1
-              config:
-                deviceClass: nvme
-                osdsPerDevice: "1"
-            - name: k8s-worker-2
-              config:
-                deviceClass: nvme
-                osdsPerDevice: "1"
-            - name: k8s-worker-3
-              config:
-                deviceClass: nvme
-                osdsPerDevice: "1"
-            - name: k8s-worker-4
-              config:
-                deviceClass: nvme
-                osdsPerDevice: "1"
 
       ingress:
         dashboard:
