@@ -1,6 +1,6 @@
 clusterName: ${CLUSTERNAME}
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.9.1
+talosVersion: v1.9.2
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.32.0
 endpoint: https://${VIP}:6443
@@ -83,13 +83,6 @@ nodes:
         - 1.1.1.1
       installDiskSelector:
         size: <= 600GB
-      schematic:
-          customization:
-              systemExtensions:
-                  officialExtensions:
-                      - siderolabs/amd-ucode
-                      - siderolabs/iscsi-tools
-                      - siderolabs/util-linux-tools
     - hostname: k8s-worker-2
       ipAddress: 192.168.10.121
       nameservers:
@@ -101,10 +94,10 @@ nodes:
           customization:
               systemExtensions:
                   officialExtensions:
-                      - siderolabs/amd-ucode
-                      - siderolabs/iscsi-tools
-                      - siderolabs/util-linux-tools
-
+                    - siderolabs/amd-ucode
+                    - siderolabs/i915
+                    - siderolabs/intel-ucode
+                    - siderolabs/mei
     - hostname: k8s-worker-3
       ipAddress: 192.168.10.131
       nameservers:
@@ -117,31 +110,10 @@ nodes:
               systemExtensions:
                   officialExtensions:
                       - siderolabs/amd-ucode
-                      - siderolabs/iscsi-tools
-                      - siderolabs/util-linux-tools
-    - hostname: k8s-worker-4
-      ipAddress: 192.168.10.141
-      nameservers:
-        - 192.168.10.200
-        - 1.1.1.1
-      installDiskSelector:
-        size: <= 600GB
-      schematic:
-          customization:
-              systemExtensions:
-                  officialExtensions:
-                      - siderolabs/qemu-guest-agent
-                      - siderolabs/util-linux-tools
-                      - siderolabs/iscsi-tools
 controlPlane:
     patches:
         - '@./patches/controlplane.yaml'
     schematic:
-        customization:
-            systemExtensions:
-                officialExtensions:
-                    - siderolabs/util-linux-tools
-                    - siderolabs/iscsi-tools
         overlay:
          image: siderolabs/sbc-raspberrypi
          name: rpi_generic
