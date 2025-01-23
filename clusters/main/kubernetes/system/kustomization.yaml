@@ -18,3 +18,4 @@ resources:
   - kyverno/ks.yaml
   - spegel/ks.yaml
   # - longhorn/ks.yaml
+  - intel-device-plugin/ks.yaml

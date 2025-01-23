@@ -25,14 +25,14 @@ spec:
         - name: actions-runner-controller
           namespace: actions-runner-controller
     values:
-        nameOverride: ENC[AES256_GCM,data:XXHYNyM5ZibsR+H1KfN4,iv:HCcn4Um0HUFQpIJ6pg1P2v+M0e6e5zPwsrofiQsNVXU=,tag:vvpcFcSdymwKppJXBobrXA==,type:str]
-        runnerScaleSetName: ENC[AES256_GCM,data:8uUuymorv3Ubx/F7vhBf,iv:3AxdzBwVbzKFulRMmdmeueuBIlsAXihPbUaCrzgFsxs=,tag:mi7olsiiMFnwvzlN3quu5Q==,type:str]
+        nameOverride: ENC[AES256_GCM,data:rVNZ5kZ0/LGntlF7if4B,iv:X8VMg6U0/OPNuVJZk46eQJ2SZWs+PqYC2zyegbHtXOY=,tag:bSk7acDDD8QKQzH2hmFtDA==,type:str]
+        runnerScaleSetName: ENC[AES256_GCM,data:IryYu1eeyjBgYQ+2nuIF,iv:++/vPNh98YgM0WDFIxLvhYr8H+wlkq9yBowehlSDNvg=,tag:8loPvGR/L7MMv873sj6HKg==,type:str]
         minRunners: 6
         maxRunners: 24
         githubConfigSecret:
-            github_app_id: ENC[AES256_GCM,data:dVuDkFGRh2Z5Pp0p+6FfUy0UbiKBdNtnw/MDXN7lYQapkpg52uZ54wo=,iv:9gMjY3Av4VBiE5yjd3OUEQR7blKuaLDOID3zoOPrBxg=,tag:uondt6ZrhTbkjAq5Hnchsw==,type:str]
-            github_app_installation_id: ENC[AES256_GCM,data:XPeq96oRaqE=,iv:R7KW+9eD0N8GJPyUOwCekcPQamdNn0sdRc9oTrWOBVE=,tag:Hf2CjOva9v2BkNmjz56bGA==,type:str]
-            github_app_private_key: ENC[AES256_GCM,data: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,iv:/pXJiGNlcUHNvBHQHGWuLjIr6npo+a225JjiwwqbGAE=,tag:aFGxfawXcL9pn4wsQgxK6g==,type:str]
+            github_app_id: ENC[AES256_GCM,data:ChacD7llDdMDhhbc4zSU8oGU2UVcRv8gbHr8unQrT4Wgagv+aC7Esbs=,iv:nw2Ny8i2/CFnjo1Ooi8HkYBlLBVgCf1n+fZmJS/mW6g=,tag:XPRJGNdSYhP4oQcAP5XL+w==,type:str]
+            github_app_installation_id: ENC[AES256_GCM,data:HL9ooL5AQ0o=,iv:wzIKSCFXKuXEfmh8lR2AZ5sjuclC/VADLp16W63qXJo=,tag:KJuL6Y/Ce0bPwknpNWjaMA==,type:str]
+            github_app_private_key: ENC[AES256_GCM,data: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,iv:joMgfgdMsaHWjpAR19ZtC3PZChyK+mv0ylWAMnp/z6Q=,tag:sCVe4WSC0NSfTNURmPOX9g==,type:str]
         githubConfigUrl: https://github.com/truecharts
         controllerServiceAccount:
             name: actions-runner-controller
@@ -66,14 +66,14 @@ sops:
         - recipient: age1uzy27yg04slm0t4naapemy207fd7uh4lda70dxnh932e5dd8n55skgcdrq
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB4VDV0TGsrUTlhU2NEWUF5
-            amxXbzZpMjU5dkViU3paNGhpUlVmb3djZEZRCjhMamFtOHVYWUhuNW9jaTRzUzhD
-            K1hPVDlmRWlEc3IwbVp1TFhRTHpUVWcKLS0tIG1SMjdHRWRrWStZY3d5WnZ4WFNN
-            eVNkanlKQnR0VGhid1FwT0cxMndEZU0K2TN3TQZPOXyVw7VfvCJqfS3fkurCavg2
-            qLVk/XdfIUZXdCpZhq0WdbEnom0rqCYaE8xM9d5iY1fRJEC9QIf01w==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSRUlxR2hka0FJZnNwSWhV
+            Q1E1Z01BTDFlYW4yYThjWUx5Tis2eTB3R1QwCmRNVzRTM1dTTHhHVC9JazRjUlRu
+            aXFTWGk0ek1ZQVBQeVUzWkI1U2pteU0KLS0tIDQxMW9qeUltSlptRGNHekVFYzYr
+            UkpGQjgrbkZ0TTV4L25Iek9JbnhhQTQK/MnMmK5E1qiM0A+5EVpdYBN0pCNbPxTj
+            e4wjOzmWgnHr/SYCKYzCiFTfekePpmdia7o7Y968tRiugsJkbvi35A==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-01-23T17:51:29Z"
-    mac: ENC[AES256_GCM,data:IfJ0jyW136f6Go1lLQ1F4n0R815ZviiwTWfEt8CIPM+6lUk60KoXh+jFa9ijGhjw1pjxX6Wf1mrk9iQe8UUIinGh5e4z+nziTvPzPrPztOPRjxku+iob33xC8xeSzykqY98cbf2srRKJ0zS12bwmGXaC/2AZ6RFVhb+kzf1Jipo=,iv:iuoBaB5vKo0oWZxjDj8jwafCv3z8hh2ozmy0GjTIKcY=,tag:qrAkmnTeuaIT3c51Nm4Iyg==,type:str]
+    lastmodified: "2025-01-23T17:59:59Z"
+    mac: ENC[AES256_GCM,data:wxrTw5XiFWRsPEcOYOnbxv1WOCdTHFVjX2oR3KmxZY4A8KZwSexwMAi54ipO4gDZulWSef6WLugFEKx9if5GM43Px1OqKsnbjfHxHyIVC7gQoCtmjsySfXe7kb/4MRDwxLtXj0j4kh/WpUe40yIet5iYcGSqEhR/c6gDq9xRRRA=,iv:iwKTQ7Dsr3T2vqFvr7rdFxKU8pCvdqcRBX+zmYtw0h8=,tag:PDHU3RcYGR5ZzP7wH9fZiw==,type:str]
     pgp: []
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.9.2
