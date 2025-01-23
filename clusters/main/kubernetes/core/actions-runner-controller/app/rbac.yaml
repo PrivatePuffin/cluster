@@ -26,10 +26,3 @@ subjects:
   - kind: ServiceAccount
     name: actions-runner-controller
     namespace: gha
----
-apiVersion: talos.dev/v1alpha1
-kind: ServiceAccount
-metadata:
-  name: actions-runner-controller
-spec:
-  roles: ["os:admin"]
