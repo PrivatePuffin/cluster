@@ -6,4 +6,3 @@ resources:
   - ns.yaml
   - ./helm-release.yaml
   - rbac.yaml
-  - namespace.yaml
