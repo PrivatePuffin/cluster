@@ -27,3 +27,4 @@ spec:
     values:
         fullnameOverride: actions-runner-controller
         dockerRegistryMirror: http://192.168.10.208:5000
+        test: trigger
