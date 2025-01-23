@@ -57,7 +57,7 @@ spec:
             main:
               resources:
                 limits:
-                  intel.com/i915: 1
+                  gpu.intel.com/i915: 1
 
     ingress:
       main:
