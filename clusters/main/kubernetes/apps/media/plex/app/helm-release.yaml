@@ -50,15 +50,14 @@ spec:
         type: LoadBalancer
         loadBalancerIP: ${PLEX_IP}
 
-    ## TODO: Enable
-    # workload:
-    #   main:
-    #     podSpec:
-    #       containers:
-    #         container-name:
-    #           resources:
-    #             limits:
-    #               intel.com/i915: 1
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              resources:
+                limits:
+                  intel.com/i915: 1
 
     ingress:
       main:
