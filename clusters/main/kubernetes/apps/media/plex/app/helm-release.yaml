@@ -47,7 +47,7 @@ spec:
 
     service:
       main:
-        type: LoadBalancer
+        type: ClusterIP
         loadBalancerIP: ${PLEX_IP}
 
     workload:
