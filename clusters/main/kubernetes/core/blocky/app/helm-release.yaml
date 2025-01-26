@@ -97,7 +97,7 @@ spec:
           groups:
             - default
             # - ads
-
+    test: test
     k8sgateway:
       # -- list of processed domains
       domains:
