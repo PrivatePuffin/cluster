@@ -5,9 +5,7 @@ resources:
   - namespace.yaml
   - autobrr/ks.yaml
   - bazarr/ks.yaml
-  - downloads-nfs-pvc.yaml
   - lidarr/ks.yaml
-  - media-nfs-pvc.yaml
   - plex/ks.yaml
   - qbittorrent/ks.yaml
   - radarr/ks.yaml
