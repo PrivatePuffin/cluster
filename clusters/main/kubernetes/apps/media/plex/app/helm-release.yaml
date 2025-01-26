@@ -108,3 +108,7 @@ spec:
         enabled: true
         existingClaim: media-porn-nfs-pvc
         mountPath: "/media/porn"
+      castlefest:
+        enabled: true
+        existingClaim: media-castlefest-nfs-pvc
+        mountPath: "/media/castlefest"
