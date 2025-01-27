@@ -117,20 +117,28 @@ spec:
               devices: 
                 - name: /dev/nvme0n1
                   deviceClass: nvme
+                  config:
+                    deviceClass: nvme
             - name: k8s-worker-2
               devices: 
                 - name: /dev/nvme0n1
                   deviceClass: nvme
                 - name: /dev/disk/by-id/ata-ST18000NM000J-2TV103_ZR57DD5Q
-                  metadataDevice: /dev/sdb1
                   deviceClass: hdd
+                  config:
+                    metadataDevice: /dev/disk/by-id/ata-INTEL_SSDSC2BB480G6_PHWA634504B4480FGN-part1
                 - name: /dev/disk/by-id/ata-WDC_WD10EFRX-68FYTN0_WD-WCC4J4FNDAX3
-                  metadataDevice: /dev/sdb2
                   deviceClass: hdd
+                  config:
+                    metadataDevice: /dev/disk/by-id/ata-INTEL_SSDSC2BB480G6_PHWA634504B4480FGN-part2
+                    deviceClass: hdd
             - name: k8s-worker-3
               devices: 
                 - name: /dev/nvme0n1
                   deviceClass: nvme
+                  config:
+                    deviceClass: nvme
+
       ingress:
         dashboard:
           annotations:
