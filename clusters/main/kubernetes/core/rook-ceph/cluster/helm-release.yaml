@@ -118,7 +118,10 @@ spec:
             - name: k8s-worker-2
               config:
                 metadataDevice: /dev/disk/by-id/ata-INTEL_SSDSC2BB480G6_PHWA634504B4480FGN
-              # devices: 
+              devices: 
+                - /dev/disk/by-id/ata-ST18000NM000J-2TV103_ZR57DD5Q
+                - /dev/disk/by-id/ata-WDC_WD10EFRX-68FYTN0_WD-WCC4J4FNDAX3
+                - /dev/nvme0n1
             # - name: k8s-worker-3
             #   config:
             #     metadataDevice: /dev/disk/by-id/scsi-35000c500ec7bb927
