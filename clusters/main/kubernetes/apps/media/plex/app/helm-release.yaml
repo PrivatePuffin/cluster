@@ -91,6 +91,10 @@ spec:
             src:
               enabled: true
               cacheCapacity: 20Gi
+      library:
+        enabled: true
+        existingClaim: library
+        path: /mnt/tank/library
       ## TODO: Setup transcode        
       series:
         enabled: true
