@@ -127,6 +127,7 @@ spec:
                   deviceClass: hdd
                   config:
                     metadataDevice: /dev/disk/by-id/ata-INTEL_SSDSC2BB480G6_PHWA634504B4480FGN-part1
+                    deviceClass: hdd
                 - name: /dev/disk/by-id/ata-WDC_WD10EFRX-68FYTN0_WD-WCC4J4FNDAX3
                   deviceClass: hdd
                   config:
