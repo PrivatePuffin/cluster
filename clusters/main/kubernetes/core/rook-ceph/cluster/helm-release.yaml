@@ -199,7 +199,7 @@ spec:
             dataPools:
               - failureDomain: host
                 name: data0
-                # deviceClass: nvme
+                deviceClass: hdd
                 replicated:
                   size: 1
             metadataServer:
@@ -254,7 +254,7 @@ spec:
                 size: 3
             dataPool:
               failureDomain: host
-              # deviceClass: nvme
+              deviceClass: hdd
               replicated:
                 size: 3
             preservePoolsOnDelete: true
