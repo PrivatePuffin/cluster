@@ -94,7 +94,7 @@ spec:
       library:
         enabled: true
         existingClaim: library
-        path: /mnt/tank/library
+        mountPath: /library
       ## TODO: Setup transcode        
       series:
         enabled: true
