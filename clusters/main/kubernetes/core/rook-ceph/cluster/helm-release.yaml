@@ -255,7 +255,7 @@ spec:
                 size: 3
             dataPool:
               failureDomain: host
-              deviceClass: hdd
+              # deviceClass: hdd
               replicated:
                 size: 3
             preservePoolsOnDelete: true
