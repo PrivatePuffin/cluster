@@ -106,17 +106,14 @@ spec:
           ssl: false
 
         storage:
-          useAllNodes: true
+          useAllNodes: false
           useAllDevices: true
           allowDeviceClassUpdate: true
           allowOsdCrushWeightUpdate: true
           # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement
           onlyApplyOSDPlacement: false
           nodes:
-            # - name: k8s-worker-1
-            #   config:
-            #     metadataDevice: /dev/disk/by-id/scsi-35000c500ec7bb927
-            #   # devices:
+            - name: k8s-worker-1
             - name: k8s-worker-2
               devices: 
                 - name: /dev/nvme0n1
@@ -127,11 +124,7 @@ spec:
                 - name: /dev/disk/by-id/ata-WDC_WD10EFRX-68FYTN0_WD-WCC4J4FNDAX3
                   metadataDevice: /dev/disk/by-id/ata-INTEL_SSDSC2BB480G6_PHWA634504B4480FGN
                   deviceClass: hdd
-
-            # - name: k8s-worker-3
-            #   config:
-            #     metadataDevice: /dev/disk/by-id/scsi-35000c500ec7bb927
-            #   # devices:
+            - name: k8s-worker-3
 
       ingress:
         dashboard:
