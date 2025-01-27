@@ -197,7 +197,7 @@ spec:
             enabled: true
             isDefault: false
             name: ceph-filesystem
-            reclaimPolicy: Delete
+            reclaimPolicy: Retain
             allowVolumeExpansion: true
             pool: data0
             volumeBindingMode: Immediate
@@ -213,7 +213,7 @@ spec:
         enabled: true
         name: csi-ceph-filesystem
         isDefault: false
-        deletionPolicy: Delete
+        deletionPolicy: Retain
       
       cephObjectStores:
         - name: ceph-objectstore
