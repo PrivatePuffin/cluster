@@ -75,18 +75,17 @@ spec:
               enabled: true
             src:
               enabled: true
-
-      media:
-        enabled: true
-        existingClaim: media-nfs-pvc
-        mountPath: "/media"
       movies:
         enabled: true
-        existingClaim: media-movies-nfs-pvc
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/library/movies
         mountPath: "/media/movies"
       downloads:
         enabled: true
-        existingClaim: downloads-nfs-pvc
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/stor/downloads
         mountPath: "/downloads"
       backup:
         enabled: true

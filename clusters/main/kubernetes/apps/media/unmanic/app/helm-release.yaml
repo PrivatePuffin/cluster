@@ -67,4 +67,33 @@ spec:
               enabled: true
             src:
               enabled: true
-
+      series:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/library/series
+        mountPath: "/media/series"
+      music:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/library/music
+        mountPath: "/media/music"
+      movies:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/library/movies
+        mountPath: "/media/movies"
+      porn:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/stor/library/porn
+        mountPath: "/media/porn"
+      castlefest:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/stor/library/castlefest
+        mountPath: "/media/castlefest"

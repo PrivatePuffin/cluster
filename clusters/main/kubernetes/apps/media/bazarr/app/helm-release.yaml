@@ -69,21 +69,41 @@ spec:
             src:
               enabled: true
 
-      media:
-        enabled: true
-        existingClaim: media-nfs-pvc
-        mountPath: "/media"
       series:
         enabled: true
-        existingClaim: media-series-nfs-pvc
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/library/series
         mountPath: "/media/series"
+      music:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/library/music
+        mountPath: "/media/music"
       movies:
         enabled: true
-        existingClaim: media-movies-nfs-pvc
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/library/movies
         mountPath: "/media/movies"
+      porn:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/stor/library/porn
+        mountPath: "/media/porn"
+      castlefest:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/stor/library/castlefest
+        mountPath: "/media/castlefest"
       downloads:
         enabled: true
-        existingClaim: downloads-nfs-pvc
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/stor/downloads
         mountPath: "/downloads"
       backup:
         enabled: true

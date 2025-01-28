@@ -76,15 +76,18 @@ spec:
               enabled: true
             src:
               enabled: true
-
-      books:
-        enabled: true
-        existingClaim: media-books-nfs-pvc
-        mountPath: "/media/books"
       downloads:
         enabled: true
-        existingClaim: downloads-nfs-pvc
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/stor/downloads
         mountPath: "/downloads"
+      books:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/stor/library/books
+        mountPath: "/books"
       backup:
         enabled: true
         mountPath: /config/Backups
