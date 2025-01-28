@@ -79,7 +79,7 @@ spec:
         enabled: true
         type: nfs
         server: 192.168.10.21
-        path: /mnt/tank/library/music
+        path: /mnt/stor/library/music
         mountPath: "/media/music"
       movies:
         enabled: true
