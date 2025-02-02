@@ -80,13 +80,13 @@ spec:
         enabled: true
         type: nfs
         server: 192.168.10.21
-        path: /mnt/stor/downloads
+        path: /mnt/tank/downloads
         mountPath: "/downloads"
       books:
         enabled: true
         type: nfs
         server: 192.168.10.21
-        path: /mnt/stor/library/books
+        path: /mnt/tank/library/books
         mountPath: "/books"
       backup:
         enabled: true

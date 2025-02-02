@@ -74,5 +74,5 @@ spec:
         enabled: true
         type: nfs
         server: 192.168.10.21
-        path: /mnt/stor/downloads
+        path: /mnt/tank/downloads
         mountPath: "/downloads"

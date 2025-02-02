@@ -106,7 +106,7 @@ spec:
         enabled: true
         type: nfs
         server: 192.168.10.21
-        path: /mnt/stor/library/music
+        path: /mnt/tank/library/music
         mountPath: "/media/music"
       movies:
         enabled: true
@@ -118,11 +118,11 @@ spec:
         enabled: true
         type: nfs
         server: 192.168.10.21
-        path: /mnt/stor/library/porn
+        path: /mnt/tank/library/porn
         mountPath: "/media/porn"
       castlefest:
         enabled: true
         type: nfs
         server: 192.168.10.21
-        path: /mnt/stor/library/castlefest
+        path: /mnt/tank/library/castlefest
         mountPath: "/media/castlefest"
