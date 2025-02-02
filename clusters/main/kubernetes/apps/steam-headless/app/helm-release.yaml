@@ -38,6 +38,14 @@ spec:
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
 
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              resources:
+                limits:
+                  gpu.intel.com/i915: 1
 
     ingress:
       main:
