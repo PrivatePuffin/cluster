@@ -11,3 +11,4 @@ resources:
   - prowlarr/ks.yaml
   - tautulli/ks.yaml
   - actions-runners/ks.yaml
+  - steam-headless/ks.yaml
