@@ -13,3 +13,4 @@ sopssecret.yaml
 .DS_Store
 sopsscret.secret.yaml
 sopssecret.secret.yaml
+.decrypted*
