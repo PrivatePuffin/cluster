@@ -26,5 +26,5 @@ spec:
   values:
     service:
       main:
-        loadBalancerIP: ${SPEGEL_IP}
         type: LoadBalancer
+        loadBalancerIP: ${SPEGEL_IP}

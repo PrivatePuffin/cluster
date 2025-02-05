@@ -87,5 +87,4 @@
         - https://tccr.io
     factory.talos.dev:
       endpoints:
-        - http://192.168.10.209:5000
         - https://factory.talos.dev

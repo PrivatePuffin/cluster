@@ -82,7 +82,13 @@ nodes:
         - 192.168.10.200
         - 1.1.1.1
       installDiskSelector:
-        size: <= 600GB
+        size: <= 3500GB
+      schematic:
+          customization:
+              systemExtensions:
+                  officialExtensions:
+                      - siderolabs/util-linux-tools
+                      - siderolabs/qemu-guest-agent
     - hostname: k8s-worker-2
       ipAddress: 192.168.10.121
       nameservers:
@@ -149,7 +155,6 @@ worker:
             systemExtensions:
                 officialExtensions:
                     - siderolabs/util-linux-tools
-                    - siderolabs/iscsi-tools
     machineFiles:
     - content: |
         [plugins."io.containerd.grpc.v1.cri"]
