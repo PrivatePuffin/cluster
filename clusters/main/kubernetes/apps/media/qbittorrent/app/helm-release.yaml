@@ -50,8 +50,7 @@ spec:
             middlewares:
               - name: local
                 namespace: traefik
-              - name: bouncer
-                namespace: traefik
+
           certManager:
             enabled: true
             certificateIssuer: domain-0-le-prod
