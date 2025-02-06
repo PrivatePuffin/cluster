@@ -112,6 +112,8 @@ spec:
           allowOsdCrushWeightUpdate: true
           # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement
           onlyApplyOSDPlacement: false
+          config:
+            deviceClass: nvme
 
       ingress:
         dashboard:
