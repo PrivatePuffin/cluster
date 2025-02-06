@@ -110,6 +110,7 @@ spec:
           useAllDevices: true
           allowDeviceClassUpdate: true
           allowOsdCrushWeightUpdate: true
+          enableCrushUpdates: true
           # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement
           onlyApplyOSDPlacement: false
           config:
