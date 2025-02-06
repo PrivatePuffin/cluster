@@ -12,3 +12,4 @@ resources:
   - tautulli/ks.yaml
   - actions-runners/ks.yaml
   - steam-headless/ks.yaml
+  - unmanic/ks.yaml
