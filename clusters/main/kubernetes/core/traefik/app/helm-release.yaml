@@ -66,6 +66,6 @@ spec:
           tls:
             insecureSkipVerify: true
 
-persistence:
-  crowdsec-bouncer-tls:
-    enabled: false
+    persistence:
+      crowdsec-bouncer-tls:
+        enabled: false
