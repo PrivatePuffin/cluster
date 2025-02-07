@@ -96,3 +96,11 @@ spec:
         server: 192.168.10.21
         path: /mnt/tank/library/castlefest
         mountPath: "/media/castlefest"
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              resources:
+                limits:
+                  gpu.intel.com/i915: 1
