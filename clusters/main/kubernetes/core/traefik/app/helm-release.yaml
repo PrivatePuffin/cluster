@@ -67,9 +67,5 @@ spec:
             insecureSkipVerify: true
 
 persistence:
-  plugins:
-    enabled: true
-    mountPath: "/plugins-storage"
-    type: emptyDir
   crowdsec-bouncer-tls:
     enabled: false
