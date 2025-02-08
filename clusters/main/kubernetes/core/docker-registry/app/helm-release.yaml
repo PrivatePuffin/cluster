@@ -48,3 +48,22 @@ spec:
       port: 5000
       annotations: 
         "metallb.universe.tf/loadBalancerIPs": ${DOCKERMIRROR_IP}
+
+    ingress:
+      main:
+        enabled: true
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+
+          certManager:
+            enabled: true
+            certificateIssuer: domain-0-le-prod
+        hosts:
+          - host: dockerhub.${DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
