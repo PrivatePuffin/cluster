@@ -38,6 +38,10 @@ spec:
       enabled: true
       size: 100Gi
     
+    configData:
+      compatibility:
+        schema1:
+          enabled: true
     proxy:
       enabled: true
       remoteurl: https://registry-1.docker.io
