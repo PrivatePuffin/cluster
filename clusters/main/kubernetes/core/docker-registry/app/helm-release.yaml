@@ -50,20 +50,20 @@ spec:
         "metallb.universe.tf/loadBalancerIPs": ${DOCKERMIRROR_IP}
 
     ingress:
-      main:
-        enabled: true
-        integrations:
-          traefik:
-            enabled: true
-            middlewares:
-              - name: local
-                namespace: traefik
-
-          certManager:
-            enabled: true
-            certificateIssuer: domain-0-le-prod
-        hosts:
-          - host: dockerhub.${DOMAIN_0}
-            paths:
-              - path: /
-                pathType: Prefix
+      enabled: true
+      className: ""
+      path: /
+      # Used to create an Ingress record.
+      hosts:
+        - dockerhub.${DOMAIN_0}
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: websecure
+        cert-manager.io/cluster-issuer: domain-0-le-prod
+        cert-manager.io/private-key-rotation-policy: Always
+        traefik.ingress.kubernetes.io/router.tls: 'true'
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-local@kubernetescrd
+      labels: {}
+      tls:
+        - hosts:
+            - dockerhub.${DOMAIN_0}
+          secretName: dockerhub-ingress
