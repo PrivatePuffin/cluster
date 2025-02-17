@@ -12,4 +12,4 @@ resources:
   - readarr/ks.yaml
   - recyclarr/ks.yaml
   - sonarr/ks.yaml
-
+  - deemix/ks.yaml
