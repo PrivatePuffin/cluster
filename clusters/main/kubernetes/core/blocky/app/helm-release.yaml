@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: blocky
-      version: 16.13.6
+      version: 16.13.7
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -60,16 +60,9 @@ spec:
 
       # -- Blocky blacklists
       blacklist:
-        - name: ads
+        - name: diy
           lists:
             - https://adaway.org/hosts.txt
-            - https://v.firebog.net/hosts/AdguardDNS.txt
-            - https://v.firebog.net/hosts/Admiral.txt
-            - https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
-            - https://v.firebog.net/hosts/Easylist.txt
-            - https://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext
-            - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/UncheckyAds/hosts
-            - https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
       #       # - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
       #       # - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
       #       # - https://v.firebog.net/hosts/static/w3kbl.txt
@@ -103,8 +96,12 @@ spec:
       clientGroupsBlock:
         - name: default
           groups:
-            - default
-            - ads
+          - default
+          - default-ads
+          - default-tracking
+          - default-malicious
+          - default-suspicious
+          - diy
     test: test
     k8sgateway:
       # -- list of processed domains
