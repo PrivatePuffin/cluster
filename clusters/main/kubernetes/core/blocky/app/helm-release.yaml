@@ -54,7 +54,7 @@ spec:
       whitelist:
         - name: diy
           lists:
-            - https://raw.githubusercontent.com/Isaaker/Spotify-AdsList/94ef75f15115d3a8e5405a78689b5081a6c8a076/Lists/WHITELIST.txt
+            - https://github.com/Isaaker/Spotify-AdsList/blob/Developer/Lists/WHITELIST.txt
       # - name: ads
       #   lists:
       #     - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/optional-list.txt
@@ -105,7 +105,6 @@ spec:
           - default-malicious
           - default-suspicious
           - diy
-    test: test
     k8sgateway:
       # -- list of processed domains
       domains:
