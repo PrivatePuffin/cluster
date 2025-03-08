@@ -54,10 +54,7 @@ spec:
       whitelist:
         - name: diy
           lists:
-            - https://github.com/Isaaker/Spotify-AdsList/blob/Developer/Lists/WHITELIST.txt
-            - |
-              test.com
-              gew4-spclient.spotify.com
+            - https://raw.githubusercontent.com/Isaaker/Spotify-AdsList/refs/heads/Developer/Lists/WHITELIST.txt
       # - name: ads
       #   lists:
       #     - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/optional-list.txt
