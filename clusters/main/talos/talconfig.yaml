@@ -104,6 +104,7 @@ nodes:
                     - siderolabs/i915
                     - siderolabs/intel-ucode
                     - siderolabs/mei
+                    - siderolabs/realtek-firmware
     - hostname: k8s-worker-3
       ipAddress: 192.168.10.131
       nameservers:
@@ -116,6 +117,7 @@ nodes:
               systemExtensions:
                   officialExtensions:
                       - siderolabs/amd-ucode
+                      - siderolabs/realtek-firmware
 controlPlane:
     patches:
         - '@./patches/controlplane.yaml'
