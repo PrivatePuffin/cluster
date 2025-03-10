@@ -141,7 +141,7 @@ spec:
       dashboard:
         enabled: true
       datasource:
-        enabled: true
+        enabled: false
 
     cnpg:
       main:
