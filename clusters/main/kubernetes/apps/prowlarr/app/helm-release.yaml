@@ -37,11 +37,7 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
-
-    metrics:
-      main:
-        enabled: true
-
+        
     ingress:
       main:
         enabled: true
