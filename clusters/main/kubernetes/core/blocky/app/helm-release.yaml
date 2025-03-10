@@ -133,19 +133,19 @@ spec:
             value: cloudflare-dns.com
 
     # CANNOT be defined in above yaml section
-    queryLog:
-      # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console only
-      type: ""
+    # queryLog:
+    #  # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console only
+    #  type: ""
 
     configmap:
       dashboard:
         enabled: true
       datasource:
-        enabled: false
+        enabled: true
 
     cnpg:
       main:
-        enabled: false
+        enabled: true
         backups:
           enabled: true
           credentials: s3
