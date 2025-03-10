@@ -7,7 +7,6 @@ resources:
   - crowdsec/ks.yaml
   - metallb-config/ks.yaml
   - rook-ceph/ks.yaml
-  - traefik/ks.yaml
   - system-upgrade-controller-plans/ks.yaml
   - actions-runner-controller/ks.yaml
   - docker-registry/ks.yaml

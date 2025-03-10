@@ -40,7 +40,7 @@ spec:
       ingressClassByName: true
       ingressClassResource:
         name: internal
-        default: false
+        default: true
         controllerValue: k8s.io/internal
       config:
         allow-snippet-annotations: true
