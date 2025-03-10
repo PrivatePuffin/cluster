@@ -32,6 +32,7 @@ spec:
     controller:
       replicaCount: 2
       service:
+        externalTrafficPolicy: Local
         annotations:
           internal-dns.alpha.kubernetes.io/hostname: internal.${DOMAIN_0}
           metallb.io/ip-allocated-from-pool: main
