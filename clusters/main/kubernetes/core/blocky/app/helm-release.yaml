@@ -139,9 +139,9 @@ spec:
 
     configmap:
       dashboard:
-        enabled: false
+        enabled: true
       datasource:
-        enabled: false
+        enabled: true
 
     cnpg:
       main:
