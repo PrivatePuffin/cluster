@@ -45,7 +45,7 @@ spec:
         ingressClassName: external
         integrations:
           traefik:
-            enabled: true
+            enabled: false
             middlewares:
               # - name: local
               #   namespace: traefik

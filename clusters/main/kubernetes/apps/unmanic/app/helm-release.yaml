@@ -44,10 +44,7 @@ spec:
         ingressClassName: internal
         integrations:
           traefik:
-            enabled: true
-            middlewares:
-              - name: local
-                namespace: traefik
+            enabled: false
 
           certManager:
             enabled: true
