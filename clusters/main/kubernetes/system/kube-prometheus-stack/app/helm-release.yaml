@@ -126,6 +126,7 @@ spec:
       enabled: false
       forceDeployDashboards: true
       defaultDashboardsEnabled: true
+      forceDeployDatasources: true
     #additionalPrometheusRulesMap:
     #  dockerhub-rules:
     #    groups:
