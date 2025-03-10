@@ -68,7 +68,7 @@ spec:
         #     any: true
       extraArgs:
         default-ssl-certificate: "clusterissuer/certificate-issuer-domain-0-wildcard"
-        # publish-status-address: internal.${DOMAIN_0}
+        publish-status-address: ${NGINX_INTERNAL_IP}
       terminationGracePeriodSeconds: 120
       publishService:
         enabled: false
