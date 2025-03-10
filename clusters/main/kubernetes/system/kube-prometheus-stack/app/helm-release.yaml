@@ -36,6 +36,7 @@ spec:
         forceConflicts: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
+      enabled: false
       ingress:
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
