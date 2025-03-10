@@ -38,6 +38,7 @@ spec:
     alertmanager:
       enabled: false
       ingress:
+        enabled: true
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           cert-manager.io/cluster-issuer: domain-0-le-prod
