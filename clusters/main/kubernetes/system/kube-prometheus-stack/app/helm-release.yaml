@@ -144,6 +144,8 @@ spec:
             secretName: kube-prometheus-stack-kube-prometheus-stack-thanos
         hosts:
           - thanos.${DOMAIN_0}
+        paths:
+          - /
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
