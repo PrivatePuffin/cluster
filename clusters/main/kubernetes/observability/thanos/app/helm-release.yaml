@@ -40,7 +40,7 @@ spec:
     query:
       replicaLabel: [prometheus_replica] # (2)
       dnsDiscovery:
-        sidecarsService: prometheus-operated #prometheus-kube-prometheus-thanos-discovery # (3)
+        sidecarsService: kube-prometheus-stack-thanos-discovery # (3)
         sidecarsNamespace: kube-prometheus-stack
     bucketweb:
       enabled: true # (4)
