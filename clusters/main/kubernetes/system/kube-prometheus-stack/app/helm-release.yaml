@@ -89,13 +89,61 @@ spec:
         walCompression: true
         enableFeatures:
           - memory-snapshot-on-shutdown
+        # Prometheus metrics retention time in PV
         retention: 14d
         retentionSize: 50GB
+        # External labels to add to any time series or 
+        # alerts when communicating with external systems
+        externalLabels:
+          cluster: cluster_main
+          env: prod   
+        # High availability
+        replicas: 2 
         resources:
           requests:
             cpu: 100m
           limits:
             memory: 2000Mi
+        thanos:
+          objectStorageConfig:
+            secret:
+              type: S3
+              config:
+                bucket: "${S3PREFIX}-thanos"
+                endpoint: "${S3URL}"
+                region: ""
+                access_key: "${S3ID_THANOS}"
+                secret_key: "${S3KEY_THANOS}"
+      # Service for thanos service discovery on sidecar
+      # Enable this can make Thanos Query can use
+      # `--store=dnssrv+_grpc._tcp.${kube-prometheus-stack.fullname}-thanos-discovery.${namespace}.svc.cluster.local` to discovery
+      # Thanos sidecar on prometheus nodes
+      thanosService:
+        annotations:
+          metallb.io/ip-allocated-from-pool: main
+          metallb.io/loadBalancerIPs: "${PROM_THANOS_IP}"
+          metallb.universe.tf/ip-allocated-from-pool: main
+        type: LoadBalancer
+        clusterIP: ""
+  
+      # ServiceMonitor to scrape Sidecar metrics
+      # Needs thanosService to be enabled as well
+      thanosServiceMonitor:
+        enabled: true
+      thanosIngress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          cert-manager.io/cluster-issuer: domain-0-le-prod
+          cert-manager.io/private-key-rotation-policy: Always
+          traefik.ingress.kubernetes.io/router.tls: 'true'
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-local@kubernetescrd
+        tls:
+          - hosts:
+              - thanos.${DOMAIN_0}
+            secretName: kube-prometheus-stack-kube-prometheus-stack-thanos
+        hosts:
+          - thanos.${DOMAIN_0}
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
