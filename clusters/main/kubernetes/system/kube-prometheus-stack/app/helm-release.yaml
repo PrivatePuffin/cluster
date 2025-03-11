@@ -146,6 +146,7 @@ spec:
           - thanos.${DOMAIN_0}
         paths:
           - /
+        pathType: "Prefix"
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
