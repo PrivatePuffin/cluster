@@ -57,7 +57,7 @@ spec:
 
           certManager:
             enabled: true
-            certificateIssuer: domain-0-le-prod
+            certificateIssuer: le-prod
         hosts:
           - host: readarr.${DOMAIN_0}
             paths:

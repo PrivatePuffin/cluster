@@ -53,7 +53,7 @@ spec:
               #   namespace: traefik
           certManager:
             enabled: true
-            certificateIssuer: domain-0-le-prod
+            certificateIssuer: le-prod
         hosts:
           - host: media.${DOMAIN_0}
             paths:

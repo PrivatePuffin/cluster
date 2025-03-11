@@ -55,7 +55,7 @@ spec:
     #             namespace: traefik
     #       certManager:
     #         enabled: true
-    #         certificateIssuer: domain-0-le-prod
+    #         certificateIssuer: le-prod
     #     hosts:
     #       - host: mosquitto.${DOMAIN_0}
     #         paths:

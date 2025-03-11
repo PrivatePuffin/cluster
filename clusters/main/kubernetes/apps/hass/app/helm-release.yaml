@@ -62,7 +62,7 @@ spec:
 
           certManager:
             enabled: true
-            certificateIssuer: domain-0-le-prod
+            certificateIssuer: le-prod
         hosts:
           - host: hass.${DOMAIN_0}
             paths:

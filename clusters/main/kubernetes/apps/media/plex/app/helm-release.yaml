@@ -68,7 +68,7 @@ spec:
             enabled: false
           certManager:
             enabled: true
-            certificateIssuer: domain-0-le-prod
+            certificateIssuer: le-prod
         hosts:
           - host: plex.${DOMAIN_0}
             paths:

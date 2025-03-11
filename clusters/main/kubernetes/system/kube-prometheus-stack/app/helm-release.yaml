@@ -41,7 +41,7 @@ spec:
         enabled: true
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          cert-manager.io/cluster-issuer: domain-0-le-prod
+          cert-manager.io/cluster-issuer: le-prod
           cert-manager.io/private-key-rotation-policy: Always
           traefik.ingress.kubernetes.io/router.tls: 'true'
           traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-local@kubernetescrd
@@ -67,7 +67,7 @@ spec:
       ingress:
         enabled: true
         annotations:
-          cert-manager.io/cluster-issuer: domain-0-le-prod
+          cert-manager.io/cluster-issuer: le-prod
           cert-manager.io/private-key-rotation-policy: Always
         tls:
           - hosts:
@@ -92,7 +92,7 @@ spec:
       thanosIngress:
         enabled: true
         annotations:
-          cert-manager.io/cluster-issuer: domain-0-le-prod
+          cert-manager.io/cluster-issuer: le-prod
           cert-manager.io/private-key-rotation-policy: Always
         tls:
           - hosts:

@@ -36,7 +36,7 @@ spec:
         name: "selfsigned"
       ## Remove these if you do NOT want to use clusterissuer
       ACME:
-        - name: domain-0-le-staging
+        - name: le-staging
           # Used for both logging in to the DNS provider AND ACME registration
           email: "${DOMAIN_0_EMAIL}"
           server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
@@ -44,7 +44,7 @@ spec:
           type: "cloudflare"
           # for cloudflare
           cfapitoken: "${DOMAIN_0_CLOUDFLARE_TOKEN}"
-        - name: domain-0-le-prod
+        - name: le-prod
           # Used for both logging in to the DNS provider AND ACME registration
           email: "${DOMAIN_0_EMAIL}"
           server: 'https://acme-v02.api.letsencrypt.org/directory'
@@ -61,7 +61,7 @@ spec:
       certificates:
         - name: general-wildcard
           enabled: true
-          certificateIssuer: domain-0-le-prod
+          certificateIssuer: le-prod
           hosts:
             - ${DOMAIN_0}
             - '*.${DOMAIN_0}'
