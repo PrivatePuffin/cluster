@@ -111,7 +111,7 @@ spec:
               config:
                 bucket: "${S3PREFIX}-thanos"
                 endpoint: "192.168.10.21:9000"
-                region: ""
+                insecure: true
                 access_key: "${S3ID_THANOS}"
                 secret_key: "${S3KEY_THANOS}"
       # Service for thanos service discovery on sidecar
