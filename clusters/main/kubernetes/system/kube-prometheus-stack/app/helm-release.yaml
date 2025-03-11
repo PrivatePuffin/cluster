@@ -119,12 +119,11 @@ spec:
       # `--store=dnssrv+_grpc._tcp.${kube-prometheus-stack.fullname}-thanos-discovery.${namespace}.svc.cluster.local` to discovery
       # Thanos sidecar on prometheus nodes
       thanosService:
-        annotations:
-          metallb.io/ip-allocated-from-pool: main
-          metallb.io/loadBalancerIPs: "${PROM_THANOS_IP}"
-          metallb.universe.tf/ip-allocated-from-pool: main
-        type: LoadBalancer
-        clusterIP: ""
+        enabled: true
+        # annotations:
+        #   metallb.io/ip-allocated-from-pool: main
+        #   metallb.io/loadBalancerIPs: "${PROM_THANOS_IP}"
+        #   metallb.universe.tf/ip-allocated-from-pool: main
   
       # ServiceMonitor to scrape Sidecar metrics
       # Needs thanosService to be enabled as well
