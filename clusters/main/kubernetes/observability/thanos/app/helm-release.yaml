@@ -10,10 +10,10 @@ spec:
   chart:
     spec:
       chart: thanos
-      version: 17.13.5
+      version: 15.13.2
       sourceRef:
         kind: HelmRepository
-        name: truecharts
+        name: bitnami
         namespace: flux-system
       interval: 15m
   timeout: 20m
