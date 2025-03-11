@@ -34,7 +34,8 @@ spec:
       service:
         externalTrafficPolicy: Local
         annotations:
-          internal-dns.alpha.kubernetes.io/hostname: internal.${DOMAIN_0}
+          # TODO: Maybe play with this
+          # internal-dns.alpha.kubernetes.io/hostname: internal.${DOMAIN_0}
           metallb.io/ip-allocated-from-pool: main
           metallb.io/loadBalancerIPs: ${NGINX_INTERNAL_IP}
           metallb.universe.tf/ip-allocated-from-pool: main
