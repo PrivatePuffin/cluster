@@ -4,3 +4,4 @@ resources:
   - speedtest-exporter/ks.yaml
   - unpoller/ks.yaml
   - grafana/ks.yaml
+  - thanos/ks.yaml
