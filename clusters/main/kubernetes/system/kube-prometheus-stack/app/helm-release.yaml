@@ -96,10 +96,10 @@ spec:
           cert-manager.io/private-key-rotation-policy: Always
         tls:
           - hosts:
-              - thanos.${DOMAIN_0}
+              - prometheus-thanos.${DOMAIN_0}
             secretName: kube-prometheus-stack-kube-prometheus-stack-thanos
         hosts:
-          - thanos.${DOMAIN_0}
+          - prometheus-thanos.${DOMAIN_0}
         paths:
           - /
         pathType: "Prefix"
