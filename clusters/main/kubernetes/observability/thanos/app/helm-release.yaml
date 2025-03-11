@@ -55,4 +55,12 @@ spec:
       serviceMonitor:
         enabled: true
 
-
+    queryFrontend:
+      ingress:
+        enabled: true
+        hostname: thanos.${DOMAIN_0}
+        annotations:
+          cert-manager.io/cluster-issuer: domain-0-le-prod
+          cert-manager.io/private-key-rotation-policy: Always
+        tls: true
+        pathType: Prefix
