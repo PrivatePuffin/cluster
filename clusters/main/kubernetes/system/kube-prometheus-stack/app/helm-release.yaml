@@ -131,7 +131,7 @@ spec:
       thanosServiceMonitor:
         enabled: true
       thanosIngress:
-        enabled: true
+        enabled: false
         annotations:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           cert-manager.io/cluster-issuer: domain-0-le-prod
