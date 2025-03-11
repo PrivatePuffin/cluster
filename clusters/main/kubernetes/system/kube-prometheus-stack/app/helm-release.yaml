@@ -110,7 +110,7 @@ spec:
               type: S3
               config:
                 bucket: "${S3PREFIX}-thanos"
-                endpoint: "${S3URL}"
+                endpoint: "192.168.10.21:9000"
                 region: ""
                 access_key: "${S3ID_THANOS}"
                 secret_key: "${S3KEY_THANOS}"
