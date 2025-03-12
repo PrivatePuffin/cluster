@@ -75,19 +75,18 @@ spec:
       # bgpControlPlane:
       #   enabled: true
       # devices: enp+
-      
+
       cni:
         exclusive: false
       enableIPv4BIGTCP: true
-      ## TODO: Enable
-      # envoy:
-      #   rollOutPods: true
-      # gatewayAPI:
-      #   enabled: true
-      #   enableAlpn: true
-      #   xffNumTrustedHops: 1
-      # l2announcements:
-      #   enabled: true
+      envoy:
+        rollOutPods: true
+      gatewayAPI:
+        enabled: true
+        enableAlpn: true
+        xffNumTrustedHops: 1
+      l2announcements:
+        enabled: true
       loadBalancer:
         algorithm: maglev
         mode: dsr
