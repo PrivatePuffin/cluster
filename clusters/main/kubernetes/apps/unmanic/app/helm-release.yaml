@@ -82,6 +82,18 @@ spec:
         server: 192.168.10.21
         path: /mnt/tank/library/porn
         mountPath: "/media/porn"
+      music:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/library/music
+        mountPath: "/music"
+      castlefest:
+        enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/library/castlefest
+        mountPath: "/castlefest"
     workload:
       main:
         podSpec:
