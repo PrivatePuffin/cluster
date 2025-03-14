@@ -60,7 +60,6 @@ spec:
       cluster:
         name: main
         id: 1
-## NEW 12-03-2025
       autoDirectNodeRoutes: true
       bandwidthManager:
         enabled: true
@@ -79,19 +78,21 @@ spec:
       cni:
         exclusive: false
       enableIPv4BIGTCP: true
+
+      ## Dont deploy envoy or gatewayAPI as its not going to work nicely with upstream envoy extentions
       envoy:
         rollOutPods: false
       gatewayAPI:
         enabled: false
         enableAlpn: false
-        xffNumTrustedHops: 1
+        
+      ## Deploy L2Announcement to replace metallb in the future
       l2announcements:
         enabled: true
       loadBalancer:
         algorithm: maglev
         mode: dsr
       routingMode: native
-## END NEW
       ipv4NativeRoutingCIDR: ${PODNET}
       securityContext:
         capabilities:
