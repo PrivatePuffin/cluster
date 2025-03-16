@@ -55,9 +55,13 @@ spec:
         - name: diy
           lists:
             - https://github.com/Isaaker/Spotify-AdsList/blob/Developer/Lists/WHITELIST.txt
+            - https://raw.githubusercontent.com/nilsstreedain/pihole-whitelist/refs/heads/main/regex.txt
+            - https://raw.githubusercontent.com/cedwards4038/pihole-whitelist/refs/heads/main/whitelist.txt
             - |
               gew4-spclient.spotify.com
               api-spotify.com
+              apple.com
+              *.apple.com
       # - name: ads
       #   lists:
       #     - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/optional-list.txt
