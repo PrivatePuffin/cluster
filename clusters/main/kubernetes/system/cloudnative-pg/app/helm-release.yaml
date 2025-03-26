@@ -8,7 +8,7 @@ spec:
     chart:
         spec:
             chart: cloudnative-pg
-            version: 0.22.0
+            version: 0.23.2
             sourceRef:
                 kind: HelmRepository
                 name: cloudnative-pg
@@ -24,3 +24,10 @@ spec:
         remediation:
             retries: 3
     values:
+      crds:
+        create: true
+      replicaCount: 2
+      monitoring:
+        podMonitorEnabled: false
+        grafanaDashboard:
+          create: true
