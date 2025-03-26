@@ -27,10 +27,7 @@ spec:
     values:
         minRunners: 6
         maxRunners: 24
-        githubConfigSecret:
-            github_app_id: ENC[AES256_GCM,data:+4FJlvq6YiXmVOi8tH4E0LEvpvmCQWTTZp+pbd+3h94LV+sZKr0eQC8=,iv:NJepxcNd+hc8jiHMwi4wKaLBIkRPBfor+UzG1iE6iy0=,tag:lS1Z1hDpL5vITZdgQus0MA==,type:str]
-            github_app_installation_id: ENC[AES256_GCM,data:iSfCOrsf5+c=,iv:Ygz8DRlyuv9aQ4lxMz/oshD6AoXwVaWLtU2VdEvk7qs=,tag:aC3+/zX+SrojPNoWPNP8iw==,type:str]
-            github_app_private_key: ENC[AES256_GCM,data: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,iv:8cr371ZTMNKEd1u+Tj34LDSpR7OBBvEFowCSzDJW5VY=,tag:dprWD2B7OieDDEG+AjqqzA==,type:str]
+        githubConfigSecret: ENC[AES256_GCM,data:LtxMJzzC0sh88Er2AA==,iv:9tr4O3pCPf/Udj4LndI6TebyX2kJdZ0fZwDYaLbXq4g=,tag:NRik2NWsR5UoNJYGAQcIsA==,type:str]
         githubConfigUrl: https://github.com/truecharts
         controllerServiceAccount:
             name: actions-runner-controller
@@ -70,8 +67,8 @@ sops:
             NXpwOTlqcVB6MTVHeDdZdHRkaW9MSk0KYhRgfX2uDUc3IGjmdF+6eNRb2p/XXV4f
             irM6dRnRubcS8otnsQIp2HpVw1p3sZ2EyO/bBvlwzBOjU0VGZtPNcA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-03-26T18:58:32Z"
-    mac: ENC[AES256_GCM,data:SgHKlERGQmxPIgcpJ7eeYs2QK0yK4LYa8piy+Nqa7lJL+sY6qChKypSmDTLvwJ/lA4wCGJJg8u+WNAEoCpa4mZTgTL10uNDanZ2jMBw7FTIq3lP+01Tf2yisBYqRk2kzqd49t3MnihRQoDJ4QqNdBHVSCNS4grQJXZWRhuB67BI=,iv:vLaePgqg4mT5YVt/kE4TtY9NMxNPx8zscBA57qYwQeM=,tag:Y1arn00mmmR3+rYQOQjbfA==,type:str]
+    lastmodified: "2025-03-26T19:03:02Z"
+    mac: ENC[AES256_GCM,data:NJAFctSmvH2HKERjOni59KGPTohOGRxLvGZhUB6uIvIWiX4CD71bgp0lurrlKD4c5hn+HaV8C+RVzyGntoVU9n62KFN7RGad728OJLIhI0A0AIiZPRJ4UmSsH4kjcS13n7fD7xT7CSJzDM4+UeB4k3HITfar2joMTiI5izkzwYw=,iv:yfEcoDNI0VUCIbXz0n4KU9j6pyEZXJP9bTIJ+rSHF5s=,tag:LtlOx4BCqxADgkVHqDE4dA==,type:str]
     pgp: []
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.9.2
