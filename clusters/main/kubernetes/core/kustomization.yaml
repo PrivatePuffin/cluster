@@ -11,4 +11,4 @@ resources:
   - actions-runner-controller/ks.yaml
   - docker-registry/ks.yaml
   - intel-gpu/ks.yaml
-  - pod-nuke/ks.yaml
+  #- pod-nuke/ks.yaml
