@@ -3,4 +3,4 @@ kind: Kustomization
 namespace: kube-system
 resources:
     - helm-release.yaml
-    - lb.yaml
+    # - lb.yaml
