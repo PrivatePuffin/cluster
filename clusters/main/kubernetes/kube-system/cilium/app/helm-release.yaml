@@ -88,7 +88,7 @@ spec:
         
       ## Deploy L2Announcement to replace metallb in the future
       l2announcements:
-        enabled: true
+        enabled: false
       loadBalancer:
         algorithm: maglev
         mode: dsr
