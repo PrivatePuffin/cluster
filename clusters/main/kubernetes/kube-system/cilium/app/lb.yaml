@@ -16,4 +16,5 @@ kind: CiliumL2AnnouncementPolicy
 metadata:
   name: l2-policy
 spec:
-  loadBalancerIPs: true
+  loadBalancerIPs: false
+  externalIPs: true
