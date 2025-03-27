@@ -4,6 +4,7 @@ VIP: ENC[AES256_GCM,data:plwfFa3+14hE10S+81Y=,iv:NsBDbyN//HB7aiVKtG/HOK5A2p5oUfH
 MASTER1IP: ENC[AES256_GCM,data:iISR56qrwPFKJFLbiNo=,iv:8A16zml9movZYF203zm9ONtM9Z7paPOVfFQELcDP8pU=,tag:Bgdro8m7twnMj1iEnBDsbQ==,type:str]
 #ENC[AES256_GCM,data:cXmLgG84PmukhMWg9BCZjCSoS1lmMnKhcUgaPA+obl633w==,iv:0s4OKJVxw4pBSbGDriyfXoEKAqLhNrQPW4hILrAelRk=,tag:4pGrXE4QVJzVjHz2eEJcuQ==,type:comment]
 GATEWAY: ENC[AES256_GCM,data:PiSACaHsVpCOXz7L,iv:DqtNOQSIs/TgGbObJcrgH8RNsfLSrqMZD1H80DQG40w=,tag:exzTvFuZg6WjVANS7xaqlA==,type:str]
+METALLB_RANGE: ENC[AES256_GCM,data:cg+kXjvR23Fikbt5ZGVGRW/mXigXfSUjCgXMNfg=,iv:FEjS3yyUktPU1wKRl+hThFu5dqaM+8CA80yXBcXe7ig=,tag:KNdRMvJi7ir3Rh47SyNAJA==,type:str]
 LB_RANGE_LOWER: ENC[AES256_GCM,data:9YIavcSE/3qyKZbc53s=,iv:oflSX4by9avlXh6zp6vbB2zIxe2d1za8Th6b85a3svs=,tag:mKznWPPYxstooo+65j8fvg==,type:str]
 LB_RANGE_UPPER: ENC[AES256_GCM,data:L+gZ0HPVBC/AGrzvLWQ=,iv:5bdGoh9ujcA9Y+8FJDlzC6jBX2bbn4UEmNqBE23Fz9Y=,tag:dBo/w/MAdVK0kHRJcAbBrw==,type:str]
 #ENC[AES256_GCM,data:mWhMdP5h0Srfn8vAlWnSJPBynrOvf9hXEzetCHhSXOqKJHvXUMok/bu5Ujkeh9S3f0j5Y+a8957jCK0iwgfsHYqy+rWYhZjP0HNnrYYvN10=,iv:0fHbRe6SpXtAOlJ/yPFSNduZXX5jqMrs37uka2XTcNY=,tag:t6AKlBaWA2wP9lq3KmE1hg==,type:comment]
@@ -88,7 +89,8 @@ sops:
             Q1hNZzJGVmtidU5lV01EVXBoWjZiUFkKcclubywFkTfUZMQva2wTGy3qLIZARjB2
             Gy5yxhk8zxesMJUHSydGlraNphcN+whyZYOitxHr108iY3475jFWyA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-03-27T13:38:21Z"
-    mac: ENC[AES256_GCM,data:TBrUbcEqXgTVJPMYYYDclkZUp+cPOKq62sY5L5mjmXl56TjtnguFpnx7O2f4g22M5O3gvn/KLEISkcKMtnlfoBiWIKr88JuQ310nxOx81AndBshm1vnP+vKWuqGSBQ1OPSX7+vDsKdvWGT/NwfAhqOsdt5C+TucV2gnHkoLOiq0=,iv:rQQKwe7I8SZekNjAL8f5w10qIHDpUIfrnRxLqQmfyUE=,tag:37LaXokJCtAuO5FqmMzmMA==,type:str]
+    lastmodified: "2025-03-27T15:04:26Z"
+    mac: ENC[AES256_GCM,data:eWQET+nqG2gOLoOfizoqYt7SMwqTi/eKXs3dc+CH5AgzETxOeEVtUqn80ABF24ufl1yelSMRyUMvchekRY9Zv8wVUN8rPz/3GANGQj6ANI8E61MuQf8jh4qx4xeY1fhWQhyPVqaAwKUazoKG9kcQ8Ay9ZIKchbQfR2usNqIxJm4=,iv:poYGyxA1IAsJekUKjQ8U6J8kCDJeM3coMvN9w297tQQ=,tag:Ce5UYedvVK1LnVP28LP35Q==,type:str]
     pgp: []
+    unencrypted_suffix: _unencrypted
     version: 3.9.2
