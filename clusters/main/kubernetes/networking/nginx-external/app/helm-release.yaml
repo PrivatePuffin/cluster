@@ -36,9 +36,9 @@ spec:
         annotations:
           # TODO: Maybe play with this
           # internal-dns.alpha.kubernetes.io/hostname: external.${DOMAIN_0}
-          metallb.io/ip-allocated-from-pool: main
-          metallb.io/loadBalancerIPs: ${NGINX_EXTERNAL_IP}
-          metallb.universe.tf/ip-allocated-from-pool: main
+          # metallb.io/ip-allocated-from-pool: main
+          # metallb.io/loadBalancerIPs: ${NGINX_EXTERNAL_IP}
+          # metallb.universe.tf/ip-allocated-from-pool: main
           "lbipam.cilium.io/ips": ${NGINX_EXTERNAL_IP}
       ingressClassByName: true
       ingressClassResource:
