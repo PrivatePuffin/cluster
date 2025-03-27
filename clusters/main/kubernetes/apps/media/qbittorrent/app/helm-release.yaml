@@ -40,6 +40,7 @@ spec:
 
     service:
       torrent:
+        type: LoadBalancer
         loadBalancerIP: ${TORRENT_IP}
         annotations:
           "lbipam.cilium.io/ips": ${TORRENT_IP}
