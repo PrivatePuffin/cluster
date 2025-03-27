@@ -43,6 +43,8 @@ spec:
       main:
         loadBalancerIP: ${MQTT_IP}
         type: LoadBalancer
+        annotations:
+          "lbipam.cilium.io/ips": ${MQTT_IP}
 
     # ingress:
     #   main:

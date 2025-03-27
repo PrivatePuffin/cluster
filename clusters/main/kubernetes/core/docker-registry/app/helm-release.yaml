@@ -52,6 +52,7 @@ spec:
       port: 5000
       annotations: 
         "metallb.universe.tf/loadBalancerIPs": ${DOCKERMIRROR_IP}
+        "lbipam.cilium.io/ips": ${DOCKERMIRROR_IP}
 
     ingress:
       enabled: true

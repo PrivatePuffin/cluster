@@ -85,6 +85,7 @@ spec:
         #   metallb.io/ip-allocated-from-pool: main
         #   metallb.io/loadBalancerIPs: "${PROM_THANOS_IP}"
         #   metallb.universe.tf/ip-allocated-from-pool: main
+        #   "lbipam.cilium.io/ips": ${PROM_THANOS_IP}
       # ServiceMonitor to scrape Sidecar metrics
       # Needs thanosService to be enabled as well
       thanosServiceMonitor:

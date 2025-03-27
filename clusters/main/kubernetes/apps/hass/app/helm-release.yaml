@@ -33,6 +33,8 @@ spec:
       main:
         loadBalancerIP: ${HASS_IP}
         type: LoadBalancer
+        annotations:
+          "lbipam.cilium.io/ips": ${HASS_IP}
         ports:
           colot:
             enabled: true

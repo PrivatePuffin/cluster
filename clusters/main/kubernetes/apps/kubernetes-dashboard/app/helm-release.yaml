@@ -32,6 +32,8 @@ spec:
       main:
         type: LoadBalancer
         loadBalancerIP: ${DASHBOARD_IP}
+        annotations:
+          "lbipam.cilium.io/ips": ${DASHBOARD_IP}
         ports:
           main:
             port: 80

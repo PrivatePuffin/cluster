@@ -41,6 +41,8 @@ spec:
     service:
       torrent:
         loadBalancerIP: ${TRAEFIK_IP}
+        annotations:
+          "lbipam.cilium.io/ips": ${TRAEFIK_IP}
     ingress:
       main:
         enabled: true

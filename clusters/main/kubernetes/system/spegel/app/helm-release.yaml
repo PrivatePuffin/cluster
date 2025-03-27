@@ -28,3 +28,4 @@ spec:
       main:
         type: LoadBalancer
         loadBalancerIP: ${SPEGEL_IP}
+        "lbipam.cilium.io/ips": ${SPEGEL_IP}
