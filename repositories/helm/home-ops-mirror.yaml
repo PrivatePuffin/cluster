@@ -6,5 +6,6 @@ metadata:
   name: home-ops-mirror
   namespace: flux-system
 spec:
+  type: oci
   interval: 2h
   url: oci://ghcr.io/home-operations/charts-mirror/

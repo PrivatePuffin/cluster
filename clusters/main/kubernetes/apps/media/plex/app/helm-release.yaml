@@ -49,6 +49,8 @@ spec:
       main:
         type: LoadBalancer
         loadBalancerIP: ${PLEX_IP}
+        annotations:
+          "lbipam.cilium.io/ips": ${PLEX_IP}
 
     workload:
       main:
