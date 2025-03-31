@@ -130,12 +130,12 @@ spec:
             cpu: 100m
           limits:
             memory: 2000Mi
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              resources:
-                requests:
-                  storage: 60Gi
+        # storageSpec:
+        #   volumeClaimTemplate:
+        #     spec:
+        #       resources:
+        #         requests:
+        #           storage: 60Gi
         thanos:
           objectStorageConfig:
             secret:
