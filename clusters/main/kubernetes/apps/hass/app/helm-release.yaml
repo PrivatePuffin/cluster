@@ -93,6 +93,12 @@ spec:
               enabled: true
         mountPath: /config/backups
 
+
+    metrics:
+      main:
+        enabled: true
+        path: /api/prometheus
+
     cnpg:
       main:
         annotations:
