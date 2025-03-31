@@ -92,13 +92,22 @@ spec:
             src:
               enabled: true
         mountPath: /config/backups
-
+    secret:
+      bearerToken:
+        enabled: true
+        data:
+          token: "${HASS_TOKEN}"
 
     metrics:
       main:
         enabled: true
-        path: /api/prometheus
-
+        endpoints:
+          - port: main
+            path: /api/prometheus
+            bearerTokenSecret:
+              name: hass-home-assistant-bearerToken
+              key: token
+            
     cnpg:
       main:
         annotations:
