@@ -95,9 +95,12 @@ spec:
 
     cnpg:
       main:
+        annotations:
+          cnpg.io/skipEmptyWalArchiveCheck: "true"
+        mode: recovery
         backups:
           enabled: true
           credentials: s3
         recovery:
-          method: object_store
+          enabled: true
           credentials: s3
