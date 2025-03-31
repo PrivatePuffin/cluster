@@ -98,6 +98,11 @@ spec:
         annotations:
           cnpg.io/skipEmptyWalArchiveCheck: "true"
         mode: recovery
+        cluster:
+          storage:
+            size: "256Gi"
+          walStorage:
+            size: "256Gi"
         backups:
           enabled: true
           credentials: s3
