@@ -4,14 +4,11 @@ resources:
   - hass/ks.yaml
   - kubernetes-dashboard/ks.yaml
   - media
-  - metrics
   - mosquitto/ks.yaml
-  - bitmagnet/ks.yaml
   - flaresolverr/ks.yaml
-  - jackett/ks.yaml
   - overseerr/ks.yaml
   - prowlarr/ks.yaml
   - tautulli/ks.yaml
-  - zilean/ks.yaml
-  - zurg/ks.yaml
   - actions-runners/ks.yaml
+  - steam-headless/ks.yaml
+  - unmanic/ks.yaml

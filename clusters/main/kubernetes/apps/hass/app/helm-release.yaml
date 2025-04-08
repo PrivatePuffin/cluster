@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: home-assistant
-      version: 26.7.3
+      version: 27.4.1
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -33,6 +33,8 @@ spec:
       main:
         loadBalancerIP: ${HASS_IP}
         type: LoadBalancer
+        annotations:
+          "lbipam.cilium.io/ips": ${HASS_IP}
         ports:
           colot:
             enabled: true
@@ -55,19 +57,16 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: internal
         integrations:
           traefik:
-            enabled: true
-            middlewares:
-              - name: local
-                namespace: traefik
-              - name: bouncer
-                namespace: traefik
+            enabled: false
+
           certManager:
             enabled: true
-            certificateIssuer: ks-le-prod
+            certificateIssuer: le-prod
         hosts:
-          - host: hass.${BASE_DOMAIN}
+          - host: hass.${DOMAIN_0}
             paths:
               - path: /
                 pathType: Prefix
@@ -79,11 +78,6 @@ spec:
             type: restic
             credentials: s3
             dest:
-
-
-
-              accessModes:
-                - ReadWriteOnce
               enabled: true
             src:
               enabled: true
@@ -94,21 +88,39 @@ spec:
             type: restic
             credentials: s3
             dest:
-
-
-
-              accessModes:
-                - ReadWriteOnce
               enabled: true
             src:
               enabled: true
         mountPath: /config/backups
+    secret:
+      bearertoken:
+        enabled: true
+        data:
+          token: "${HASS_TOKEN}"
 
+    metrics:
+      main:
+        enabled: true
+        endpoints:
+          - port: main
+            path: /api/prometheus
+            bearerTokenSecret:
+              name: hass-home-assistant-bearertoken
+              key: token
+            
     cnpg:
       main:
+        annotations:
+          cnpg.io/skipEmptyWalArchiveCheck: "true"
+        mode: recovery
+        cluster:
+          storage:
+            size: "256Gi"
+          walStorage:
+            size: "256Gi"
         backups:
           enabled: true
           credentials: s3
         recovery:
-          method: object_store
+          enabled: true
           credentials: s3

@@ -3,19 +3,20 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - cert-manager/ks.yaml
+  - kube-prometheus-stack/ks.yaml
   - cloudnative-pg/ks.yaml
-  - csi-driver-nfs/ks.yaml
-  - csi-driver-smb/ks.yaml
+  # - csi-driver-nfs/ks.yaml
   - kubernetes-reflector/ks.yaml
   - metallb/ks.yaml
   - openebs/ks.yaml
-  - prometheus-operator/ks.yaml
+  # - prometheus-operator/ks.yaml
   - reloader/ks.yaml
   - rook-ceph/ks.yaml
   - snapshot-controller/ks.yaml
   - system-upgrade-controller/ks.yaml
-  - traefik-crds/ks.yaml
+  # - traefik-crds/ks.yaml
   - volsync/ks.yaml
   - kyverno/ks.yaml
-  - longhorn/ks.yaml
-  - topolvm/ks.yaml
+  - spegel/ks.yaml
+  # - longhorn/ks.yaml
+  - intel-device-plugin/ks.yaml

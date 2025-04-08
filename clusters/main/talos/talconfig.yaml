@@ -1,13 +1,15 @@
 clusterName: ${CLUSTERNAME}
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.8.1
+talosVersion: v1.9.5
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.31.1
+kubernetesVersion: v1.32.3
 endpoint: https://${VIP}:6443
 allowSchedulingOnControlPlanes: false
 additionalMachineCertSans:
+    - 127.0.0.1
     - ${VIP}
 additionalApiServerCertSans:
+    - 127.0.0.1
     - ${VIP}
 # Warning: Also used in Cilium CNI values!
 clusterPodNets:
@@ -17,7 +19,8 @@ clusterSvcNets:
 cniConfig:
     name: none
 patches:
-    - '@./patches/all-custom.yaml'
+    - '@./patches/all.yaml'
+    - '@./patches/custom.yaml'
 nodes:
     - hostname: k8s-control-1
       ipAddress: ${MASTER1IP}
@@ -79,14 +82,13 @@ nodes:
         - 192.168.10.200
         - 1.1.1.1
       installDiskSelector:
-        size: <= 600GB
+        size: <= 3500GB
       schematic:
           customization:
               systemExtensions:
                   officialExtensions:
-                      - siderolabs/amd-ucode
-                      - siderolabs/iscsi-tools
                       - siderolabs/util-linux-tools
+                      - siderolabs/qemu-guest-agent
     - hostname: k8s-worker-2
       ipAddress: 192.168.10.121
       nameservers:
@@ -98,10 +100,11 @@ nodes:
           customization:
               systemExtensions:
                   officialExtensions:
-                      - siderolabs/amd-ucode
-                      - siderolabs/iscsi-tools
-                      - siderolabs/util-linux-tools
-
+                    - siderolabs/amd-ucode
+                    - siderolabs/i915
+                    - siderolabs/intel-ucode
+                    - siderolabs/mei
+                    - siderolabs/realtek-firmware
     - hostname: k8s-worker-3
       ipAddress: 192.168.10.131
       nameservers:
@@ -114,44 +117,67 @@ nodes:
               systemExtensions:
                   officialExtensions:
                       - siderolabs/amd-ucode
-                      - siderolabs/iscsi-tools
-                      - siderolabs/util-linux-tools
-    - hostname: k8s-worker-4
-      ipAddress: 192.168.10.141
-      nameservers:
-        - 192.168.10.200
-        - 1.1.1.1
-      installDiskSelector:
-        size: <= 600GB
-      schematic:
-          customization:
-              systemExtensions:
-                  officialExtensions:
-                      - siderolabs/qemu-guest-agent
-                      - siderolabs/util-linux-tools
-                      - siderolabs/iscsi-tools
+                      - siderolabs/realtek-firmware
 controlPlane:
     patches:
         - '@./patches/controlplane.yaml'
-        - '@./patches/sopssecret.yaml'
-        - '@./patches/manifests.yaml'
-        # - '@./patches/nvidia.yaml'
     schematic:
-        customization:
-            systemExtensions:
-                officialExtensions:
-                    - siderolabs/util-linux-tools
-                    - siderolabs/iscsi-tools
         overlay:
          image: siderolabs/sbc-raspberrypi
          name: rpi_generic
+    machineFiles:
+    - content: |
+        [plugins."io.containerd.grpc.v1.cri"]
+          enable_unprivileged_ports = true
+          enable_unprivileged_icmp = true
+        [plugins."io.containerd.grpc.v1.cri".containerd]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+          discard_unpacked_layers = false
+      permissions: 0
+      path: /etc/cri/conf.d/20-customization.part
+      op: create
+    - content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.2
+        hard=True
+        noatime=True
+        nodiratime=True
+        rsize=131072
+        wsize=131072
+        nconnect=8
+      permissions: 420
+      path: /etc/nfsmount.conf
+      op: overwrite
 worker:
     patches:
-        - '@./patches/worker-custom.yaml'
-        # - '@./patches/nvidia.yaml'
+        - '@./patches/worker.yaml'
     schematic:
         customization:
             systemExtensions:
                 officialExtensions:
                     - siderolabs/util-linux-tools
-                    - siderolabs/iscsi-tools
+    machineFiles:
+    - content: |
+        [plugins."io.containerd.grpc.v1.cri"]
+          enable_unprivileged_ports = true
+          enable_unprivileged_icmp = true
+        [plugins."io.containerd.grpc.v1.cri".containerd]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+          discard_unpacked_layers = false
+      permissions: 0
+      path: /etc/cri/conf.d/20-customization.part
+      op: create
+    - content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.2
+        hard=True
+        noatime=True
+        nodiratime=True
+        rsize=131072
+        wsize=131072
+        nconnect=8
+      permissions: 420
+      path: /etc/nfsmount.conf
+      op: overwrite

@@ -16,4 +16,6 @@ spec:
     # exclude all
     /*
     # include flux directories
+    !/clusters
     !/repositories
+  

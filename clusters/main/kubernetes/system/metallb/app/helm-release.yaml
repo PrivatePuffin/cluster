@@ -9,10 +9,10 @@ spec:
         spec:
 
             chart: metallb
-            version: 16.2.0
+            version: 0.14.9
             sourceRef:
                 kind: HelmRepository
-                name: truecharts
+                name: metallb
                 namespace: flux-system
             interval: 5m
     install:

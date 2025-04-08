@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.zinn.ca/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: blocky
-      version: 16.6.0
+      version: 16.13.14
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -29,6 +29,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    ## set stopAll to "true" if you do not want to use blocky
+    # and/or disable its service
+    global:
+      stopAll: false
     credentials:
       s3:
         type: s3
@@ -37,6 +41,7 @@ spec:
         accessKey: "${S3ID}"
         secretKey: "${S3KEY}"
         encrKey: "${S3KEY}"
+
     service:
       dns:
         externalTrafficPolicy: Local
@@ -46,7 +51,12 @@ spec:
     # Primarily designed for inclusion in the TrueNAS SCALE GUI
     blocking:
       # --  Add blocky whitelists
-      whitelist: []
+      whitelist:
+        - name: diy
+          lists:
+            - https://github.com/Isaaker/Spotify-AdsList/blob/Developer/Lists/WHITELIST.txt
+            - https://raw.githubusercontent.com/nilsstreedain/pihole-whitelist/refs/heads/main/regex.txt
+            - https://raw.githubusercontent.com/cedwards4038/pihole-whitelist/refs/heads/main/whitelist.txt
       # - name: ads
       #   lists:
       #     - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/optional-list.txt
@@ -54,9 +64,10 @@ spec:
       #     - https://raw.githubusercontent.com/rahilpathan/pihole-whitelist/main/1.LowWL.txt
 
       # -- Blocky blacklists
-      blacklist: []
-      #   - name: ads
-      #     lists:
+      # blacklist: []
+      #  - name: diy
+      #    lists:
+      #        #- https://raw.githubusercontent.com/Isaaker/Spotify-AdsList/main/Lists/pi-hole.txt
       #       # - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
       #       # - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
       #       # - https://v.firebog.net/hosts/static/w3kbl.txt
@@ -90,26 +101,23 @@ spec:
       clientGroupsBlock:
         - name: default
           groups:
-            - default
-            # - ads
+          - default
+          - default-ads
+          - default-tracking
+          - default-malicious
+          - default-suspicious
+          - diy
     k8sgateway:
       # -- list of processed domains
       domains:
-      - domain: "truecharts.org"
+      - domain: "${DOMAIN_0}"
         # -- Optional configuration option for DNS01 challenge that will redirect all acme
         # challenge requests to external cloud domain (e.g. managed by cert-manager)
         # See: https://cert-manager.io/docs/configuration/acme/dns01/
         dnsChallenge:
           enabled: false
           domain: dns01.clouddns.com
-      - domain: "kjeldschouten.nl"
-        # -- Optional configuration option for DNS01 challenge that will redirect all acme
-        # challenge requests to external cloud domain (e.g. managed by cert-manager)
-        # See: https://cert-manager.io/docs/configuration/acme/dns01/
-        dnsChallenge:
-          enabled: false
-          domain: dns01.clouddns.com
-      - domain: "sixcraft.org"
+      - domain: "${DOMAIN_1}"
         # -- Optional configuration option for DNS01 challenge that will redirect all acme
         # challenge requests to external cloud domain (e.g. managed by cert-manager)
         # See: https://cert-manager.io/docs/configuration/acme/dns01/
@@ -124,25 +132,21 @@ spec:
         options:
           - name: tls_servername
             value: cloudflare-dns.com
+
     # CANNOT be defined in above yaml section
     queryLog:
-      # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console
-      type: ""
+     # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console only
+     type: ""
 
     configmap:
       dashboard:
-        enabled: false
+        enabled: true
       datasource:
         enabled: false
 
     cnpg:
       main:
         enabled: false
-        cluster:
-          storage:
-            storageClass: “ceph-nvme2”
-          walStorage:
-            storageClass: “ceph-nvme2”
         backups:
           enabled: true
           credentials: s3

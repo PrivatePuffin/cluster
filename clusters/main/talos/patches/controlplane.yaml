@@ -6,7 +6,11 @@
   path: /cluster/controllerManager/extraArgs
   value:
     "bind-address": "0.0.0.0"
-
+- op: add
+  path: /cluster/apiServer/extraArgs
+  value:
+    enable-aggregator-routing: true
+    runtime-config: admissionregistration.k8s.io/v1alpha1=true
 - op: add
   path: /cluster/scheduler/extraArgs
   value:
