@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: blocky
-      version: 16.13.14
+      version: 16.13.13
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -64,10 +64,10 @@ spec:
       #     - https://raw.githubusercontent.com/rahilpathan/pihole-whitelist/main/1.LowWL.txt
 
       # -- Blocky blacklists
-      # blacklist: []
-      #  - name: diy
-      #    lists:
-      #        #- https://raw.githubusercontent.com/Isaaker/Spotify-AdsList/main/Lists/pi-hole.txt
+      blacklist: 
+        - name: diy
+          lists:
+            - https://raw.githubusercontent.com/Isaaker/Spotify-AdsList/main/Lists/pi-hole.txt
       #       # - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
       #       # - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
       #       # - https://v.firebog.net/hosts/static/w3kbl.txt
