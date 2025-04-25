@@ -1,0 +1,6 @@
+gew4-spclient.spotify.com
+api-spotify.com
+*.spotify.com
+apple.com
+*.apple.com
+fetlife.com
