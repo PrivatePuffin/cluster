@@ -47,6 +47,10 @@ spec:
         externalTrafficPolicy: Local
         loadBalancerIP: ${BLOCKY_IP}
         type: LoadBalancer
+    customDNS:
+      mapping:
+      - domain: fetlife.com
+        dnsserver: 104.18.2.224,104.18.3.224
     # -- set blocking settings using Lists
     # Primarily designed for inclusion in the TrueNAS SCALE GUI
     blocking:
