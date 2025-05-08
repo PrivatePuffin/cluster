@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: docker.io/library/registry
-      tag: 2.8.3
+      tag: 3.0.0
 
     persistence:
       enabled: true
