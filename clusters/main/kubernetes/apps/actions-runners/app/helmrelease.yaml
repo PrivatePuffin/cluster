@@ -25,8 +25,8 @@ spec:
         - name: actions-runner-controller
           namespace: gha
     values:
-        minRunners: 6
-        maxRunners: 24
+        minRunners: 3
+        maxRunners: 12
         githubConfigSecret: ENC[AES256_GCM,data:LtxMJzzC0sh88Er2AA==,iv:9tr4O3pCPf/Udj4LndI6TebyX2kJdZ0fZwDYaLbXq4g=,tag:NRik2NWsR5UoNJYGAQcIsA==,type:str]
         githubConfigUrl: https://github.com/truecharts
         controllerServiceAccount:
@@ -67,8 +67,8 @@ sops:
             NXpwOTlqcVB6MTVHeDdZdHRkaW9MSk0KYhRgfX2uDUc3IGjmdF+6eNRb2p/XXV4f
             irM6dRnRubcS8otnsQIp2HpVw1p3sZ2EyO/bBvlwzBOjU0VGZtPNcA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-03-26T19:03:02Z"
-    mac: ENC[AES256_GCM,data:NJAFctSmvH2HKERjOni59KGPTohOGRxLvGZhUB6uIvIWiX4CD71bgp0lurrlKD4c5hn+HaV8C+RVzyGntoVU9n62KFN7RGad728OJLIhI0A0AIiZPRJ4UmSsH4kjcS13n7fD7xT7CSJzDM4+UeB4k3HITfar2joMTiI5izkzwYw=,iv:yfEcoDNI0VUCIbXz0n4KU9j6pyEZXJP9bTIJ+rSHF5s=,tag:LtlOx4BCqxADgkVHqDE4dA==,type:str]
+    lastmodified: "2025-05-18T10:06:04Z"
+    mac: ENC[AES256_GCM,data:xAe4TlNcETYasC5rVP53DJhtAb7vzZV+lfU3rs4/hatPZc9RDPdsmGXrQoP88eLBRmPvlJOBoErAJZbtrJ+J1gLr5P7yym64TBBc5/vPy2YgYuGlaYGSwGhMNELVfd2TFfFgjaNe6I20/DzTS6Qvae/Fsst4S4oFpw1JFWQq1ZQ=,iv:3pNu3I1ApVx05t71c9Z6D8clzA0S8w4/1v0gJQnaoOo=,tag:K5WGm/xRpxK5hrRUG+5FaQ==,type:str]
     pgp: []
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.9.2
