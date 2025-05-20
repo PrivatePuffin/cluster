@@ -6,7 +6,7 @@ resources:
   - autobrr/ks.yaml
   - bazarr/ks.yaml
   - lidarr/ks.yaml
-  - plex/ks.yaml
+  # - plex/ks.yaml
   - qbittorrent/ks.yaml
   - radarr/ks.yaml
   - readarr/ks.yaml
