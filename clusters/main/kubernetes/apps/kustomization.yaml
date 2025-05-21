@@ -2,13 +2,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - hass/ks.yaml
-  - kubernetes-dashboard/ks.yaml
+  - actions-runners/ks.yaml
+  # - kubernetes-dashboard/ks.yaml
   # - media
-  - mosquitto/ks.yaml
+  # - mosquitto/ks.yaml
   # - flaresolverr/ks.yaml
   # - overseerr/ks.yaml
   # - prowlarr/ks.yaml
   # - tautulli/ks.yaml
-  - actions-runners/ks.yaml
   # - steam-headless/ks.yaml
   # - unmanic/ks.yaml
