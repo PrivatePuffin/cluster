@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - hass/ks.yaml
   - kubernetes-dashboard/ks.yaml
-  - media
+  # - media
   - mosquitto/ks.yaml
   - flaresolverr/ks.yaml
   - overseerr/ks.yaml
