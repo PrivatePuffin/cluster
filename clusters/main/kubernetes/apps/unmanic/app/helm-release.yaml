@@ -94,6 +94,12 @@ spec:
         server: 192.168.10.21
         path: /mnt/tank/library/castlefest
         mountPath: "/castlefest"
+      new:
+        enabled: true
+        mountPath: /new
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/apps/unmanic/config
     workload:
       main:
         podSpec:
