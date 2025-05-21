@@ -83,15 +83,16 @@ spec:
               enabled: true
       backup:
         enabled: true
-        volsync:
-          - name: b2
-            type: restic
-            credentials: s3
-            dest:
-              enabled: true
-            src:
-              enabled: true
         mountPath: /config/backups
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/apps/home-assistant/backup
+      new:
+        enabled: true
+        mountPath: /new
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/apps/home-assistant/config
     secret:
       bearertoken:
         enabled: true
