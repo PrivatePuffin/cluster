@@ -42,10 +42,10 @@ spec:
       cephClusterSpec:
         mgr:
           count: 3
-          allowMultiplePerNode: false
+          allowMultiplePerNode: true
         mon:
           count: 3
-          allowMultiplePerNode: false
+          allowMultiplePerNode: true
         resources:
           mgr:
             requests:
