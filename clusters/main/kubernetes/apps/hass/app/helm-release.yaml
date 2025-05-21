@@ -86,7 +86,7 @@ spec:
         mountPath: /config/backups
         type: nfs
         server: 192.168.10.21
-        path: /mnt/tank/apps/home-assistant/backup
+        path: /mnt/tank/apps/home-assistant/backups
       new:
         enabled: true
         mountPath: /new
