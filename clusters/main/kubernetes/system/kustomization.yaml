@@ -16,7 +16,7 @@ resources:
   - system-upgrade-controller/ks.yaml
   # - traefik-crds/ks.yaml
   - volsync/ks.yaml
-  - kyverno/ks.yaml
+  # - kyverno/ks.yaml
   - spegel/ks.yaml
   # - longhorn/ks.yaml
-  - intel-device-plugin/ks.yaml
+  # - intel-device-plugin/ks.yaml
