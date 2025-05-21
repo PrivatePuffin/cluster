@@ -68,7 +68,7 @@ spec:
 
       backup:
         enabled: true
-        mountPath: /config/Backups
+        mountPath: /config/backups
         type: nfs
         server: 192.168.10.21
         path: /mnt/tank/apps/tautulli/backups
