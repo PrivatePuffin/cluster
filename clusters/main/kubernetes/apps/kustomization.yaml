@@ -5,10 +5,10 @@ resources:
   - kubernetes-dashboard/ks.yaml
   # - media
   - mosquitto/ks.yaml
-  - flaresolverr/ks.yaml
-  - overseerr/ks.yaml
-  - prowlarr/ks.yaml
-  - tautulli/ks.yaml
+  # - flaresolverr/ks.yaml
+  # - overseerr/ks.yaml
+  # - prowlarr/ks.yaml
+  # - tautulli/ks.yaml
   - actions-runners/ks.yaml
-  - steam-headless/ks.yaml
-  - unmanic/ks.yaml
+  # - steam-headless/ks.yaml
+  # - unmanic/ks.yaml
