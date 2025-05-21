@@ -90,4 +90,10 @@ spec:
         type: nfs
         server: 192.168.10.21
         path: /mnt/tank/apps/radarr/backups
+      new:
+        enabled: true
+        mountPath: /new
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/apps/radarr/config
 

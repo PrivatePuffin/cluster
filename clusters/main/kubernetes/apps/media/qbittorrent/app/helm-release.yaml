@@ -76,3 +76,9 @@ spec:
         server: 192.168.10.21
         path: /mnt/tank/downloads
         mountPath: "/downloads"
+      new:
+        enabled: true
+        mountPath: /new
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/apps/qbittorrent/config
