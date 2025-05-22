@@ -13,7 +13,7 @@ resources:
   - reloader/ks.yaml
   - rook-ceph/ks.yaml
   - snapshot-controller/ks.yaml
-  - system-upgrade-controller/ks.yaml
+  # - system-upgrade-controller/ks.yaml
   # - traefik-crds/ks.yaml
   - volsync/ks.yaml
   # - kyverno/ks.yaml
