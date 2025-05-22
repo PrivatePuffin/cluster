@@ -73,26 +73,15 @@ spec:
 
     persistence:
       config:
-        volsync:
-          - name: b2
-            type: restic
-            credentials: s3
-            dest:
-              enabled: true
-            src:
-              enabled: true
+        type: nfs
+        server: 192.168.10.21
+        path: /mnt/tank/apps/home-assistant/config/config-old
       backup:
         enabled: true
         mountPath: /config/backups
         type: nfs
         server: 192.168.10.21
         path: /mnt/tank/apps/home-assistant/backups
-      new:
-        enabled: true
-        mountPath: /new
-        type: nfs
-        server: 192.168.10.21
-        path: /mnt/tank/apps/home-assistant/config
     secret:
       bearertoken:
         enabled: true
@@ -101,7 +90,7 @@ spec:
 
     metrics:
       main:
-        enabled: true
+        enabled: false
         endpoints:
           - port: main
             path: /api/prometheus

@@ -59,4 +59,7 @@ patches:
     patch: |
       - op: replace
         path: /metadata/name
-        value: flux-view-flux-system
+        value: flux-view-flux-system  - namespace.yaml
+  - flux.yaml
+  - sopssecret.secret.yaml
+  - upgradesettings.yaml

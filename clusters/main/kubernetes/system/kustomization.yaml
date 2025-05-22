@@ -11,11 +11,11 @@ resources:
   - openebs/ks.yaml
   # - prometheus-operator/ks.yaml
   - reloader/ks.yaml
-  - rook-ceph/ks.yaml
-  - snapshot-controller/ks.yaml
-  # - system-upgrade-controller/ks.yaml
+  # - rook-ceph/ks.yaml
+  # - snapshot-controller/ks.yaml
+  - system-upgrade-controller/ks.yaml
   # - traefik-crds/ks.yaml
-  - volsync/ks.yaml
+  # - volsync/ks.yaml
   # - kyverno/ks.yaml
   - spegel/ks.yaml
   # - longhorn/ks.yaml

@@ -10,10 +10,10 @@ spec:
         spec:
 
             chart: openebs
-            version: 8.1.0
+            version: 4.2.0
             sourceRef:
                 kind: HelmRepository
-                name: truecharts
+                name: openebs
                 namespace: flux-system
     install:
         createNamespace: true
@@ -25,3 +25,79 @@ spec:
         remediation:
             retries: 3
     values:
+      
+      openebs-crds:
+        csi:
+          volumeSnapshots:
+            enabled: true
+            keep: true
+      
+      # Refer to https://github.com/openebs/dynamic-localpv-provisioner/blob/v4.2.0/deploy/helm/charts/values.yaml for complete set of values.
+      localpv-provisioner:
+        rbac:
+          create: true
+      
+      # Refer to https://github.com/openebs/zfs-localpv/blob/v2.7.1/deploy/helm/charts/values.yaml for complete set of values.
+      zfs-localpv:
+        crds:
+          zfsLocalPv:
+            enabled: false
+          csi:
+            volumeSnapshots:
+              enabled: false
+      
+      # Refer to https://github.com/openebs/lvm-localpv/blob/lvm-localpv-1.6.2/deploy/helm/charts/values.yaml for complete set of values.
+      lvm-localpv:
+        crds:
+          lvmLocalPv:
+            enabled: false
+          csi:
+            volumeSnapshots:
+              enabled: false
+      
+      # Refer to https://github.com/openebs/mayastor-extensions/blob/v2.8.0/chart/values.yaml for complete set of values.
+      mayastor:
+        csi:
+          node:
+            initContainers:
+              enabled: true
+        etcd:
+          # -- Kubernetes Cluster Domain
+          clusterDomain: cluster.local
+        localpv-provisioner:
+          enabled: false
+        crds:
+          enabled: false
+        loki:
+          enabled: false
+        alloy:
+          enabled: false
+      
+      # -- Configuration options for pre-upgrade helm hook job.
+      preUpgradeHook:
+        # -- Labels to be added to the pod hook job
+        podLabels: {}
+        image:
+          # -- The container image registry URL for the hook job
+          registry: docker.io
+          # -- The container repository for the hook job
+          repo: bitnami/kubectl
+          # -- The container image tag for the hook job
+          tag: "1.25.15"
+          # -- The imagePullPolicy for the container
+          pullPolicy: IfNotPresent
+      
+      engines:
+        local:
+          lvm:
+            enabled: false
+          zfs:
+            enabled: false
+        replicated:
+          mayastor:
+            enabled: false
+      
+      
+      alloy:
+        enabled: false
+      
