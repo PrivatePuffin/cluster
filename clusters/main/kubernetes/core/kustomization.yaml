@@ -5,7 +5,7 @@ resources:
   # - blocky/ks.yaml
   - clusterissuer/ks.yaml
   # - crowdsec/ks.yaml
-  - metallb-config/ks.yaml
+  # - metallb-config/ks.yaml
   # - rook-ceph/ks.yaml
   - system-upgrade-controller-plans/ks.yaml
   - actions-runner-controller/ks.yaml

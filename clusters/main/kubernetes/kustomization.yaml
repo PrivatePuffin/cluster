@@ -5,7 +5,7 @@ resources:
   - flux-system/ks.yaml
   - kube-system
   - system
-  - networking
+  # - networking
   - core
   # - observability
   - apps
