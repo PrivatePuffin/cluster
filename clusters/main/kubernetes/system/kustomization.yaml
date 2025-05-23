@@ -4,7 +4,7 @@ resources:
   - namespace.yaml
   - cert-manager/ks.yaml
   - kube-prometheus-stack/ks.yaml
-  - cloudnative-pg/ks.yaml
+  # - cloudnative-pg/ks.yaml
   # - csi-driver-nfs/ks.yaml
   - kubernetes-reflector/ks.yaml
   - metallb/ks.yaml
