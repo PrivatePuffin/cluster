@@ -34,7 +34,7 @@ spec:
         keepHistory: false
     values:
       hubble:
-        enabled: true
+        enabled: false
         metrics:
           enabled:
             - dns:query
@@ -45,18 +45,18 @@ spec:
             - icmp
             - http
           serviceMonitor:
-            enabled: true
+            enabled: false
           dashboards:
-            enabled: true
+            enabled: false
         relay:
-          enabled: true
-          rollOutPods: true
+          enabled: false
+          rollOutPods: false
           prometheus:
             serviceMonitor:
-              enabled: true
+              enabled: false
         ui:
-          enabled: true
-          rollOutPods: true
+          enabled: false
+          rollOutPods: false
       cluster:
         name: main
         id: 1
@@ -133,19 +133,19 @@ spec:
         replicas: 2
         tolerations: []
         prometheus:
-          enabled: true
+          enabled: false
           serviceMonitor:
-            enabled: true
+            enabled: false
         dashboards:
-          enabled: true
+          enabled: false
           annotations:
             grafana_folder: Cilium
       prometheus:
-        enabled: true
+        enabled: false
         serviceMonitor:
           enabled: true
           trustCRDsExist: true
       dashboards:
-          enabled: true
+          enabled: false
           annotations:
             grafana_folder: Cilium
