@@ -6,3 +6,7 @@ main-k8s-worker-1.yaml
 main-k8s-worker-2.yaml
 main-k8s-worker-3.yaml
 main-k8s-worker-4.yaml
+main-talos-control.yaml
+main-talos-worker.yaml
+main-k8s-control-0.yaml
+main-k8s-worker-0.yaml

@@ -48,6 +48,25 @@ nodes:
               gateway: ${GATEWAY}
           vip:
             ip: ${VIP}
+    - hostname: k8s-control-0
+      ipAddress: ${MASTER2IP}
+      controlPlane: true
+      nameservers:
+        - 192.168.10.21
+        - 1.1.1.1
+      installDiskSelector:
+        size:  ">= 100GB"
+      networkInterfaces:
+        # suffix is the adapter mac adres.
+        - deviceSelector:
+            busPath: "0*"
+          addresses:
+            - ${MASTER2IP}/24
+          routes:
+            - network: 0.0.0.0/0
+              gateway: ${GATEWAY}
+          vip:
+            ip: ${VIP}
     # - hostname: k8s-control-2
     #   ipAddress: ${MASTER2IP}
     #   controlPlane: true
@@ -84,6 +103,13 @@ nodes:
     #           gateway: ${GATEWAY}
     #       vip:
     #         ip: ${VIP}
+    - hostname: k8s-worker-0
+      ipAddress: 192.168.10.51
+      nameservers:
+        - 192.168.10.21
+        - 1.1.1.1
+      installDiskSelector:
+        size:  ">= 100GB"
     - hostname: k8s-worker-1
       ipAddress: 192.168.10.111
       nameservers:
@@ -101,6 +127,7 @@ nodes:
               systemExtensions:
                   officialExtensions:
                       - siderolabs/util-linux-tools
+
     # - hostname: k8s-worker-2
     #   ipAddress: 192.168.10.121
     #   nameservers:
@@ -133,10 +160,6 @@ nodes:
 controlPlane:
     patches:
         - '@./patches/controlplane.yaml'
-    schematic:
-        overlay:
-         image: siderolabs/sbc-raspberrypi
-         name: rpi_generic
     machineFiles:
     - content: |
         [plugins."io.containerd.grpc.v1.cri"]
@@ -164,11 +187,6 @@ controlPlane:
 worker:
     patches:
         - '@./patches/worker.yaml'
-    schematic:
-        customization:
-            systemExtensions:
-                officialExtensions:
-                    - siderolabs/util-linux-tools
     machineFiles:
     - content: |
         [plugins."io.containerd.grpc.v1.cri"]
