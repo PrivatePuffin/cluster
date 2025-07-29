@@ -41,6 +41,7 @@
         - https://cgr.io
     docker.io:
       endpoints:
+        - http://192.168.30.21:5000
         - http://192.168.10.209:5000
         - http://192.168.10.208:5000
         - https://mirror.gcr.io
@@ -48,6 +49,7 @@
         - https://docker.io
     registry-1.docker.io:
       endpoints:
+        - http://192.168.30.21:5000
         - http://192.168.10.209:5000
         - http://192.168.10.208:5000
         - https://mirror.gcr.io
