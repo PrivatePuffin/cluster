@@ -87,6 +87,12 @@
         - http://192.168.10.209:5000
         - https://quay.io
         - https://tccr.io
+    oci.trueforge.org:
+      endpoints:
+        - http://192.168.10.209:5000
+        - https://quay.io
+        - https://ghcr.io
+        - https://oci.trueforge.org
     factory.talos.dev:
       endpoints:
         - https://factory.talos.dev
