@@ -45,7 +45,7 @@ spec:
             spec:
                 containers:
                     - name: runner
-                      image: oci.truefoge.org/containerforge/actions-runner:2.328.0
+                      image: oci.trueforge.org/containerforge/actions-runner:2.328.0
                       command:
                         - /home/runner/run.sh
                       env:
@@ -63,7 +63,7 @@ sops:
             NXpwOTlqcVB6MTVHeDdZdHRkaW9MSk0KYhRgfX2uDUc3IGjmdF+6eNRb2p/XXV4f
             irM6dRnRubcS8otnsQIp2HpVw1p3sZ2EyO/bBvlwzBOjU0VGZtPNcA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-12-13T16:46:51Z"
-    mac: ENC[AES256_GCM,data:Sx6u+vGPmmUDq4SNfy28dB+YxYRDIaUK/bLuwOdSf0u5/jQ1Gvl4RVIorubI1mY4dbpRDMaRUy4sigVugFqvpJCw7vPyHJTjZnE+65MXaxgsc5uEalUACOfaEbodO3IycD/VzA/41qXZdJOm2UKSO854yXQyfKQts8vNU0fY1+Q=,iv:MrsAQK6CJfcs1DBIm6xTLo4mHi4vodx2pL6cyVdRS2o=,tag:ne4W4TQTD3RAFX7ourHyUg==,type:str]
+    lastmodified: "2025-12-13T16:47:39Z"
+    mac: ENC[AES256_GCM,data:3+Tnsp7fQqFDF9DXyIs7IMc+g5hrmaJljHu0RgGKO+ejRUzpmhAVslgBkdQxsSX5NlB2a0YLK23tOcu+rlZ99F/lp969rpfDz3q0j7lRGpkrZ4cwOhMqmW5VepdOLe7yWRaiiY6/8kVDq4eCwXmTNE2QYBroB6X02AF0zdA4rjQ=,iv:cFxXKj5nJrDkHr0OtWeXQ6asRPDhYwqFk72QGxBZqIY=,tag:CyI9VUdXgUoeLJ8moRpF+w==,type:str]
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.11.0
