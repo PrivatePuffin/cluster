@@ -51,6 +51,8 @@ spec:
                       env:
                         - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                           value: "false"
+                        - name: RUNNER_ALLOW_RUNASROOT
+                          value: "1"
 sops:
     shamir_threshold: 3
     age:
@@ -63,7 +65,7 @@ sops:
             NXpwOTlqcVB6MTVHeDdZdHRkaW9MSk0KYhRgfX2uDUc3IGjmdF+6eNRb2p/XXV4f
             irM6dRnRubcS8otnsQIp2HpVw1p3sZ2EyO/bBvlwzBOjU0VGZtPNcA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-12-13T16:58:04Z"
-    mac: ENC[AES256_GCM,data:RBimcmB+HULLFjq7286z9yDmQHGhhn6ttt8WQoEu3ZFTZz8FVNiGBPZSuLYaAfh2TtSOfF8wHxgWzcEvw/H4JEk+wr6ZVwSA6eygyPaIV0cDm48oTxsbmr4jIzcwid26A2iApJU8CWfRrF++HiIeJhXjoVIHdS2Juvb/oqpKciY=,iv:JVAqae01Bj9sYg5oUXimNVJHo1VhUFS2GihJa0lVf7U=,tag:4Gbw6qKMSTFClNi209omVw==,type:str]
+    lastmodified: "2025-12-13T17:07:25Z"
+    mac: ENC[AES256_GCM,data:jbZvn9MguCHpL6ruLVTaCc903De811eJiDs++xf2LLmy0i8d0CTJyIsy9SyhgFBU0z8+xani8zlZxnrIN0kTufAyE/dI2H3/h5bPb9FsJUQpIpSkXGJYwSAJDc+1RPLjwcN3QewDWvlOVuCbNwrMHe5V+XUTdtcuCKbZxgl3rCY=,iv:a26idCrLFJ8YSFvrfAH+Y+GoI/aGZWdxnqffU1R9aI4=,tag:bFY+Qs/kkX3KFRVAbz/uwg==,type:str]
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.11.0
