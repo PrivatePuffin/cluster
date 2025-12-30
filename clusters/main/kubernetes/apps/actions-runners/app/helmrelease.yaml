@@ -45,9 +45,7 @@ spec:
             spec:
                 containers:
                     - name: runner
-                      image: oci.trueforge.org/containerforge/actions-runner:2.330.0@sha256:8448d08c6affb76ca2c453ca7aaec70a8b2bfd210a84bb8661f340a517d62ac9
-                      command:
-                        - /home/runner/run.sh
+                      image: oci.trueforge.org/containerforge/actions-runner:2.330.0@sha256:cd8298fd829ea835db5cc363eb7697b04d7e000392e9d843713993e4fc56a62b - /home/runner/run.sh
                       env:
                         - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                           value: "false"
@@ -65,7 +63,7 @@ sops:
             NXpwOTlqcVB6MTVHeDdZdHRkaW9MSk0KYhRgfX2uDUc3IGjmdF+6eNRb2p/XXV4f
             irM6dRnRubcS8otnsQIp2HpVw1p3sZ2EyO/bBvlwzBOjU0VGZtPNcA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-12-30T11:20:28Z"
-    mac: ENC[AES256_GCM,data:/ucMyf7Q4QucqvF+eCMsOIX8/FCDm+gCS1qc4eM0wZ+DLmwuzSIzAARObiztBRFbkDcDXUDT3jjlqp02KXkE8vIoh4U4cHAsyTEPC4ftyiI5uDXRhIoUIpdc0NbHuN+HDs4B14UTsg4GcsQ5S/Uw7kFUlFwr/kdAxfQlNUQzK2Q=,iv:lvYCd7jXaSVZvVxvgP0xQAI6Y69rQwxUtgFSSQTaexE=,tag:VARP1zY5Nn65l65OgfM/Zw==,type:str]
+    lastmodified: "2025-12-30T11:22:23Z"
+    mac: ENC[AES256_GCM,data:/FReIvp/FYPGUQCibfNE6z+/H65UTHfgaJxbN/PmfDpGnhTU737+iilH8aiAw0Ekm24A2KzK40wGNuIczLATsPTGHfR0nyGswlol3ZXV6fb2LZ9hxUOjeDiqPu/VCIydoR+DdmIYAGtl2LyPJGNKWupDp7j+VfGmwnmLila9FT0=,iv:6SkKQGa9ppp98Wnr0PsopsJqxj3l56SKaot7SN9UzkE=,tag:hVOw16plaxhfaVKwIlyqFw==,type:str]
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.11.0
