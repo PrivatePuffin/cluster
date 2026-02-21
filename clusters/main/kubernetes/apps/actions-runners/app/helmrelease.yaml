@@ -43,6 +43,13 @@ spec:
                         storage: 32Gi
         template:
             spec:
+                volumes:
+                    - name: work
+                      emptyDir: {}
+                    - name: config
+                      emptyDir: {}
+                    - name: tmp
+                      emptyDir: {}
                 containers:
                     - name: runner
                       image: oci.trueforge.org/containerforge/actions-runner:2.331.0@sha256:de08341a0fa23a581736ea8d4f7b40d0ba8a8507377498d51367858f134e1c97
@@ -51,6 +58,13 @@ spec:
                       env:
                         - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                           value: "false"
+                      volumeMounts:
+                        - name: config
+                          mountPath: /config
+                        - name: work
+                          mountPath: /work
+                        - name: tmp
+                          mountPath: /tmp
 sops:
     shamir_threshold: 3
     age:
@@ -63,7 +77,7 @@ sops:
             NXpwOTlqcVB6MTVHeDdZdHRkaW9MSk0KYhRgfX2uDUc3IGjmdF+6eNRb2p/XXV4f
             irM6dRnRubcS8otnsQIp2HpVw1p3sZ2EyO/bBvlwzBOjU0VGZtPNcA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-02-03T17:03:20Z"
-    mac: ENC[AES256_GCM,data:mCg5iU0l1JQIXOnnQssJK73R8+QkOKwmnL0qF4V2aygUNMOccqDFnwdGLSzdhfwLtWW+vPwickEw5mYsB9hm+ioZ0MoJU6yQ9tGmWZ2kajAqkd84dIL1n/OgUcBTGYh1LcQOX8kVCnoxK6GYLrsovq0Z51UUkHRrICp7ni8aL9s=,iv:pp+uUBGNWmAUV5OWY0d1v+iSRXd3e5+9YmC2Jf0PHWU=,tag:N8mzxy9J5ATignVpUTxXyA==,type:str]
+    lastmodified: "2026-02-21T09:32:19Z"
+    mac: ENC[AES256_GCM,data:hoDeXDajYttBk6u/r6RRtmqeW7v/uZ7tA1z8YbcHvwCxmxdCp6dYas+b6kKmjK4VlB1+vudFeSmAL7d7bvXIAsfOcXvIhMFSvUUyR3wqwYYgztxrPaftuzf7MIyUZJ7L7XFXqPWrsIzM8RoGEiJPxMBlGCKYtXDcSdabKccUL4s=,iv:RSn12AZUjo7xDzgN8IkNlMG8jgEIpsCDEfVaOLJQixI=,tag:CxAq3JtJWR5d9qd4HjV4Xw==,type:str]
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.11.0
