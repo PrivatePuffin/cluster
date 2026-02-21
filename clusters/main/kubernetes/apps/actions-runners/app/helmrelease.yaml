@@ -25,7 +25,7 @@ spec:
         - name: actions-runner-controller
           namespace: gha
     values:
-        minRunners: 12
+        minRunners: 8
         maxRunners: 24
         githubConfigSecret: ENC[AES256_GCM,data:LtxMJzzC0sh88Er2AA==,iv:9tr4O3pCPf/Udj4LndI6TebyX2kJdZ0fZwDYaLbXq4g=,tag:NRik2NWsR5UoNJYGAQcIsA==,type:str]
         githubConfigUrl: https://github.com/trueforge-org
@@ -77,7 +77,7 @@ sops:
             NXpwOTlqcVB6MTVHeDdZdHRkaW9MSk0KYhRgfX2uDUc3IGjmdF+6eNRb2p/XXV4f
             irM6dRnRubcS8otnsQIp2HpVw1p3sZ2EyO/bBvlwzBOjU0VGZtPNcA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-02-21T11:39:29Z"
-    mac: ENC[AES256_GCM,data:piIANDjaoTEMZx6Aw6kIfWrI4qf81ElA+RrkEQ0PEHJTjRHKgQUNbWVKHIPXCvyUhQH0ugDBM89L6jRSOyWD0SAmgjc7EMKR9CEK7vCs20yWBX23tR4WQav2ZyDyTi4cAUa5mwizqLk9hpEZ1arwwvz68VZPc+Rg4jo9hgCOCAM=,iv:rGjBogRlcorulBuRlDkOqZtyG8QYM4gdob5+KiChzbI=,tag:qWNzgfa5xVeBmXdnT01m4w==,type:str]
+    lastmodified: "2026-02-21T11:44:37Z"
+    mac: ENC[AES256_GCM,data:5G7h16OOnayZCthGUvp5Z7XaMLmyoLMsCk5agYKfnqI1X5qJ+a3bHMckzzsy8Hdg8iHNSmvzZkyrRgu1FewH+ZcuUv5Mb6n6jHh9VWBAXlYopbpOcRj17MN4z3AbdCrIVpEEPgvS691+Lr3+f7rOITRZj/8fk3ezWo/FFS8Xe1k=,iv:qKmNQG/4CLg9ixp6MlXd258p/7fY1l2K3elCbOmX7k4=,tag:l2wb8Nw4PGIZGBdIxBwhCg==,type:str]
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.11.0
